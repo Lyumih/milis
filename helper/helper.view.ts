@@ -1,34 +1,30 @@
-type TourItem = {
-	title: string;
-	content: string;
-	locator: string;
-};
-
-const mockItems: TourItem[] = [
-	{
-		title: "1 заголовок.",
-		content: "1 контент",
-		locator: "[$milis_hello]",
-	},
-	{
-		title: "2 заголовок",
-		content: "2 контент  \n Отступы",
-		locator: "[milis_hello_Button]",
-	},
-	{
-		title: "3 заголовок",
-		content: "3 контент",
-		locator: "[milis_hello_Text]",
-	},
-];
-
 namespace $.$$ {
-	export class $milis_helper extends $.$milis_helper {
-		constructor() {
-			super();
-			this.items(mockItems);
-		}
+	
+	type TourItem = {
+		title: string;
+		content: string;
+		locator: string;
+	};
+	
+	const mockItems: TourItem[] = [
+		{
+			title: "1 заголовок",
+			content: "1 контент",
+			locator: "[$milis_hello]",
+		},
+		{
+			title: "2 заголовок",
+			content: "2 контент",
+			locator: "[milis_hello_Button]",
+		},
+		{
+			title: "3 заголовок",
+			content: "3 контент",
+			locator: "[milis_hello_Text]",
+		},
+	];
 
+	export class $milis_helper extends $.$milis_helper {
 		@$mol_mem
 		show(value?: boolean): boolean {
 			return value ?? true;
