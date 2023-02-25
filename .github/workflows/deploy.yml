@@ -24,7 +24,7 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT }}
         package: milis
-        modules: milis/hello milis/helper
+        modules: hello helper
         
     - name: Consolidate apps
       run: |
