@@ -78,7 +78,6 @@ namespace $.$$ {
 
 		endTour(): void {
 			this.show(false);
-			this.attr({display: 'none'})
 		}
 	}
 }
