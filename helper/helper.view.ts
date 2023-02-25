@@ -1,28 +1,10 @@
-
-
 namespace $.$$ {
-	type $TourItem = {
+
+	export type $milis_helper_TourItem = {
 		title: string
 		content: string
 		locator: string
 	}
-	// const mockItems: $TourItem[] = [
-	// 	{
-	// 		title: "1 заголовок",
-	// 		content: "1 контент",
-	// 		locator: "[$milis_hello]",
-	// 	},
-	// 	{
-	// 		title: "2 заголовок",
-	// 		content: "2 контент",
-	// 		locator: "[milis_hello_Button]",
-	// 	},
-	// 	{
-	// 		title: "3 заголовок",
-	// 		content: "3 контент",
-	// 		locator: "[milis_hello_Text]",
-	// 	},
-	// ]
 
 	export class $milis_helper extends $.$milis_helper {
 		@$mol_mem
@@ -31,7 +13,7 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		items( value?: $TourItem[] ): $TourItem[] {
+		items( value?: $milis_helper_TourItem[] ): $milis_helper_TourItem[] {
 			return value ?? []
 		}
 

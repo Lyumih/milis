@@ -6,4 +6,4 @@ $milis_hello $mol_view
 		<= message \
 		<= Test $mol_view
 		<= Helper $milis_helper
-			items <= items /$TourItem
+			items <= tourItems /$milis_helper_TourItem

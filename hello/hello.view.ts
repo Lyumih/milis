@@ -1,12 +1,6 @@
 namespace $.$$ {
 
-	type $TourItem = {
-		title: string
-		content: string
-		locator: string
-	}
-
-	const mockItems: $TourItem[] = [
+	const mockItems: $milis_helper_TourItem[] = [
 		{
 			title: "1 заголовок",
 			content: "1 контент",
@@ -25,13 +19,15 @@ namespace $.$$ {
 	]
 
 	export class $milis_hello extends $.$milis_hello {
+
 		message() {
 			let name = this.name()
 			return name && `Hello, ${ name }!`
 		}
 
-		items() {
+		tourItems() {
 			return mockItems
 		}
+
 	}
 }
