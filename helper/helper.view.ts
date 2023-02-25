@@ -6,7 +6,7 @@ type TourItem = {
 
 const mockItems: TourItem[] = [
 	{
-		title: "1 заголовок",
+		title: "1 заголовок.",
 		content: "1 контент",
 		locator: "[$milis_hello]",
 	},
