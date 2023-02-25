@@ -23,15 +23,15 @@ jobs:
       uses: hyoo-ru/mam_build@master2
       with:
         token: ${{ secrets.GH_PAT }}
-        package: mol
+        package: milis
         modules: milis/hello milis/helper
         
     - name: Consolidate apps
       run: |
-        rm -rf mol/.git
-        rm -rf mol/.github
-        rm -rf mol/.gitignore
-        rm -rf mol/icon
+        rm -rf milis/.git
+        rm -rf milis/.github
+        rm -rf milis/.gitignore
+        rm -rf milis/icon
         
     - name: Deploy on GitHub Pages
       if: github.ref == 'refs/heads/master'
