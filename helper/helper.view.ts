@@ -14,6 +14,14 @@ namespace $.$$ {
 			return value ?? true
 		}
 
+		rows() {
+			return this.show() ? [
+				this.Title(),
+				this.Content(),
+				this.Buttons(),
+			] : []
+		}
+
 		items( value?: $milis_helper_TourItem[] ): $milis_helper_TourItem[] {
 			return value ?? []
 		}

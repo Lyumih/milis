@@ -10,4 +10,5 @@ $milis_hello $mol_view
 		<= tutorial 
 		<= Helper $milis_helper
 			items <= tourItems /$milis_helper_TourItem
-			endTour <= toggleTutorial
+			show <= tutorial false
+			endTour?val <=> toggleTutorial?val null
