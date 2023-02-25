@@ -1,0 +1,14 @@
+{
+  "name": "milis_milis_hello",
+  "version": "0.0.1",
+  "main": "node.js",
+  "module": "node.esm.js",
+  "browser": "web.js",
+  "types": "web.d.ts",
+  "keywords": [
+    "$milis_milis_hello",
+    "$milis_milis",
+    "$milis"
+  ],
+  "dependencies": {}
+}

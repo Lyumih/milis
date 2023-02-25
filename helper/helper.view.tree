@@ -1,0 +1,20 @@
+$milis_helper $mol_view
+	sub /
+		- <= message \
+		- \helper
+		- \312
+		<= Title $mol_text 
+			text <= currentItemTitle \
+		<= Content $mol_text 
+			text <= currentItemContent \
+		<= Buttons $mol_view sub /
+			<= Preview $mol_button_major 
+				title @ \<< Prev
+				event_click?val <=> prevStep?val null
+				disabled <= prevStepDisabled false
+			<= Next $mol_button_major 
+				title @ \Next >>
+				event_click?val <=> nextStep?val null
+				disabled <= nextStepDisabled false
+			<= End $mol_button_major 
+				title @ \End Tour
