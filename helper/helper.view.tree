@@ -3,6 +3,7 @@ $milis_helper $mol_view
 		- <= message \
 		- \helper
 		- \312
+		<= show
 		<= Title $mol_text 
 			text <= currentItemTitle \
 		<= Content $mol_text 
@@ -18,3 +19,5 @@ $milis_helper $mol_view
 				disabled <= nextStepDisabled false
 			<= End $mol_button_major 
 				title @ \End Tour
+				click?val <=> endTour?val null
+				

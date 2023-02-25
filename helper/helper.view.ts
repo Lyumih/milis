@@ -1,10 +1,12 @@
+
+
+type $milis_helper_TourItem = {
+	title: string
+	content: string
+	locator: string
+}
 namespace $.$$ {
 
-	export type $milis_helper_TourItem = {
-		title: string
-		content: string
-		locator: string
-	}
 
 	export class $milis_helper extends $.$milis_helper {
 		@$mol_mem
@@ -12,7 +14,6 @@ namespace $.$$ {
 			return value ?? true
 		}
 
-		@$mol_mem
 		items( value?: $milis_helper_TourItem[] ): $milis_helper_TourItem[] {
 			return value ?? []
 		}

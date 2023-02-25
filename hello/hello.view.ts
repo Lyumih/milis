@@ -25,8 +25,17 @@ namespace $.$$ {
 			return name && `Hello, ${ name }!`
 		}
 
-		tourItems() {
-			return mockItems
+		tourItems( items?: $milis_helper_TourItem[] ): $milis_helper_TourItem[] {
+			return items ?? mockItems
+		}
+
+		@$mol_mem
+		tutorial( value?: boolean ) {
+			return value ?? false
+		}
+
+		toggleTutorial() {
+			this.tutorial( !this.tutorial() )
 		}
 
 	}
