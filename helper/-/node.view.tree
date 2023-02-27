@@ -461,8 +461,8 @@ $mol_text_list_item $mol_paragraph
 		^
 		mol_text_list_item_index <= index 0
 
-$milis_helper $mol_view
-	sub /
+$milis_helper $mol_list
+	rows /
 		- <= message \
 		- \helper
 		- \312
@@ -480,53 +480,4 @@ $milis_helper $mol_view
 				event_click?val <=> nextStep?val null
 				disabled <= nextStepDisabled false
 			<= End $mol_button_major 
-				title @ \End Tour
-
-$mol_hotkey $mol_plugin
-	event *
-		^
-		keydown?event <=> keydown?event null
-	key *
-	mod_ctrl false
-	mod_alt false
-	mod_shift false
-
-$mol_string $mol_view
-	dom_name \input
-	enabled true
-	minimal_height 40
-	autocomplete false
-	selection?val /number
-		0
-		0
-	auto /
-		<= selection_watcher null
-	field *
-		^
-		disabled <= disabled false
-		value <= value_changed?val <=> value?val \
-		placeholder <= hint_visible <= hint \
-		spellcheck <= spellcheck true
-		autocomplete <= autocomplete_native \
-		selectionEnd <= selection_end 0
-		selectionStart <= selection_start 0
-		inputMode <= keyboard \text
-	attr *
-		^
-		maxlength <= length_max +Infinity
-		type <= type?val \text
-	event *
-		^
-		input?event <=> event_change?event null
-	plugins /
-		<= Submit $mol_hotkey
-			key * enter?event <=> submit?event null
-
-$milis_hello $mol_view
-	sub /
-		<= Name $mol_string
-			hint @ \Name
-			value?val <=> name?val \
-		<= message \
-		<= Test $mol_view
-		<= Helper $milis_helper
+				title @ \End Tour				

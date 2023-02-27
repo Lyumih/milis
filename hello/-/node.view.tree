@@ -38,14 +38,44 @@ $mol_string $mol_view
 		<= Submit $mol_hotkey
 			key * enter?event <=> submit?event null
 
-$milis_hello $mol_view
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme <= theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
 	sub /
-		<= Name $mol_string
-			hint @ \Name
-			value?val <=> name?val \
-		<= message \
-		<= Test $mol_view
-		<= Helper $milis_helper
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		dblclick?event <=> clicks?event null
+		keydown?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_safe <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+		value <= error \
+
+$mol_button_typed $mol_button
+	minimal_height 40
+	minimal_width 40
+
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
 
 $mol_list $mol_view
 	render_visible_only true
@@ -109,40 +139,6 @@ $mol_text_code_row $mol_paragraph
 	find_pos* null
 
 $mol_stack $mol_view
-
-$mol_speck $mol_view
-	attr *
-		^
-		mol_theme <= theme \$mol_theme_accent
-	style *
-		^
-		minHeight \1em
-	sub /
-		<= value null
-
-$mol_button $mol_view
-	enabled true
-	click?event null
-	event_click?event null
-	event *
-		^
-		click?event <=> event_activate?event null
-		dblclick?event <=> clicks?event null
-		keydown?event <=> event_key_press?event null 
-	attr *
-		^
-		disabled <= disabled false
-		role \button
-		tabindex <= tab_index 0
-		title <= hint_safe <= hint \
-	sub /$mol_view_content
-		<= title
-	Speck $mol_speck
-		value <= error \
-
-$mol_button_typed $mol_button
-	minimal_height 40
-	minimal_width 40
 
 $mol_button_minor $mol_button_typed
 
@@ -491,11 +487,6 @@ $mol_text_span $mol_paragraph
 		^
 		mol_text_type <= type \
 
-$mol_button_major $mol_button_typed
-	attr *
-		^
-		mol_theme \$mol_theme_accent
-
 $mol_text_list $mol_text
 	auto_scroll null
 	attr *
@@ -510,8 +501,8 @@ $mol_text_list_item $mol_paragraph
 		^
 		mol_text_list_item_index <= index 0
 
-$milis_helper $mol_view
-	sub /
+$milis_helper $mol_list
+	rows /
 		- <= message \
 		- \helper
 		- \312
@@ -529,4 +520,19 @@ $milis_helper $mol_view
 				event_click?val <=> nextStep?val null
 				disabled <= nextStepDisabled false
 			<= End $mol_button_major 
-				title @ \End Tour
+				title @ \End Tour				
+
+$milis_hello $mol_view
+	sub /
+		<= Name $mol_string
+			hint @ \Name
+			value?val <=> name?val \
+		<= message \
+		<= ShowTutorial $mol_button_major
+			title @ \Show
+			event_click?val <=> toggleTutorial?val null
+		<= tutorial 
+		<= Helper $milis_helper
+			items <= tourItems /$milis_helper_TourItem
+			show <= tutorial false
+			endTour?val <=> toggleTutorial?val null

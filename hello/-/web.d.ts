@@ -390,6 +390,7 @@ declare namespace $ {
         static solo<Host, Args extends readonly unknown[], Result>(host: Host, task: (this: Host, ...args: Args) => Result): $mol_wire_atom<Host, Args, Result>;
         static plex<Host, Args extends readonly unknown[], Result>(host: Host, task: (this: Host, ...args: Args) => Result, key: Args[0]): $mol_wire_atom<Host, Args, Result>;
         static watching: Set<$mol_wire_atom<any, any, any>>;
+        static watcher: $mol_after_frame | null;
         static watch(): void;
         watch(): void;
         resync(args: Args): Error | Result | Promise<Error | Result>;
@@ -1074,13 +1075,48 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $milis_hello extends $mol_view {
+    class $mol_speck extends $mol_view {
+        attr(): {
+            mol_theme: string;
+        };
+        style(): {
+            minHeight: string;
+        };
         sub(): readonly any[];
-        name(val?: any): string;
-        Name(): $$.$mol_string;
-        message(): string;
-        Test(): $mol_view;
-        Helper(): $$.$milis_helper;
+        theme(): string;
+        value(): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_button extends $mol_view {
+        enabled(): boolean;
+        click(event?: any): any;
+        event_click(event?: any): any;
+        event(): {
+            click: (event?: any) => any;
+            dblclick: (event?: any) => any;
+            keydown: (event?: any) => any;
+        };
+        attr(): {
+            disabled: boolean;
+            role: string;
+            tabindex: number;
+            title: string;
+        };
+        sub(): readonly $mol_view_content[];
+        Speck(): $mol_speck;
+        event_activate(event?: any): any;
+        clicks(event?: any): any;
+        event_key_press(event?: any): any;
+        disabled(): boolean;
+        tab_index(): number;
+        hint(): string;
+        hint_safe(): string;
+        error(): string;
     }
 }
 
@@ -1088,9 +1124,41 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
-    class $milis_hello extends $.$milis_hello {
-        message(): string;
+    class $mol_button extends $.$mol_button {
+        status(next?: any[]): any[];
+        disabled(): boolean;
+        event_activate(next: Event): void;
+        event_key_press(event: KeyboardEvent): void;
+        tab_index(): number;
+        error(): string;
+        hint_safe(): string;
+        sub_visible(): ($mol_view_content | $mol_speck)[];
     }
+}
+
+declare namespace $ {
+    class $mol_button_typed extends $mol_button {
+        minimal_height(): number;
+        minimal_width(): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): {
+            mol_theme: string;
+            disabled: boolean;
+            role: string;
+            tabindex: number;
+            title: string;
+        };
+    }
+}
+
+declare namespace $ {
 }
 
 declare namespace $ {
@@ -1586,78 +1654,6 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_stack extends $mol_view {
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_speck extends $mol_view {
-        attr(): {
-            mol_theme: string;
-        };
-        style(): {
-            minHeight: string;
-        };
-        sub(): readonly any[];
-        theme(): string;
-        value(): any;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_button extends $mol_view {
-        enabled(): boolean;
-        click(event?: any): any;
-        event_click(event?: any): any;
-        event(): {
-            click: (event?: any) => any;
-            dblclick: (event?: any) => any;
-            keydown: (event?: any) => any;
-        };
-        attr(): {
-            disabled: boolean;
-            role: string;
-            tabindex: number;
-            title: string;
-        };
-        sub(): readonly $mol_view_content[];
-        Speck(): $mol_speck;
-        event_activate(event?: any): any;
-        clicks(event?: any): any;
-        event_key_press(event?: any): any;
-        disabled(): boolean;
-        tab_index(): number;
-        hint(): string;
-        hint_safe(): string;
-        error(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_button extends $.$mol_button {
-        status(next?: any[]): any[];
-        disabled(): boolean;
-        event_activate(next: Event): void;
-        event_key_press(event: KeyboardEvent): void;
-        tab_index(): number;
-        error(): string;
-        hint_safe(): string;
-        sub_visible(): ($mol_view_content | $mol_speck)[];
-    }
-}
-
-declare namespace $ {
-    class $mol_button_typed extends $mol_button {
-        minimal_height(): number;
-        minimal_width(): number;
     }
 }
 
@@ -2476,21 +2472,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_button_major extends $mol_button_typed {
-        attr(): {
-            mol_theme: string;
-            disabled: boolean;
-            role: string;
-            tabindex: number;
-            title: string;
-        };
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_text_list extends $mol_text {
         auto_scroll(): any;
         attr(): {
@@ -2511,8 +2492,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $milis_helper extends $mol_view {
-        sub(): readonly any[];
+    class $milis_helper extends $mol_list {
+        rows(): readonly any[];
         currentItemTitle(): string;
         Title(): $$.$mol_text;
         currentItemContent(): string;
@@ -2531,19 +2512,18 @@ declare namespace $ {
 declare namespace $ {
 }
 
-type TourItem = {
+type $milis_helper_TourItem = {
     title: string;
     content: string;
     locator: string;
 };
-declare const mockItems: TourItem[];
 declare namespace $.$$ {
     class $milis_helper extends $.$milis_helper {
-        constructor();
         show(value?: boolean): boolean;
-        items(value?: TourItem[]): TourItem[];
+        rows(): $mol_view[];
+        items(value?: readonly $milis_helper_TourItem[]): readonly $milis_helper_TourItem[];
         currentStep(value?: number): number;
-        currentItem(): TourItem;
+        currentItem(): $milis_helper_TourItem;
         currentItemTitle(): string;
         currentItemContent(): string;
         prevStep(): void;
@@ -2551,6 +2531,32 @@ declare namespace $.$$ {
         nextStep(): void;
         nextStepDisabled(): boolean;
         endTour(): void;
+    }
+}
+
+declare namespace $ {
+    class $milis_hello extends $mol_view {
+        sub(): readonly any[];
+        name(val?: any): string;
+        Name(): $$.$mol_string;
+        message(): string;
+        toggleTutorial(val?: any): any;
+        ShowTutorial(): $mol_button_major;
+        tourItems(): readonly $milis_helper_TourItem[];
+        tutorial(): boolean;
+        Helper(): $$.$milis_helper;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $milis_hello extends $.$milis_hello {
+        message(): string;
+        tourItems(items?: $milis_helper_TourItem[]): $milis_helper_TourItem[];
+        tutorial(value?: boolean): boolean;
+        toggleTutorial(): void;
     }
 }
 

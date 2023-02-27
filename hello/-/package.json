@@ -1,10 +1,19 @@
 {
   "name": "milis_hello",
   "version": "0.0.1",
-  "main": "node.js",
-  "module": "node.esm.js",
-  "browser": "web.js",
-  "types": "web.d.ts",
+  "exports": {
+    "node": {
+      "import": "./node.mjs",
+      "default": "./node.js"
+    },
+    "types": "./web.d.ts",
+    "import": "./web.mjs",
+    "default": "./web.js"
+  },
+  "main": "./web.js",
+  "module": "./web.mjs",
+  "browser": "./web.js",
+  "types": "./web.d.ts",
   "keywords": [
     "$milis_hello",
     "$milis",
@@ -101,13 +110,17 @@
     "$mol_charset_encode",
     "$mol_mem_cached",
     "$mol_compare_array",
+    "$mol_button_major",
+    "$mol_button",
+    "$mol_speck",
+    "$mol_button_typed",
     "$milis_helper",
-    "$mol_text_text",
-    "$mol_text",
     "$mol_list",
     "$mol_support_css",
     "$mol_support",
     "$mol_print",
+    "$mol_text_text",
+    "$mol_text",
     "$mol_paragraph",
     "$mol_text_list",
     "$mol_text_code",
@@ -130,10 +143,7 @@
     "$mol_syntax2",
     "$mol_stack",
     "$mol_button_copy",
-    "$mol_button",
-    "$mol_speck",
     "$mol_button_minor",
-    "$mol_button_typed",
     "$mol_icon_clipboard_outline",
     "$mol_icon_clipboard",
     "$mol_icon",
@@ -163,8 +173,7 @@
     "$mol_wait",
     "$mol_promise",
     "$mol_embed_youtube",
-    "$mol_frame",
-    "$mol_button_major"
+    "$mol_frame"
   ],
   "dependencies": {
     "jsdom": "*",

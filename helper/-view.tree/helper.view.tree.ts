@@ -1,15 +1,15 @@
 namespace $ {
-	export class $milis_helper extends $mol_view {
+	export class $milis_helper extends $mol_list {
 		
 		/**
 		 * ```tree
-		 * sub /
+		 * rows /
 		 * 	<= Title
 		 * 	<= Content
 		 * 	<= Buttons
 		 * ```
 		 */
-		sub() {
+		rows() {
 			return [
 				this.Title(),
 				this.Content(),

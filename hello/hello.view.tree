@@ -4,5 +4,11 @@ $milis_hello $mol_view
 			hint @ \Name
 			value?val <=> name?val \
 		<= message \
-		<= Test $mol_view
+		<= ShowTutorial $mol_button_major
+			title @ \Show
+			event_click?val <=> toggleTutorial?val null
+		<= tutorial 
 		<= Helper $milis_helper
+			items <= tourItems /$milis_helper_TourItem
+			show <= tutorial false
+			endTour?val <=> toggleTutorial?val null

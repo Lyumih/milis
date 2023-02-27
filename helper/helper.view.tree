@@ -1,5 +1,5 @@
-$milis_helper $mol_view
-	sub /
+$milis_helper $mol_list
+	rows /
 		- <= message \
 		- \helper
 		- \312
@@ -17,4 +17,4 @@ $milis_helper $mol_view
 				event_click?val <=> nextStep?val null
 				disabled <= nextStepDisabled false
 			<= End $mol_button_major 
-				title @ \End Tour
+				title @ \End Tour				
