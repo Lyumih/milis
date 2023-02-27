@@ -22,7 +22,7 @@ namespace $.$$ {
 			] : []
 		}
 
-		items( value?: $milis_helper_TourItem[] ): $milis_helper_TourItem[] {
+		items( value?: readonly $milis_helper_TourItem[] ): readonly $milis_helper_TourItem[] {
 			return value ?? []
 		}
 
