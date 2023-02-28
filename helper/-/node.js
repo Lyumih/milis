@@ -7842,9 +7842,15 @@ var $;
             obj.disabled = () => this.nextStepDisabled();
             return obj;
         }
+        endTour(val) {
+            if (val !== undefined)
+                return val;
+            return null;
+        }
         End() {
             const obj = new this.$.$mol_button_major();
             obj.title = () => this.$.$mol_locale.text('$milis_helper_End_title');
+            obj.event_click = (val) => this.endTour(val);
             return obj;
         }
         Buttons() {
@@ -7875,6 +7881,9 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_helper.prototype, "Next", null);
+    __decorate([
+        $mol_mem
+    ], $milis_helper.prototype, "endTour", null);
     __decorate([
         $mol_mem
     ], $milis_helper.prototype, "End", null);
@@ -7941,6 +7950,7 @@ var $;
                 return this.currentStep() === this.items().length - 1;
             }
             endTour() {
+                console.log('endTour', this.show());
                 this.show(false);
             }
         }

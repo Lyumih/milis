@@ -2370,6 +2370,7 @@ declare namespace $ {
         nextStep(val?: any): any;
         nextStepDisabled(): boolean;
         Next(): $mol_button_major;
+        endTour(val?: any): any;
         End(): $mol_button_major;
         Buttons(): $mol_view;
     }

@@ -143,7 +143,20 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * End $mol_button_major title @ \End Tour
+		 * endTour?val null
+		 * ```
+		 */
+		@ $mol_mem
+		endTour(val?: any) {
+			if ( val !== undefined ) return val as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * End $mol_button_major
+		 * 	title @ \End Tour
+		 * 	event_click?val <=> endTour?val
 		 * ```
 		 */
 		@ $mol_mem
@@ -151,6 +164,7 @@ namespace $ {
 			const obj = new this.$.$mol_button_major()
 			
 			obj.title = () => this.$.$mol_locale.text( '$milis_helper_End_title' )
+			obj.event_click = (val?: any) => this.endTour(val)
 			
 			return obj
 		}
