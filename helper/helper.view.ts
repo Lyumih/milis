@@ -64,6 +64,7 @@ namespace $.$$ {
 		}
 
 		endTour(): void {
+			console.log('endTour', this.show())
 			this.show( false )
 		}
 	}
