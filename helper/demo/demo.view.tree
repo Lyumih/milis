@@ -4,5 +4,5 @@ $milis_helper_demo $mol_view
 			event_click?val <=> toggleTutorial?val null
 		<= SomeButtonForHelp $mol_button_major
 		<= Helper $milis_helper
-			items <= tutorialItems
+			items <= tutorialItems /
 			show?next <=> tutorial?next false
