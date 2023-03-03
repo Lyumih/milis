@@ -1,13 +1,14 @@
 
 
-type $milis_helper_TourItem = {
-	title: string
-	content: string
-	locator: string
+namespace $ {
+	export type $milis_helper_TourItem = {
+		title: string
+		content: string
+		locator: string
+	}
 }
+
 namespace $.$$ {
-
-
 	export class $milis_helper extends $.$milis_helper {
 		@$mol_mem
 		show( value?: boolean ): boolean {
