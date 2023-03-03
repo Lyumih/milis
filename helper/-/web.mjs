@@ -1,18 +1,5 @@
 "use strict";
 function require( path ){ return $node[ path ] };
-"use strict"
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	else for (var i = decorators.length - 1; i >= 0; i--) if ((d = decorators[i])) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var $ = ( typeof module === 'object' ) ? ( module['export'+'s'] = globalThis ) : globalThis
-$.$$ = $
-
-;
 
 var $node = $node || {}
 void function( module ) { var exports = module.exports = this; function require( id ) { return $node[ id.replace( /^.\// , "../" ) ] }; 
@@ -27,6 +14,19 @@ module.exports = $;
 ;
 
 $node[ "../mam.ts" ] = $node[ "../mam.ts" ] = module.exports }.call( {} , {} )
+;
+"use strict"
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	else for (var i = decorators.length - 1; i >= 0; i--) if ((d = decorators[i])) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var $ = ( typeof module === 'object' ) ? ( module['export'+'s'] = globalThis ) : globalThis
+$.$$ = $
+
 ;
 "use strict";
 var $;
@@ -197,222 +197,6 @@ var $;
     $.$mol_object2 = $mol_object2;
 })($ || ($ = {}));
 //mol/object2/object2.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_after_tick extends $mol_object2 {
-        task;
-        promise;
-        cancelled = false;
-        constructor(task) {
-            super();
-            this.task = task;
-            this.promise = Promise.resolve().then(() => {
-                if (this.cancelled)
-                    return;
-                task();
-            });
-        }
-        destructor() {
-            this.cancelled = true;
-        }
-    }
-    $.$mol_after_tick = $mol_after_tick;
-})($ || ($ = {}));
-//mol/after/tick/tick.ts
-;
-"use strict";
-var $;
-(function ($) {
-})($ || ($ = {}));
-//mol/dom/context/context.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_dom_context = self;
-})($ || ($ = {}));
-//mol/dom/context/context.web.ts
-;
-"use strict";
-var $;
-(function ($) {
-    let all = [];
-    let el = null;
-    let timer = null;
-    function $mol_style_attach(id, text) {
-        all.push(`/* ${id} */\n\n${text}`);
-        if (timer)
-            return el;
-        const doc = $mol_dom_context.document;
-        if (!doc)
-            return null;
-        el = doc.createElement('style');
-        el.id = `$mol_style_attach`;
-        doc.head.appendChild(el);
-        timer = new $mol_after_tick(() => {
-            el.innerHTML = '\n' + all.join('\n\n');
-            all = [];
-            el = null;
-            timer = null;
-        });
-        return el;
-    }
-    $.$mol_style_attach = $mol_style_attach;
-})($ || ($ = {}));
-//mol/style/attach/attach.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_decor {
-        value;
-        constructor(value) {
-            this.value = value;
-        }
-        prefix() { return ''; }
-        valueOf() { return this.value; }
-        postfix() { return ''; }
-        toString() {
-            return `${this.prefix()}${this.valueOf()}${this.postfix()}`;
-        }
-    }
-    $.$mol_decor = $mol_decor;
-})($ || ($ = {}));
-//mol/decor/decor.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_style_unit extends $mol_decor {
-        literal;
-        constructor(value, literal) {
-            super(value);
-            this.literal = literal;
-        }
-        postfix() {
-            return this.literal;
-        }
-        static per(value) { return new $mol_style_unit(value, '%'); }
-        static px(value) { return new $mol_style_unit(value, 'px'); }
-        static mm(value) { return new $mol_style_unit(value, 'mm'); }
-        static cm(value) { return new $mol_style_unit(value, 'cm'); }
-        static Q(value) { return new $mol_style_unit(value, 'Q'); }
-        static in(value) { return new $mol_style_unit(value, 'in'); }
-        static pc(value) { return new $mol_style_unit(value, 'pc'); }
-        static pt(value) { return new $mol_style_unit(value, 'pt'); }
-        static cap(value) { return new $mol_style_unit(value, 'cap'); }
-        static ch(value) { return new $mol_style_unit(value, 'ch'); }
-        static em(value) { return new $mol_style_unit(value, 'em'); }
-        static rem(value) { return new $mol_style_unit(value, 'rem'); }
-        static ex(value) { return new $mol_style_unit(value, 'ex'); }
-        static ic(value) { return new $mol_style_unit(value, 'ic'); }
-        static lh(value) { return new $mol_style_unit(value, 'lh'); }
-        static rlh(value) { return new $mol_style_unit(value, 'rlh'); }
-        static vh(value) { return new $mol_style_unit(value, 'vh'); }
-        static vw(value) { return new $mol_style_unit(value, 'vw'); }
-        static vi(value) { return new $mol_style_unit(value, 'vi'); }
-        static vb(value) { return new $mol_style_unit(value, 'vb'); }
-        static vmin(value) { return new $mol_style_unit(value, 'vmin'); }
-        static vmax(value) { return new $mol_style_unit(value, 'vmax'); }
-        static deg(value) { return new $mol_style_unit(value, 'deg'); }
-        static rad(value) { return new $mol_style_unit(value, 'rad'); }
-        static grad(value) { return new $mol_style_unit(value, 'grad'); }
-        static turn(value) { return new $mol_style_unit(value, 'turn'); }
-        static s(value) { return new $mol_style_unit(value, 's'); }
-        static ms(value) { return new $mol_style_unit(value, 'ms'); }
-    }
-    $.$mol_style_unit = $mol_style_unit;
-})($ || ($ = {}));
-//mol/style/unit/unit.ts
-;
-"use strict";
-var $;
-(function ($) {
-    const { per } = $mol_style_unit;
-    class $mol_style_func extends $mol_decor {
-        name;
-        constructor(name, value) {
-            super(value);
-            this.name = name;
-        }
-        prefix() { return this.name + '('; }
-        postfix() { return ')'; }
-        static calc(value) {
-            return new $mol_style_func('calc', value);
-        }
-        static vary(name) {
-            return new $mol_style_func('var', name);
-        }
-        static url(href) {
-            return new $mol_style_func('url', JSON.stringify(href));
-        }
-        static hsla(hue, saturation, lightness, alpha) {
-            return new $mol_style_func('hsla', [hue, per(saturation), per(lightness), alpha]);
-        }
-        static clamp(min, mid, max) {
-            return new $mol_style_func('clamp', [min, mid, max]);
-        }
-        static rgba(red, green, blue, alpha) {
-            return new $mol_style_func('rgba', [red, green, blue, alpha]);
-        }
-        static scale(zoom) {
-            return new $mol_style_func('scale', [zoom]);
-        }
-    }
-    $.$mol_style_func = $mol_style_func;
-})($ || ($ = {}));
-//mol/style/func/func.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/theme/theme.css", ":root {\n\t--mol_theme_hue: 210deg;\n\t--mol_theme_luma: -1;\n\t--mol_theme_satur: 1;\n\t--mol_theme_image: none;\n}\n\n[mol_theme] {\n\tcolor: var(--mol_theme_text);\n\tfill: var(--mol_theme_text);\n}\n:where([mol_theme]) {\n\tbackground-color: var(--mol_theme_back);\n}\n\t\n:root, [mol_theme] {\n\t--mol_theme_back: hsl( var(--mol_theme_hue), calc( var(--mol_theme_satur) * 20% ), calc( 55% + 45% * var(--mol_theme_luma) ) );\n\t--mol_theme_text: hsl( var(--mol_theme_hue), 0%, calc( 40% - 40% * var(--mol_theme_luma) ) );\n\t--mol_theme_field: hsl( var(--mol_theme_hue), calc( var(--mol_theme_satur) * 50% ), calc( 54% + 46% * var(--mol_theme_luma) ), .25 );\n\t\n\t--mol_theme_card: hsl( var(--mol_theme_hue), calc( var(--mol_theme_satur) * 50% ), calc( 55% + 35% * var(--mol_theme_luma) ), .25 );\n\t--mol_theme_hover: hsl( var(--mol_theme_hue), 0%, 50%, .1 );\n\t--mol_theme_line: hsl( var(--mol_theme_hue), 0%, 50%, .2 );\n\t--mol_theme_shade: hsl( var(--mol_theme_hue), 0%, 50%, 1 );\n\t\n\t--mol_theme_control: hsl( var(--mol_theme_hue), 50%, calc( 50% - 10% * var(--mol_theme_luma) ) );\n\t--mol_theme_current: hsl( calc( var(--mol_theme_hue) - 90deg ), 50%, calc( 50% - 10% * var(--mol_theme_luma) ) );\n\t--mol_theme_special: hsl( calc( var(--mol_theme_hue) + 90deg ), 50%, calc( 50% - 10% * var(--mol_theme_luma) ) );\n\t--mol_theme_focus: hsl( calc( var(--mol_theme_hue) + 180deg ), 100%, calc( 55% - 10% * var(--mol_theme_luma) ) );\n\t\n}\n\n[mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_luma: 1;\n\t--mol_theme_image: none;\n}\n\n[mol_theme=\"$mol_theme_dark\"] {\n\t--mol_theme_luma: -1;\n\t--mol_theme_image: invert(1) hue-rotate( 180deg );\n}\n\n[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_luma: -2;\n\t--mol_theme_back: hsl( var(--mol_theme_hue), 50%, 40% );\n\t--mol_theme_hover: hsl( var(--mol_theme_hue), 60%, 30% );\n\t--mol_theme_current: hsl( var(--mol_theme_hue), 100%, 20% );\n}\n\n[mol_theme=\"$mol_theme_current\"] {\n\tbackground-color: var(--mol_theme_back);\n\t--mol_theme_back: hsl( calc( var(--mol_theme_hue) - 90deg ), 50%, calc( 50% + 30% * var(--mol_theme_luma) ) );\n}\n\n[mol_theme=\"$mol_theme_special\"] {\n\t--mol_theme_card: hsl( calc( var(--mol_theme_hue) + 90deg ), 50%, calc( 55% + 35% * var(--mol_theme_luma) ), .25 );\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\tbackground-color: var(--mol_theme_back);\n\t--mol_theme_luma: -2;\n\t--mol_theme_back: hsl( calc( var(--mol_theme_hue) + 180deg ), 90%, 50% );\n\t--mol_theme_hover: hsl( calc( var(--mol_theme_hue) + 180deg ), 80%, 35% );\n}\n\n[mol_theme=\"$mol_theme_accent\"] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: black;\n}\n");
-})($ || ($ = {}));
-//mol/theme/-css/theme.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    const { vary } = $mol_style_func;
-    $.$mol_theme = {
-        back: vary('--mol_theme_back'),
-        hover: vary('--mol_theme_hover'),
-        card: vary('--mol_theme_card'),
-        current: vary('--mol_theme_current'),
-        special: vary('--mol_theme_special'),
-        text: vary('--mol_theme_text'),
-        control: vary('--mol_theme_control'),
-        shade: vary('--mol_theme_shade'),
-        line: vary('--mol_theme_line'),
-        focus: vary('--mol_theme_focus'),
-        field: vary('--mol_theme_field'),
-        image: vary('--mol_theme_image'),
-    };
-})($ || ($ = {}));
-//mol/theme/theme.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/gap/gap.css", ":root {\n\t--mol_gap_block: .75rem;\n\t--mol_gap_text: .5rem .75rem;\n\t--mol_gap_round: .25rem;\n\t--mol_gap_space: .25rem;\n\t--mol_gap_blur: .5rem;\n}\n");
-})($ || ($ = {}));
-//mol/gap/-css/gap.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    const { vary } = $mol_style_func;
-    $.$mol_gap = {
-        block: vary('--mol_gap_block'),
-        text: vary('--mol_gap_text'),
-        round: vary('--mol_gap_round'),
-        space: vary('--mol_gap_space'),
-        blur: vary('--mol_gap_blur'),
-    };
-})($ || ($ = {}));
-//mol/gap/gap.ts
 ;
 "use strict";
 var $;
@@ -1563,6 +1347,43 @@ var $;
 "use strict";
 var $;
 (function ($) {
+})($ || ($ = {}));
+//mol/dom/context/context.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_dom_context = self;
+})($ || ($ = {}));
+//mol/dom/context/context.web.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_after_tick extends $mol_object2 {
+        task;
+        promise;
+        cancelled = false;
+        constructor(task) {
+            super();
+            this.task = task;
+            this.promise = Promise.resolve().then(() => {
+                if (this.cancelled)
+                    return;
+                task();
+            });
+        }
+        destructor() {
+            this.cancelled = true;
+        }
+    }
+    $.$mol_after_tick = $mol_after_tick;
+})($ || ($ = {}));
+//mol/after/tick/tick.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_view_selection extends $mol_object {
         static focused(next, notify) {
             const parents = [];
@@ -1899,6 +1720,185 @@ var $;
 ;
 "use strict";
 //mol/type/pick/pick.ts
+;
+"use strict";
+var $;
+(function ($) {
+    let all = [];
+    let el = null;
+    let timer = null;
+    function $mol_style_attach(id, text) {
+        all.push(`/* ${id} */\n\n${text}`);
+        if (timer)
+            return el;
+        const doc = $mol_dom_context.document;
+        if (!doc)
+            return null;
+        el = doc.createElement('style');
+        el.id = `$mol_style_attach`;
+        doc.head.appendChild(el);
+        timer = new $mol_after_tick(() => {
+            el.innerHTML = '\n' + all.join('\n\n');
+            all = [];
+            el = null;
+            timer = null;
+        });
+        return el;
+    }
+    $.$mol_style_attach = $mol_style_attach;
+})($ || ($ = {}));
+//mol/style/attach/attach.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_decor {
+        value;
+        constructor(value) {
+            this.value = value;
+        }
+        prefix() { return ''; }
+        valueOf() { return this.value; }
+        postfix() { return ''; }
+        toString() {
+            return `${this.prefix()}${this.valueOf()}${this.postfix()}`;
+        }
+    }
+    $.$mol_decor = $mol_decor;
+})($ || ($ = {}));
+//mol/decor/decor.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_style_unit extends $mol_decor {
+        literal;
+        constructor(value, literal) {
+            super(value);
+            this.literal = literal;
+        }
+        postfix() {
+            return this.literal;
+        }
+        static per(value) { return new $mol_style_unit(value, '%'); }
+        static px(value) { return new $mol_style_unit(value, 'px'); }
+        static mm(value) { return new $mol_style_unit(value, 'mm'); }
+        static cm(value) { return new $mol_style_unit(value, 'cm'); }
+        static Q(value) { return new $mol_style_unit(value, 'Q'); }
+        static in(value) { return new $mol_style_unit(value, 'in'); }
+        static pc(value) { return new $mol_style_unit(value, 'pc'); }
+        static pt(value) { return new $mol_style_unit(value, 'pt'); }
+        static cap(value) { return new $mol_style_unit(value, 'cap'); }
+        static ch(value) { return new $mol_style_unit(value, 'ch'); }
+        static em(value) { return new $mol_style_unit(value, 'em'); }
+        static rem(value) { return new $mol_style_unit(value, 'rem'); }
+        static ex(value) { return new $mol_style_unit(value, 'ex'); }
+        static ic(value) { return new $mol_style_unit(value, 'ic'); }
+        static lh(value) { return new $mol_style_unit(value, 'lh'); }
+        static rlh(value) { return new $mol_style_unit(value, 'rlh'); }
+        static vh(value) { return new $mol_style_unit(value, 'vh'); }
+        static vw(value) { return new $mol_style_unit(value, 'vw'); }
+        static vi(value) { return new $mol_style_unit(value, 'vi'); }
+        static vb(value) { return new $mol_style_unit(value, 'vb'); }
+        static vmin(value) { return new $mol_style_unit(value, 'vmin'); }
+        static vmax(value) { return new $mol_style_unit(value, 'vmax'); }
+        static deg(value) { return new $mol_style_unit(value, 'deg'); }
+        static rad(value) { return new $mol_style_unit(value, 'rad'); }
+        static grad(value) { return new $mol_style_unit(value, 'grad'); }
+        static turn(value) { return new $mol_style_unit(value, 'turn'); }
+        static s(value) { return new $mol_style_unit(value, 's'); }
+        static ms(value) { return new $mol_style_unit(value, 'ms'); }
+    }
+    $.$mol_style_unit = $mol_style_unit;
+})($ || ($ = {}));
+//mol/style/unit/unit.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const { per } = $mol_style_unit;
+    class $mol_style_func extends $mol_decor {
+        name;
+        constructor(name, value) {
+            super(value);
+            this.name = name;
+        }
+        prefix() { return this.name + '('; }
+        postfix() { return ')'; }
+        static calc(value) {
+            return new $mol_style_func('calc', value);
+        }
+        static vary(name) {
+            return new $mol_style_func('var', name);
+        }
+        static url(href) {
+            return new $mol_style_func('url', JSON.stringify(href));
+        }
+        static hsla(hue, saturation, lightness, alpha) {
+            return new $mol_style_func('hsla', [hue, per(saturation), per(lightness), alpha]);
+        }
+        static clamp(min, mid, max) {
+            return new $mol_style_func('clamp', [min, mid, max]);
+        }
+        static rgba(red, green, blue, alpha) {
+            return new $mol_style_func('rgba', [red, green, blue, alpha]);
+        }
+        static scale(zoom) {
+            return new $mol_style_func('scale', [zoom]);
+        }
+    }
+    $.$mol_style_func = $mol_style_func;
+})($ || ($ = {}));
+//mol/style/func/func.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const { vary } = $mol_style_func;
+    $.$mol_theme = {
+        back: vary('--mol_theme_back'),
+        hover: vary('--mol_theme_hover'),
+        card: vary('--mol_theme_card'),
+        current: vary('--mol_theme_current'),
+        special: vary('--mol_theme_special'),
+        text: vary('--mol_theme_text'),
+        control: vary('--mol_theme_control'),
+        shade: vary('--mol_theme_shade'),
+        line: vary('--mol_theme_line'),
+        focus: vary('--mol_theme_focus'),
+        field: vary('--mol_theme_field'),
+        image: vary('--mol_theme_image'),
+    };
+})($ || ($ = {}));
+//mol/theme/theme.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/theme/theme.css", ":root {\n\t--mol_theme_hue: 210deg;\n\t--mol_theme_luma: -1;\n\t--mol_theme_satur: 1;\n\t--mol_theme_image: none;\n}\n\n[mol_theme] {\n\tcolor: var(--mol_theme_text);\n\tfill: var(--mol_theme_text);\n}\n:where([mol_theme]) {\n\tbackground-color: var(--mol_theme_back);\n}\n\t\n:root, [mol_theme] {\n\t--mol_theme_back: hsl( var(--mol_theme_hue), calc( var(--mol_theme_satur) * 20% ), calc( 55% + 45% * var(--mol_theme_luma) ) );\n\t--mol_theme_text: hsl( var(--mol_theme_hue), 0%, calc( 40% - 40% * var(--mol_theme_luma) ) );\n\t--mol_theme_field: hsl( var(--mol_theme_hue), calc( var(--mol_theme_satur) * 50% ), calc( 54% + 46% * var(--mol_theme_luma) ), .25 );\n\t\n\t--mol_theme_card: hsl( var(--mol_theme_hue), calc( var(--mol_theme_satur) * 50% ), calc( 55% + 35% * var(--mol_theme_luma) ), .25 );\n\t--mol_theme_hover: hsl( var(--mol_theme_hue), 0%, 50%, .1 );\n\t--mol_theme_line: hsl( var(--mol_theme_hue), 0%, 50%, .2 );\n\t--mol_theme_shade: hsl( var(--mol_theme_hue), 0%, 50%, 1 );\n\t\n\t--mol_theme_control: hsl( var(--mol_theme_hue), 50%, calc( 50% - 10% * var(--mol_theme_luma) ) );\n\t--mol_theme_current: hsl( calc( var(--mol_theme_hue) - 90deg ), 50%, calc( 50% - 10% * var(--mol_theme_luma) ) );\n\t--mol_theme_special: hsl( calc( var(--mol_theme_hue) + 90deg ), 50%, calc( 50% - 10% * var(--mol_theme_luma) ) );\n\t--mol_theme_focus: hsl( calc( var(--mol_theme_hue) + 180deg ), 100%, calc( 55% - 10% * var(--mol_theme_luma) ) );\n\t\n}\n\n[mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_luma: 1;\n\t--mol_theme_image: none;\n}\n\n[mol_theme=\"$mol_theme_dark\"] {\n\t--mol_theme_luma: -1;\n\t--mol_theme_image: invert(1) hue-rotate( 180deg );\n}\n\n[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_luma: -2;\n\t--mol_theme_back: hsl( var(--mol_theme_hue), 50%, 40% );\n\t--mol_theme_hover: hsl( var(--mol_theme_hue), 60%, 30% );\n\t--mol_theme_current: hsl( var(--mol_theme_hue), 100%, 20% );\n}\n\n[mol_theme=\"$mol_theme_current\"] {\n\tbackground-color: var(--mol_theme_back);\n\t--mol_theme_back: hsl( calc( var(--mol_theme_hue) - 90deg ), 50%, calc( 50% + 30% * var(--mol_theme_luma) ) );\n}\n\n[mol_theme=\"$mol_theme_special\"] {\n\t--mol_theme_card: hsl( calc( var(--mol_theme_hue) + 90deg ), 50%, calc( 55% + 35% * var(--mol_theme_luma) ), .25 );\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\tbackground-color: var(--mol_theme_back);\n\t--mol_theme_luma: -2;\n\t--mol_theme_back: hsl( calc( var(--mol_theme_hue) + 180deg ), 90%, 50% );\n\t--mol_theme_hover: hsl( calc( var(--mol_theme_hue) + 180deg ), 80%, 35% );\n}\n\n[mol_theme=\"$mol_theme_accent\"] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: black;\n}\n");
+})($ || ($ = {}));
+//mol/theme/-css/theme.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const { vary } = $mol_style_func;
+    $.$mol_gap = {
+        block: vary('--mol_gap_block'),
+        text: vary('--mol_gap_text'),
+        round: vary('--mol_gap_round'),
+        space: vary('--mol_gap_space'),
+        blur: vary('--mol_gap_blur'),
+    };
+})($ || ($ = {}));
+//mol/gap/gap.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/gap/gap.css", ":root {\n\t--mol_gap_block: .75rem;\n\t--mol_gap_text: .5rem .75rem;\n\t--mol_gap_round: .25rem;\n\t--mol_gap_space: .25rem;\n\t--mol_gap_blur: .5rem;\n}\n");
+})($ || ($ = {}));
+//mol/gap/-css/gap.css.ts
 ;
 "use strict";
 var $;
@@ -2479,13 +2479,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/list/list.view.css", "[mol_list] {\n\twill-change: contents;\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex-shrink: 0;\n\tmax-width: 100%;\n\t/* display: flex;\n\talign-items: stretch;\n\talign-content: stretch; */\n\ttransition: none;\n\tmin-height: .5rem;\n}\n\n[mol_list_gap_before] ,\n[mol_list_gap_after] {\n\tdisplay: block !important;\n\tflex: none;\n\ttransition: none;\n\toverflow-anchor: none;\n}\n");
-})($ || ($ = {}));
-//mol/list/-css/list.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_list extends $.$mol_list {
@@ -2618,6 +2611,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $mol_style_attach("mol/list/list.view.css", "[mol_list] {\n\twill-change: contents;\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex-shrink: 0;\n\tmax-width: 100%;\n\t/* display: flex;\n\talign-items: stretch;\n\talign-content: stretch; */\n\ttransition: none;\n\tmin-height: .5rem;\n}\n\n[mol_list_gap_before] ,\n[mol_list_gap_after] {\n\tdisplay: block !important;\n\tflex: none;\n\ttransition: none;\n\toverflow-anchor: none;\n}\n");
+})($ || ($ = {}));
+//mol/list/-css/list.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_paragraph extends $mol_view {
         line_height() {
             return 24;
@@ -2640,13 +2640,6 @@ var $;
     $.$mol_paragraph = $mol_paragraph;
 })($ || ($ = {}));
 //mol/paragraph/-view.tree/paragraph.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/paragraph/paragraph.view.css", ":where([mol_paragraph]) {\n\tmargin: 0;\n\tmax-width: 100%;\n}\n");
-})($ || ($ = {}));
-//mol/paragraph/-css/paragraph.view.css.ts
 ;
 "use strict";
 var $;
@@ -2697,123 +2690,27 @@ var $;
 //mol/paragraph/paragraph.view.ts
 ;
 "use strict";
-//mol/type/override/override.ts
-;
-"use strict";
-//mol/style/properties/properties.ts
-;
-"use strict";
-//mol/style/pseudo/class.ts
-;
-"use strict";
-//mol/style/pseudo/element.ts
-;
-"use strict";
-//mol/type/error/error.ts
-;
-"use strict";
-//mol/style/guard/guard.ts
+var $;
+(function ($) {
+    $mol_style_attach("mol/paragraph/paragraph.view.css", ":where([mol_paragraph]) {\n\tmargin: 0;\n\tmax-width: 100%;\n}\n");
+})($ || ($ = {}));
+//mol/paragraph/-css/paragraph.view.css.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    function $mol_style_sheet(Component, config0) {
-        let rules = [];
-        const block = $mol_dom_qname($mol_ambient({}).$mol_func_name(Component));
-        const kebab = (name) => name.replace(/[A-Z]/g, letter => '-' + letter.toLowerCase());
-        const make_class = (prefix, path, config) => {
-            const props = [];
-            const selector = (prefix, path) => {
-                if (path.length === 0)
-                    return prefix || `[${block}]`;
-                let res = `[${block}_${path.join('_')}]`;
-                if (prefix)
-                    res = prefix + ' :where(' + res + ')';
-                return res;
-            };
-            for (const key of Object.keys(config).reverse()) {
-                if (/^[a-z]/.test(key)) {
-                    const addProp = (keys, val) => {
-                        if (Array.isArray(val)) {
-                            if (val[0] && [Array, Object].includes(val[0].constructor)) {
-                                val = val.map(v => {
-                                    return Object.entries(v).map(([n, a]) => {
-                                        if (a === true)
-                                            return kebab(n);
-                                        if (a === false)
-                                            return null;
-                                        return String(a);
-                                    }).filter(Boolean).join(' ');
-                                }).join(',');
-                            }
-                            else {
-                                val = val.join(' ');
-                            }
-                            props.push(`\t${keys.join('-')}: ${val};\n`);
-                        }
-                        else if (val.constructor === Object) {
-                            for (let suffix in val) {
-                                addProp([...keys, kebab(suffix)], val[suffix]);
-                            }
-                        }
-                        else {
-                            props.push(`\t${keys.join('-')}: ${val};\n`);
-                        }
-                    };
-                    addProp([kebab(key)], config[key]);
-                }
-                else if (/^[A-Z]/.test(key)) {
-                    make_class(prefix, [...path, key.toLowerCase()], config[key]);
-                }
-                else if (key[0] === '$') {
-                    make_class(selector(prefix, path) + ' :where([' + $mol_dom_qname(key) + '])', [], config[key]);
-                }
-                else if (key === '>') {
-                    const types = config[key];
-                    for (let type in types) {
-                        make_class(selector(prefix, path) + ' > :where([' + $mol_dom_qname(type) + '])', [], types[type]);
-                    }
-                }
-                else if (key === '@') {
-                    const attrs = config[key];
-                    for (let name in attrs) {
-                        for (let val in attrs[name]) {
-                            make_class(selector(prefix, path) + ':where([' + name + '=' + JSON.stringify(val) + '])', [], attrs[name][val]);
-                        }
-                    }
-                }
-                else if (key === '@media') {
-                    const media = config[key];
-                    for (let query in media) {
-                        rules.push('}\n');
-                        make_class(prefix, path, media[query]);
-                        rules.push(`${key} ${query} {\n`);
-                    }
-                }
-                else {
-                    make_class(selector(prefix, path) + key, [], config[key]);
-                }
-            }
-            if (props.length) {
-                rules.push(`${selector(prefix, path)} {\n${props.reverse().join('')}}\n`);
-            }
-        };
-        make_class('', [], config0);
-        return rules.reverse().join('');
+    class $mol_stack extends $mol_view {
     }
-    $.$mol_style_sheet = $mol_style_sheet;
+    $.$mol_stack = $mol_stack;
 })($ || ($ = {}));
-//mol/style/sheet/sheet.ts
+//mol/stack/-view.tree/stack.view.tree.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    function $mol_style_define(Component, config) {
-        return $mol_style_attach(Component.name, $mol_style_sheet(Component, config));
-    }
-    $.$mol_style_define = $mol_style_define;
+    $mol_style_attach("mol/stack/stack.view.css", "[mol_stack] {\n\tdisplay: grid;\n\t/* width: max-content; */\n\t/* height: max-content; */\n\talign-items: flex-start;\n\tjustify-items: flex-start;\n}\n\n[mol_stack] > * {\n\tgrid-area: 1/1;\n}\n");
 })($ || ($ = {}));
-//mol/style/define/define.ts
+//mol/stack/-css/stack.view.css.ts
 ;
 "use strict";
 var $;
@@ -2867,6 +2764,9 @@ var $;
 ;
 "use strict";
 //mol/type/intersect/intersect.ts
+;
+"use strict";
+//mol/type/override/override.ts
 ;
 "use strict";
 //mol/unicode/unicode.ts
@@ -3149,13 +3049,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/dimmer/dimmer.view.css", "[mol_dimmer] {\n\tdisplay: block;\n\tmax-width: 100%;\n}\n\n[mol_dimmer_low] {\n\tdisplay: inline;\n\topacity: 0.8;\n}\n\n[mol_dimmer_high] {\n\tdisplay: inline;\n\tcolor: var(--mol_theme_focus);\n\ttext-shadow: 0 0;\n}\n");
-})($ || ($ = {}));
-//mol/dimmer/-css/dimmer.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_dimmer extends $.$mol_dimmer {
@@ -3200,6 +3093,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $mol_style_attach("mol/dimmer/dimmer.view.css", "[mol_dimmer] {\n\tdisplay: block;\n\tmax-width: 100%;\n}\n\n[mol_dimmer_low] {\n\tdisplay: inline;\n\topacity: 0.8;\n}\n\n[mol_dimmer_high] {\n\tdisplay: inline;\n\tcolor: var(--mol_theme_focus);\n\ttext-shadow: 0 0;\n}\n");
+})($ || ($ = {}));
+//mol/dimmer/-css/dimmer.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_text_code_token extends $mol_dimmer {
         attr() {
             return {
@@ -3233,6 +3133,122 @@ var $;
     $.$mol_text_code_token_link = $mol_text_code_token_link;
 })($ || ($ = {}));
 //mol/text/code/token/-view.tree/token.view.tree.ts
+;
+"use strict";
+//mol/style/properties/properties.ts
+;
+"use strict";
+//mol/style/pseudo/class.ts
+;
+"use strict";
+//mol/style/pseudo/element.ts
+;
+"use strict";
+//mol/type/error/error.ts
+;
+"use strict";
+//mol/style/guard/guard.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_style_sheet(Component, config0) {
+        let rules = [];
+        const block = $mol_dom_qname($mol_ambient({}).$mol_func_name(Component));
+        const kebab = (name) => name.replace(/[A-Z]/g, letter => '-' + letter.toLowerCase());
+        const make_class = (prefix, path, config) => {
+            const props = [];
+            const selector = (prefix, path) => {
+                if (path.length === 0)
+                    return prefix || `[${block}]`;
+                let res = `[${block}_${path.join('_')}]`;
+                if (prefix)
+                    res = prefix + ' :where(' + res + ')';
+                return res;
+            };
+            for (const key of Object.keys(config).reverse()) {
+                if (/^[a-z]/.test(key)) {
+                    const addProp = (keys, val) => {
+                        if (Array.isArray(val)) {
+                            if (val[0] && [Array, Object].includes(val[0].constructor)) {
+                                val = val.map(v => {
+                                    return Object.entries(v).map(([n, a]) => {
+                                        if (a === true)
+                                            return kebab(n);
+                                        if (a === false)
+                                            return null;
+                                        return String(a);
+                                    }).filter(Boolean).join(' ');
+                                }).join(',');
+                            }
+                            else {
+                                val = val.join(' ');
+                            }
+                            props.push(`\t${keys.join('-')}: ${val};\n`);
+                        }
+                        else if (val.constructor === Object) {
+                            for (let suffix in val) {
+                                addProp([...keys, kebab(suffix)], val[suffix]);
+                            }
+                        }
+                        else {
+                            props.push(`\t${keys.join('-')}: ${val};\n`);
+                        }
+                    };
+                    addProp([kebab(key)], config[key]);
+                }
+                else if (/^[A-Z]/.test(key)) {
+                    make_class(prefix, [...path, key.toLowerCase()], config[key]);
+                }
+                else if (key[0] === '$') {
+                    make_class(selector(prefix, path) + ' :where([' + $mol_dom_qname(key) + '])', [], config[key]);
+                }
+                else if (key === '>') {
+                    const types = config[key];
+                    for (let type in types) {
+                        make_class(selector(prefix, path) + ' > :where([' + $mol_dom_qname(type) + '])', [], types[type]);
+                    }
+                }
+                else if (key === '@') {
+                    const attrs = config[key];
+                    for (let name in attrs) {
+                        for (let val in attrs[name]) {
+                            make_class(selector(prefix, path) + ':where([' + name + '=' + JSON.stringify(val) + '])', [], attrs[name][val]);
+                        }
+                    }
+                }
+                else if (key === '@media') {
+                    const media = config[key];
+                    for (let query in media) {
+                        rules.push('}\n');
+                        make_class(prefix, path, media[query]);
+                        rules.push(`${key} ${query} {\n`);
+                    }
+                }
+                else {
+                    make_class(selector(prefix, path) + key, [], config[key]);
+                }
+            }
+            if (props.length) {
+                rules.push(`${selector(prefix, path)} {\n${props.reverse().join('')}}\n`);
+            }
+        };
+        make_class('', [], config0);
+        return rules.reverse().join('');
+    }
+    $.$mol_style_sheet = $mol_style_sheet;
+})($ || ($ = {}));
+//mol/style/sheet/sheet.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_style_define(Component, config) {
+        return $mol_style_attach(Component.name, $mol_style_sheet(Component, config));
+    }
+    $.$mol_style_define = $mol_style_define;
+})($ || ($ = {}));
+//mol/style/define/define.ts
 ;
 "use strict";
 var $;
@@ -3468,35 +3484,6 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const { rem } = $mol_style_unit;
-        $mol_style_define($mol_text_code_row, {
-            display: 'block',
-            position: 'relative',
-            font: {
-                family: 'monospace',
-            },
-            Numb: {
-                textAlign: 'right',
-                color: $mol_theme.shade,
-                width: rem(3),
-                margin: {
-                    left: rem(-4),
-                },
-                display: 'inline-block',
-                whiteSpace: 'nowrap',
-                userSelect: 'none',
-                position: 'absolute',
-            },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/text/code/row/row.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
         class $mol_text_code_row extends $.$mol_text_code_row {
             maximal_width() {
                 return this.text().length * this.letter_width();
@@ -3609,18 +3596,31 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_stack extends $mol_view {
-    }
-    $.$mol_stack = $mol_stack;
+    var $$;
+    (function ($$) {
+        const { rem } = $mol_style_unit;
+        $mol_style_define($mol_text_code_row, {
+            display: 'block',
+            position: 'relative',
+            font: {
+                family: 'monospace',
+            },
+            Numb: {
+                textAlign: 'right',
+                color: $mol_theme.shade,
+                width: rem(3),
+                margin: {
+                    left: rem(-4),
+                },
+                display: 'inline-block',
+                whiteSpace: 'nowrap',
+                userSelect: 'none',
+                position: 'absolute',
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//mol/stack/-view.tree/stack.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/stack/stack.view.css", "[mol_stack] {\n\tdisplay: grid;\n\t/* width: max-content; */\n\t/* height: max-content; */\n\talign-items: flex-start;\n\tjustify-items: flex-start;\n}\n\n[mol_stack] > * {\n\tgrid-area: 1/1;\n}\n");
-})($ || ($ = {}));
-//mol/stack/-css/stack.view.css.ts
+//mol/text/code/row/row.view.css.ts
 ;
 "use strict";
 var $;
@@ -3657,13 +3657,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/layer/layer.css", ":root {\n\t--mol_layer_hover: 1;\n\t--mol_layer_focus: 2;\n\t--mol_layer_speck: 3;\n\t--mol_layer_float: 4;\n\t--mol_layer_popup: 5;\n}\n");
-})($ || ($ = {}));
-//mol/layer/-css/layer.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     const { vary } = $mol_style_func;
     $.$mol_layer = {
         hover: vary('--mol_layer_hover'),
@@ -3674,6 +3667,13 @@ var $;
     };
 })($ || ($ = {}));
 //mol/layer/layer.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/layer/layer.css", ":root {\n\t--mol_layer_hover: 1;\n\t--mol_layer_focus: 2;\n\t--mol_layer_speck: 3;\n\t--mol_layer_float: 4;\n\t--mol_layer_popup: 5;\n}\n");
+})($ || ($ = {}));
+//mol/layer/-css/layer.css.ts
 ;
 "use strict";
 var $;
@@ -3891,13 +3891,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/button/button.view.css", "[mol_button] {\n\tborder: none;\n\tfont: inherit;\n\tdisplay: inline-flex;\n\tflex-shrink: 0;\n\ttext-decoration: inherit;\n\tcursor: inherit;\n\tposition: relative;\n\tbox-sizing: border-box;\n\tword-break: normal;\n\tcursor: default;\n\tuser-select: none;\n\tborder-radius: var(--mol_gap_round);\n}\n\n[mol_button]:where(:not(:disabled)):hover {\n\tz-index: var(--mol_layer_hover);\n}\n\n[mol_button]:focus {\n\toutline: none;\n\tz-index: var(--mol_layer_focus);\n}\n");
-})($ || ($ = {}));
-//mol/button/-css/button.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_button extends $.$mol_button {
@@ -3960,6 +3953,13 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/button/button.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/button.view.css", "[mol_button] {\n\tborder: none;\n\tfont: inherit;\n\tdisplay: inline-flex;\n\tflex-shrink: 0;\n\ttext-decoration: inherit;\n\tcursor: inherit;\n\tposition: relative;\n\tbox-sizing: border-box;\n\tword-break: normal;\n\tcursor: default;\n\tuser-select: none;\n\tborder-radius: var(--mol_gap_round);\n}\n\n[mol_button]:where(:not(:disabled)):hover {\n\tz-index: var(--mol_layer_hover);\n}\n\n[mol_button]:focus {\n\toutline: none;\n\tz-index: var(--mol_layer_focus);\n}\n");
+})($ || ($ = {}));
+//mol/button/-css/button.view.css.ts
 ;
 "use strict";
 var $;
@@ -4922,37 +4922,6 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const { rem, px } = $mol_style_unit;
-        $mol_style_define($mol_text_code, {
-            whiteSpace: 'pre-wrap',
-            Rows: {
-                padding: $mol_gap.text,
-            },
-            Copy: {
-                alignSelf: 'flex-start',
-                justifySelf: 'flex-start',
-            },
-            '@': {
-                'mol_text_code_sidebar_showed': {
-                    true: {
-                        $mol_text_code_row: {
-                            margin: {
-                                left: rem(1.75),
-                            },
-                        },
-                    },
-                },
-            },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/text/code/code.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
         class $mol_text_code extends $.$mol_text_code {
             render_visible_only() {
                 return this.$.$mol_support_css_overflow_anchor();
@@ -5027,6 +4996,37 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/text/code/code.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem, px } = $mol_style_unit;
+        $mol_style_define($mol_text_code, {
+            whiteSpace: 'pre-wrap',
+            Rows: {
+                padding: $mol_gap.text,
+            },
+            Copy: {
+                alignSelf: 'flex-start',
+                justifySelf: 'flex-start',
+            },
+            '@': {
+                'mol_text_code_sidebar_showed': {
+                    true: {
+                        $mol_text_code_row: {
+                            margin: {
+                                left: rem(1.75),
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/text/code/code.view.css.ts
 ;
 "use strict";
 var $;
@@ -5197,13 +5197,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/check/expand/expand.view.css", "[mol_check_expand] {\n\tmin-width: 20px;\n}\n\n:where([mol_check_expand][disabled]) [mol_check_expand_icon] {\n\tvisibility: hidden;\n}\n\n[mol_check_expand_icon] {\n\tbox-shadow: none;\n}\n[mol_check_expand_icon] {\n\ttransform: rotateZ(0deg);\n}\n\n:where([mol_check_checked]) [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg);\n}\n\n[mol_check_expand_icon] {\n\tvertical-align: text-top;\n}\n\n[mol_check_expand_label] {\n\tmargin-left: 0;\n}\n");
-})($ || ($ = {}));
-//mol/check/expand/-css/expand.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_check_expand extends $.$mol_check_expand {
@@ -5218,6 +5211,13 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/check/expand/expand.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/expand/expand.view.css", "[mol_check_expand] {\n\tmin-width: 20px;\n}\n\n:where([mol_check_expand][disabled]) [mol_check_expand_icon] {\n\tvisibility: hidden;\n}\n\n[mol_check_expand_icon] {\n\tbox-shadow: none;\n}\n[mol_check_expand_icon] {\n\ttransform: rotateZ(0deg);\n}\n\n:where([mol_check_checked]) [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg);\n}\n\n[mol_check_expand_icon] {\n\tvertical-align: text-top;\n}\n\n[mol_check_expand_label] {\n\tmargin-left: 0;\n}\n");
+})($ || ($ = {}));
+//mol/check/expand/-css/expand.view.css.ts
 ;
 "use strict";
 var $;
@@ -5460,13 +5460,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/grid/grid.view.css", "[mol_grid] {\n\tdisplay: block;\n\tflex: 0 1 auto;\n\tposition: relative;\n\toverflow-x: auto;\n}\n\n[mol_grid_gap] {\n\tposition: absolute;\n\tpadding: .1px;\n\ttop: 0;\n\ttransform: translateZ(0);\n}\n\n[mol_grid_table] {\n\tborder-spacing: 0;\n\tdisplay: table-row-group;\n\tposition: relative;\n}\n\n[mol_grid_table] > * {\n\tdisplay: table-row;\n\ttransition: none;\n}\n\n[mol_grid_head] > *,\n[mol_grid_table] > * > * {\n\tdisplay: table-cell;\n\tpadding: var(--mol_gap_text);\n\twhite-space: nowrap;\n\tvertical-align: middle;\n\tbox-shadow: inset 1px 1px 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_row]:where(:first-child) > * {\n\tbox-shadow: inset 1px 0 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_table] > * > *:where(:first-child) {\n\tbox-shadow: inset 0px 1px 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_head] > * {\n\tbox-shadow: inset 1px -1px 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_head] > *:where(:first-child) {\n\tbox-shadow: inset 0px -1px 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_table] > [mol_grid_row]:where(:first-child) > *:where(:first-child) {\n\tbox-shadow: none;\n}\t\n\n[mol_grid_head] {\n\tdisplay: table-row;\n\ttransform: none !important;\n}\n\n/* [mol_grid_cell_number] {\n\ttext-align: right;\n} */\n\n[mol_grid_col_head] {\n\tfont-weight: inherit;\n\ttext-align: inherit;\n\tdisplay: table-cell;\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_grid_cell_dimmer] {\n\tdisplay: inline-block;\n\tvertical-align: inherit;\n}\n");
-})($ || ($ = {}));
-//mol/grid/-css/grid.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_grid extends $.$mol_grid {
@@ -5597,6 +5590,13 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/grid/grid.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/grid/grid.view.css", "[mol_grid] {\n\tdisplay: block;\n\tflex: 0 1 auto;\n\tposition: relative;\n\toverflow-x: auto;\n}\n\n[mol_grid_gap] {\n\tposition: absolute;\n\tpadding: .1px;\n\ttop: 0;\n\ttransform: translateZ(0);\n}\n\n[mol_grid_table] {\n\tborder-spacing: 0;\n\tdisplay: table-row-group;\n\tposition: relative;\n}\n\n[mol_grid_table] > * {\n\tdisplay: table-row;\n\ttransition: none;\n}\n\n[mol_grid_head] > *,\n[mol_grid_table] > * > * {\n\tdisplay: table-cell;\n\tpadding: var(--mol_gap_text);\n\twhite-space: nowrap;\n\tvertical-align: middle;\n\tbox-shadow: inset 1px 1px 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_row]:where(:first-child) > * {\n\tbox-shadow: inset 1px 0 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_table] > * > *:where(:first-child) {\n\tbox-shadow: inset 0px 1px 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_head] > * {\n\tbox-shadow: inset 1px -1px 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_head] > *:where(:first-child) {\n\tbox-shadow: inset 0px -1px 0 0 var(--mol_theme_line);\n}\n\n[mol_grid_table] > [mol_grid_row]:where(:first-child) > *:where(:first-child) {\n\tbox-shadow: none;\n}\t\n\n[mol_grid_head] {\n\tdisplay: table-row;\n\ttransform: none !important;\n}\n\n/* [mol_grid_cell_number] {\n\ttext-align: right;\n} */\n\n[mol_grid_col_head] {\n\tfont-weight: inherit;\n\ttext-align: inherit;\n\tdisplay: table-cell;\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_grid_cell_dimmer] {\n\tdisplay: inline-block;\n\tvertical-align: inherit;\n}\n");
+})($ || ($ = {}));
+//mol/grid/-css/grid.view.css.ts
 ;
 "use strict";
 var $;
@@ -5804,56 +5804,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    const { rem } = $mol_style_unit;
-    const { scale } = $mol_style_func;
-    $mol_style_define($mol_link, {
-        textDecoration: 'none',
-        color: $mol_theme.control,
-        stroke: 'currentcolor',
-        cursor: 'pointer',
-        padding: $mol_gap.text,
-        boxSizing: 'border-box',
-        position: 'relative',
-        minWidth: rem(2.5),
-        gap: $mol_gap.space,
-        border: {
-            radius: $mol_gap.round,
-        },
-        ':hover': {
-            background: {
-                color: $mol_theme.hover,
-            },
-        },
-        ':focus': {
-            outline: 'none',
-            background: {
-                color: $mol_theme.hover,
-            },
-        },
-        ':focus-within': {
-            outline: 'none',
-            background: {
-                color: $mol_theme.hover,
-            }
-        },
-        ':active': {
-            color: $mol_theme.focus,
-        },
-        '@': {
-            mol_link_current: {
-                'true': {
-                    color: $mol_theme.current,
-                    textShadow: '0 0',
-                }
-            }
-        },
-    });
-})($ || ($ = {}));
-//mol/link/link.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_link extends $.$mol_link {
@@ -5929,6 +5879,56 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/link/link.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const { rem } = $mol_style_unit;
+    const { scale } = $mol_style_func;
+    $mol_style_define($mol_link, {
+        textDecoration: 'none',
+        color: $mol_theme.control,
+        stroke: 'currentcolor',
+        cursor: 'pointer',
+        padding: $mol_gap.text,
+        boxSizing: 'border-box',
+        position: 'relative',
+        minWidth: rem(2.5),
+        gap: $mol_gap.space,
+        border: {
+            radius: $mol_gap.round,
+        },
+        ':hover': {
+            background: {
+                color: $mol_theme.hover,
+            },
+        },
+        ':focus': {
+            outline: 'none',
+            background: {
+                color: $mol_theme.hover,
+            },
+        },
+        ':focus-within': {
+            outline: 'none',
+            background: {
+                color: $mol_theme.hover,
+            }
+        },
+        ':active': {
+            color: $mol_theme.focus,
+        },
+        '@': {
+            mol_link_current: {
+                'true': {
+                    color: $mol_theme.current,
+                    textShadow: '0 0',
+                }
+            }
+        },
+    });
+})($ || ($ = {}));
+//mol/link/link.view.css.ts
 ;
 "use strict";
 var $;
@@ -6017,13 +6017,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/link/iconed/iconed.view.css", "[mol_link_iconed] {\n\talign-items: baseline;\n\tdisplay: inline-flex;\n\tpadding: var(--mol_gap_text);\n}\n\n[mol_link_iconed_icon] {\n\tbox-shadow: none;\n\theight: 1.5em;\n\twidth: 1em;\n\tflex: 0 0 auto;\n\tdisplay: inline-block;\n\talign-self: normal;\n\tvertical-align: top;\n\tborder-radius: 0;\n\tobject-fit: scale-down;\n}\n\n[mol_theme=\"$mol_theme_dark\"] [mol_link_iconed_icon] {\n\tfilter: var(--mol_theme_image);\n}\n");
-})($ || ($ = {}));
-//mol/link/iconed/-css/iconed.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_link_iconed extends $.$mol_link_iconed {
@@ -6064,6 +6057,13 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/link/iconed/iconed.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/link/iconed/iconed.view.css", "[mol_link_iconed] {\n\talign-items: baseline;\n\tdisplay: inline-flex;\n\tpadding: var(--mol_gap_text);\n}\n\n[mol_link_iconed_icon] {\n\tbox-shadow: none;\n\theight: 1.5em;\n\twidth: 1em;\n\tflex: 0 0 auto;\n\tdisplay: inline-block;\n\talign-self: normal;\n\tvertical-align: top;\n\tborder-radius: 0;\n\tobject-fit: scale-down;\n}\n\n[mol_theme=\"$mol_theme_dark\"] [mol_link_iconed_icon] {\n\tfilter: var(--mol_theme_image);\n}\n");
+})($ || ($ = {}));
+//mol/link/iconed/-css/iconed.view.css.ts
 ;
 "use strict";
 var $;
@@ -6190,6 +6190,47 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
+        class $mol_scroll extends $.$mol_scroll {
+            scroll_top(next, cache) {
+                const el = this.dom_node();
+                if (next !== undefined && !cache)
+                    el.scrollTop = next;
+                return el.scrollTop;
+            }
+            scroll_left(next, cache) {
+                const el = this.dom_node();
+                if (next !== undefined && !cache)
+                    el.scrollLeft = next;
+                return el.scrollLeft;
+            }
+            event_scroll(next) {
+                const el = this.dom_node();
+                this.scroll_left(el.scrollLeft, 'cache');
+                this.scroll_top(el.scrollTop, 'cache');
+            }
+            minimal_height() {
+                return this.$.$mol_print.active() ? null : 0;
+            }
+            minimal_width() {
+                return this.$.$mol_print.active() ? null : 0;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_scroll.prototype, "scroll_top", null);
+        __decorate([
+            $mol_mem
+        ], $mol_scroll.prototype, "scroll_left", null);
+        $$.$mol_scroll = $mol_scroll;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/scroll/scroll.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
         const { per, rem, px } = $mol_style_unit;
         $mol_style_define($mol_scroll, {
             overflow: 'auto',
@@ -6240,47 +6281,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/scroll/scroll.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_scroll extends $.$mol_scroll {
-            scroll_top(next, cache) {
-                const el = this.dom_node();
-                if (next !== undefined && !cache)
-                    el.scrollTop = next;
-                return el.scrollTop;
-            }
-            scroll_left(next, cache) {
-                const el = this.dom_node();
-                if (next !== undefined && !cache)
-                    el.scrollLeft = next;
-                return el.scrollLeft;
-            }
-            event_scroll(next) {
-                const el = this.dom_node();
-                this.scroll_left(el.scrollLeft, 'cache');
-                this.scroll_top(el.scrollTop, 'cache');
-            }
-            minimal_height() {
-                return this.$.$mol_print.active() ? null : 0;
-            }
-            minimal_width() {
-                return this.$.$mol_print.active() ? null : 0;
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_scroll.prototype, "scroll_top", null);
-        __decorate([
-            $mol_mem
-        ], $mol_scroll.prototype, "scroll_left", null);
-        $$.$mol_scroll = $mol_scroll;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/scroll/scroll.view.ts
 ;
 "use strict";
 var $;
@@ -6387,13 +6387,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/embed/native/native.view.css", "[mol_embed_native] {\n\tmax-width: 100%;\n\tmax-height: 100vh;\n\tobject-fit: cover;\n\tdisplay: flex;\n\tflex: 1 1 auto;\n\tobject-position: top left;\n\tborder-radius: var(--mol_gap_round);\n\taspect-ratio: 4/3;\n}\n");
-})($ || ($ = {}));
-//mol/embed/native/-css/native.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_embed_native extends $.$mol_embed_native {
@@ -6460,6 +6453,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $mol_style_attach("mol/embed/native/native.view.css", "[mol_embed_native] {\n\tmax-width: 100%;\n\tmax-height: 100vh;\n\tobject-fit: cover;\n\tdisplay: flex;\n\tflex: 1 1 auto;\n\tobject-position: top left;\n\tborder-radius: var(--mol_gap_round);\n\taspect-ratio: 4/3;\n}\n");
+})($ || ($ = {}));
+//mol/embed/native/-css/native.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_frame extends $mol_embed_native {
         dom_name() {
             return "iframe";
@@ -6515,18 +6515,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_define($mol_frame, {
-        border: {
-            style: 'none',
-        },
-        maxHeight: $mol_style_unit.vh(100),
-    });
-})($ || ($ = {}));
-//mol/frame/frame.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_frame extends $.$mol_frame {
@@ -6548,6 +6536,18 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/frame/frame.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_define($mol_frame, {
+        border: {
+            style: 'none',
+        },
+        maxHeight: $mol_style_unit.vh(100),
+    });
+})($ || ($ = {}));
+//mol/frame/frame.view.css.ts
 ;
 "use strict";
 var $;
@@ -6611,13 +6611,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/embed/youtube/youtube.view.css", "[mol_embed_youtube] {\n\tpadding: 0;\n\tmax-width: 100%;\n}\n\n[mol_embed_youtube_image] {\n\tflex: auto 1 1;\n}\n\n[mol_embed_youtube_image]:not(:hover):not(:focus) {\n\topacity: .75;\n}\n");
-})($ || ($ = {}));
-//mol/embed/youtube/-css/youtube.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_embed_youtube extends $.$mol_embed_youtube {
@@ -6652,6 +6645,13 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/embed/youtube/youtube.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/embed/youtube/youtube.view.css", "[mol_embed_youtube] {\n\tpadding: 0;\n\tmax-width: 100%;\n}\n\n[mol_embed_youtube_image] {\n\tflex: auto 1 1;\n}\n\n[mol_embed_youtube_image]:not(:hover):not(:focus) {\n\topacity: .75;\n}\n");
+})($ || ($ = {}));
+//mol/embed/youtube/-css/youtube.view.css.ts
 ;
 "use strict";
 var $;
@@ -7061,13 +7061,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/text/text/text.view.css", "[mol_text] {\n\tline-height: 1.5em;\n\tbox-sizing: border-box;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: pre-line;\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex: 0 0 auto;\n\ttab-size: 4;\n}\n\n[mol_text_paragraph] {\n\tpadding: var(--mol_gap_text);\n\toverflow: auto;\n\tmax-width: 100%;\n\tdisplay: block;\n\tmax-width: 50rem;\n}\n\n[mol_text_span] {\n\tdisplay: inline;\n}\n\n[mol_text_string] {\n\tdisplay: inline;\n\tflex: 0 1 auto;\n\twhite-space: normal;\n}\n\n[mol_text_quote] {\n\tmargin: var(--mol_gap_block);\n\tpadding: var(--mol_gap_block);\n\tbackground: var(--mol_theme_card);\n\tbox-shadow: 0 0 0 1px var(--mol_theme_back);\n}\n\n[mol_text_header] {\n\tdisplay: block;\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\n* + [mol_text_header] {\n\tmargin-top: 0.75rem;\n}\n\nh1[mol_text_header] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_text_header] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_text_header] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_text_header] {\n\tfont-size: 1.25em;\n\tfont-style: italic;\n}\n\nh5[mol_text_header] {\n\tfont-size: 1rem;\n}\n\nh6[mol_text_header] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n\n[mol_text_header_link] {\n\tcolor: inherit;\n}\n\n[mol_text_table_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: baseline;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_grid_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: baseline;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_cut] {\n\tborder: none;\n\twidth: 100%;\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_text_link_http],\n[mol_text_link] {\n\tpadding: 0;\n\tdisplay: inline;\n\twhite-space: nowrap;\n}\n\n[mol_text_link_icon] + [mol_text_embed] {\n\tmargin-left: -1.5rem;\n}\n\n[mol_text_embed_youtube] {\n\tdisplay: inline;\n}\n\n[mol_text_embed_youtube_image],\n[mol_text_embed_youtube_frame],\n[mol_text_embed_object] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\twidth: 100vw;\n\tmax-height: calc( 100vh - 6rem );\n\tvertical-align: top;\n}\n[mol_text_embed_object_fallback] {\n\tpadding: 0;\n}\n[mol_text_embed_image] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\t/* max-height: calc( 100vh - 6rem ); */\n\tvertical-align: top;\n}\n\n[mol_text_pre] {\n\twhite-space: pre;\n\toverflow-x: auto;\n\ttab-size: 2;\n}\n\n[mol_text_code_line] {\n\tdisplay: inline-block;\n\twhite-space: nowrap;\n}\n\n[mol_text_type=\"strong\"] {\n\ttext-shadow: 0 0;\n\tfilter: contrast(1.5);\n}\n\n[mol_text_type=\"emphasis\"] {\n\tfont-style: italic;\n}\n\n[mol_text_type=\"insert\"] {\n\tcolor: var(--mol_theme_special);\n}\n\n[mol_text_type=\"delete\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"remark\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"quote\"] {\n\tfont-style: italic;\n}\n");
-})($ || ($ = {}));
-//mol/text/text/-css/text.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $mol_text extends $.$mol_text {
@@ -7354,6 +7347,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $mol_style_attach("mol/text/text/text.view.css", "[mol_text] {\n\tline-height: 1.5em;\n\tbox-sizing: border-box;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: pre-line;\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex: 0 0 auto;\n\ttab-size: 4;\n}\n\n[mol_text_paragraph] {\n\tpadding: var(--mol_gap_text);\n\toverflow: auto;\n\tmax-width: 100%;\n\tdisplay: block;\n\tmax-width: 50rem;\n}\n\n[mol_text_span] {\n\tdisplay: inline;\n}\n\n[mol_text_string] {\n\tdisplay: inline;\n\tflex: 0 1 auto;\n\twhite-space: normal;\n}\n\n[mol_text_quote] {\n\tmargin: var(--mol_gap_block);\n\tpadding: var(--mol_gap_block);\n\tbackground: var(--mol_theme_card);\n\tbox-shadow: 0 0 0 1px var(--mol_theme_back);\n}\n\n[mol_text_header] {\n\tdisplay: block;\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\n* + [mol_text_header] {\n\tmargin-top: 0.75rem;\n}\n\nh1[mol_text_header] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_text_header] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_text_header] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_text_header] {\n\tfont-size: 1.25em;\n\tfont-style: italic;\n}\n\nh5[mol_text_header] {\n\tfont-size: 1rem;\n}\n\nh6[mol_text_header] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n\n[mol_text_header_link] {\n\tcolor: inherit;\n}\n\n[mol_text_table_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: baseline;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_grid_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: baseline;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_cut] {\n\tborder: none;\n\twidth: 100%;\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_text_link_http],\n[mol_text_link] {\n\tpadding: 0;\n\tdisplay: inline;\n\twhite-space: nowrap;\n}\n\n[mol_text_link_icon] + [mol_text_embed] {\n\tmargin-left: -1.5rem;\n}\n\n[mol_text_embed_youtube] {\n\tdisplay: inline;\n}\n\n[mol_text_embed_youtube_image],\n[mol_text_embed_youtube_frame],\n[mol_text_embed_object] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\twidth: 100vw;\n\tmax-height: calc( 100vh - 6rem );\n\tvertical-align: top;\n}\n[mol_text_embed_object_fallback] {\n\tpadding: 0;\n}\n[mol_text_embed_image] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\t/* max-height: calc( 100vh - 6rem ); */\n\tvertical-align: top;\n}\n\n[mol_text_pre] {\n\twhite-space: pre;\n\toverflow-x: auto;\n\ttab-size: 2;\n}\n\n[mol_text_code_line] {\n\tdisplay: inline-block;\n\twhite-space: nowrap;\n}\n\n[mol_text_type=\"strong\"] {\n\ttext-shadow: 0 0;\n\tfilter: contrast(1.5);\n}\n\n[mol_text_type=\"emphasis\"] {\n\tfont-style: italic;\n}\n\n[mol_text_type=\"insert\"] {\n\tcolor: var(--mol_theme_special);\n}\n\n[mol_text_type=\"delete\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"remark\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"quote\"] {\n\tfont-style: italic;\n}\n");
+})($ || ($ = {}));
+//mol/text/text/-css/text.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_button_major extends $mol_button_typed {
         attr() {
             return {
@@ -7534,13 +7534,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/helper/helper.view.css", "[milis_helper] {\n\tbackground-color: var(--mol_theme_back);\n\tdisplay: flex;\n\tflex-direction: column;\n\tmin-height: 300px;\n\tmax-width: 500px;\n\tborder: 2px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[milis_helper_Content] {\n\tborder-top: 2px solid var(--mol_theme_line);\n\tborder-bottom: 2px solid var(--mol_theme_line);\n}\n\n[milis_helper_Buttons] {\n\tdisplay: flex;\n\talign-items: center;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n}\n\n[milis_helper_End] {\n\tmargin-left: auto;\n}\n");
-})($ || ($ = {}));
-//milis/helper/-css/helper.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         class $milis_helper extends $.$milis_helper {
@@ -7601,6 +7594,13 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //milis/helper/helper.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("milis/helper/helper.view.css", "[milis_helper] {\n\tbackground-color: var(--mol_theme_back);\n\tdisplay: flex;\n\tflex-direction: column;\n\tmin-height: 300px;\n\tmax-width: 500px;\n\tborder: 2px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[milis_helper_Content] {\n\tborder-top: 2px solid var(--mol_theme_line);\n\tborder-bottom: 2px solid var(--mol_theme_line);\n}\n\n[milis_helper_Buttons] {\n\tdisplay: flex;\n\talign-items: center;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n}\n\n[milis_helper_End] {\n\tmargin-left: auto;\n}\n");
+})($ || ($ = {}));
+//milis/helper/-css/helper.view.css.ts
 ;
 export default $
 //# sourceMappingURL=web.mjs.map
