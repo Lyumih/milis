@@ -463,9 +463,6 @@ $mol_text_list_item $mol_paragraph
 
 $milis_helper $mol_list
 	rows /
-		- <= message \
-		- \helper
-		- \312
 		<= Title $mol_text
 			text <= currentItemTitle \
 		<= Content $mol_text
@@ -693,9 +690,16 @@ $milis_helper_demo $mol_view
 		<= Toggle $milis_helper_toggle
 			event_click?val <=> toggleTutorial?val null
 		<= SomeButtonForHelp $mol_button_major
-		<= Helper $milis_helper
-			items <= tutorialItems /
-			show?next <=> tutorial?next false
+		<= SomeButtonForHelp2 $mol_button_major
+		<= SomeButtonForHelp3 $mol_button_major
+		<= Hint1 $mol_pop
+			Anchor <= SomeButtonForHelp2
+			showed true
+			align \bottom
+			bubble_content /
+				<= Helper $milis_helper
+					items <= tutorialItems /
+					show?next <=> tutorial?next false
 
 $milis_hello $mol_view
 	sub /
@@ -725,4 +729,8 @@ $milis_helper_demos $mol_book2_catalog
 		milis_helper_toggle <= TogglePage $mol_page
 			title \$milis_helper_toggle
 			body / <= MilisHelperToggle $milis_helper_toggle
+		github <= GitHub $mol_link
+			uri \https://github.com/Lyumih/milis/tree/main/helper
+			title \GitHub
+			target \_blank
 

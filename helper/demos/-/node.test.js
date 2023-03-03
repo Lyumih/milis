@@ -6032,6 +6032,9 @@ var $;
 //mol/link/-view.tree/link.view.tree.ts
 ;
 "use strict";
+//mol/state/arg/arg.ts
+;
+"use strict";
 var $;
 (function ($) {
     $.$mol_action = $mol_wire_method;
@@ -7889,7 +7892,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/helper/helper.view.css", "[milis_helper] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tmin-height: 300px;\n\tmax-width: 500px;\n\tborder: 2px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[milis_helper_Content] {\n\tborder-top: 2px solid var(--mol_theme_line);\n\tborder-bottom: 2px solid var(--mol_theme_line);\n}\n\n[milis_helper_Buttons] {\n\tdisplay: flex;\n\talign-items: center;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n}\n\n[milis_helper_End] {\n\tmargin-left: auto;\n}\n");
+    $mol_style_attach("milis/helper/helper.view.css", "[milis_helper] {\n\tbackground-color: var(--mol_theme_back);\n\tdisplay: flex;\n\tflex-direction: column;\n\tmin-height: 300px;\n\tmax-width: 500px;\n\tborder: 2px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[milis_helper_Content] {\n\tborder-top: 2px solid var(--mol_theme_line);\n\tborder-bottom: 2px solid var(--mol_theme_line);\n}\n\n[milis_helper_Buttons] {\n\tdisplay: flex;\n\talign-items: center;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n}\n\n[milis_helper_End] {\n\tmargin-left: auto;\n}\n");
 })($ || ($ = {}));
 //milis/helper/-css/helper.view.css.ts
 ;
@@ -9610,7 +9613,9 @@ var $;
             return [
                 this.Toggle(),
                 this.SomeButtonForHelp(),
-                this.Helper()
+                this.SomeButtonForHelp2(),
+                this.SomeButtonForHelp3(),
+                this.Hint1()
             ];
         }
         toggleTutorial(val) {
@@ -9624,6 +9629,14 @@ var $;
             return obj;
         }
         SomeButtonForHelp() {
+            const obj = new this.$.$mol_button_major();
+            return obj;
+        }
+        SomeButtonForHelp2() {
+            const obj = new this.$.$mol_button_major();
+            return obj;
+        }
+        SomeButtonForHelp3() {
             const obj = new this.$.$mol_button_major();
             return obj;
         }
@@ -9641,6 +9654,16 @@ var $;
             obj.show = (next) => this.tutorial(next);
             return obj;
         }
+        Hint1() {
+            const obj = new this.$.$mol_pop();
+            obj.Anchor = () => this.SomeButtonForHelp2();
+            obj.showed = () => true;
+            obj.align = () => "bottom";
+            obj.bubble_content = () => [
+                this.Helper()
+            ];
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -9653,10 +9676,19 @@ var $;
     ], $milis_helper_demo.prototype, "SomeButtonForHelp", null);
     __decorate([
         $mol_mem
+    ], $milis_helper_demo.prototype, "SomeButtonForHelp2", null);
+    __decorate([
+        $mol_mem
+    ], $milis_helper_demo.prototype, "SomeButtonForHelp3", null);
+    __decorate([
+        $mol_mem
     ], $milis_helper_demo.prototype, "tutorial", null);
     __decorate([
         $mol_mem
     ], $milis_helper_demo.prototype, "Helper", null);
+    __decorate([
+        $mol_mem
+    ], $milis_helper_demo.prototype, "Hint1", null);
     $.$milis_helper_demo = $milis_helper_demo;
 })($ || ($ = {}));
 //milis/helper/demo/-view.tree/demo.view.tree.ts
@@ -9787,7 +9819,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/helper/demo/demo.view.css", "[milis_helper_demo] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n");
+    $mol_style_attach("milis/helper/demo/demo.view.css", "[milis_helper_demo] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[milis_helper_demo_SomeButtonForHelp2] {\n\tmin-height: 300px!important;\n}\n");
 })($ || ($ = {}));
 //milis/helper/demo/-css/demo.view.css.ts
 ;
@@ -9854,7 +9886,8 @@ var $;
             return {
                 milis_helper_demo: this.MilisHelperPageDemo(),
                 milis_helper: this.HelperPage(),
-                milis_helper_toggle: this.TogglePage()
+                milis_helper_toggle: this.TogglePage(),
+                github: this.GitHub()
             };
         }
         MilisToggle() {
@@ -9893,6 +9926,13 @@ var $;
             ];
             return obj;
         }
+        GitHub() {
+            const obj = new this.$.$mol_link();
+            obj.uri = () => "https://github.com/Lyumih/milis/tree/main/helper";
+            obj.title = () => "GitHub";
+            obj.target = () => "_blank";
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -9915,6 +9955,9 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_helper_demos.prototype, "TogglePage", null);
+    __decorate([
+        $mol_mem
+    ], $milis_helper_demos.prototype, "GitHub", null);
     $.$milis_helper_demos = $milis_helper_demos;
 })($ || ($ = {}));
 //milis/helper/demos/-view.tree/demos.view.tree.ts

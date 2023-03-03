@@ -6341,6 +6341,9 @@ var $;
 //mol/link/-view.tree/link.view.tree.ts
 ;
 "use strict";
+//mol/state/arg/arg.ts
+;
+"use strict";
 var $;
 (function ($) {
     $.$mol_action = $mol_wire_method;
@@ -8176,7 +8179,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/helper/helper.view.css", "[milis_helper] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tmin-height: 300px;\n\tmax-width: 500px;\n\tborder: 2px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[milis_helper_Content] {\n\tborder-top: 2px solid var(--mol_theme_line);\n\tborder-bottom: 2px solid var(--mol_theme_line);\n}\n\n[milis_helper_Buttons] {\n\tdisplay: flex;\n\talign-items: center;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n}\n\n[milis_helper_End] {\n\tmargin-left: auto;\n}\n");
+    $mol_style_attach("milis/helper/helper.view.css", "[milis_helper] {\n\tbackground-color: var(--mol_theme_back);\n\tdisplay: flex;\n\tflex-direction: column;\n\tmin-height: 300px;\n\tmax-width: 500px;\n\tborder: 2px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[milis_helper_Content] {\n\tborder-top: 2px solid var(--mol_theme_line);\n\tborder-bottom: 2px solid var(--mol_theme_line);\n}\n\n[milis_helper_Buttons] {\n\tdisplay: flex;\n\talign-items: center;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n}\n\n[milis_helper_End] {\n\tmargin-left: auto;\n}\n");
 })($ || ($ = {}));
 //milis/helper/-css/helper.view.css.ts
 ;

@@ -28,13 +28,15 @@ namespace $ {
 		 * 	milis_helper_demo <= MilisHelperPageDemo
 		 * 	milis_helper <= HelperPage
 		 * 	milis_helper_toggle <= TogglePage
+		 * 	github <= GitHub
 		 * ```
 		 */
 		spreads() {
 			return {
 				milis_helper_demo: this.MilisHelperPageDemo(),
 				milis_helper: this.HelperPage(),
-				milis_helper_toggle: this.TogglePage()
+				milis_helper_toggle: this.TogglePage(),
+				github: this.GitHub()
 			}
 		}
 		
@@ -127,6 +129,25 @@ namespace $ {
 			obj.body = () => [
 				this.MilisHelperToggle()
 			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * GitHub $mol_link
+		 * 	uri \https://github.com/Lyumih/milis/tree/main/helper
+		 * 	title \GitHub
+		 * 	target \_blank
+		 * ```
+		 */
+		@ $mol_mem
+		GitHub() {
+			const obj = new this.$.$mol_link()
+			
+			obj.uri = () => "https://github.com/Lyumih/milis/tree/main/helper"
+			obj.title = () => "GitHub"
+			obj.target = () => "_blank"
 			
 			return obj
 		}

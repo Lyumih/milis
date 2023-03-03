@@ -2901,9 +2901,12 @@ declare namespace $ {
         toggleTutorial(val?: any): any;
         Toggle(): $milis_helper_toggle;
         SomeButtonForHelp(): $mol_button_major;
+        SomeButtonForHelp2(): $mol_button_major;
+        SomeButtonForHelp3(): $mol_button_major;
         tutorialItems(): readonly any[];
         tutorial(next?: any): boolean;
         Helper(): $$.$milis_helper;
+        Hint1(): $$.$mol_pop;
     }
 }
 
@@ -2952,6 +2955,7 @@ declare namespace $ {
             milis_helper_demo: $mol_page;
             milis_helper: $mol_page;
             milis_helper_toggle: $mol_page;
+            github: $$.$mol_link;
         };
         MilisToggle(): $$.$milis_helper_demo;
         MilisHelperPageDemo(): $mol_page;
@@ -2959,6 +2963,7 @@ declare namespace $ {
         HelperPage(): $mol_page;
         MilisHelperToggle(): $milis_helper_toggle;
         TogglePage(): $mol_page;
+        GitHub(): $$.$mol_link;
     }
 }
 
