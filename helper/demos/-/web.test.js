@@ -3638,22 +3638,5 @@ var $;
     });
 })($ || ($ = {}));
 //mol/state/arg/arg.web.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        $mol_test({
-            'Generating greeting message'() {
-                const app = new $milis_hello;
-                $mol_assert_equal(app.message(), '');
-                app.name('Jin');
-                $mol_assert_equal(app.message(), 'Hello, Jin!');
-            }
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//milis/hello/hello.test.ts
 
 //# sourceMappingURL=web.test.js.map

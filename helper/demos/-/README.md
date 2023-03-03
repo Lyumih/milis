@@ -1,1 +1,4 @@
-Some readme for milis/helper/demos
+# $milis_helper
+
+Туториал по сайту.
+Пока в работе
