@@ -9429,6 +9429,7 @@ declare namespace $ {
         editor_title(): string;
         source_prefix(): string;
         repo_dict(): {
+            milis: string;
             mol: string;
         };
         detail_title(): string;

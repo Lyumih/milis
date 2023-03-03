@@ -36921,7 +36921,8 @@ var $;
         }
         repo_dict() {
             return {
-                mol: "Lyumih/milis"
+                ...super.repo_dict(),
+                milis: "Lyumih/milis"
             };
         }
         detail_title() {

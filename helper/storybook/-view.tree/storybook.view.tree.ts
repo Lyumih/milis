@@ -21,12 +21,15 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * repo_dict * mol \Lyumih/milis
+		 * repo_dict *
+		 * 	^
+		 * 	milis \Lyumih/milis
 		 * ```
 		 */
 		repo_dict() {
 			return {
-				mol: "Lyumih/milis"
+				...super.repo_dict(),
+				milis: "Lyumih/milis"
 			}
 		}
 		
