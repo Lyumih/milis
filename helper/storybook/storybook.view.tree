@@ -2,4 +2,4 @@ $milis_helper_storybook $mol_app_demo
 	editor_title <= detail_title \$milis_helper
 	source_prefix \https://github.com/Lyumih/milis/tree/main/
 	repo_dict *
-		milis \Lyumih/milis
+		mol \Lyumih/milis
