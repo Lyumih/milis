@@ -9977,14 +9977,15 @@ var $;
                 console.info('$mol_offline activated');
             });
             self.addEventListener('fetch', (event) => {
-                if (blacklist.has(event.request.url.replace(/^https?:/, ''))) {
+                const request = event.request;
+                if (blacklist.has(request.url.replace(/^https?:/, ''))) {
                     return event.respondWith(new Response(null, {
                         status: 418,
                         statusText: 'Blocked'
                     }));
                 }
-                if (event.request.method !== 'GET') {
-                    return event.respondWith(fetch(event.request));
+                if (request.method !== 'GET' || !/^https?:/.test(request.url)) {
+                    return event.respondWith(fetch(request));
                 }
                 const fresh = fetch(event.request).then(response => {
                     event.waitUntil(caches.open('$mol_offline').then(cache => cache.put(event.request, response)));
@@ -36918,6 +36919,29 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //milis/helper/demo/demo.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $milis_helper_storybook extends $mol_app_demo {
+        editor_title() {
+            return this.detail_title();
+        }
+        source_prefix() {
+            return "https://github.com/Lyumih/milis/tree/main/";
+        }
+        repo_dict() {
+            return {
+                mol: "Lyumih/milis"
+            };
+        }
+        detail_title() {
+            return "$milis_helper";
+        }
+    }
+    $.$milis_helper_storybook = $milis_helper_storybook;
+})($ || ($ = {}));
+//milis/helper/storybook/-view.tree/storybook.view.tree.ts
 ;
 export default $
 //# sourceMappingURL=web.mjs.map

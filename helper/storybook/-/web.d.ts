@@ -9424,4 +9424,15 @@ declare namespace $.$$ {
     }
 }
 
+declare namespace $ {
+    class $milis_helper_storybook extends $mol_app_demo {
+        editor_title(): string;
+        source_prefix(): string;
+        repo_dict(): {
+            mol: string;
+        };
+        detail_title(): string;
+    }
+}
+
 export = $;

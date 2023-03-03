@@ -36909,5 +36909,28 @@ var $;
 })($ || ($ = {}));
 //milis/helper/demo/demo.view.tree.ts
 ;
+"use strict";
+var $;
+(function ($) {
+    class $milis_helper_storybook extends $mol_app_demo {
+        editor_title() {
+            return this.detail_title();
+        }
+        source_prefix() {
+            return "https://github.com/Lyumih/milis/tree/main/";
+        }
+        repo_dict() {
+            return {
+                mol: "Lyumih/milis"
+            };
+        }
+        detail_title() {
+            return "$milis_helper";
+        }
+    }
+    $.$milis_helper_storybook = $milis_helper_storybook;
+})($ || ($ = {}));
+//milis/helper/storybook/-view.tree/storybook.view.tree.ts
+;
 export default $
 //# sourceMappingURL=node.mjs.map
