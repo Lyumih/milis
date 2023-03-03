@@ -9661,6 +9661,7 @@ var $;
                 this.SomeButtonForHelp(),
                 this.SomeButtonForHelp2(),
                 this.SomeButtonForHelp3(),
+                this.SomeButtonForHelp5(),
                 this.Hint1()
             ];
         }
@@ -9692,6 +9693,10 @@ var $;
             const obj = new this.$.$mol_button_major();
             return obj;
         }
+        SomeButtonForHelp5() {
+            const obj = new this.$.$mol_button_major();
+            return obj;
+        }
         tutorialItems() {
             return [];
         }
@@ -9710,7 +9715,7 @@ var $;
             const obj = new this.$.$mol_pop();
             obj.Anchor = () => this.SomeButtonForHelp2();
             obj.showed = () => true;
-            obj.align = () => "bottom";
+            obj.align = () => "bottom_right";
             obj.bubble_content = () => [
                 this.Helper()
             ];
@@ -9732,6 +9737,9 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_helper_demo.prototype, "SomeButtonForHelp3", null);
+    __decorate([
+        $mol_mem
+    ], $milis_helper_demo.prototype, "SomeButtonForHelp5", null);
     __decorate([
         $mol_mem
     ], $milis_helper_demo.prototype, "tutorial", null);

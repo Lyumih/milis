@@ -9380,6 +9380,7 @@ declare namespace $ {
         SomeButtonForHelp(): $mol_button_major;
         SomeButtonForHelp2(): $mol_button_major;
         SomeButtonForHelp3(): $mol_button_major;
+        SomeButtonForHelp5(): $mol_button_major;
         tutorialItems(): readonly any[];
         tutorial(next?: any): boolean;
         Helper(): $$.$milis_helper;

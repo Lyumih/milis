@@ -698,10 +698,11 @@ $milis_helper_demo $mol_example_small
 		<= SomeButtonForHelp $mol_button_major
 		<= SomeButtonForHelp2 $mol_button_major
 		<= SomeButtonForHelp3 $mol_button_major
+		<= SomeButtonForHelp5 $mol_button_major
 		<= Hint1 $mol_pop
 			Anchor <= SomeButtonForHelp2
 			showed true
-			align \bottom
+			align \bottom_right
 			bubble_content /
 				<= Helper $milis_helper
 					items <= tutorialItems /

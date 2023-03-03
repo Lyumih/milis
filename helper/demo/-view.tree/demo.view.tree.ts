@@ -17,6 +17,7 @@ namespace $ {
 		 * 	<= SomeButtonForHelp
 		 * 	<= SomeButtonForHelp2
 		 * 	<= SomeButtonForHelp3
+		 * 	<= SomeButtonForHelp5
 		 * 	<= Hint1
 		 * ```
 		 */
@@ -26,6 +27,7 @@ namespace $ {
 				this.SomeButtonForHelp(),
 				this.SomeButtonForHelp2(),
 				this.SomeButtonForHelp3(),
+				this.SomeButtonForHelp5(),
 				this.Hint1()
 			] as readonly any[]
 		}
@@ -107,6 +109,18 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * SomeButtonForHelp5 $mol_button_major
+		 * ```
+		 */
+		@ $mol_mem
+		SomeButtonForHelp5() {
+			const obj = new this.$.$mol_button_major()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
 		 * tutorialItems /
 		 * ```
 		 */
@@ -148,7 +162,7 @@ namespace $ {
 		 * Hint1 $mol_pop
 		 * 	Anchor <= SomeButtonForHelp2
 		 * 	showed true
-		 * 	align \bottom
+		 * 	align \bottom_right
 		 * 	bubble_content / <= Helper
 		 * ```
 		 */
@@ -158,7 +172,7 @@ namespace $ {
 			
 			obj.Anchor = () => this.SomeButtonForHelp2()
 			obj.showed = () => true
-			obj.align = () => "bottom"
+			obj.align = () => "bottom_right"
 			obj.bubble_content = () => [
 				this.Helper()
 			] as readonly any[]
