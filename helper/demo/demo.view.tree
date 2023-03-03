@@ -3,6 +3,13 @@ $milis_helper_demo $mol_view
 		<= Toggle $milis_helper_toggle
 			event_click?val <=> toggleTutorial?val null
 		<= SomeButtonForHelp $mol_button_major
-		<= Helper $milis_helper
-			items <= tutorialItems /
-			show?next <=> tutorial?next false
+		<= SomeButtonForHelp2 $mol_button_major
+		<= SomeButtonForHelp3 $mol_button_major
+		<= Hint1 $mol_pop
+			Anchor <= SomeButtonForHelp2
+			showed true
+			align \bottom
+			bubble_content /
+				<= Helper $milis_helper
+					items <= tutorialItems /
+					show?next <=> tutorial?next false
