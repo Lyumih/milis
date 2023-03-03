@@ -9362,8 +9362,19 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $milis_helper_demo extends $mol_view {
+    class $milis_helper_toggle_demo extends $mol_example_small {
+        title(): string;
         sub(): readonly any[];
+        tags(): readonly any[];
+        Toggle(): $milis_helper_toggle;
+    }
+}
+
+declare namespace $ {
+    class $milis_helper_demo extends $mol_example_small {
+        title(): string;
+        sub(): readonly any[];
+        tags(): readonly any[];
         toggleTutorial(val?: any): any;
         Toggle(): $milis_helper_toggle;
         SomeButtonForHelp(): $mol_button_major;

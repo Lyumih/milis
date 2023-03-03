@@ -36616,7 +36616,41 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $milis_helper_demo extends $mol_view {
+    class $milis_helper_toggle_demo extends $mol_example_small {
+        title() {
+            return "Search field with suggest";
+        }
+        sub() {
+            return [
+                this.Toggle()
+            ];
+        }
+        tags() {
+            return [
+                "milis",
+                "helper",
+                "demo"
+            ];
+        }
+        Toggle() {
+            const obj = new this.$.$milis_helper_toggle();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $milis_helper_toggle_demo.prototype, "Toggle", null);
+    $.$milis_helper_toggle_demo = $milis_helper_toggle_demo;
+})($ || ($ = {}));
+//milis/helper/toggle/demo/-view.tree/demo.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $milis_helper_demo extends $mol_example_small {
+        title() {
+            return "Search field with suggest";
+        }
         sub() {
             return [
                 this.Toggle(),
@@ -36624,6 +36658,12 @@ var $;
                 this.SomeButtonForHelp2(),
                 this.SomeButtonForHelp3(),
                 this.Hint1()
+            ];
+        }
+        tags() {
+            return [
+                "123",
+                "milis"
             ];
         }
         toggleTutorial(val) {

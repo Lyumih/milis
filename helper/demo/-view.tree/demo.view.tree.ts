@@ -1,5 +1,14 @@
 namespace $ {
-	export class $milis_helper_demo extends $mol_view {
+	export class $milis_helper_demo extends $mol_example_small {
+		
+		/**
+		 * ```tree
+		 * title \Search field with suggest
+		 * ```
+		 */
+		title() {
+			return "Search field with suggest"
+		}
 		
 		/**
 		 * ```tree
@@ -18,6 +27,20 @@ namespace $ {
 				this.SomeButtonForHelp2(),
 				this.SomeButtonForHelp3(),
 				this.Hint1()
+			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
+		 * tags /
+		 * 	\123
+		 * 	\milis
+		 * ```
+		 */
+		tags() {
+			return [
+				"123",
+				"milis"
 			] as readonly any[]
 		}
 		

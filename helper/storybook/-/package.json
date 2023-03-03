@@ -542,11 +542,12 @@
     "$mol_password",
     "$mol_icon_eye",
     "$mol_lights_demo",
-    "$milis_helper_demo",
+    "$milis_helper_toggle_demo",
     "$milis_helper_toggle",
     "$mol_icon_comment_question_outline",
     "$mol_icon_comment_question",
     "$mol_icon_comment",
+    "$milis_helper_demo",
     "$milis_hello"
   ],
   "dependencies": {

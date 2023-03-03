@@ -9556,6 +9556,41 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_example extends $mol_view {
+        tags() {
+            return [];
+        }
+    }
+    $.$mol_example = $mol_example;
+})($ || ($ = {}));
+//mol/example/-view.tree/example.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/example/example.view.css", "[mol_example] {\n\tmax-width: 100%;\n}\n");
+})($ || ($ = {}));
+//mol/example/-css/example.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_example_small extends $mol_example {
+    }
+    $.$mol_example_small = $mol_example_small;
+})($ || ($ = {}));
+//mol/example/small/-view.tree/small.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/example/small/small.view.css", "[mol_example_small] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tflex: 0 0 auto;\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n\tgap: var(--mol_gap_block);\n}\n\n[mol_example_small] > * {\n\tmax-width: 100%;\n}\n");
+})($ || ($ = {}));
+//mol/example/small/-css/small.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_comment extends $mol_icon {
         path() {
             return "M9,22C8.45,22 8,21.55 8,21V18H4C2.9,18 2,17.1 2,16V4C2,2.89 2.9,2 4,2H20C21.1,2 22,2.9 22,4V16C22,17.1 21.1,18 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9Z";
@@ -9616,7 +9651,10 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $milis_helper_demo extends $mol_view {
+    class $milis_helper_demo extends $mol_example_small {
+        title() {
+            return "Search field with suggest";
+        }
         sub() {
             return [
                 this.Toggle(),
@@ -9624,6 +9662,12 @@ var $;
                 this.SomeButtonForHelp2(),
                 this.SomeButtonForHelp3(),
                 this.Hint1()
+            ];
+        }
+        tags() {
+            return [
+                "123",
+                "milis"
             ];
         }
         toggleTutorial(val) {

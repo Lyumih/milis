@@ -2825,6 +2825,23 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_example extends $mol_view {
+        tags(): readonly string[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_example_small extends $mol_example {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_icon_comment extends $mol_icon {
         path(): string;
     }
@@ -2851,8 +2868,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $milis_helper_demo extends $mol_view {
+    class $milis_helper_demo extends $mol_example_small {
+        title(): string;
         sub(): readonly any[];
+        tags(): readonly any[];
         toggleTutorial(val?: any): any;
         Toggle(): $milis_helper_toggle;
         SomeButtonForHelp(): $mol_button_major;

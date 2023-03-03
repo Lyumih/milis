@@ -1,4 +1,5 @@
-$milis_helper_demo $mol_view
+$milis_helper_demo $mol_example_small
+	title \Search field with suggest
 	sub /
 		<= Toggle $milis_helper_toggle
 			event_click?val <=> toggleTutorial?val null
@@ -13,3 +14,6 @@ $milis_helper_demo $mol_view
 				<= Helper $milis_helper
 					items <= tutorialItems /
 					show?next <=> tutorial?next false
+	tags /
+		\123
+		\milis

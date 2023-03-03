@@ -185,6 +185,8 @@
     "$mol_match",
     "$mol_status",
     "$milis_helper_demo",
+    "$mol_example_small",
+    "$mol_example",
     "$milis_helper_toggle",
     "$mol_icon_comment_question_outline",
     "$mol_icon_comment_question",
