@@ -11,4 +11,8 @@ $milis_helper_demos $mol_book2_catalog
 		milis_helper_toggle <= TogglePage $mol_page
 			title \$milis_helper_toggle
 			body / <= MilisHelperToggle $milis_helper_toggle
+		github <= GitHub $mol_link
+			uri \https://github.com/Lyumih/milis/tree/main/helper
+			title \GitHub
+			target \_blank
 
