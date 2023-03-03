@@ -21,6 +21,15 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * sources_uri \https://github.com/Lyumih/milis/
+		 * ```
+		 */
+		sources_uri() {
+			return "https://github.com/Lyumih/milis/"
+		}
+		
+		/**
+		 * ```tree
 		 * repo_dict *
 		 * 	^
 		 * 	milis \Lyumih/milis
