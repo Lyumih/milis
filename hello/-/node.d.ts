@@ -957,6 +957,7 @@ declare namespace $ {
             selectionEnd: number;
             selectionStart: number;
             inputMode: string;
+            enterkeyhint: string;
         };
         attr(): {
             maxlength: number;
@@ -977,9 +978,11 @@ declare namespace $ {
         selection_end(): number;
         selection_start(): number;
         keyboard(): string;
+        enter(): string;
         length_max(): number;
         type(val?: any): string;
         event_change(event?: any): any;
+        submit_with_ctrl(): boolean;
         submit(event?: any): any;
         Submit(): $$.$mol_hotkey;
     }
@@ -2102,9 +2105,9 @@ declare namespace $ {
         static href_normal(): string;
         static dict(next?: {
             [key: string]: string | null;
-        }): {
+        }): Readonly<{
             [key: string]: string;
-        };
+        }>;
         static value(key: string, next?: string | null): string | null;
         static link(next: any): string;
         static make_link(next: {
@@ -2562,11 +2565,13 @@ declare namespace $ {
 declare namespace $ {
 }
 
-type $milis_helper_TourItem = {
-    title: string;
-    content: string;
-    locator: string;
-};
+declare namespace $ {
+    type $milis_helper_TourItem = {
+        title: string;
+        content: string;
+        locator: string;
+    };
+}
 declare namespace $.$$ {
     class $milis_helper extends $.$milis_helper {
         show(value?: boolean): boolean;

@@ -1517,6 +1517,9 @@ declare namespace $ {
     class $mol_fetch_response extends $mol_object2 {
         readonly native: Response;
         constructor(native: Response);
+        status(): "success" | "unknown" | "inform" | "redirect" | "wrong" | "failed";
+        code(): number;
+        message(): string;
         headers(): Headers;
         mime(): string | null;
         stream(): ReadableStream<Uint8Array> | null;
@@ -1532,6 +1535,7 @@ declare namespace $ {
             destructor: () => void;
         };
         static response(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
+        static success(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
         static stream(input: RequestInfo, init?: RequestInit): ReadableStream<Uint8Array> | null;
         static text(input: RequestInfo, init?: RequestInit): string;
         static json(input: RequestInfo, init?: RequestInit): unknown;
@@ -1851,9 +1855,9 @@ declare namespace $ {
         static href_absolute(): string;
         static dict(next?: {
             [key: string]: string | null;
-        }): {
+        }): Readonly<{
             [key: string]: string;
-        };
+        }>;
         static dict_cut(except: string[]): {
             [key: string]: string;
         };
@@ -2330,11 +2334,13 @@ declare namespace $ {
 declare namespace $ {
 }
 
-type $milis_helper_TourItem = {
-    title: string;
-    content: string;
-    locator: string;
-};
+declare namespace $ {
+    type $milis_helper_TourItem = {
+        title: string;
+        content: string;
+        locator: string;
+    };
+}
 declare namespace $.$$ {
     class $milis_helper extends $.$milis_helper {
         show(value?: boolean): boolean;
@@ -2601,6 +2607,7 @@ declare namespace $ {
             selectionEnd: number;
             selectionStart: number;
             inputMode: string;
+            enterkeyhint: string;
         };
         attr(): {
             maxlength: number;
@@ -2621,9 +2628,11 @@ declare namespace $ {
         selection_end(): number;
         selection_start(): number;
         keyboard(): string;
+        enter(): string;
         length_max(): number;
         type(val?: any): string;
         event_change(event?: any): any;
+        submit_with_ctrl(): boolean;
         submit(event?: any): any;
         Submit(): $$.$mol_hotkey;
     }
@@ -2670,6 +2679,8 @@ declare namespace $ {
         hint(): string;
         submit(event?: any): any;
         enabled(): boolean;
+        keyboard(): string;
+        enter(): string;
         bring(): void;
         Query(): $$.$mol_string;
         Clear_icon(): $mol_icon_cross;

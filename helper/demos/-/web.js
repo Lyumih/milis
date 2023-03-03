@@ -4542,6 +4542,16 @@ var $;
             super();
             this.native = native;
         }
+        status() {
+            const types = ['unknown', 'inform', 'success', 'redirect', 'wrong', 'failed'];
+            return types[Math.floor(this.native.status / 100)];
+        }
+        code() {
+            return this.native.status;
+        }
+        message() {
+            return this.native.statusText || `HTTP Error ${this.code()}`;
+        }
         headers() {
             return this.native.headers;
         }
@@ -4613,36 +4623,42 @@ var $;
             });
         }
         static response(input, init) {
-            const response = $mol_wire_sync(this).request(input, init);
-            if (Math.floor(response.status / 100) === 2)
-                return new $mol_fetch_response(response);
-            throw new Error(response.statusText || `HTTP Error ${response.status}`);
+            return new $mol_fetch_response($mol_wire_sync(this).request(input, init));
+        }
+        static success(input, init) {
+            const response = this.response(input, init);
+            if (response.status() === 'success')
+                return response;
+            throw new Error(response.message());
         }
         static stream(input, init) {
-            return this.response(input, init).stream();
+            return this.success(input, init).stream();
         }
         static text(input, init) {
-            return this.response(input, init).text();
+            return this.success(input, init).text();
         }
         static json(input, init) {
-            return this.response(input, init).json();
+            return this.success(input, init).json();
         }
         static buffer(input, init) {
-            return this.response(input, init).buffer();
+            return this.success(input, init).buffer();
         }
         static xml(input, init) {
-            return this.response(input, init).xml();
+            return this.success(input, init).xml();
         }
         static xhtml(input, init) {
-            return this.response(input, init).xhtml();
+            return this.success(input, init).xhtml();
         }
         static html(input, init) {
-            return this.response(input, init).html();
+            return this.success(input, init).html();
         }
     }
     __decorate([
         $mol_action
     ], $mol_fetch, "response", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "success", null);
     __decorate([
         $mol_action
     ], $mol_fetch, "stream", null);
@@ -8158,7 +8174,8 @@ var $;
                 autocomplete: this.autocomplete_native(),
                 selectionEnd: this.selection_end(),
                 selectionStart: this.selection_start(),
-                inputMode: this.keyboard()
+                inputMode: this.keyboard(),
+                enterkeyhint: this.enter()
             };
         }
         attr() {
@@ -8214,6 +8231,9 @@ var $;
         keyboard() {
             return "text";
         }
+        enter() {
+            return "go";
+        }
         length_max() {
             return +Infinity;
         }
@@ -8227,6 +8247,9 @@ var $;
                 return event;
             return null;
         }
+        submit_with_ctrl() {
+            return false;
+        }
         submit(event) {
             if (event !== undefined)
                 return event;
@@ -8234,6 +8257,7 @@ var $;
         }
         Submit() {
             const obj = new this.$.$mol_hotkey();
+            obj.mod_ctrl = () => this.submit_with_ctrl();
             obj.key = () => ({
                 enter: (event) => this.submit(event)
             });
@@ -8427,6 +8451,12 @@ var $;
         enabled() {
             return true;
         }
+        keyboard() {
+            return "search";
+        }
+        enter() {
+            return "search";
+        }
         bring() {
             return this.Query().bring();
         }
@@ -8436,6 +8466,8 @@ var $;
             obj.hint = () => this.hint();
             obj.submit = (event) => this.submit(event);
             obj.enabled = () => this.enabled();
+            obj.keyboard = () => this.keyboard();
+            obj.enter = () => this.enter();
             return obj;
         }
         Clear_icon() {
