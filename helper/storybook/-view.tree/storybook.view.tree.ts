@@ -24,22 +24,24 @@ namespace $ {
 		 * repo_dict *
 		 * 	^
 		 * 	milis \Lyumih/milis
+		 * 	mol \no/no
 		 * ```
 		 */
 		repo_dict() {
 			return {
 				...super.repo_dict(),
-				milis: "Lyumih/milis"
+				milis: "Lyumih/milis",
+				mol: "no/no"
 			}
 		}
 		
 		/**
 		 * ```tree
-		 * detail_title \$milis_helper
+		 * detail_title \$milis
 		 * ```
 		 */
 		detail_title() {
-			return "$milis_helper"
+			return "$milis"
 		}
 	}
 	

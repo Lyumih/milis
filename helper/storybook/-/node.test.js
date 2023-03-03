@@ -36914,11 +36914,12 @@ var $;
         repo_dict() {
             return {
                 ...super.repo_dict(),
-                milis: "Lyumih/milis"
+                milis: "Lyumih/milis",
+                mol: "no/no"
             };
         }
         detail_title() {
-            return "$milis_helper";
+            return "$milis";
         }
     }
     $.$milis_helper_storybook = $milis_helper_storybook;

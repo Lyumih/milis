@@ -4776,8 +4776,9 @@ $milis_hello $mol_view
 			endTour?val <=> toggleTutorial?val null
 
 $milis_helper_storybook $mol_app_demo
-	editor_title <= detail_title \$milis_helper
+	editor_title <= detail_title \$milis
 	source_prefix \https://github.com/Lyumih/milis/tree/main/
 	repo_dict *
 		^
 		milis \Lyumih/milis
+		mol \no/no
