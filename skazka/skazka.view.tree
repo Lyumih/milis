@@ -1,6 +1,6 @@
 $milis_skazka $mol_book2_catalog
 	param \skazka
-	title \Окно в Сказку
+	title \Сказка в Лесу
 	menu_title \Сказка
 	spreads *
 		heroes <= Button2 $mol_book2_catalog
