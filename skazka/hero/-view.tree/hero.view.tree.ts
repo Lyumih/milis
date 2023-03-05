@@ -6,8 +6,9 @@ namespace $ {
 		 * rows /$mol_view
 		 * 	<= Title
 		 * 	<= TitleBook
-		 * 	<= Audiobook
 		 * 	<= Description
+		 * 	<= Audiobook
+		 * 	<= Videobook
 		 * 	<= Book
 		 * ```
 		 */
@@ -15,8 +16,9 @@ namespace $ {
 			return [
 				this.Title(),
 				this.TitleBook(),
-				this.Audiobook(),
 				this.Description(),
+				this.Audiobook(),
+				this.Videobook(),
 				this.Book()
 			] as readonly $mol_view[]
 		}
@@ -57,6 +59,27 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * Description $mol_section
+		 * 	title \Описание
+		 * 	level 3
+		 * 	content / \Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания.
+		 * ```
+		 */
+		@ $mol_mem
+		Description() {
+			const obj = new this.$.$mol_section()
+			
+			obj.title = () => "Описание"
+			obj.level = () => 3
+			obj.content = () => [
+				"Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания."
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
 		 * Audiobook $mol_link
 		 * 	title \Слушать сказку онлайн
 		 * 	uri \https://audioskazki-online.ru/narodnye/russkie/morskoj-tsar-i-vasilisa-premudraya
@@ -76,21 +99,14 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Description $mol_section
-		 * 	title \Описание
-		 * 	level 3
-		 * 	content / \Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания.
+		 * Videobook $mol_embed_youtube uri \https://www.youtube.com/embed/LDqEw-M8iyE
 		 * ```
 		 */
 		@ $mol_mem
-		Description() {
-			const obj = new this.$.$mol_section()
+		Videobook() {
+			const obj = new this.$.$mol_embed_youtube()
 			
-			obj.title = () => "Описание"
-			obj.level = () => 3
-			obj.content = () => [
-				"Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания."
-			] as readonly any[]
+			obj.uri = () => "https://www.youtube.com/embed/LDqEw-M8iyE"
 			
 			return obj
 		}
