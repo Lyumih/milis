@@ -2409,9 +2409,9 @@ declare namespace $ {
             heroes: $$.$mol_book2_catalog;
             map: $mol_page;
         };
-        VasilisaHero(): $milis_skazka_hero;
+        VasilisaHero(): $$.$milis_skazka_hero;
         VasilisaPage(): $mol_page;
-        TriBogatirya(): $milis_skazka_hero;
+        TriBogatirya(): $$.$milis_skazka_hero;
         TriBogatiryaPage(): $mol_page;
         Button2(): $$.$mol_book2_catalog;
         place_title(): string;
@@ -2420,6 +2420,11 @@ declare namespace $ {
         Place(): $$.$mol_map_yandex_mark;
         Map(): $$.$mol_map_yandex;
         Button(): $mol_page;
+    }
+}
+
+declare namespace $.$$ {
+    class $milis_skazka_hero extends $.$milis_skazka_hero {
     }
 }
 

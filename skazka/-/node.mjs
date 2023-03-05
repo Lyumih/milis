@@ -7271,7 +7271,7 @@ var $;
                     ?? 'about:blank';
             }
             video_preview() {
-                return `https://i.ytimg.com/vi_webp/${this.video_id()}/sddefault.webp`;
+                return `https://i.ytimg.com/vi_webp/${this.video_id()}/hq720.webp`;
             }
             sub() {
                 return [this.active() ? this.Frame() : this.Image()];
@@ -7346,7 +7346,6 @@ var $;
         Videobook() {
             const obj = new this.$.$mol_embed_youtube();
             obj.uri = () => "https://www.youtube.com/embed/LDqEw-M8iyE";
-            obj.active = () => true;
             return obj;
         }
         Book() {
@@ -8253,6 +8252,36 @@ var $;
     $.$milis_skazka = $milis_skazka;
 })($ || ($ = {}));
 //milis/skazka/-view.tree/skazka.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const heroItems = [
+            {
+                hero: 'Василиса Премудрая',
+                fairytale: 'МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ.',
+                description: 'Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания.',
+                audioUrl: 'https://audioskazki-online.ru/narodnye/russkie/morskoj-tsar-i-vasilisa-premudraya',
+                videoUrl: 'https://www.youtube.com/embed/LDqEw-M8iyE',
+                textUrl: 'МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ. Русская народная сказка. За тридевять земель, в тридесятом государстве жил-был царь с царицею; детей у них не было. Поехал ...',
+            },
+            {
+                hero: 'Три богатыря',
+                fairytale: 'МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ.',
+                description: 'Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания.',
+                audioUrl: 'https://audioskazki-online.ru/narodnye/russkie/morskoj-tsar-i-vasilisa-premudraya',
+                videoUrl: 'https://www.youtube.com/embed/LDqEw-M8iyE',
+                textUrl: 'МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ. Русская народная сказка. За тридевять земель, в тридесятом государстве жил-был царь с царицею; детей у них не было. Поехал ...',
+            }
+        ];
+        class $milis_skazka_hero extends $.$milis_skazka_hero {
+        }
+        $$.$milis_skazka_hero = $milis_skazka_hero;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//milis/skazka/skazka.view.ts
 ;
 export default $
 //# sourceMappingURL=node.mjs.map

@@ -99,9 +99,7 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Videobook $mol_embed_youtube
-		 * 	uri \https://www.youtube.com/embed/LDqEw-M8iyE
-		 * 	active true
+		 * Videobook $mol_embed_youtube uri \https://www.youtube.com/embed/LDqEw-M8iyE
 		 * ```
 		 */
 		@ $mol_mem
@@ -109,7 +107,6 @@ namespace $ {
 			const obj = new this.$.$mol_embed_youtube()
 			
 			obj.uri = () => "https://www.youtube.com/embed/LDqEw-M8iyE"
-			obj.active = () => true
 			
 			return obj
 		}

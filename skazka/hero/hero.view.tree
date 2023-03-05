@@ -16,7 +16,6 @@ $milis_skazka_hero $mol_list
 			target \_blank
 		<= Videobook $mol_embed_youtube
 			uri \https://www.youtube.com/embed/LDqEw-M8iyE
-			active true
 		<= Book $mol_section
 			title \Сказка
 			content / \МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ. Русская народная сказка. За тридевять земель, в тридесятом государстве жил-был царь с царицею; детей у них не было. Поехал ...
