@@ -7338,6 +7338,7 @@ var $;
         Videobook() {
             const obj = new this.$.$mol_embed_youtube();
             obj.uri = () => "https://www.youtube.com/embed/LDqEw-M8iyE";
+            obj.active = () => true;
             return obj;
         }
         Book() {
@@ -7370,6 +7371,9 @@ var $;
     $.$milis_skazka_hero = $milis_skazka_hero;
 })($ || ($ = {}));
 //milis/skazka/hero/-view.tree/hero.view.tree.ts
+;
+"use strict";
+//milis/skazka/hero/hero.view.ts
 ;
 "use strict";
 var $;
@@ -8137,7 +8141,7 @@ var $;
             return "skazka";
         }
         title() {
-            return "Окно в Сказку";
+            return "Сказка в Лесу";
         }
         menu_title() {
             return "Сказка";

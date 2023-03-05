@@ -2190,6 +2190,17 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    type $milis_skazka_hero_type = {
+        hero: string;
+        fairytale: string;
+        description: string;
+        audioUrl: string;
+        videoUrl: string;
+        textUrl: string;
+    };
+}
+
+declare namespace $ {
     class $mol_vector<Value, Length extends number> extends Array<Value> {
         get length(): Length;
         constructor(...values: Value[] & {
