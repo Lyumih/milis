@@ -2101,6 +2101,8 @@ declare namespace $ {
 declare namespace $ {
     class $mol_state_arg extends $mol_object {
         prefix: string;
+        static prolog: string;
+        static separator: string;
         static href(next?: string): string;
         static href_normal(): string;
         static dict(next?: {
@@ -2186,23 +2188,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_ghost extends $mol_view {
-        Sub(): $mol_view;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_ghost extends $.$mol_ghost {
-        dom_node(next?: Element): Element;
-        dom_node_actual(): Element;
-        dom_tree(): Element;
-        title(): string;
-        minimal_width(): number;
-        minimal_height(): number;
-    }
 }
 
 declare namespace $ {
@@ -2350,7 +2335,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_embed_any extends $mol_ghost {
+    class $mol_embed_any extends $mol_view {
         Image(): $mol_image;
         Object(): $$.$mol_embed_native;
         Youtube(): $$.$mol_embed_youtube;
@@ -2362,7 +2347,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_embed_any extends $.$mol_embed_any {
         type(): "image" | "object" | "youtube";
-        Sub(): $mol_image | $mol_embed_native | $mol_embed_youtube;
+        sub(): $mol_image[] | $mol_embed_youtube[] | $mol_embed_native[];
     }
 }
 
