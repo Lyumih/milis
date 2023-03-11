@@ -3434,6 +3434,26 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_text_list extends $mol_text {
+        auto_scroll(): any;
+        attr(): {
+            mol_text_list_type: string;
+        };
+        Paragraph(id: any): $mol_text_list_item;
+        type(): string;
+    }
+    class $mol_text_list_item extends $mol_paragraph {
+        attr(): {
+            mol_text_list_item_index: number;
+        };
+        index(): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $milis_stat_chart extends $mol_view {
         sub(): readonly any[];
         Title(): $$.$mol_text;
@@ -3456,6 +3476,9 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
     class $milis_stat extends $mol_book2_catalog {
         param(): string;
         title(): string;
@@ -3471,7 +3494,6 @@ declare namespace $ {
             conversion: $mol_page;
             github: $$.$mol_link;
         };
-        AllLabel(): $$.$mol_text;
         Chart1(): $milis_stat_chart;
         Chart2(): $milis_stat_chart;
         Chart3(): $milis_stat_chart;
@@ -3496,26 +3518,6 @@ declare namespace $ {
         ConversionPage(): $mol_page;
         GitHub(): $$.$mol_link;
     }
-}
-
-declare namespace $ {
-    class $mol_text_list extends $mol_text {
-        auto_scroll(): any;
-        attr(): {
-            mol_text_list_type: string;
-        };
-        Paragraph(id: any): $mol_text_list_item;
-        type(): string;
-    }
-    class $mol_text_list_item extends $mol_paragraph {
-        attr(): {
-            mol_text_list_item_index: number;
-        };
-        index(): number;
-    }
-}
-
-declare namespace $ {
 }
 
 export = $;

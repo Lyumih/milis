@@ -1050,6 +1050,20 @@ $mol_chart $mol_view
 			hue_base <= hue_base 140
 			hue_shift <= hue_shift 111
 
+$mol_text_list $mol_text
+	auto_scroll null
+	attr *
+		^
+		mol_text_list_type <= type \
+	Paragraph* $mol_text_list_item
+		index <= item_index*
+		sub <= block_content*
+
+$mol_text_list_item $mol_paragraph
+	attr *
+		^
+		mol_text_list_item_index <= index 0
+
 $milis_stat_chart $mol_view
 	sub /
 		<= Title $mol_text text <= title
@@ -1086,20 +1100,6 @@ $milis_stat_chart $mol_view
 						<= Plan
 						<= Fact_dots
 
-$mol_text_list $mol_text
-	auto_scroll null
-	attr *
-		^
-		mol_text_list_type <= type \
-	Paragraph* $mol_text_list_item
-		index <= item_index*
-		sub <= block_content*
-
-$mol_text_list_item $mol_paragraph
-	attr *
-		^
-		mol_text_list_item_index <= index 0
-
 $milis_stat $mol_book2_catalog
 	param \stat
 	title \Что-то Стат
@@ -1108,7 +1108,6 @@ $milis_stat $mol_book2_catalog
 		all <= AllPage $mol_page
 			title \Все графики
 			body /
-				<= AllLabel $mol_text text \Все графики
 				<= Chart1 $milis_stat_chart
 					title \Посетители
 				<= Chart2 $milis_stat_chart

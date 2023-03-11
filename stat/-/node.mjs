@@ -12281,6 +12281,55 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_text_list extends $mol_text {
+        auto_scroll() {
+            return null;
+        }
+        attr() {
+            return {
+                ...super.attr(),
+                mol_text_list_type: this.type()
+            };
+        }
+        Paragraph(id) {
+            const obj = new this.$.$mol_text_list_item();
+            obj.index = () => this.item_index(id);
+            obj.sub = () => this.block_content(id);
+            return obj;
+        }
+        type() {
+            return "";
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], $mol_text_list.prototype, "Paragraph", null);
+    $.$mol_text_list = $mol_text_list;
+    class $mol_text_list_item extends $mol_paragraph {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_text_list_item_index: this.index()
+            };
+        }
+        index() {
+            return 0;
+        }
+    }
+    $.$mol_text_list_item = $mol_text_list_item;
+})($ || ($ = {}));
+//mol/text/list/-view.tree/list.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/text/list/list.view.css", "[mol_text_list] {\r\n\tpadding-left: 1.75rem;\r\n}\r\n\r\n[mol_text_list_item] {\r\n\tcontain: none;\r\n\tdisplay: list-item;\r\n}\r\n\r\n[mol_text_list_item]::before {\r\n\tcontent: attr( mol_text_list_item_index ) \".\";\r\n\twidth: 1.25rem;\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\tmargin-left: -1.75rem;\r\n\ttext-align: end;\r\n}\r\n\r\n[mol_text_list_type=\"-\"] > [mol_text_list_item]::before,\r\n[mol_text_list_type=\"*\"] > [mol_text_list_item]::before {\r\n\tcontent: \"•\";\r\n}\r\n");
+})($ || ($ = {}));
+//mol/text/list/-css/list.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $milis_stat_chart extends $mol_view {
         sub() {
             return [
@@ -12418,6 +12467,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $mol_style_attach("milis/stat/chart/chart.view.css", "[milis_stat_chart] {\n\tflex-direction: column;\n\tflex-grow: 1;\n}\n\n[milis_stat_chart_title_paragraph] {\n\tmargin-top: 4rem;\n\tfont-size: 2rem;\n}\n");
+})($ || ($ = {}));
+//milis/stat/chart/-css/chart.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $milis_stat extends $mol_book2_catalog {
         param() {
             return "stat";
@@ -12440,11 +12496,6 @@ var $;
                 conversion: this.ConversionPage(),
                 github: this.GitHub()
             };
-        }
-        AllLabel() {
-            const obj = new this.$.$mol_text();
-            obj.text = () => "Все графики";
-            return obj;
         }
         Chart1() {
             const obj = new this.$.$milis_stat_chart();
@@ -12485,7 +12536,6 @@ var $;
             const obj = new this.$.$mol_page();
             obj.title = () => "Все графики";
             obj.body = () => [
-                this.AllLabel(),
                 this.Chart1(),
                 this.Chart2(),
                 this.Chart3(),
@@ -12596,9 +12646,6 @@ var $;
     }
     __decorate([
         $mol_mem
-    ], $milis_stat.prototype, "AllLabel", null);
-    __decorate([
-        $mol_mem
     ], $milis_stat.prototype, "Chart1", null);
     __decorate([
         $mol_mem
@@ -12669,55 +12716,6 @@ var $;
     $.$milis_stat = $milis_stat;
 })($ || ($ = {}));
 //milis/stat/-view.tree/stat.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_text_list extends $mol_text {
-        auto_scroll() {
-            return null;
-        }
-        attr() {
-            return {
-                ...super.attr(),
-                mol_text_list_type: this.type()
-            };
-        }
-        Paragraph(id) {
-            const obj = new this.$.$mol_text_list_item();
-            obj.index = () => this.item_index(id);
-            obj.sub = () => this.block_content(id);
-            return obj;
-        }
-        type() {
-            return "";
-        }
-    }
-    __decorate([
-        $mol_mem_key
-    ], $mol_text_list.prototype, "Paragraph", null);
-    $.$mol_text_list = $mol_text_list;
-    class $mol_text_list_item extends $mol_paragraph {
-        attr() {
-            return {
-                ...super.attr(),
-                mol_text_list_item_index: this.index()
-            };
-        }
-        index() {
-            return 0;
-        }
-    }
-    $.$mol_text_list_item = $mol_text_list_item;
-})($ || ($ = {}));
-//mol/text/list/-view.tree/list.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/text/list/list.view.css", "[mol_text_list] {\r\n\tpadding-left: 1.75rem;\r\n}\r\n\r\n[mol_text_list_item] {\r\n\tcontain: none;\r\n\tdisplay: list-item;\r\n}\r\n\r\n[mol_text_list_item]::before {\r\n\tcontent: attr( mol_text_list_item_index ) \".\";\r\n\twidth: 1.25rem;\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\tmargin-left: -1.75rem;\r\n\ttext-align: end;\r\n}\r\n\r\n[mol_text_list_type=\"-\"] > [mol_text_list_item]::before,\r\n[mol_text_list_type=\"*\"] > [mol_text_list_item]::before {\r\n\tcontent: \"•\";\r\n}\r\n");
-})($ || ($ = {}));
-//mol/text/list/-css/list.view.css.ts
 ;
 export default $
 //# sourceMappingURL=node.mjs.map

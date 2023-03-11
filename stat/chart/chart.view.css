@@ -1,0 +1,9 @@
+[milis_stat_chart] {
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+[milis_stat_chart_title_paragraph] {
+	margin-top: 4rem;
+	font-size: 2rem;
+}

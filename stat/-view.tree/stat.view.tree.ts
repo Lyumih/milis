@@ -58,20 +58,6 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * AllLabel $mol_text text \Все графики
-		 * ```
-		 */
-		@ $mol_mem
-		AllLabel() {
-			const obj = new this.$.$mol_text()
-			
-			obj.text = () => "Все графики"
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
 		 * Chart1 $milis_stat_chart title \Посетители
 		 * ```
 		 */
@@ -173,7 +159,6 @@ namespace $ {
 		 * AllPage $mol_page
 		 * 	title \Все графики
 		 * 	body /
-		 * 		<= AllLabel
 		 * 		<= Chart1
 		 * 		<= Chart2
 		 * 		<= Chart3
@@ -189,7 +174,6 @@ namespace $ {
 			
 			obj.title = () => "Все графики"
 			obj.body = () => [
-				this.AllLabel(),
 				this.Chart1(),
 				this.Chart2(),
 				this.Chart3(),
