@@ -200,6 +200,71 @@ var $;
 ;
 "use strict";
 var $;
+(function ($) {
+    class $mol_after_tick extends $mol_object2 {
+        task;
+        promise;
+        cancelled = false;
+        constructor(task) {
+            super();
+            this.task = task;
+            this.promise = Promise.resolve().then(() => {
+                if (this.cancelled)
+                    return;
+                task();
+            });
+        }
+        destructor() {
+            this.cancelled = true;
+        }
+    }
+    $.$mol_after_tick = $mol_after_tick;
+})($ || ($ = {}));
+//mol/after/tick/tick.ts
+;
+"use strict";
+var $;
+(function ($) {
+})($ || ($ = {}));
+//mol/dom/context/context.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_dom_context = self;
+})($ || ($ = {}));
+//mol/dom/context/context.web.ts
+;
+"use strict";
+var $;
+(function ($) {
+    let all = [];
+    let el = null;
+    let timer = null;
+    function $mol_style_attach(id, text) {
+        all.push(`/* ${id} */\n\n${text}`);
+        if (timer)
+            return el;
+        const doc = $mol_dom_context.document;
+        if (!doc)
+            return null;
+        el = doc.createElement('style');
+        el.id = `$mol_style_attach`;
+        doc.head.appendChild(el);
+        timer = new $mol_after_tick(() => {
+            el.innerHTML = '\n' + all.join('\n\n');
+            all = [];
+            el = null;
+            timer = null;
+        });
+        return el;
+    }
+    $.$mol_style_attach = $mol_style_attach;
+})($ || ($ = {}));
+//mol/style/attach/attach.ts
+;
+"use strict";
+var $;
 (function ($_1) {
     let $$;
     (function ($$) {
@@ -1347,43 +1412,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-})($ || ($ = {}));
-//mol/dom/context/context.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_dom_context = self;
-})($ || ($ = {}));
-//mol/dom/context/context.web.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_after_tick extends $mol_object2 {
-        task;
-        promise;
-        cancelled = false;
-        constructor(task) {
-            super();
-            this.task = task;
-            this.promise = Promise.resolve().then(() => {
-                if (this.cancelled)
-                    return;
-                task();
-            });
-        }
-        destructor() {
-            this.cancelled = true;
-        }
-    }
-    $.$mol_after_tick = $mol_after_tick;
-})($ || ($ = {}));
-//mol/after/tick/tick.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_view_selection extends $mol_object {
         static focused(next, notify) {
             const parents = [];
@@ -1720,34 +1748,6 @@ var $;
 ;
 "use strict";
 //mol/type/pick/pick.ts
-;
-"use strict";
-var $;
-(function ($) {
-    let all = [];
-    let el = null;
-    let timer = null;
-    function $mol_style_attach(id, text) {
-        all.push(`/* ${id} */\n\n${text}`);
-        if (timer)
-            return el;
-        const doc = $mol_dom_context.document;
-        if (!doc)
-            return null;
-        el = doc.createElement('style');
-        el.id = `$mol_style_attach`;
-        doc.head.appendChild(el);
-        timer = new $mol_after_tick(() => {
-            el.innerHTML = '\n' + all.join('\n\n');
-            all = [];
-            el = null;
-            timer = null;
-        });
-        return el;
-    }
-    $.$mol_style_attach = $mol_style_attach;
-})($ || ($ = {}));
-//mol/style/attach/attach.ts
 ;
 "use strict";
 var $;
@@ -12099,7 +12099,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/stat/chart/chart.view.css", "[milis_stat_chart] {\n\tflex-direction: column;\n\tflex-grow: 1;\n}\n\n[milis_stat_chart_title_paragraph] {\n\tmargin-top: 4rem;\n\tfont-size: 2rem;\n}\n");
+    $mol_style_attach("milis/stat/chart/chart.view.css", "[milis_stat_chart] {\n\tflex-direction: column;\n\tflex-grow: 1;\n\tborder-bottom: 3px solid gray;\n}\n\n[milis_stat_chart_chart] {\n\tpadding: 2rem;\n\tmax-height: 400px;\n}\n\n[milis_stat_chart_title_paragraph] {\n\tmargin-top: 2rem;\n\tfont-size: 2rem;\n}\n");
 })($ || ($ = {}));
 //milis/stat/chart/-css/chart.view.css.ts
 ;
@@ -12348,6 +12348,13 @@ var $;
     $.$milis_stat = $milis_stat;
 })($ || ($ = {}));
 //milis/stat/-view.tree/stat.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("milis/stat/stat.view.css", "[mol_page]:nth-child(2) {\n\twidth: 100%;\n}\n");
+})($ || ($ = {}));
+//milis/stat/-css/stat.view.css.ts
 ;
 export default $
 //# sourceMappingURL=web.mjs.map
