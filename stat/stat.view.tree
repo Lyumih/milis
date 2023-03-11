@@ -6,7 +6,6 @@ $milis_stat $mol_book2_catalog
 		all <= AllPage $mol_page
 			title \Все графики
 			body /
-				<= AllLabel $mol_text text \Все графики
 				<= Chart1 $milis_stat_chart
 					title \Посетители
 				<= Chart2 $milis_stat_chart
