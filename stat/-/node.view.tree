@@ -1109,7 +1109,7 @@ $milis_stat $mol_book2_catalog
 			title \Все графики
 			body /
 				<= Chart1 $milis_stat_chart
-					title \Посетители
+					title \Посетители по месяцам
 				<= Chart2 $milis_stat_chart
 					title \Визиты
 				<= Chart3 $milis_stat_chart

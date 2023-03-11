@@ -58,14 +58,14 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Chart1 $milis_stat_chart title \Посетители
+		 * Chart1 $milis_stat_chart title \Посетители по месяцам
 		 * ```
 		 */
 		@ $mol_mem
 		Chart1() {
 			const obj = new this.$.$milis_stat_chart()
 			
-			obj.title = () => "Посетители"
+			obj.title = () => "Посетители по месяцам"
 			
 			return obj
 		}

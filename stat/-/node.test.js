@@ -12459,7 +12459,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/stat/chart/chart.view.css", "[milis_stat_chart] {\n\tflex-direction: column;\n\tflex-grow: 1;\n\tborder-bottom: 3px solid gray;\n}\n\n[milis_stat_chart_chart] {\n\tpadding: 2rem;\n\tmax-height: 450px;\n}\n\n[milis_stat_chart_title_paragraph] {\n\tmargin-top: 2rem;\n\tfont-size: 2rem;\n}\n");
+    $mol_style_attach("milis/stat/chart/chart.view.css", "[milis_stat_chart] {\n\tflex-direction: column;\n\tborder-bottom: 3px solid gray;\n}\n\n[milis_stat_chart_chart] {\n\tpadding: 2rem;\n\tmax-height: 450px;\n}\n\n[milis_stat_chart_title_paragraph] {\n\tmargin-top: 2rem;\n\tfont-size: 1.5rem;\n}\n");
 })($ || ($ = {}));
 //milis/stat/chart/-css/chart.view.css.ts
 ;
@@ -12491,7 +12491,7 @@ var $;
         }
         Chart1() {
             const obj = new this.$.$milis_stat_chart();
-            obj.title = () => "Посетители";
+            obj.title = () => "Посетители по месяцам";
             return obj;
         }
         Chart2() {
@@ -12712,7 +12712,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/stat/stat.view.css", "[mol_page]:nth-child(2) {\n\twidth: 100%;\n}\n");
+    $mol_style_attach("milis/stat/stat.view.css", "[mol_page]:nth-child(2) {\n\tflex-grow: 5;\n}\n");
 })($ || ($ = {}));
 //milis/stat/-css/stat.view.css.ts
 ;
