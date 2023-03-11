@@ -1,0 +1,61 @@
+$milis_stat $mol_book2_catalog
+	param \stat
+	title \Что-то Стат
+	menu_title \Статистика
+	spreads *
+		all <= AllPage $mol_page
+			title \Все графики
+			body /
+				<= AllLabel $mol_text text \Все графики
+				<= Chart1 $milis_stat_chart
+					title \Посетители
+				<= Chart2 $milis_stat_chart
+					title \Визиты
+				<= Chart3 $milis_stat_chart
+					title \География
+				<= Chart4 $milis_stat_chart
+					title \Откуда пришли
+				<= Chart5 $milis_stat_chart
+					title \По какие запросам шли
+				<= Chart6 $milis_stat_chart
+					title \Ивенты
+				<= Chart7 $milis_stat_chart
+					title \Конверсия Ивентов
+		users <= UsersPage $mol_page
+			title \Посетители
+			body /
+				<= ChartOnlyUsers $milis_stat_chart
+					title \Посетители
+		visits <= VisitsPage $mol_page
+			title \Визиты
+			body /
+				<= ChartOnlyVisits $milis_stat_chart
+					title \Визиты
+		geo <= GeoPage $mol_page
+			title \География
+			body /
+				<= ChartOnlyGeo $milis_stat_chart
+					title \География
+		from <= FromPage $mol_page
+			title \Откуда пришли
+			body /
+				<= ChartOnlyFrom $milis_stat_chart
+					title \Откуда пришли
+		query <= QueryPage $mol_page
+			title \По каким запросам шли
+			body /
+				<= ChartOnlyQuery $milis_stat_chart
+					title \По каким запросам шли
+		events <= EventsPage $mol_page
+			title \Ивенты
+			body /
+				<= ChartOnlyEvents $milis_stat_chart
+					title \Ивенты
+		conversion <= ConversionPage $mol_page
+			title \Конверсии Ивентов
+			body /
+				<= ChartOnlyConversion $milis_stat_chart
+					title \Конверсии Ивентов
+		github <= GitHub $mol_link
+			uri \https://github.com/Lyumih/milis/tree/main/stat
+			target \_blank
