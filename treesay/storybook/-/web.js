@@ -56,6 +56,10 @@ var $;
                         key: '\\',
                         value: 'содержит строку '
                     },
+                    {
+                        key: '^[0-9]',
+                        value: 'число '
+                    },
                 ]);
             }
             static parse(text) {
@@ -66,8 +70,9 @@ var $;
                     .replaceAll(this.grammar()[2].key, this.grammar()[2].value)
                     .replaceAll(this.grammar()[3].key, this.grammar()[3].value)
                     .replaceAll(this.grammar()[4].key, this.grammar()[4].value));
-                console.log(translated);
-                return translated;
+                const translatedNum = translated.map(line => Number.isInteger(+line.trimStart().charAt(0)) ? 'число ' + line : line);
+                console.log(translatedNum);
+                return translatedNum;
             }
         }
         $$.$milis_treesay = $milis_treesay;
@@ -11189,7 +11194,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const treeTemplate = `$milis_treesay $mol_view\n\ttitle \\abc\n\tkids /`;
+        const treeTemplate = `$milis_treesay $mol_view\n\ttitle \\abc\n\tkids /\n\t\t\\Привет мир\n\t\t42`;
         class $milis_treesay_demo extends $.$milis_treesay_demo {
             view_tree_input(next) {
                 console.log(next);
@@ -11203,9 +11208,8 @@ var $;
                 return this.view_tree_parse().join('\n');
             }
             say(event) {
-                console.log($mol_speech.say('123'));
-                console.log('sa2y', event);
-                $mol_speech.say(this.view_tree_parse[0]);
+                console.log(this.view_tree_parse[0]);
+                $mol_speech.say(this.view_tree_parse().join('.'));
             }
             grammar_text() {
                 return $milis_treesay.grammar().map((item, index) => `${index}. ${item.key} -> ${item.value}`).join('\n');
