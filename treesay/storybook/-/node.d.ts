@@ -13,6 +13,16 @@ declare namespace $ {
     export {};
 }
 
+declare namespace $.$$ {
+    class $milis_treesay extends Object {
+        static grammar(): {
+            key: string;
+            value: string;
+        }[];
+        static parse(text: string): string[];
+    }
+}
+
 declare namespace $ {
     const $mol_ambient_ref: unique symbol;
     type $mol_ambient_context = $;
@@ -747,11 +757,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $milis_treesay extends $mol_view {
-    }
-}
-
-declare namespace $ {
     class $mol_plugin extends $mol_view {
         dom_node(next?: Element): Element;
         attr_static(): {
@@ -761,16 +766,6 @@ declare namespace $ {
             [key: string]: (event: Event) => void;
         };
         render(): void;
-    }
-}
-
-declare namespace $.$$ {
-    class $milis_treesay extends Object {
-        static grammar(): {
-            key: string;
-            value: string;
-        }[];
-        static parse(text: string): string[];
     }
 }
 
@@ -1176,8 +1171,8 @@ declare namespace $.$$ {
         sub_visible(): any[];
         height_max(): number;
         align(): string;
-        align_vert(): "top" | "bottom" | "suspense";
-        align_hor(): "left" | "right" | "suspense";
+        align_vert(): "suspense" | "top" | "bottom";
+        align_hor(): "suspense" | "left" | "right";
         View_port(): $mol_view;
         view_port(): {
             width: number;
@@ -3136,7 +3131,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_theme_auto extends $.$mol_theme_auto {
-        theme(): "$mol_theme_dark" | "$mol_theme_light";
+        theme(): "$mol_theme_light" | "$mol_theme_dark";
     }
 }
 
