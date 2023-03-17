@@ -23,6 +23,10 @@ namespace $.$$ {
 						key: '\\',
 						value: 'содержит строку '
 					},
+					{
+						key: '^[0-9]',
+						value: 'число '
+					},
 					// {
 					// 	key: '<=',
 					// 	value: 'Элемент '
@@ -42,8 +46,10 @@ namespace $.$$ {
 					.replaceAll( this.grammar()[4].key, this.grammar()[4].value )
 					// .replace( this.grammar()[4].key, this.grammar()[4].value )
 			)
-			console.log( translated )
-			return translated
+			const translatedNum = translated.map(line =>
+				Number.isInteger( +line.trimStart().charAt(0)) ? 'число ' + line : line)
+			console.log( translatedNum )
+			return translatedNum
 		}
 	}
 }
