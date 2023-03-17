@@ -131,7 +131,7 @@ namespace $ {
 		 * Grammar $mol_textarea
 		 * 	value <= grammar_text
 		 * 	hint \Граматика
-		 * 	enabled \false
+		 * 	enabled false
 		 * ```
 		 */
 		@ $mol_mem
@@ -140,7 +140,7 @@ namespace $ {
 			
 			obj.value = () => this.grammar_text()
 			obj.hint = () => "Граматика"
-			obj.enabled = () => "false"
+			obj.enabled = () => false
 			
 			return obj
 		}

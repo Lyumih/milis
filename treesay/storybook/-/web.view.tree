@@ -953,7 +953,7 @@ $milis_treesay_demo $mol_example_large
 		<= Grammar $mol_textarea
 			value <= grammar_text \
 			hint \Граматика
-			enabled \false
+			enabled false
 
 
 $milis_treesay_storybook $mol_app_demo
