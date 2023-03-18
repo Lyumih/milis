@@ -1,0 +1,9 @@
+$milis_courses $mol_book2_catalog
+	menu_title \Практика $mol
+	spreads *
+		theme1 <= Theme1 $mol_book2_catalog
+			menu_title \Введение
+		theme2 <= Theme2 $mol_book2_catalog
+			menu_title \Синтаксис .view.tree
+		theme3 <= Theme3 $mol_book2_catalog
+			menu_title \Параметры mol_view
