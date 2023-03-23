@@ -1,0 +1,24 @@
+$milis_onemorevpn $mol_book2_catalog
+	param \vpn
+	menu_title \Vpn
+	spreads *
+		search_page <= SearchPage $mol_page
+			title \Найди свой VPN
+			body /
+				<= Stat $mol_list
+					sub /
+						<= First_name $mol_string
+							hint \Имя
+						<= Last_name $mol_string
+							hint \Фамилия
+				<= Date $mol_date
+					value_moment?val <=> date?val $mol_time_moment
+				<= Fetch_button $mol_button_major
+					title \Получить данные
+					event_click?val <=> fetch_data?val null
+				<= Users $mol_list
+					rows <= users_rows /
+						<= Row*0 $mol_row
+							sub /
+								<= User_first_name* $mol_text text \Михаил
+								<= User_last_name* $mol_text text <= row_id*? \Иванов
