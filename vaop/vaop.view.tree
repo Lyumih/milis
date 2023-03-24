@@ -20,9 +20,9 @@ $milis_vaop $mol_page
 						\Реализовано на [$mol](https://mol.hyoo.ru/)
 		<= Runner_table $mol_list
 			rows /$mol_view
-				<= Table_header $mol_text text \Бизнес Программист Машина Текущий шаг Следующий шаг Имя
+				<= Table_header $mol_text text \# Runner "Парсер АПИ"
 				<= Agent $milis_vaop_agent
-					business? <=> business_example? \Создать новый экземпляр парсер сайта
+					business? <=> business_example? \Создать новый экземпляр парсера сайта
 					programmer? <=> programmer_example? \new Parser()
 					machine? <=> machine_example? \const parser = new Parser()
 					current_step? <=> current_step_example? 100
