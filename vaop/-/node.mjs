@@ -8823,13 +8823,13 @@ var $;
         }
         Table_header() {
             const obj = new this.$.$mol_text();
-            obj.text = () => "Бизнес Программист Машина Текущий шаг Следующий шаг Имя";
+            obj.text = () => "# Runner \"Парсер АПИ\"";
             return obj;
         }
         business_example(next) {
             if (next !== undefined)
                 return next;
-            return "Создать новый экземпляр парсер сайта";
+            return "Создать новый экземпляр парсера сайта";
         }
         programmer_example(next) {
             if (next !== undefined)

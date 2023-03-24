@@ -91,27 +91,27 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Table_header $mol_text text \Бизнес Программист Машина Текущий шаг Следующий шаг Имя
+		 * Table_header $mol_text text \# Runner "Парсер АПИ"
 		 * ```
 		 */
 		@ $mol_mem
 		Table_header() {
 			const obj = new this.$.$mol_text()
 			
-			obj.text = () => "Бизнес Программист Машина Текущий шаг Следующий шаг Имя"
+			obj.text = () => "# Runner \"Парсер АПИ\""
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * business_example? \Создать новый экземпляр парсер сайта
+		 * business_example? \Создать новый экземпляр парсера сайта
 		 * ```
 		 */
 		@ $mol_mem
 		business_example(next?: any) {
 			if ( next !== undefined ) return next as never
-			return "Создать новый экземпляр парсер сайта"
+			return "Создать новый экземпляр парсера сайта"
 		}
 		
 		/**
