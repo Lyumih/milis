@@ -2634,6 +2634,9 @@ declare namespace $ {
         business_example(next?: any): string;
         programmer_example(next?: any): string;
         machine_example(next?: any): string;
+        current_step_example(next?: any): number;
+        next_step_example(next?: any): number;
+        name_example(next?: any): string;
         Agent(): $milis_vaop_agent;
         Agent_new(): $milis_vaop_agent;
         Runner_table(): $$.$mol_list;

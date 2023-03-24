@@ -48,11 +48,12 @@ namespace $ {
 		 * 	\*Текущий шаг* - текущий шаг агента
 		 * 	\*Следующий шаг* - следующий шаг агента, если он есть
 		 * 	\Полное описание VAOP: https://habr.com/ru/post/554014/
-		 * 	\Сообщество: https://t.me/ecoprog
+		 * 	\Сообщество VAOP: https://t.me/ecoprog
+		 * 	\Реализовано на [$mol](https://mol.hyoo.ru/)
 		 * ```
 		 */
 		vaop_description() {
-			return "**VAOP** - это методология по ведению IT продукта, которая позволить динамически создавать неустаревающие программы\nVAOP состоит из 2 основных понятий: Раннер и Агент.\n**Раннер** - это точка запуска программы, которая содержит всех Агентов.\n**Aгент** - это условная единица инструкции, которая состоит из 5 понятий: *Бизнес*, *Программист*, *Машина*, *Текущий шаг*, *Следующий шаг* и дополнительного *Имя*\n*Бизнес* - согласованные, человекочитаемая инструкция требований от заказчика. Сначало идёт описание, только потом открываются все шаги.\n*Программист* - псевдокод от программиста, который реализует поставленную инструкцию от Бизнеса. Все изменения доступны только после того, как появилось требование от бизнеса.\n*Машина* - конкретный код, выполняющий эту инструкцию. Инструкция может быть выполнена в произвольном порядке\n*Текущий шаг* - текущий шаг агента\n*Следующий шаг* - следующий шаг агента, если он есть\nПолное описание VAOP: https://habr.com/ru/post/554014/\nСообщество: https://t.me/ecoprog"
+			return "**VAOP** - это методология по ведению IT продукта, которая позволить динамически создавать неустаревающие программы\nVAOP состоит из 2 основных понятий: Раннер и Агент.\n**Раннер** - это точка запуска программы, которая содержит всех Агентов.\n**Aгент** - это условная единица инструкции, которая состоит из 5 понятий: *Бизнес*, *Программист*, *Машина*, *Текущий шаг*, *Следующий шаг* и дополнительного *Имя*\n*Бизнес* - согласованные, человекочитаемая инструкция требований от заказчика. Сначало идёт описание, только потом открываются все шаги.\n*Программист* - псевдокод от программиста, который реализует поставленную инструкцию от Бизнеса. Все изменения доступны только после того, как появилось требование от бизнеса.\n*Машина* - конкретный код, выполняющий эту инструкцию. Инструкция может быть выполнена в произвольном порядке\n*Текущий шаг* - текущий шаг агента\n*Следующий шаг* - следующий шаг агента, если он есть\nПолное описание VAOP: https://habr.com/ru/post/554014/\nСообщество VAOP: https://t.me/ecoprog\nРеализовано на [$mol](https://mol.hyoo.ru/)"
 		}
 		
 		/**
@@ -115,13 +116,13 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * programmer_example? \const parser = new Parser()
+		 * programmer_example? \new Parser()
 		 * ```
 		 */
 		@ $mol_mem
 		programmer_example(next?: any) {
 			if ( next !== undefined ) return next as never
-			return "const parser = new Parser()"
+			return "new Parser()"
 		}
 		
 		/**
@@ -137,10 +138,46 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * current_step_example? 100
+		 * ```
+		 */
+		@ $mol_mem
+		current_step_example(next?: any) {
+			if ( next !== undefined ) return next as never
+			return 100
+		}
+		
+		/**
+		 * ```tree
+		 * next_step_example? 200
+		 * ```
+		 */
+		@ $mol_mem
+		next_step_example(next?: any) {
+			if ( next !== undefined ) return next as never
+			return 200
+		}
+		
+		/**
+		 * ```tree
+		 * name_example? \agent_create_parser
+		 * ```
+		 */
+		@ $mol_mem
+		name_example(next?: any) {
+			if ( next !== undefined ) return next as never
+			return "agent_create_parser"
+		}
+		
+		/**
+		 * ```tree
 		 * Agent $milis_vaop_agent
 		 * 	business? <=> business_example?
 		 * 	programmer? <=> programmer_example?
 		 * 	machine? <=> machine_example?
+		 * 	current_step? <=> current_step_example?
+		 * 	next_step? <=> next_step_example?
+		 * 	name? <=> name_example?
 		 * ```
 		 */
 		@ $mol_mem
@@ -150,6 +187,9 @@ namespace $ {
 			obj.business = (next?: any) => this.business_example(next)
 			obj.programmer = (next?: any) => this.programmer_example(next)
 			obj.machine = (next?: any) => this.machine_example(next)
+			obj.current_step = (next?: any) => this.current_step_example(next)
+			obj.next_step = (next?: any) => this.next_step_example(next)
+			obj.name = (next?: any) => this.name_example(next)
 			
 			return obj
 		}

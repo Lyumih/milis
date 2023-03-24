@@ -8806,7 +8806,7 @@ var $;
             ];
         }
         vaop_description() {
-            return "**VAOP** - это методология по ведению IT продукта, которая позволить динамически создавать неустаревающие программы\nVAOP состоит из 2 основных понятий: Раннер и Агент.\n**Раннер** - это точка запуска программы, которая содержит всех Агентов.\n**Aгент** - это условная единица инструкции, которая состоит из 5 понятий: *Бизнес*, *Программист*, *Машина*, *Текущий шаг*, *Следующий шаг* и дополнительного *Имя*\n*Бизнес* - согласованные, человекочитаемая инструкция требований от заказчика. Сначало идёт описание, только потом открываются все шаги.\n*Программист* - псевдокод от программиста, который реализует поставленную инструкцию от Бизнеса. Все изменения доступны только после того, как появилось требование от бизнеса.\n*Машина* - конкретный код, выполняющий эту инструкцию. Инструкция может быть выполнена в произвольном порядке\n*Текущий шаг* - текущий шаг агента\n*Следующий шаг* - следующий шаг агента, если он есть\nПолное описание VAOP: https://habr.com/ru/post/554014/\nСообщество: https://t.me/ecoprog";
+            return "**VAOP** - это методология по ведению IT продукта, которая позволить динамически создавать неустаревающие программы\nVAOP состоит из 2 основных понятий: Раннер и Агент.\n**Раннер** - это точка запуска программы, которая содержит всех Агентов.\n**Aгент** - это условная единица инструкции, которая состоит из 5 понятий: *Бизнес*, *Программист*, *Машина*, *Текущий шаг*, *Следующий шаг* и дополнительного *Имя*\n*Бизнес* - согласованные, человекочитаемая инструкция требований от заказчика. Сначало идёт описание, только потом открываются все шаги.\n*Программист* - псевдокод от программиста, который реализует поставленную инструкцию от Бизнеса. Все изменения доступны только после того, как появилось требование от бизнеса.\n*Машина* - конкретный код, выполняющий эту инструкцию. Инструкция может быть выполнена в произвольном порядке\n*Текущий шаг* - текущий шаг агента\n*Следующий шаг* - следующий шаг агента, если он есть\nПолное описание VAOP: https://habr.com/ru/post/554014/\nСообщество VAOP: https://t.me/ecoprog\nРеализовано на [$mol](https://mol.hyoo.ru/)";
         }
         Vaop() {
             const obj = new this.$.$mol_text();
@@ -8834,18 +8834,36 @@ var $;
         programmer_example(next) {
             if (next !== undefined)
                 return next;
-            return "const parser = new Parser()";
+            return "new Parser()";
         }
         machine_example(next) {
             if (next !== undefined)
                 return next;
             return "const parser = new Parser()";
         }
+        current_step_example(next) {
+            if (next !== undefined)
+                return next;
+            return 100;
+        }
+        next_step_example(next) {
+            if (next !== undefined)
+                return next;
+            return 200;
+        }
+        name_example(next) {
+            if (next !== undefined)
+                return next;
+            return "agent_create_parser";
+        }
         Agent() {
             const obj = new this.$.$milis_vaop_agent();
             obj.business = (next) => this.business_example(next);
             obj.programmer = (next) => this.programmer_example(next);
             obj.machine = (next) => this.machine_example(next);
+            obj.current_step = (next) => this.current_step_example(next);
+            obj.next_step = (next) => this.next_step_example(next);
+            obj.name = (next) => this.name_example(next);
             return obj;
         }
         Agent_new() {
@@ -8894,6 +8912,15 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "machine_example", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "current_step_example", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "next_step_example", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "name_example", null);
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Agent", null);
