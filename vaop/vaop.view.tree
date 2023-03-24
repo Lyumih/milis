@@ -1,0 +1,60 @@
+$milis_vaop $mol_page
+	title \VAOP - экологичное программирование
+	body /
+		<= About_vaop $mol_expander
+			label \Что такое VAOP
+			content /
+				<= Vaop $mol_text
+					text <= vaop_description \
+						\**VAOP** - это методология по ведению IT продукта, которая позволить динамически создавать неустаревающие программы
+						\VAOP состоит из 2 основных понятий: Раннер и Агент.
+						\**Раннер** - это точка запуска программы, которая содержит всех Агентов.
+						\**Aгент** - это условная единица инструкции, которая состоит из 5 понятий: *Бизнес*, *Программист*, *Машина*, *Текущий шаг*, *Следующий шаг* и дополнительного *Имя*
+						\*Бизнес* - согласованные, человекочитаемая инструкция требований от заказчика. Сначало идёт описание, только потом открываются все шаги.
+						\*Программист* - псевдокод от программиста, который реализует поставленную инструкцию от Бизнеса. Все изменения доступны только после того, как появилось требование от бизнеса.
+						\*Машина* - конкретный код, выполняющий эту инструкцию. Инструкция может быть выполнена в произвольном порядке
+						\*Текущий шаг* - текущий шаг агента
+						\*Следующий шаг* - следующий шаг агента, если он есть
+		<= Runner_table $mol_list
+			rows /$mol_view
+				<= Table_header $mol_text text \Бизнес Программист Машина Текущий шаг Следующий шаг Имя
+				<= Agent $milis_vaop_agent
+					business? <=> business_example? \Создать новый экземпляр парсер сайта
+					programmer? <=> programmer_example? \const parser = new Parser()
+					machine? <=> machine_example? \const parser = new Parser()
+				<= Agent_new $milis_vaop_agent
+	foot /
+		<= Contacts $mol_section
+			title \Контакты
+			content /
+				<= Telegram $mol_link
+					uri \https://t.me/ecoprog
+					target \_blank
+
+$milis_vaop_agent $mol_row
+	sub /
+		<= Add $mol_button_minor
+			hint \Добавить агента
+			sub / <= Icon_add_list $mol_icon_account_plus
+		<= Business $mol_string
+			hint \Бизнес
+			value? <=> business? \
+		<= Programmer $mol_string
+			hint \Псевдокод
+			value? <=> programmer? \
+		<= Machine $mol_string
+			hint \Машина
+			value? <=> machine? \
+		<= Current_step $mol_number
+			hint \Текущий шаг
+			precision_change 100
+			value? <=> current_step? \
+		<= Next_step $mol_number
+			hint \Следующий шаг
+			precision_change 100
+			value? <=> next_step? \
+		<= Name $mol_string
+			hint \Имя агента
+			value? <=> name? \
+		<= Delete $mol_button_minor
+			sub / <= Icon_delete_agent $mol_icon_delete
