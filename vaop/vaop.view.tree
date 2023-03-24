@@ -16,14 +16,18 @@ $milis_vaop $mol_page
 						\*Текущий шаг* - текущий шаг агента
 						\*Следующий шаг* - следующий шаг агента, если он есть
 						\Полное описание VAOP: https://habr.com/ru/post/554014/
-						\Сообщество: https://t.me/ecoprog
+						\Сообщество VAOP: https://t.me/ecoprog
+						\Реализовано на [$mol](https://mol.hyoo.ru/)
 		<= Runner_table $mol_list
 			rows /$mol_view
 				<= Table_header $mol_text text \Бизнес Программист Машина Текущий шаг Следующий шаг Имя
 				<= Agent $milis_vaop_agent
 					business? <=> business_example? \Создать новый экземпляр парсер сайта
-					programmer? <=> programmer_example? \const parser = new Parser()
+					programmer? <=> programmer_example? \new Parser()
 					machine? <=> machine_example? \const parser = new Parser()
+					current_step? <=> current_step_example? 100
+					next_step? <=> next_step_example? 200
+					name? <=> name_example? \agent_create_parser
 				<= Agent_new $milis_vaop_agent
 	foot /
 		<= Contacts $mol_section
