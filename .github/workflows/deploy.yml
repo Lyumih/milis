@@ -24,7 +24,7 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT }}
         package: milis
-        modules: hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn
+        modules: hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn vaop
         
     - name: Consolidate apps
       run: |
