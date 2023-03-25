@@ -7,7 +7,7 @@ $milis_vaop $mol_page
 			blob <= download $mol_blob
 		<= Example $mol_button_minor
 			sub / <= Example_icon $mol_icon_presentation_play
-			hine \Показать пример
+			hint \Показать пример
 			click? <= set_example null
 		<= Menu $mol_pick
 			trigger_content / <= Menu_trigger_icon $mol_icon_dots_vertical
