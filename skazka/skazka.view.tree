@@ -1,26 +1,19 @@
-$milis_skazka $mol_book2_catalog
-	param \skazka
+$milis_skazka $mol_page
 	title \Сказка в Лесу
-	menu_title \Сказка
-	spreads *
-		heroes <= Button2 $mol_book2_catalog
-			param \heroes
-			menu_title \Персонажи
-			spreads *
-				vasilisa <= VasilisaPage $mol_page
-					title \Василиса Премудрая
-					body /
-						<= VasilisaHero $milis_skazka_hero
-				tri_bogatirya <= TriBogatiryaPage $mol_page
-					title \Три богатыря
-					body /
-						<= TriBogatirya $milis_skazka_hero
-		map <= Button $mol_page
-			title \Карта
-			body /
-				<= Map $mol_map_yandex
-					objects /
-						<= Place $mol_map_yandex_mark
-							title <= place_title \
-							address <= place_addres \Saint-Petersburg
-							content <= place_content \It is Russia's second-largest city after Moscow
+	body /
+		<= Hero $milis_skazka_hero
+			name <= hero_name \
+			fairytale <= hero_fairytale \
+			description <= hero_description \
+			audio <= hero_audio \
+			video <= hero_video \
+			book <= hero_text \
+	foot /
+		<= Conact_link $mol_link
+			title \Есть неточность?
+			uri \https://t.me/mikhail_eco_coach
+			target \_blank
+		<= LinkMol $mol_link
+			title \Сделано на $mol
+			uri \https://t.me/mam_mol
+			target \_blank
