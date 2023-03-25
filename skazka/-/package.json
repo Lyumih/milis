@@ -139,7 +139,6 @@
     "$mol_keyboard",
     "$mol_button_typed",
     "$mol_maybe",
-    "$milis_skazka_hero",
     "$mol_section",
     "$mol_paragraph",
     "$mol_text_text",
@@ -187,6 +186,7 @@
     "$mol_promise",
     "$mol_embed_youtube",
     "$mol_frame",
+    "$milis_skazka_hero",
     "$mol_fetch",
     "$mol_dom_parse"
   ],

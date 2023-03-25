@@ -2,34 +2,35 @@ namespace $.$$ {
 
 
 	export class $milis_vaop extends $.$milis_vaop {
-		@ $mol_mem
-		agent_list(next?: Object[]){
-			return next ?? Array.from(Array(3)).map((item, index)=> ({id: item}))
-		}
-		
-		@ $mol_mem
-		override agents(){
-			return this.agent_list().map((item, index) => this.Agent(index))
-		}
-		
-		@ $mol_action
-		add_agent(id: any) {
-			console.log('123', id, this.agent_list())
-			this.agent_list([...this.agent_list(), {id: 12}])
+		@$mol_mem
+		agent_list( next?: Object[] ) {
+			return next ?? [ { id: 1 }, { id: 2 }, { id: 3 } ]
 		}
 
-		// @ $mol_mem_key
-		// agent_machine(id: any){
-		// 	return this.agent_list[id].agent_machine ?? ''
-		// }
-
-		@ $mol_action
-		delete_agent(id: any) {
-			console.log('id before', id,  this.agents())
-			this.agent_list(this.agent_list().filter( (agent, index) => index !== id))
-			console.log('id after', id, this.agents())
+		@$mol_mem
+		override agents() {
+			return this.agent_list().map( ( item, index ) => this.Agent( index ) )
 		}
-		
+
+		@ $mol_mem_key
+		agent_machine(id: any, next?: any) {
+			console.log(id, next)
+			return next ?? ''
+		}
+
+		@$mol_action
+		delete_agent( id: any ) {
+			console.log( 'id before', id, this.agent_list(), this.agents() )
+			this.agent_list( this.agent_list().filter( ( agent, index ) => index !== id ) )
+			console.log( 'id after', id, this.agent_list(), this.agents() )
+		}
+
+		@$mol_action
+		add_agent( id: any ) {
+			console.log( '123', id, this.agent_list() )
+			this.agent_list( [ ...this.agent_list(), { id: 12 } ] )
+		}
+
 	}
 }
 

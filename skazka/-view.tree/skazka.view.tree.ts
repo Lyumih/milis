@@ -204,11 +204,19 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * hero_fairytale \
+		 * Name $mol_section
+		 * 	level 4
+		 * 	title <= hero_name
 		 * ```
 		 */
-		hero_fairytale() {
-			return ""
+		@ $mol_mem
+		Name() {
+			const obj = new this.$.$mol_section()
+			
+			obj.level = () => 4
+			obj.title = () => this.hero_name()
+			
+			return obj
 		}
 		
 		/**
@@ -217,6 +225,64 @@ namespace $ {
 		 * ```
 		 */
 		hero_description() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Description_text $mol_text text <= hero_description
+		 * ```
+		 */
+		@ $mol_mem
+		Description_text() {
+			const obj = new this.$.$mol_text()
+			
+			obj.text = () => this.hero_description()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Description $mol_section
+		 * 	title \
+		 * 	level 3
+		 * 	content / <= Description_text
+		 * ```
+		 */
+		@ $mol_mem
+		Description() {
+			const obj = new this.$.$mol_section()
+			
+			obj.title = () => ""
+			obj.level = () => 3
+			obj.content = () => [
+				this.Description_text()
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Videobook $mol_embed_youtube uri <= hero_video
+		 * ```
+		 */
+		@ $mol_mem
+		Videobook() {
+			const obj = new this.$.$mol_embed_youtube()
+			
+			obj.uri = () => this.hero_video()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * fairytale \
+		 * ```
+		 */
+		fairytale() {
 			return ""
 		}
 		
@@ -231,23 +297,56 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Hero $milis_skazka_hero
-		 * 	name <= hero_name
-		 * 	fairytale <= hero_fairytale
-		 * 	description <= hero_description
-		 * 	video <= hero_video
-		 * 	book <= hero_text
+		 * Book_text $mol_text text <= hero_text
+		 * ```
+		 */
+		@ $mol_mem
+		Book_text() {
+			const obj = new this.$.$mol_text()
+			
+			obj.text = () => this.hero_text()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Book $mol_section
+		 * 	title <= fairytale
+		 * 	content / <= Book_text
+		 * ```
+		 */
+		@ $mol_mem
+		Book() {
+			const obj = new this.$.$mol_section()
+			
+			obj.title = () => this.fairytale()
+			obj.content = () => [
+				this.Book_text()
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Hero $mol_list rows /$mol_view
+		 * 	<= Name
+		 * 	<= Description
+		 * 	<= Videobook
+		 * 	<= Book
 		 * ```
 		 */
 		@ $mol_mem
 		Hero() {
-			const obj = new this.$.$milis_skazka_hero()
+			const obj = new this.$.$mol_list()
 			
-			obj.name = () => this.hero_name()
-			obj.fairytale = () => this.hero_fairytale()
-			obj.description = () => this.hero_description()
-			obj.video = () => this.hero_video()
-			obj.book = () => this.hero_text()
+			obj.rows = () => [
+				this.Name(),
+				this.Description(),
+				this.Videobook(),
+				this.Book()
+			] as readonly $mol_view[]
 			
 			return obj
 		}

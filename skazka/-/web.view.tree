@@ -537,23 +537,6 @@ $mol_text_list_item $mol_paragraph
 		^
 		mol_text_list_item_index <= index 0
 
-$milis_skazka_hero $mol_list
-	rows /$mol_view
-		<= Title $mol_section
-			level 4
-			title <= name \
-		<= Description $mol_section
-			title \
-			level 3
-			content /
-				<= Description_text $mol_text text <= description \
-		<= Videobook $mol_embed_youtube
-			uri <= video \
-		<= Book $mol_section
-			title <= fairytale \
-			content /
-				<= Book_text $mol_text text <= book \
-
 $milis_skazka $mol_page
 	title \Сказка в Лесу
 	tools /
@@ -578,10 +561,37 @@ $milis_skazka $mol_page
 						uri \https://mol.hyoo.ru/
 						target \_blank
 	body /
-		<= Hero $milis_skazka_hero
-			name <= hero_name \
-			fairytale <= hero_fairytale \
-			description <= hero_description \
-			video <= hero_video \
-			book <= hero_text \
+		<= Hero $mol_list
+			rows /$mol_view
+				<= Name $mol_section
+					level 4
+					title <= hero_name \
+				<= Description $mol_section
+					title \
+					level 3
+					content /
+						<= Description_text $mol_text text <= hero_description \
+				<= Videobook $mol_embed_youtube
+					uri <= hero_video \
+				<= Book $mol_section
+					title <= fairytale \
+					content /
+						<= Book_text $mol_text text <= hero_text \
 	foot /
+
+$milis_skazka_hero $mol_list
+	rows /$mol_view
+		<= Title $mol_section
+			level 4
+			title <= name \
+		<= Description $mol_section
+			title \
+			level 3
+			content /
+				<= Description_text $mol_text text <= description \
+		<= Videobook $mol_embed_youtube
+			uri <= video \
+		<= Book $mol_section
+			title <= fairytale \
+			content /
+				<= Book_text $mol_text text <= book \

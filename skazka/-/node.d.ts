@@ -2534,6 +2534,35 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $milis_skazka extends $mol_page {
+        title(): string;
+        tools(): readonly any[];
+        body(): readonly any[];
+        foot(): readonly any[];
+        hero_audio(): string;
+        Audio_tool(): $$.$mol_link;
+        hero_video(): string;
+        Video_tool(): $$.$mol_link;
+        Menu_trigger_icon(): $mol_icon_dots_vertical;
+        Conact_link(): $$.$mol_link;
+        LinkMol(): $$.$mol_link;
+        Options_content(): $$.$mol_list;
+        Menu(): $$.$mol_pick;
+        hero_name(): string;
+        Name(): $$.$mol_section;
+        hero_description(): string;
+        Description_text(): $$.$mol_text;
+        Description(): $$.$mol_section;
+        Videobook(): $$.$mol_embed_youtube;
+        fairytale(): string;
+        hero_text(): string;
+        Book_text(): $$.$mol_text;
+        Book(): $$.$mol_section;
+        Hero(): $$.$mol_list;
+    }
+}
+
+declare namespace $ {
     class $milis_skazka_hero extends $mol_list {
         rows(): readonly $mol_view[];
         name(): string;
@@ -2559,29 +2588,6 @@ declare namespace $ {
         videoUrl: string;
         textUrl: string;
     };
-}
-
-declare namespace $ {
-    class $milis_skazka extends $mol_page {
-        title(): string;
-        tools(): readonly any[];
-        body(): readonly any[];
-        foot(): readonly any[];
-        hero_audio(): string;
-        Audio_tool(): $$.$mol_link;
-        hero_video(): string;
-        Video_tool(): $$.$mol_link;
-        Menu_trigger_icon(): $mol_icon_dots_vertical;
-        Conact_link(): $$.$mol_link;
-        LinkMol(): $$.$mol_link;
-        Options_content(): $$.$mol_list;
-        Menu(): $$.$mol_pick;
-        hero_name(): string;
-        hero_fairytale(): string;
-        hero_description(): string;
-        hero_text(): string;
-        Hero(): $milis_skazka_hero;
-    }
 }
 
 declare namespace $ {
@@ -2623,15 +2629,14 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $milis_skazka extends $.$milis_skazka {
-        constructor();
-        hero(): $milis_skazka_hero_type;
+        hero_id(): string;
+        hero(): any;
         hero_name(): string;
         hero_fairytale(): string;
         hero_description(): string;
         hero_audio(): string;
         hero_video(): string;
         hero_text(): string;
-        fetch_skazka(id?: string): void;
     }
 }
 

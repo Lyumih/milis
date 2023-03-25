@@ -8005,6 +8005,191 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $milis_skazka extends $mol_page {
+        title() {
+            return "Сказка в Лесу";
+        }
+        tools() {
+            return [
+                this.Audio_tool(),
+                this.Video_tool(),
+                this.Menu()
+            ];
+        }
+        body() {
+            return [
+                this.Hero()
+            ];
+        }
+        foot() {
+            return [];
+        }
+        hero_audio() {
+            return "";
+        }
+        Audio_tool() {
+            const obj = new this.$.$mol_link();
+            obj.title = () => "Слушать";
+            obj.uri = () => this.hero_audio();
+            obj.target = () => "_blank";
+            return obj;
+        }
+        hero_video() {
+            return "";
+        }
+        Video_tool() {
+            const obj = new this.$.$mol_link();
+            obj.title = () => "Смотреть";
+            obj.uri = () => this.hero_video();
+            obj.target = () => "_blank";
+            return obj;
+        }
+        Menu_trigger_icon() {
+            const obj = new this.$.$mol_icon_dots_vertical();
+            return obj;
+        }
+        Conact_link() {
+            const obj = new this.$.$mol_link();
+            obj.title = () => "Есть неточность?";
+            obj.uri = () => "https://t.me/mikhail_eco_coach";
+            obj.target = () => "_blank";
+            return obj;
+        }
+        LinkMol() {
+            const obj = new this.$.$mol_link();
+            obj.title = () => "Сделано на $mol";
+            obj.uri = () => "https://mol.hyoo.ru/";
+            obj.target = () => "_blank";
+            return obj;
+        }
+        Options_content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Conact_link(),
+                this.LinkMol()
+            ];
+            return obj;
+        }
+        Menu() {
+            const obj = new this.$.$mol_pick();
+            obj.trigger_content = () => [
+                this.Menu_trigger_icon()
+            ];
+            obj.bubble_content = () => [
+                this.Options_content()
+            ];
+            return obj;
+        }
+        hero_name() {
+            return "";
+        }
+        Name() {
+            const obj = new this.$.$mol_section();
+            obj.level = () => 4;
+            obj.title = () => this.hero_name();
+            return obj;
+        }
+        hero_description() {
+            return "";
+        }
+        Description_text() {
+            const obj = new this.$.$mol_text();
+            obj.text = () => this.hero_description();
+            return obj;
+        }
+        Description() {
+            const obj = new this.$.$mol_section();
+            obj.title = () => "";
+            obj.level = () => 3;
+            obj.content = () => [
+                this.Description_text()
+            ];
+            return obj;
+        }
+        Videobook() {
+            const obj = new this.$.$mol_embed_youtube();
+            obj.uri = () => this.hero_video();
+            return obj;
+        }
+        fairytale() {
+            return "";
+        }
+        hero_text() {
+            return "";
+        }
+        Book_text() {
+            const obj = new this.$.$mol_text();
+            obj.text = () => this.hero_text();
+            return obj;
+        }
+        Book() {
+            const obj = new this.$.$mol_section();
+            obj.title = () => this.fairytale();
+            obj.content = () => [
+                this.Book_text()
+            ];
+            return obj;
+        }
+        Hero() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Name(),
+                this.Description(),
+                this.Videobook(),
+                this.Book()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Audio_tool", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Video_tool", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Menu_trigger_icon", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Conact_link", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "LinkMol", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Options_content", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Menu", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Name", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Description_text", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Description", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Videobook", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Book_text", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Book", null);
+    __decorate([
+        $mol_mem
+    ], $milis_skazka.prototype, "Hero", null);
+    $.$milis_skazka = $milis_skazka;
+})($ || ($ = {}));
+//milis/skazka/-view.tree/skazka.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $milis_skazka_hero extends $mol_list {
         rows() {
             return [
@@ -8096,134 +8281,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $milis_skazka extends $mol_page {
-        title() {
-            return "Сказка в Лесу";
-        }
-        tools() {
-            return [
-                this.Audio_tool(),
-                this.Video_tool(),
-                this.Menu()
-            ];
-        }
-        body() {
-            return [
-                this.Hero()
-            ];
-        }
-        foot() {
-            return [];
-        }
-        hero_audio() {
-            return "";
-        }
-        Audio_tool() {
-            const obj = new this.$.$mol_link();
-            obj.title = () => "Слушать";
-            obj.uri = () => this.hero_audio();
-            obj.target = () => "_blank";
-            return obj;
-        }
-        hero_video() {
-            return "";
-        }
-        Video_tool() {
-            const obj = new this.$.$mol_link();
-            obj.title = () => "Смотреть";
-            obj.uri = () => this.hero_video();
-            obj.target = () => "_blank";
-            return obj;
-        }
-        Menu_trigger_icon() {
-            const obj = new this.$.$mol_icon_dots_vertical();
-            return obj;
-        }
-        Conact_link() {
-            const obj = new this.$.$mol_link();
-            obj.title = () => "Есть неточность?";
-            obj.uri = () => "https://t.me/mikhail_eco_coach";
-            obj.target = () => "_blank";
-            return obj;
-        }
-        LinkMol() {
-            const obj = new this.$.$mol_link();
-            obj.title = () => "Сделано на $mol";
-            obj.uri = () => "https://mol.hyoo.ru/";
-            obj.target = () => "_blank";
-            return obj;
-        }
-        Options_content() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
-                this.Conact_link(),
-                this.LinkMol()
-            ];
-            return obj;
-        }
-        Menu() {
-            const obj = new this.$.$mol_pick();
-            obj.trigger_content = () => [
-                this.Menu_trigger_icon()
-            ];
-            obj.bubble_content = () => [
-                this.Options_content()
-            ];
-            return obj;
-        }
-        hero_name() {
-            return "";
-        }
-        hero_fairytale() {
-            return "";
-        }
-        hero_description() {
-            return "";
-        }
-        hero_text() {
-            return "";
-        }
-        Hero() {
-            const obj = new this.$.$milis_skazka_hero();
-            obj.name = () => this.hero_name();
-            obj.fairytale = () => this.hero_fairytale();
-            obj.description = () => this.hero_description();
-            obj.video = () => this.hero_video();
-            obj.book = () => this.hero_text();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $milis_skazka.prototype, "Audio_tool", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka.prototype, "Video_tool", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka.prototype, "Menu_trigger_icon", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka.prototype, "Conact_link", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka.prototype, "LinkMol", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka.prototype, "Options_content", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka.prototype, "Menu", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka.prototype, "Hero", null);
-    $.$milis_skazka = $milis_skazka;
-})($ || ($ = {}));
-//milis/skazka/-view.tree/skazka.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
     var $$;
     (function ($$) {
         const heroItems = [
@@ -8245,20 +8302,19 @@ var $;
             }
         ];
         class $milis_skazka extends $.$milis_skazka {
-            constructor() {
-                super();
-                console.log('fetched');
-                try {
-                    this.fetch_skazka('1');
-                }
-                catch (e) {
-                    console.error(e);
-                }
+            hero_id() {
+                return $mol_state_arg.value('id') ?? '1';
             }
             hero() {
-                console.log($mol_state_arg.value('id'));
-                const id = $mol_state_arg.value('id');
-                return heroItems[Number(id)] ?? heroItems[0];
+                const url = `http://sbook.kinsle.ru/find/one/by/id/${this.hero_id()}`;
+                try {
+                    return $mol_fetch.json(url);
+                }
+                catch (e) {
+                    if (e instanceof Promise)
+                        $mol_fail_hidden(e);
+                    return heroItems[this.hero_id()] ?? heroItems[0];
+                }
             }
             hero_name() {
                 return 'Персонаж: ' + this.hero().hero;
@@ -8278,12 +8334,10 @@ var $;
             hero_text() {
                 return this.hero().textUrl;
             }
-            fetch_skazka(id) {
-                const url = `http://sbook.kinsle.ru/find/one/by/id/${id}`;
-                const result = $mol_fetch.json(url);
-                console.log(result);
-            }
         }
+        __decorate([
+            $mol_mem
+        ], $milis_skazka.prototype, "hero_id", null);
         __decorate([
             $mol_mem
         ], $milis_skazka.prototype, "hero", null);

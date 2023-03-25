@@ -12,6 +12,17 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * tools / <= Menu
+		 * ```
+		 */
+		tools() {
+			return [
+				this.Menu()
+			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
 		 * body /
 		 * 	<= About_vaop
 		 * 	<= Runner_table
@@ -33,6 +44,94 @@ namespace $ {
 			return [
 				this.Contacts()
 			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
+		 * Menu_trigger_icon $mol_icon_dots_vertical
+		 * ```
+		 */
+		@ $mol_mem
+		Menu_trigger_icon() {
+			const obj = new this.$.$mol_icon_dots_vertical()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Telegram $mol_link
+		 * 	uri \https://t.me/ecoprog
+		 * 	target \_blank
+		 * ```
+		 */
+		@ $mol_mem
+		Telegram() {
+			const obj = new this.$.$mol_link()
+			
+			obj.uri = () => "https://t.me/ecoprog"
+			obj.target = () => "_blank"
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * LinkMol $mol_link
+		 * 	title \Сделано на $mol
+		 * 	uri \https://mol.hyoo.ru/
+		 * 	target \_blank
+		 * ```
+		 */
+		@ $mol_mem
+		LinkMol() {
+			const obj = new this.$.$mol_link()
+			
+			obj.title = () => "Сделано на $mol"
+			obj.uri = () => "https://mol.hyoo.ru/"
+			obj.target = () => "_blank"
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Options_content $mol_list rows /
+		 * 	<= Telegram
+		 * 	<= LinkMol
+		 * ```
+		 */
+		@ $mol_mem
+		Options_content() {
+			const obj = new this.$.$mol_list()
+			
+			obj.rows = () => [
+				this.Telegram(),
+				this.LinkMol()
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Menu $mol_pick
+		 * 	trigger_content / <= Menu_trigger_icon
+		 * 	bubble_content / <= Options_content
+		 * ```
+		 */
+		@ $mol_mem
+		Menu() {
+			const obj = new this.$.$mol_pick()
+			
+			obj.trigger_content = () => [
+				this.Menu_trigger_icon()
+			] as readonly any[]
+			obj.bubble_content = () => [
+				this.Options_content()
+			] as readonly any[]
+			
+			return obj
 		}
 		
 		/**
@@ -93,14 +192,33 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Table_header $mol_text text \# Runner "Парсер АПИ"
+		 * Runner_input $mol_string hint \Runner "Парсер АПИ"
+		 * ```
+		 */
+		@ $mol_mem
+		Runner_input() {
+			const obj = new this.$.$mol_string()
+			
+			obj.hint = () => "Runner \"Парсер АПИ\""
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Table_header $mol_section
+		 * 	title \Ваш Runner
+		 * 	content / <= Runner_input
 		 * ```
 		 */
 		@ $mol_mem
 		Table_header() {
-			const obj = new this.$.$mol_text()
+			const obj = new this.$.$mol_section()
 			
-			obj.text = () => "# Runner \"Парсер АПИ\""
+			obj.title = () => "Ваш Runner"
+			obj.content = () => [
+				this.Runner_input()
+			] as readonly any[]
 			
 			return obj
 		}
@@ -197,23 +315,6 @@ namespace $ {
 				this.Table_header(),
 				this.Agent_rows()
 			] as readonly $mol_view[]
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Telegram $mol_link
-		 * 	uri \https://t.me/ecoprog
-		 * 	target \_blank
-		 * ```
-		 */
-		@ $mol_mem
-		Telegram() {
-			const obj = new this.$.$mol_link()
-			
-			obj.uri = () => "https://t.me/ecoprog"
-			obj.target = () => "_blank"
 			
 			return obj
 		}
