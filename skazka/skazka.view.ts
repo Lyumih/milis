@@ -29,7 +29,7 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		hero(): any {
-			const url = `http://sbook.kinsle.ru/find/one/by/id/${this.hero_id()}`
+			const url = `https://sbook.kinsle.ru/find/one/by/id/${this.hero_id()}`
 			try {
 				return $mol_fetch.json(url);
 			} catch (e) {
