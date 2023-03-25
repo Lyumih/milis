@@ -11,6 +11,6 @@ $milis_skazka_hero $mol_list
 		<= Videobook $mol_embed_youtube
 			uri <= video \
 		<= Book $mol_section
-			title <= fairytale
+			title <= fairytale \
 			content /
 				<= Book_text $mol_text text <= book \

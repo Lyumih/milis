@@ -9,6 +9,18 @@ $milis_skazka $mol_page
 			title \Смотреть
 			uri <= hero_video \
 			target \_blank
+		<= Menu $mol_pick
+			trigger_content / <= Menu_trigger_icon $mol_icon_dots_vertical
+			bubble_content /
+				<= Options_content $mol_list rows /
+					<= Conact_link $mol_link
+						title \Есть неточность?
+						uri \https://t.me/mikhail_eco_coach
+						target \_blank
+					<= LinkMol $mol_link
+						title \Сделано на $mol
+						uri \https://mol.hyoo.ru/
+						target \_blank
 	body /
 		<= Hero $milis_skazka_hero
 			name <= hero_name \
@@ -17,11 +29,3 @@ $milis_skazka $mol_page
 			video <= hero_video \
 			book <= hero_text \
 	foot /
-		<= Conact_link $mol_link
-			title \Есть неточность?
-			uri \https://t.me/mikhail_eco_coach
-			target \_blank
-		<= LinkMol $mol_link
-			title \Сделано на $mol
-			uri \https://mol.hyoo.ru/
-			target \_blank
