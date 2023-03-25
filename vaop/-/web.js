@@ -8744,15 +8744,20 @@ var $;
         }
         Runner_input() {
             const obj = new this.$.$mol_string();
-            obj.hint = () => "Runner \"Парсер АПИ\"";
+            obj.hint = () => "Описание - Парсер АПИ - распарсить сайт https://mol.hyoo.ru/ на статьи";
             return obj;
         }
         Table_header() {
             const obj = new this.$.$mol_section();
-            obj.title = () => "Ваш Runner";
+            obj.title = () => "Раннер";
             obj.content = () => [
                 this.Runner_input()
             ];
+            return obj;
+        }
+        Agent_header() {
+            const obj = new this.$.$mol_section();
+            obj.title = () => "Агенты";
             return obj;
         }
         agent_business(id, next) {
@@ -8760,13 +8765,40 @@ var $;
                 return next;
             return null;
         }
-        agent_programmer_enabled(id) {
-            return false;
+        agent_programmer(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
         }
         agent_machine(id, next) {
             if (next !== undefined)
                 return next;
             return null;
+        }
+        current_step(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        next_step(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        machine_enabled(id) {
+            return false;
+        }
+        programmer_enabled(id) {
+            return false;
+        }
+        current_step_enabled(id) {
+            return false;
+        }
+        next_step_enabled(id) {
+            return false;
+        }
+        name_enabled(id) {
+            return false;
         }
         add_agent(id, next) {
             if (next !== undefined)
@@ -8781,8 +8813,15 @@ var $;
         Agent(id) {
             const obj = new this.$.$milis_vaop_agent();
             obj.business = (next) => this.agent_business(id, next);
-            obj.programmer_enabled = () => this.agent_programmer_enabled(id);
+            obj.programmer = (next) => this.agent_programmer(id, next);
             obj.machine = (next) => this.agent_machine(id, next);
+            obj.current_step = (next) => this.current_step(id, next);
+            obj.next_step = (next) => this.next_step(id, next);
+            obj.machine_enabled = () => this.machine_enabled(id);
+            obj.programmer_enabled = () => this.programmer_enabled(id);
+            obj.current_step_enabled = () => this.current_step_enabled(id);
+            obj.next_step_enabled = () => this.next_step_enabled(id);
+            obj.name_enabled = () => this.name_enabled(id);
             obj.add = (next) => this.add_agent(id, next);
             obj.delete = (next) => this.delete_agent(id, next);
             return obj;
@@ -8801,6 +8840,7 @@ var $;
             const obj = new this.$.$mol_list();
             obj.rows = () => [
                 this.Table_header(),
+                this.Agent_header(),
                 this.Agent_rows()
             ];
             return obj;
@@ -8837,11 +8877,23 @@ var $;
         $mol_mem
     ], $milis_vaop.prototype, "Table_header", null);
     __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Agent_header", null);
+    __decorate([
         $mol_mem_key
     ], $milis_vaop.prototype, "agent_business", null);
     __decorate([
         $mol_mem_key
+    ], $milis_vaop.prototype, "agent_programmer", null);
+    __decorate([
+        $mol_mem_key
     ], $milis_vaop.prototype, "agent_machine", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_vaop.prototype, "current_step", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_vaop.prototype, "next_step", null);
     __decorate([
         $mol_mem_key
     ], $milis_vaop.prototype, "add_agent", null);
@@ -8865,8 +8917,8 @@ var $;
                 this.Business(),
                 this.Programmer(),
                 this.Machine(),
-                this.Current_step(),
-                this.Next_step(),
+                this.Current(),
+                this.Next(),
                 this.Name(),
                 this.Delete()
             ];
@@ -8920,35 +8972,52 @@ var $;
                 return next;
             return "";
         }
+        machine_enabled() {
+            return false;
+        }
         Machine() {
             const obj = new this.$.$mol_string();
             obj.hint = () => "Машина";
             obj.value = (next) => this.machine(next);
+            obj.enabled = () => this.machine_enabled();
             return obj;
+        }
+        current_step_enabled() {
+            return false;
         }
         current_step(next) {
             if (next !== undefined)
                 return next;
-            return 100;
+            return 0;
         }
-        Current_step() {
+        Current() {
             const obj = new this.$.$mol_number();
             obj.hint = () => "Текущий шаг";
+            obj.value_min = () => 0;
             obj.precision_change = () => 100;
+            obj.enabled = () => this.current_step_enabled();
             obj.value = (next) => this.current_step(next);
             return obj;
+        }
+        next_step_enabled() {
+            return false;
         }
         next_step(next) {
             if (next !== undefined)
                 return next;
-            return 200;
+            return 0;
         }
-        Next_step() {
+        Next() {
             const obj = new this.$.$mol_number();
             obj.hint = () => "Следующий шаг";
             obj.precision_change = () => 100;
+            obj.value_min = () => 0;
+            obj.enabled = () => this.next_step_enabled();
             obj.value = (next) => this.next_step(next);
             return obj;
+        }
+        name_enabled() {
+            return false;
         }
         name(next) {
             if (next !== undefined)
@@ -8958,6 +9027,7 @@ var $;
         Name() {
             const obj = new this.$.$mol_string();
             obj.hint = () => "Имя агента";
+            obj.enabled = () => this.name_enabled();
             obj.value = (next) => this.name(next);
             return obj;
         }
@@ -9011,13 +9081,13 @@ var $;
     ], $milis_vaop_agent.prototype, "current_step", null);
     __decorate([
         $mol_mem
-    ], $milis_vaop_agent.prototype, "Current_step", null);
+    ], $milis_vaop_agent.prototype, "Current", null);
     __decorate([
         $mol_mem
     ], $milis_vaop_agent.prototype, "next_step", null);
     __decorate([
         $mol_mem
-    ], $milis_vaop_agent.prototype, "Next_step", null);
+    ], $milis_vaop_agent.prototype, "Next", null);
     __decorate([
         $mol_mem
     ], $milis_vaop_agent.prototype, "name", null);
@@ -9044,31 +9114,51 @@ var $;
     (function ($$) {
         class $milis_vaop extends $.$milis_vaop {
             agent_list(next) {
-                return next ?? [{ id: 1 }, { id: 2 }, { id: 3 }];
+                return next ?? [
+                    { id: 1 },
+                ];
             }
             agents() {
                 return this.agent_list().map((item, index) => this.Agent(index));
             }
-            agent_programmer_enabled(id) {
-                console.log('aaa', id, this.agent_business(id)?.length > 0);
-                return this.agent_business(id)?.length > 0;
-            }
-            agent_machine(id, next) {
-                console.log(id, next);
-                return next ?? '';
-            }
-            agent_business(id, next) {
-                console.log(id, next);
-                return next ?? '';
-            }
             delete_agent(id) {
                 console.log('id before', id, this.agent_list(), this.agents());
                 this.agent_list(this.agent_list().filter((agent, index) => index !== id));
-                console.log('id after', id, this.agent_list(), this.agents());
+                console.log('FIX ME: id after', id, this.agent_list(), this.agents());
             }
             add_agent(id) {
-                console.log('123', id, this.agent_list());
+                console.log('FIX ME: id before', id, this.agent_list());
                 this.agent_list([...this.agent_list(), { id: 12 }]);
+            }
+            agent_machine(id, next) {
+                return next ?? '';
+            }
+            agent_business(id, next) {
+                return next ?? '';
+            }
+            agent_programmer(id, next) {
+                return next ?? '';
+            }
+            current_step(id, next) {
+                return next ?? 0;
+            }
+            next_step(id, next) {
+                return next ?? 0;
+            }
+            programmer_enabled(id) {
+                return this.agent_business(id)?.length > 0;
+            }
+            machine_enabled(id) {
+                return this.agent_programmer(id)?.length > 0;
+            }
+            current_step_enabled(id) {
+                return this.programmer_enabled(id);
+            }
+            next_step_enabled(id) {
+                return this.current_step(id) > 0;
+            }
+            name_enabled(id) {
+                return this.machine_enabled(id);
             }
         }
         __decorate([
@@ -9078,8 +9168,11 @@ var $;
             $mol_mem
         ], $milis_vaop.prototype, "agents", null);
         __decorate([
-            $mol_mem_key
-        ], $milis_vaop.prototype, "agent_programmer_enabled", null);
+            $mol_action
+        ], $milis_vaop.prototype, "delete_agent", null);
+        __decorate([
+            $mol_action
+        ], $milis_vaop.prototype, "add_agent", null);
         __decorate([
             $mol_mem_key
         ], $milis_vaop.prototype, "agent_machine", null);
@@ -9087,11 +9180,29 @@ var $;
             $mol_mem_key
         ], $milis_vaop.prototype, "agent_business", null);
         __decorate([
-            $mol_action
-        ], $milis_vaop.prototype, "delete_agent", null);
+            $mol_mem_key
+        ], $milis_vaop.prototype, "agent_programmer", null);
         __decorate([
-            $mol_action
-        ], $milis_vaop.prototype, "add_agent", null);
+            $mol_mem_key
+        ], $milis_vaop.prototype, "current_step", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "next_step", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "programmer_enabled", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "machine_enabled", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "current_step_enabled", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "next_step_enabled", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "name_enabled", null);
         $$.$milis_vaop = $milis_vaop;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

@@ -211,14 +211,14 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Runner_input $mol_string hint \Runner "Парсер АПИ"
+		 * Runner_input $mol_string hint \Описание - Парсер АПИ - распарсить сайт https://mol.hyoo.ru/ на статьи
 		 * ```
 		 */
 		@ $mol_mem
 		Runner_input() {
 			const obj = new this.$.$mol_string()
 			
-			obj.hint = () => "Runner \"Парсер АПИ\""
+			obj.hint = () => "Описание - Парсер АПИ - распарсить сайт https://mol.hyoo.ru/ на статьи"
 			
 			return obj
 		}
@@ -226,7 +226,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Table_header $mol_section
-		 * 	title \Ваш Runner
+		 * 	title \Раннер
 		 * 	content / <= Runner_input
 		 * ```
 		 */
@@ -234,10 +234,24 @@ namespace $ {
 		Table_header() {
 			const obj = new this.$.$mol_section()
 			
-			obj.title = () => "Ваш Runner"
+			obj.title = () => "Раннер"
 			obj.content = () => [
 				this.Runner_input()
 			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Agent_header $mol_section title \Агенты
+		 * ```
+		 */
+		@ $mol_mem
+		Agent_header() {
+			const obj = new this.$.$mol_section()
+			
+			obj.title = () => "Агенты"
 			
 			return obj
 		}
@@ -255,11 +269,13 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * agent_programmer_enabled* false
+		 * agent_programmer*? null
 		 * ```
 		 */
-		agent_programmer_enabled(id: any) {
-			return false
+		@ $mol_mem_key
+		agent_programmer(id: any, next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
 		}
 		
 		/**
@@ -271,6 +287,73 @@ namespace $ {
 		agent_machine(id: any, next?: any) {
 			if ( next !== undefined ) return next as never
 			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * current_step*? null
+		 * ```
+		 */
+		@ $mol_mem_key
+		current_step(id: any, next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * next_step*? null
+		 * ```
+		 */
+		@ $mol_mem_key
+		next_step(id: any, next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * machine_enabled* false
+		 * ```
+		 */
+		machine_enabled(id: any) {
+			return false
+		}
+		
+		/**
+		 * ```tree
+		 * programmer_enabled* false
+		 * ```
+		 */
+		programmer_enabled(id: any) {
+			return false
+		}
+		
+		/**
+		 * ```tree
+		 * current_step_enabled* false
+		 * ```
+		 */
+		current_step_enabled(id: any) {
+			return false
+		}
+		
+		/**
+		 * ```tree
+		 * next_step_enabled* false
+		 * ```
+		 */
+		next_step_enabled(id: any) {
+			return false
+		}
+		
+		/**
+		 * ```tree
+		 * name_enabled* false
+		 * ```
+		 */
+		name_enabled(id: any) {
+			return false
 		}
 		
 		/**
@@ -299,8 +382,15 @@ namespace $ {
 		 * ```tree
 		 * Agent*0 $milis_vaop_agent
 		 * 	business? <=> agent_business*?
-		 * 	programmer_enabled <= agent_programmer_enabled*
+		 * 	programmer? <=> agent_programmer*?
 		 * 	machine? <=> agent_machine*?
+		 * 	current_step? <=> current_step*?
+		 * 	next_step? <=> next_step*?
+		 * 	machine_enabled <= machine_enabled*
+		 * 	programmer_enabled <= programmer_enabled*
+		 * 	current_step_enabled <= current_step_enabled*
+		 * 	next_step_enabled <= next_step_enabled*
+		 * 	name_enabled <= name_enabled*
 		 * 	add? <=> add_agent*?
 		 * 	delete? <=> delete_agent*?
 		 * ```
@@ -310,8 +400,15 @@ namespace $ {
 			const obj = new this.$.$milis_vaop_agent()
 			
 			obj.business = (next?: any) => this.agent_business(id, next)
-			obj.programmer_enabled = () => this.agent_programmer_enabled(id)
+			obj.programmer = (next?: any) => this.agent_programmer(id, next)
 			obj.machine = (next?: any) => this.agent_machine(id, next)
+			obj.current_step = (next?: any) => this.current_step(id, next)
+			obj.next_step = (next?: any) => this.next_step(id, next)
+			obj.machine_enabled = () => this.machine_enabled(id)
+			obj.programmer_enabled = () => this.programmer_enabled(id)
+			obj.current_step_enabled = () => this.current_step_enabled(id)
+			obj.next_step_enabled = () => this.next_step_enabled(id)
+			obj.name_enabled = () => this.name_enabled(id)
 			obj.add = (next?: any) => this.add_agent(id, next)
 			obj.delete = (next?: any) => this.delete_agent(id, next)
 			
@@ -347,6 +444,7 @@ namespace $ {
 		 * ```tree
 		 * Runner_table $mol_list rows /$mol_view
 		 * 	<= Table_header
+		 * 	<= Agent_header
 		 * 	<= Agent_rows
 		 * ```
 		 */
@@ -356,6 +454,7 @@ namespace $ {
 			
 			obj.rows = () => [
 				this.Table_header(),
+				this.Agent_header(),
 				this.Agent_rows()
 			] as readonly $mol_view[]
 			
@@ -372,8 +471,8 @@ namespace $ {
 		 * 	<= Business
 		 * 	<= Programmer
 		 * 	<= Machine
-		 * 	<= Current_step
-		 * 	<= Next_step
+		 * 	<= Current
+		 * 	<= Next
 		 * 	<= Name
 		 * 	<= Delete
 		 * ```
@@ -384,8 +483,8 @@ namespace $ {
 				this.Business(),
 				this.Programmer(),
 				this.Machine(),
-				this.Current_step(),
-				this.Next_step(),
+				this.Current(),
+				this.Next(),
 				this.Name(),
 				this.Delete()
 			] as readonly any[]
@@ -515,9 +614,19 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * machine_enabled false
+		 * ```
+		 */
+		machine_enabled() {
+			return false
+		}
+		
+		/**
+		 * ```tree
 		 * Machine $mol_string
 		 * 	hint \Машина
 		 * 	value? <=> machine?
+		 * 	enabled <= machine_enabled
 		 * ```
 		 */
 		@ $mol_mem
@@ -526,35 +635,49 @@ namespace $ {
 			
 			obj.hint = () => "Машина"
 			obj.value = (next?: any) => this.machine(next)
+			obj.enabled = () => this.machine_enabled()
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * current_step? 100
+		 * current_step_enabled false
+		 * ```
+		 */
+		current_step_enabled() {
+			return false
+		}
+		
+		/**
+		 * ```tree
+		 * current_step? 0
 		 * ```
 		 */
 		@ $mol_mem
 		current_step(next?: any) {
 			if ( next !== undefined ) return next as never
-			return 100
+			return 0
 		}
 		
 		/**
 		 * ```tree
-		 * Current_step $mol_number
+		 * Current $mol_number
 		 * 	hint \Текущий шаг
+		 * 	value_min 0
 		 * 	precision_change 100
+		 * 	enabled <= current_step_enabled
 		 * 	value? <=> current_step?
 		 * ```
 		 */
 		@ $mol_mem
-		Current_step() {
+		Current() {
 			const obj = new this.$.$mol_number()
 			
 			obj.hint = () => "Текущий шаг"
+			obj.value_min = () => 0
 			obj.precision_change = () => 100
+			obj.enabled = () => this.current_step_enabled()
 			obj.value = (next?: any) => this.current_step(next)
 			
 			return obj
@@ -562,32 +685,54 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * next_step? 200
+		 * next_step_enabled false
+		 * ```
+		 */
+		next_step_enabled() {
+			return false
+		}
+		
+		/**
+		 * ```tree
+		 * next_step? 0
 		 * ```
 		 */
 		@ $mol_mem
 		next_step(next?: any) {
 			if ( next !== undefined ) return next as never
-			return 200
+			return 0
 		}
 		
 		/**
 		 * ```tree
-		 * Next_step $mol_number
+		 * Next $mol_number
 		 * 	hint \Следующий шаг
 		 * 	precision_change 100
+		 * 	value_min 0
+		 * 	enabled <= next_step_enabled
 		 * 	value? <=> next_step?
 		 * ```
 		 */
 		@ $mol_mem
-		Next_step() {
+		Next() {
 			const obj = new this.$.$mol_number()
 			
 			obj.hint = () => "Следующий шаг"
 			obj.precision_change = () => 100
+			obj.value_min = () => 0
+			obj.enabled = () => this.next_step_enabled()
 			obj.value = (next?: any) => this.next_step(next)
 			
 			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * name_enabled false
+		 * ```
+		 */
+		name_enabled() {
+			return false
 		}
 		
 		/**
@@ -605,6 +750,7 @@ namespace $ {
 		 * ```tree
 		 * Name $mol_string
 		 * 	hint \Имя агента
+		 * 	enabled <= name_enabled
 		 * 	value? <=> name?
 		 * ```
 		 */
@@ -613,6 +759,7 @@ namespace $ {
 			const obj = new this.$.$mol_string()
 			
 			obj.hint = () => "Имя агента"
+			obj.enabled = () => this.name_enabled()
 			obj.value = (next?: any) => this.name(next)
 			
 			return obj

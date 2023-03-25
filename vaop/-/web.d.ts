@@ -2745,9 +2745,17 @@ declare namespace $ {
         About_vaop(): $$.$mol_expander;
         Runner_input(): $$.$mol_string;
         Table_header(): $$.$mol_section;
+        Agent_header(): $$.$mol_section;
         agent_business(id: any, next?: any): any;
-        agent_programmer_enabled(id: any): boolean;
+        agent_programmer(id: any, next?: any): any;
         agent_machine(id: any, next?: any): any;
+        current_step(id: any, next?: any): any;
+        next_step(id: any, next?: any): any;
+        machine_enabled(id: any): boolean;
+        programmer_enabled(id: any): boolean;
+        current_step_enabled(id: any): boolean;
+        next_step_enabled(id: any): boolean;
+        name_enabled(id: any): boolean;
         add_agent(id: any, next?: any): any;
         delete_agent(id: any, next?: any): any;
         Agent(id: any): $milis_vaop_agent;
@@ -2766,11 +2774,15 @@ declare namespace $ {
         programmer_enabled(): boolean;
         Programmer(): $$.$mol_string;
         machine(next?: any): string;
+        machine_enabled(): boolean;
         Machine(): $$.$mol_string;
+        current_step_enabled(): boolean;
         current_step(next?: any): number;
-        Current_step(): $$.$mol_number;
+        Current(): $$.$mol_number;
+        next_step_enabled(): boolean;
         next_step(next?: any): number;
-        Next_step(): $$.$mol_number;
+        Next(): $$.$mol_number;
+        name_enabled(): boolean;
         name(next?: any): string;
         Name(): $$.$mol_string;
         Icon_delete_agent(): $mol_icon_delete;
@@ -2785,11 +2797,18 @@ declare namespace $.$$ {
             id: number;
         }[];
         agents(): $milis_vaop_agent[];
-        agent_programmer_enabled(id: any): boolean;
-        agent_machine(id: any, next?: any): any;
-        agent_business(id: any, next?: string): string;
         delete_agent(id: any): void;
         add_agent(id: any): void;
+        agent_machine(id: any, next?: any): any;
+        agent_business(id: any, next?: string): string;
+        agent_programmer(id: any, next?: string): string;
+        current_step(id: any, next?: number): number;
+        next_step(id: any, next?: number): number;
+        programmer_enabled(id: any): boolean;
+        machine_enabled(id: any): boolean;
+        current_step_enabled(id: any): boolean;
+        next_step_enabled(id: any): boolean;
+        name_enabled(id: any): boolean;
     }
 }
 
