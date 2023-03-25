@@ -8929,7 +8929,7 @@ var $;
                 return $mol_state_arg.value('id') ?? '1';
             }
             hero() {
-                const url = `http://sbook.kinsle.ru/find/one/by/id/${this.hero_id()}`;
+                const url = `https://sbook.kinsle.ru/find/one/by/id/${this.hero_id()}`;
                 try {
                     return $mol_fetch.json(url);
                 }
