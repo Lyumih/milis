@@ -13,8 +13,20 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem_key
-		agent_machine(id: any, next?: any) {
-			console.log(id, next)
+		agent_programmer_enabled( id: any ): boolean {
+			console.log('aaa',id, this.agent_business(id)?.length > 0)
+			return this.agent_business(id)?.length > 0
+		}
+
+		@$mol_mem_key
+		agent_machine( id: any, next?: any ) {
+			console.log( id, next )
+			return next ?? ''
+		}
+
+		@$mol_mem_key
+		agent_business( id: any, next?: string ) {
+			console.log( id, next )
 			return next ?? ''
 		}
 
