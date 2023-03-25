@@ -4961,6 +4961,94 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_section extends $mol_list {
+        level() {
+            return 1;
+        }
+        rows() {
+            return [
+                this.Head(),
+                this.Content()
+            ];
+        }
+        title_dom_name() {
+            return "h1";
+        }
+        Title() {
+            const obj = new this.$.$mol_paragraph();
+            obj.dom_name = () => this.title_dom_name();
+            obj.title = () => this.title();
+            return obj;
+        }
+        tools() {
+            return [];
+        }
+        Tools() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.tools();
+            return obj;
+        }
+        head() {
+            return [
+                this.Title(),
+                this.Tools()
+            ];
+        }
+        Head() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.head();
+            return obj;
+        }
+        content() {
+            return [];
+        }
+        Content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.content();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Title", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Tools", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Head", null);
+    __decorate([
+        $mol_mem
+    ], $mol_section.prototype, "Content", null);
+    $.$mol_section = $mol_section;
+})($ || ($ = {}));
+//mol/section/-view.tree/section.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_section extends $.$mol_section {
+            title_dom_name() {
+                return 'h' + this.level();
+            }
+        }
+        $$.$mol_section = $mol_section;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/section/section.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/section/section.view.css", "[mol_section_head] {\n\tjustify-content: space-between;\n\talign-items: flex-end;\n\tflex-wrap: wrap;\n}\n\n[mol_section_title] {\n\tpadding: var(--mol_gap_text);\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\nh1[mol_section_title] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_section_title] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_section_title] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_section_title] {\n\tfont-size: 1.25rem;\n\tfont-style: italic;\n}\n\nh5[mol_section_title] {\n\tfont-size: 1rem;\n}\n\nh6[mol_section_title] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n");
+})($ || ($ = {}));
+//mol/section/-css/section.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_stack extends $mol_view {
     }
     $.$mol_stack = $mol_stack;
@@ -8701,94 +8789,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_section extends $mol_list {
-        level() {
-            return 1;
-        }
-        rows() {
-            return [
-                this.Head(),
-                this.Content()
-            ];
-        }
-        title_dom_name() {
-            return "h1";
-        }
-        Title() {
-            const obj = new this.$.$mol_paragraph();
-            obj.dom_name = () => this.title_dom_name();
-            obj.title = () => this.title();
-            return obj;
-        }
-        tools() {
-            return [];
-        }
-        Tools() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.tools();
-            return obj;
-        }
-        head() {
-            return [
-                this.Title(),
-                this.Tools()
-            ];
-        }
-        Head() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.head();
-            return obj;
-        }
-        content() {
-            return [];
-        }
-        Content() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => this.content();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_section.prototype, "Title", null);
-    __decorate([
-        $mol_mem
-    ], $mol_section.prototype, "Tools", null);
-    __decorate([
-        $mol_mem
-    ], $mol_section.prototype, "Head", null);
-    __decorate([
-        $mol_mem
-    ], $mol_section.prototype, "Content", null);
-    $.$mol_section = $mol_section;
-})($ || ($ = {}));
-//mol/section/-view.tree/section.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_section extends $.$mol_section {
-            title_dom_name() {
-                return 'h' + this.level();
-            }
-        }
-        $$.$mol_section = $mol_section;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/section/section.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/section/section.view.css", "[mol_section_head] {\n\tjustify-content: space-between;\n\talign-items: flex-end;\n\tflex-wrap: wrap;\n}\n\n[mol_section_title] {\n\tpadding: var(--mol_gap_text);\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\nh1[mol_section_title] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_section_title] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_section_title] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_section_title] {\n\tfont-size: 1.25rem;\n\tfont-style: italic;\n}\n\nh5[mol_section_title] {\n\tfont-size: 1rem;\n}\n\nh6[mol_section_title] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n");
-})($ || ($ = {}));
-//mol/section/-css/section.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_row extends $mol_view {
     }
     $.$mol_row = $mol_row;
@@ -9119,15 +9119,15 @@ var $;
                 this.Menu()
             ];
         }
+        foot() {
+            return [
+                this.Contacts()
+            ];
+        }
         body() {
             return [
                 this.About_vaop(),
                 this.Runner_table()
-            ];
-        }
-        foot() {
-            return [
-                this.Contacts()
             ];
         }
         Menu_trigger_icon() {
@@ -9165,6 +9165,14 @@ var $;
             ];
             return obj;
         }
+        Contacts() {
+            const obj = new this.$.$mol_section();
+            obj.title = () => "Контакты";
+            obj.content = () => [
+                this.Telegram()
+            ];
+            return obj;
+        }
         vaop_description() {
             return "**VAOP** - это методология по ведению IT продукта, которая позволить динамически создавать неустаревающие программы\nVAOP состоит из 2 основных понятий: Раннер и Агент.\n**Раннер** - это точка запуска программы, которая содержит всех Агентов.\n**Aгент** - это условная единица инструкции, которая состоит из 5 понятий: *Бизнес*, *Программист*, *Машина*, *Текущий шаг*, *Следующий шаг* и дополнительного *Имя*\n*Бизнес* - согласованные, человекочитаемая инструкция требований от заказчика. Сначало идёт описание, только потом открываются все шаги.\n*Программист* - псевдокод от программиста, который реализует поставленную инструкцию от Бизнеса. Все изменения доступны только после того, как появилось требование от бизнеса.\n*Машина* - конкретный код, выполняющий эту инструкцию. Инструкция может быть выполнена в произвольном порядке\n*Текущий шаг* - текущий шаг агента\n*Следующий шаг* - следующий шаг агента, если он есть\nПолное описание VAOP: https://habr.com/ru/post/554014/\nСообщество VAOP: https://t.me/ecoprog\nРеализовано на [$mol](https://mol.hyoo.ru/)";
         }
@@ -9196,6 +9204,14 @@ var $;
             ];
             return obj;
         }
+        agent_business(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        agent_programmer_enabled(id) {
+            return false;
+        }
         agent_machine(id, next) {
             if (next !== undefined)
                 return next;
@@ -9213,9 +9229,11 @@ var $;
         }
         Agent(id) {
             const obj = new this.$.$milis_vaop_agent();
-            obj.machine = (next) => this.agent_machine(id);
-            obj.add = (next) => this.add_agent(id);
-            obj.delete = (next) => this.delete_agent(id);
+            obj.business = (next) => this.agent_business(id, next);
+            obj.programmer_enabled = () => this.agent_programmer_enabled(id);
+            obj.machine = (next) => this.agent_machine(id, next);
+            obj.add = (next) => this.add_agent(id, next);
+            obj.delete = (next) => this.delete_agent(id, next);
             return obj;
         }
         agents() {
@@ -9233,14 +9251,6 @@ var $;
             obj.rows = () => [
                 this.Table_header(),
                 this.Agent_rows()
-            ];
-            return obj;
-        }
-        Contacts() {
-            const obj = new this.$.$mol_section();
-            obj.title = () => "Контакты";
-            obj.content = () => [
-                this.Telegram()
             ];
             return obj;
         }
@@ -9262,6 +9272,9 @@ var $;
     ], $milis_vaop.prototype, "Menu", null);
     __decorate([
         $mol_mem
+    ], $milis_vaop.prototype, "Contacts", null);
+    __decorate([
+        $mol_mem
     ], $milis_vaop.prototype, "Vaop", null);
     __decorate([
         $mol_mem
@@ -9272,6 +9285,9 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Table_header", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_vaop.prototype, "agent_business", null);
     __decorate([
         $mol_mem_key
     ], $milis_vaop.prototype, "agent_machine", null);
@@ -9290,9 +9306,6 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Runner_table", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Contacts", null);
     $.$milis_vaop = $milis_vaop;
     class $milis_vaop_agent extends $mol_row {
         sub() {
@@ -9341,10 +9354,14 @@ var $;
                 return next;
             return "";
         }
+        programmer_enabled() {
+            return false;
+        }
         Programmer() {
             const obj = new this.$.$mol_string();
             obj.hint = () => "Программист";
             obj.value = (next) => this.programmer(next);
+            obj.enabled = () => this.programmer_enabled();
             return obj;
         }
         machine(next) {
@@ -9481,7 +9498,15 @@ var $;
             agents() {
                 return this.agent_list().map((item, index) => this.Agent(index));
             }
+            agent_programmer_enabled(id) {
+                console.log('aaa', id, this.agent_business(id)?.length > 0);
+                return this.agent_business(id)?.length > 0;
+            }
             agent_machine(id, next) {
+                console.log(id, next);
+                return next ?? '';
+            }
+            agent_business(id, next) {
                 console.log(id, next);
                 return next ?? '';
             }
@@ -9503,7 +9528,13 @@ var $;
         ], $milis_vaop.prototype, "agents", null);
         __decorate([
             $mol_mem_key
+        ], $milis_vaop.prototype, "agent_programmer_enabled", null);
+        __decorate([
+            $mol_mem_key
         ], $milis_vaop.prototype, "agent_machine", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "agent_business", null);
         __decorate([
             $mol_action
         ], $milis_vaop.prototype, "delete_agent", null);

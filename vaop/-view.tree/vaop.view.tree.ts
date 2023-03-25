@@ -23,6 +23,17 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * foot / <= Contacts
+		 * ```
+		 */
+		foot() {
+			return [
+				this.Contacts()
+			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
 		 * body /
 		 * 	<= About_vaop
 		 * 	<= Runner_table
@@ -32,17 +43,6 @@ namespace $ {
 			return [
 				this.About_vaop(),
 				this.Runner_table()
-			] as readonly any[]
-		}
-		
-		/**
-		 * ```tree
-		 * foot / <= Contacts
-		 * ```
-		 */
-		foot() {
-			return [
-				this.Contacts()
 			] as readonly any[]
 		}
 		
@@ -129,6 +129,25 @@ namespace $ {
 			] as readonly any[]
 			obj.bubble_content = () => [
 				this.Options_content()
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Contacts $mol_section
+		 * 	title \Контакты
+		 * 	content / <= Telegram
+		 * ```
+		 */
+		@ $mol_mem
+		Contacts() {
+			const obj = new this.$.$mol_section()
+			
+			obj.title = () => "Контакты"
+			obj.content = () => [
+				this.Telegram()
 			] as readonly any[]
 			
 			return obj
@@ -225,6 +244,26 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * agent_business*? null
+		 * ```
+		 */
+		@ $mol_mem_key
+		agent_business(id: any, next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * agent_programmer_enabled* false
+		 * ```
+		 */
+		agent_programmer_enabled(id: any) {
+			return false
+		}
+		
+		/**
+		 * ```tree
 		 * agent_machine*? null
 		 * ```
 		 */
@@ -259,18 +298,22 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Agent*0 $milis_vaop_agent
-		 * 	machine? <= agent_machine*?
-		 * 	add? <= add_agent*?
-		 * 	delete? <= delete_agent*?
+		 * 	business? <=> agent_business*?
+		 * 	programmer_enabled <= agent_programmer_enabled*
+		 * 	machine? <=> agent_machine*?
+		 * 	add? <=> add_agent*?
+		 * 	delete? <=> delete_agent*?
 		 * ```
 		 */
 		@ $mol_mem_key
 		Agent(id: any) {
 			const obj = new this.$.$milis_vaop_agent()
 			
-			obj.machine = (next?: any) => this.agent_machine(id)
-			obj.add = (next?: any) => this.add_agent(id)
-			obj.delete = (next?: any) => this.delete_agent(id)
+			obj.business = (next?: any) => this.agent_business(id, next)
+			obj.programmer_enabled = () => this.agent_programmer_enabled(id)
+			obj.machine = (next?: any) => this.agent_machine(id, next)
+			obj.add = (next?: any) => this.add_agent(id, next)
+			obj.delete = (next?: any) => this.delete_agent(id, next)
 			
 			return obj
 		}
@@ -315,25 +358,6 @@ namespace $ {
 				this.Table_header(),
 				this.Agent_rows()
 			] as readonly $mol_view[]
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Contacts $mol_section
-		 * 	title \Контакты
-		 * 	content / <= Telegram
-		 * ```
-		 */
-		@ $mol_mem
-		Contacts() {
-			const obj = new this.$.$mol_section()
-			
-			obj.title = () => "Контакты"
-			obj.content = () => [
-				this.Telegram()
-			] as readonly any[]
 			
 			return obj
 		}
@@ -452,9 +476,19 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * programmer_enabled false
+		 * ```
+		 */
+		programmer_enabled() {
+			return false
+		}
+		
+		/**
+		 * ```tree
 		 * Programmer $mol_string
 		 * 	hint \Программист
 		 * 	value? <=> programmer?
+		 * 	enabled <= programmer_enabled
 		 * ```
 		 */
 		@ $mol_mem
@@ -463,6 +497,7 @@ namespace $ {
 			
 			obj.hint = () => "Программист"
 			obj.value = (next?: any) => this.programmer(next)
+			obj.enabled = () => this.programmer_enabled()
 			
 			return obj
 		}

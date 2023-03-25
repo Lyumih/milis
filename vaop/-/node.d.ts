@@ -1505,6 +1505,30 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_section extends $mol_list {
+        level(): number;
+        rows(): readonly any[];
+        title_dom_name(): string;
+        Title(): $$.$mol_paragraph;
+        tools(): readonly any[];
+        Tools(): $mol_view;
+        head(): readonly any[];
+        Head(): $mol_view;
+        content(): readonly any[];
+        Content(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_section extends $.$mol_section {
+        title_dom_name(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_stack extends $mol_view {
     }
 }
@@ -2700,30 +2724,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_section extends $mol_list {
-        level(): number;
-        rows(): readonly any[];
-        title_dom_name(): string;
-        Title(): $$.$mol_paragraph;
-        tools(): readonly any[];
-        Tools(): $mol_view;
-        head(): readonly any[];
-        Head(): $mol_view;
-        content(): readonly any[];
-        Content(): $$.$mol_list;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_section extends $.$mol_section {
-        title_dom_name(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_row extends $mol_view {
     }
 }
@@ -2825,18 +2825,21 @@ declare namespace $ {
     class $milis_vaop extends $mol_page {
         title(): string;
         tools(): readonly any[];
-        body(): readonly any[];
         foot(): readonly any[];
+        body(): readonly any[];
         Menu_trigger_icon(): $mol_icon_dots_vertical;
         Telegram(): $$.$mol_link;
         LinkMol(): $$.$mol_link;
         Options_content(): $$.$mol_list;
         Menu(): $$.$mol_pick;
+        Contacts(): $$.$mol_section;
         vaop_description(): string;
         Vaop(): $$.$mol_text;
         About_vaop(): $$.$mol_expander;
         Runner_input(): $$.$mol_string;
         Table_header(): $$.$mol_section;
+        agent_business(id: any, next?: any): any;
+        agent_programmer_enabled(id: any): boolean;
         agent_machine(id: any, next?: any): any;
         add_agent(id: any, next?: any): any;
         delete_agent(id: any, next?: any): any;
@@ -2844,7 +2847,6 @@ declare namespace $ {
         agents(): readonly any[];
         Agent_rows(): $$.$mol_list;
         Runner_table(): $$.$mol_list;
-        Contacts(): $$.$mol_section;
     }
     class $milis_vaop_agent extends $mol_row {
         sub(): readonly any[];
@@ -2854,6 +2856,7 @@ declare namespace $ {
         business(next?: any): string;
         Business(): $$.$mol_string;
         programmer(next?: any): string;
+        programmer_enabled(): boolean;
         Programmer(): $$.$mol_string;
         machine(next?: any): string;
         Machine(): $$.$mol_string;
@@ -2875,7 +2878,9 @@ declare namespace $.$$ {
             id: number;
         }[];
         agents(): $milis_vaop_agent[];
+        agent_programmer_enabled(id: any): boolean;
         agent_machine(id: any, next?: any): any;
+        agent_business(id: any, next?: string): string;
         delete_agent(id: any): void;
         add_agent(id: any): void;
     }

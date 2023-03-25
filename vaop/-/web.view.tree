@@ -184,6 +184,18 @@ $mol_paragraph $mol_view
 	row_width 0
 	sub / <= title
 
+$mol_section $mol_list
+	level 1
+	rows /
+		<= Head $mol_view
+			sub <= head /
+				<= Title $mol_paragraph
+					dom_name <= title_dom_name \h1
+					title <= title
+				<= Tools $mol_view sub <= tools /
+		<= Content $mol_list
+			rows <= content /
+
 $mol_stack $mol_view
 
 $mol_dimmer $mol_paragraph
@@ -566,18 +578,6 @@ $mol_string $mol_view
 			mod_ctrl <= submit_with_ctrl false
 			key * enter?event <=> submit?event null
 
-$mol_section $mol_list
-	level 1
-	rows /
-		<= Head $mol_view
-			sub <= head /
-				<= Title $mol_paragraph
-					dom_name <= title_dom_name \h1
-					title <= title
-				<= Tools $mol_view sub <= tools /
-		<= Content $mol_list
-			rows <= content /
-
 $mol_row $mol_view
 
 $mol_icon_account $mol_icon path \M12,4C14.21,4 16,5.79 16,8C16,10.21 14.21,12 12,12C9.79,12 8,10.21 8,8C8,5.79 9.79,4 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z
@@ -640,6 +640,13 @@ $milis_vaop $mol_page
 				title \Сделано на $mol
 				uri \https://mol.hyoo.ru/
 				target \_blank
+	foot /
+		<= Contacts $mol_section
+			title \Контакты
+			content /
+				<= Telegram $mol_link
+					uri \https://t.me/ecoprog
+					target \_blank
 	body /
 		<= About_vaop $mol_expander
 			label / \Что такое VAOP
@@ -664,16 +671,11 @@ $milis_vaop $mol_page
 				<= Agent_rows $mol_list
 					rows <= agents /
 						<= Agent*0 $milis_vaop_agent
-							machine? <= agent_machine*? null
-							add? <= add_agent*? null
-							delete? <= delete_agent*? null
-	foot /
-		<= Contacts $mol_section
-			title \Контакты
-			content /
-				<= Telegram $mol_link
-					uri \https://t.me/ecoprog
-					target \_blank
+							business? <=> agent_business*? null
+							programmer_enabled <= agent_programmer_enabled* false
+							machine? <=> agent_machine*? null
+							add? <=> add_agent*? null
+							delete? <=> delete_agent*? null
 
 $milis_vaop_agent $mol_row
 	sub /
@@ -687,6 +689,7 @@ $milis_vaop_agent $mol_row
 		<= Programmer $mol_string
 			hint \Программист
 			value? <=> programmer? \
+			enabled <= programmer_enabled false
 		<= Machine $mol_string
 			hint \Машина
 			value? <=> machine? \
