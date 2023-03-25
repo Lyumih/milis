@@ -40,12 +40,29 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * download $mol_blob
+		 * ```
+		 */
+		@ $mol_mem
+		download() {
+			const obj = new this.$.$mol_blob()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
 		 * Download $mol_button_download
+		 * 	file_name \vaop_script.txt
+		 * 	blob <= download
 		 * ```
 		 */
 		@ $mol_mem
 		Download() {
 			const obj = new this.$.$mol_button_download()
+			
+			obj.file_name = () => "vaop_script.txt"
+			obj.blob = () => this.download()
 			
 			return obj
 		}
@@ -427,10 +444,60 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * text_to_download? \Текст для скачивания
+		 * ```
+		 */
+		@ $mol_mem
+		text_to_download(next?: any) {
+			if ( next !== undefined ) return next as never
+			return "Текст для скачивания"
+		}
+		
+		/**
+		 * ```tree
+		 * Text_download $mol_textarea
+		 * 	sidebar_showed true
+		 * 	enabled false
+		 * 	value? <= text_to_download?
+		 * ```
+		 */
+		@ $mol_mem
+		Text_download() {
+			const obj = new this.$.$mol_textarea()
+			
+			obj.sidebar_showed = () => true
+			obj.enabled = () => false
+			obj.value = (next?: any) => this.text_to_download()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Text_download_section $mol_section
+		 * 	title \Превью
+		 * 	content / <= Text_download
+		 * ```
+		 */
+		@ $mol_mem
+		Text_download_section() {
+			const obj = new this.$.$mol_section()
+			
+			obj.title = () => "Превью"
+			obj.content = () => [
+				this.Text_download()
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
 		 * Runner_table $mol_list rows /$mol_view
 		 * 	<= Table_header
 		 * 	<= Agent_header
 		 * 	<= Agent_rows
+		 * 	<= Text_download_section
 		 * ```
 		 */
 		@ $mol_mem
@@ -440,7 +507,8 @@ namespace $ {
 			obj.rows = () => [
 				this.Table_header(),
 				this.Agent_header(),
-				this.Agent_rows()
+				this.Agent_rows(),
+				this.Text_download_section()
 			] as readonly $mol_view[]
 			
 			return obj

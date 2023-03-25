@@ -983,6 +983,14 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    type $mol_blob = Blob;
+    let $mol_blob: {
+        new (blobParts?: BlobPart[] | undefined, options?: BlobPropertyBag | undefined): Blob;
+        prototype: Blob;
+    };
+}
+
+declare namespace $ {
     class $mol_speck extends $mol_view {
         attr(): {
             mol_theme: string;
@@ -1850,14 +1858,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-}
-
-declare namespace $ {
-    type $mol_blob = Blob;
-    let $mol_blob: {
-        new (blobParts?: BlobPart[] | undefined, options?: BlobPropertyBag | undefined): Blob;
-        prototype: Blob;
-    };
 }
 
 declare namespace $ {
@@ -2789,6 +2789,106 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_textarea extends $mol_stack {
+        attr(): {
+            mol_textarea_clickable: boolean;
+            mol_textarea_sidebar_showed: boolean;
+        };
+        event(): {
+            keydown: (event?: any) => any;
+            pointermove: (event?: any) => any;
+        };
+        sub(): readonly any[];
+        symbols_alt(): {
+            comma: string;
+            period: string;
+            dash: string;
+            equals: string;
+            graveAccent: string;
+            forwardSlash: string;
+            E: string;
+            X: string;
+            C: string;
+            P: string;
+            H: string;
+            key0: string;
+            key8: string;
+            key2: string;
+            key3: string;
+            key4: string;
+            key6: string;
+            key7: string;
+            bracketOpen: string;
+            bracketClose: string;
+            slashBack: string;
+        };
+        symbols_alt_shift(): {
+            V: string;
+            X: string;
+            O: string;
+            key1: string;
+            key4: string;
+            key7: string;
+            comma: string;
+            period: string;
+            semicolon: string;
+            quoteSingle: string;
+            dash: string;
+            equals: string;
+            graveAccent: string;
+            bracketOpen: string;
+            bracketClose: string;
+        };
+        clickable(val?: any): boolean;
+        sidebar_showed(): boolean;
+        press(event?: any): any;
+        hover(event?: any): any;
+        value(val?: any): string;
+        hint(): string;
+        enabled(): boolean;
+        spellcheck(): boolean;
+        length_max(): number;
+        selection(val?: any): readonly number[];
+        submit(next?: any): any;
+        bring(): void;
+        Edit(): $mol_textarea_edit;
+        row_numb(id: any): number;
+        highlight(): string;
+        View(): $$.$mol_text_code;
+    }
+    class $mol_textarea_edit extends $mol_string {
+        dom_name(): string;
+        enter(): string;
+        field(): {
+            scrollTop: number;
+            disabled: boolean;
+            value: string;
+            placeholder: string;
+            spellcheck: boolean;
+            autocomplete: string;
+            selectionEnd: number;
+            selectionStart: number;
+            inputMode: string;
+            enterkeyhint: string;
+        };
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_textarea extends $.$mol_textarea {
+        indent_inc(): void;
+        indent_dec(): void;
+        symbol_insert(event: KeyboardEvent): void;
+        hover(event: PointerEvent): void;
+        press(event: KeyboardEvent): void;
+        row_numb(index: number): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_row extends $mol_view {
     }
 }
@@ -2891,6 +2991,7 @@ declare namespace $ {
         title(): string;
         tools(): readonly any[];
         body(): readonly any[];
+        download(): Blob;
         Download(): $$.$mol_button_download;
         Menu_trigger_icon(): $mol_icon_dots_vertical;
         Telegram(): $$.$mol_link;
@@ -2918,6 +3019,9 @@ declare namespace $ {
         Agent(id: any): $milis_vaop_agent;
         agents(): readonly any[];
         Agent_rows(): $$.$mol_list;
+        text_to_download(next?: any): string;
+        Text_download(): $$.$mol_textarea;
+        Text_download_section(): $$.$mol_section;
         Runner_table(): $$.$mol_list;
     }
     class $milis_vaop_agent extends $mol_row {
@@ -2949,24 +3053,30 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
-    class $milis_vaop extends $.$milis_vaop {
-        agent_list(next?: Object[]): Object[] | {
-            id: number;
-        }[];
+    type AgentDTO = {
+        id: string;
+        business?: string;
+        current_step?: number;
+    };
+    export class $milis_vaop extends $.$milis_vaop {
+        agent_list(next?: AgentDTO[]): AgentDTO[];
         agents(): $milis_vaop_agent[];
-        delete_agent(id: any): void;
-        add_agent(id: any): void;
-        agent_machine(id: any, next?: any): any;
-        agent_business(id: any, next?: string): string;
-        agent_programmer(id: any, next?: string): string;
-        current_step(id: any, next?: number): number;
-        next_step(id: any, next?: number): number;
-        programmer_enabled(id: any): boolean;
-        machine_enabled(id: any): boolean;
-        current_step_enabled(id: any): boolean;
-        next_step_enabled(id: any): boolean;
-        name_enabled(id: any): boolean;
+        delete_agent(id: string): void;
+        add_agent(id: string): void;
+        agent_machine(id: string, next?: string): string;
+        agent_business(id: string, next?: string): string;
+        agent_programmer(id: string, next?: string): string;
+        current_step(id: string, next?: number): number;
+        next_step(id: string, next?: number): number;
+        programmer_enabled(id: string): boolean;
+        machine_enabled(id: string): boolean;
+        current_step_enabled(id: string): boolean;
+        next_step_enabled(id: string): boolean;
+        name_enabled(id: string): boolean;
+        text_to_download(): string;
+        download(): Blob;
     }
+    export {};
 }
 
 declare namespace $ {

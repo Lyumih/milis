@@ -3429,6 +3429,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_blob = ($node.buffer?.Blob ?? $mol_dom_context.Blob);
+})($ || ($ = {}));
+//mol/blob/blob.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_speck extends $mol_view {
         attr() {
             return {
@@ -5956,13 +5963,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/text/code/row/row.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_blob = ($node.buffer?.Blob ?? $mol_dom_context.Blob);
-})($ || ($ = {}));
-//mol/blob/blob.ts
 ;
 "use strict";
 var $;
@@ -8981,6 +8981,279 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_textarea extends $mol_stack {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_textarea_clickable: this.clickable(),
+                mol_textarea_sidebar_showed: this.sidebar_showed()
+            };
+        }
+        event() {
+            return {
+                keydown: (event) => this.press(event),
+                pointermove: (event) => this.hover(event)
+            };
+        }
+        sub() {
+            return [
+                this.Edit(),
+                this.View()
+            ];
+        }
+        symbols_alt() {
+            return {
+                comma: "<",
+                period: ">",
+                dash: "−",
+                equals: "≈",
+                graveAccent: "́",
+                forwardSlash: "÷",
+                E: "€",
+                X: "×",
+                C: "©",
+                P: "§",
+                H: "₽",
+                key0: "°",
+                key8: "•",
+                key2: "@",
+                key3: "#",
+                key4: "$",
+                key6: "^",
+                key7: "&",
+                bracketOpen: "[",
+                bracketClose: "]",
+                slashBack: "|"
+            };
+        }
+        symbols_alt_shift() {
+            return {
+                V: "✅",
+                X: "❌",
+                O: "⭕",
+                key1: "❗",
+                key4: "💲",
+                key7: "❓",
+                comma: "«",
+                period: "»",
+                semicolon: "“",
+                quoteSingle: "”",
+                dash: "—",
+                equals: "≠",
+                graveAccent: "̱",
+                bracketOpen: "{",
+                bracketClose: "}"
+            };
+        }
+        clickable(val) {
+            if (val !== undefined)
+                return val;
+            return false;
+        }
+        sidebar_showed() {
+            return false;
+        }
+        press(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        hover(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        value(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        hint() {
+            return " ";
+        }
+        enabled() {
+            return true;
+        }
+        spellcheck() {
+            return true;
+        }
+        length_max() {
+            return +Infinity;
+        }
+        selection(val) {
+            if (val !== undefined)
+                return val;
+            return [];
+        }
+        submit(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        bring() {
+            return this.Edit().bring();
+        }
+        Edit() {
+            const obj = new this.$.$mol_textarea_edit();
+            obj.value = (val) => this.value(val);
+            obj.hint = () => this.hint();
+            obj.enabled = () => this.enabled();
+            obj.spellcheck = () => this.spellcheck();
+            obj.length_max = () => this.length_max();
+            obj.selection = (val) => this.selection(val);
+            obj.submit = (next) => this.submit(next);
+            obj.submit_with_ctrl = () => true;
+            return obj;
+        }
+        row_numb(id) {
+            return 0;
+        }
+        highlight() {
+            return "";
+        }
+        View() {
+            const obj = new this.$.$mol_text_code();
+            obj.text = () => this.value();
+            obj.render_visible_only = () => false;
+            obj.row_numb = (id) => this.row_numb(id);
+            obj.sidebar_showed = () => this.sidebar_showed();
+            obj.highlight = () => this.highlight();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "clickable", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "press", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "hover", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "value", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "selection", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "submit", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "Edit", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "View", null);
+    $.$mol_textarea = $mol_textarea;
+    class $mol_textarea_edit extends $mol_string {
+        dom_name() {
+            return "textarea";
+        }
+        enter() {
+            return "enter";
+        }
+        field() {
+            return {
+                ...super.field(),
+                scrollTop: 0
+            };
+        }
+    }
+    $.$mol_textarea_edit = $mol_textarea_edit;
+})($ || ($ = {}));
+//mol/textarea/-view.tree/textarea.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_textarea extends $.$mol_textarea {
+            indent_inc() {
+                let text = this.value();
+                let [from, to] = this.selection();
+                const rows = text.split('\n');
+                let start = 0;
+                for (let i = 0; i < rows.length; ++i) {
+                    let end = start + rows[i].length;
+                    if (end >= from && start <= to) {
+                        if (to === from || start !== to) {
+                            rows[i] = '\t' + rows[i];
+                            to += 1;
+                            end += 1;
+                        }
+                    }
+                    start = end + 1;
+                }
+                this.value(rows.join('\n'));
+                this.selection([from + 1, to]);
+            }
+            indent_dec() {
+                let text = this.value();
+                let [from, to] = this.selection();
+                const rows = text.split('\n');
+                let start = 0;
+                for (let i = 0; i < rows.length; ++i) {
+                    const end = start + rows[i].length;
+                    if (end >= from && start <= to && rows[i].startsWith('\t')) {
+                        rows[i] = rows[i].slice(1);
+                        to -= 1;
+                        if (start < from)
+                            from -= 1;
+                    }
+                    start = end + 1;
+                }
+                this.value(rows.join('\n'));
+                this.selection([from, to]);
+            }
+            symbol_insert(event) {
+                const symbol = event.shiftKey
+                    ? this.symbols_alt_shift()[$mol_keyboard_code[event.keyCode]]
+                    : this.symbols_alt()[$mol_keyboard_code[event.keyCode]];
+                if (!symbol)
+                    return;
+                document.execCommand('insertText', false, symbol);
+            }
+            hover(event) {
+                this.clickable(event.ctrlKey);
+            }
+            press(event) {
+                if (event.altKey && !event.ctrlKey) {
+                    this.symbol_insert(event);
+                }
+                else {
+                    switch (event.keyCode) {
+                        case !event.shiftKey && $mol_keyboard_code.tab:
+                            this.indent_inc();
+                            break;
+                        case event.shiftKey && $mol_keyboard_code.tab:
+                            this.indent_dec();
+                            break;
+                        default: return;
+                    }
+                }
+                event.preventDefault();
+            }
+            row_numb(index) {
+                return index;
+            }
+        }
+        $$.$mol_textarea = $mol_textarea;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/textarea/textarea.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/textarea/textarea.view.css", "[mol_textarea] {\n\tflex: 1 0 auto;\n\tflex-direction: column;\n\tvertical-align: top;\n\tmin-height: max-content;\n\twhite-space: pre-wrap;\n\tword-break: break-word;\n\tborder-radius: var(--mol_gap_round);\n\tfont-family: monospace;\n\tposition: relative;\n\ttab-size: 4;\n}\n\n[mol_textarea_view] {\n\tpointer-events: none;\n\twhite-space: inherit;\n\tfont-family: inherit;\n\ttab-size: inherit;\n}\n\n[mol_textarea_view_copy] {\n\tpointer-events: all;\n}\n\n[mol_textarea_clickable] > [mol_textarea_view] {\n\tpointer-events: all;\n}\n\n[mol_textarea_edit] {\n\tfont-family: inherit;\n\tpadding: var(--mol_gap_text);\n\tcolor: transparent !important;\n\tcaret-color: var(--mol_theme_text);\n\tresize: none;\n\ttext-align: inherit;\n\twhite-space: inherit;\n\tborder-radius: inherit;\n\toverflow-anchor: none;\n\tposition: absolute;\n\theight: 100%;\n\twidth: 100%;\n\ttab-size: inherit;\n}\n\n[mol_textarea_sidebar_showed] [mol_textarea_edit] {\n\tleft: 1.75rem;\n\twidth: calc( 100% - 1.75rem );\n}\n\n[mol_textarea_edit]:hover + [mol_textarea_view] {\n\tz-index: var(--mol_layer_hover);\n}\n\n[mol_textarea_edit]:focus + [mol_textarea_view] {\n\tz-index: var(--mol_layer_focus);\n}\n");
+})($ || ($ = {}));
+//mol/textarea/-css/textarea.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_row extends $mol_view {
     }
     $.$mol_row = $mol_row;
@@ -9318,8 +9591,14 @@ var $;
                 this.Runner_table()
             ];
         }
+        download() {
+            const obj = new this.$.$mol_blob();
+            return obj;
+        }
         Download() {
             const obj = new this.$.$mol_button_download();
+            obj.file_name = () => "vaop_script.txt";
+            obj.blob = () => this.download();
             return obj;
         }
         Menu_trigger_icon() {
@@ -9469,16 +9748,40 @@ var $;
             obj.rows = () => this.agents();
             return obj;
         }
+        text_to_download(next) {
+            if (next !== undefined)
+                return next;
+            return "Текст для скачивания";
+        }
+        Text_download() {
+            const obj = new this.$.$mol_textarea();
+            obj.sidebar_showed = () => true;
+            obj.enabled = () => false;
+            obj.value = (next) => this.text_to_download();
+            return obj;
+        }
+        Text_download_section() {
+            const obj = new this.$.$mol_section();
+            obj.title = () => "Превью";
+            obj.content = () => [
+                this.Text_download()
+            ];
+            return obj;
+        }
         Runner_table() {
             const obj = new this.$.$mol_list();
             obj.rows = () => [
                 this.Table_header(),
                 this.Agent_header(),
-                this.Agent_rows()
+                this.Agent_rows(),
+                this.Text_download_section()
             ];
             return obj;
         }
     }
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "download", null);
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Download", null);
@@ -9539,6 +9842,15 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Agent_rows", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "text_to_download", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Text_download", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Text_download_section", null);
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Runner_table", null);
@@ -9748,21 +10060,21 @@ var $;
         class $milis_vaop extends $.$milis_vaop {
             agent_list(next) {
                 return next ?? [
-                    { id: 1 },
-                    { id: 2 },
+                    { id: crypto.randomUUID() },
+                    { id: crypto.randomUUID() },
                 ];
             }
             agents() {
-                return this.agent_list().map((item, index) => this.Agent(index));
+                return this.agent_list().map(item => this.Agent(item.id));
             }
             delete_agent(id) {
-                console.log('id before', id, this.agent_list(), this.agents());
-                this.agent_list(this.agent_list().filter((agent, index) => index !== id));
-                console.log('FIX ME: id after', id, this.agent_list(), this.agents());
+                this.agent_list(this.agent_list().filter((agent, index) => agent.id !== id));
             }
             add_agent(id) {
                 console.log('FIX ME: id before', id, this.agent_list());
-                this.agent_list([...this.agent_list(), { id: 12 }]);
+                const current_index = this.agent_list().findIndex((item) => item.id === id) + 1;
+                console.log(current_index);
+                this.agent_list([...this.agent_list().slice(0, current_index), { id: crypto.randomUUID() }, ...this.agent_list().slice(current_index)]);
             }
             agent_machine(id, next) {
                 return next ?? '';
@@ -9793,6 +10105,14 @@ var $;
             }
             name_enabled(id) {
                 return this.machine_enabled(id);
+            }
+            text_to_download() {
+                console.log();
+                return JSON.stringify(this.agent_list(), null, 2) ?? '';
+            }
+            download() {
+                console.log('download');
+                return new $mol_dom_context.Blob([this.text_to_download()], { type: 'text/x-marked' });
             }
         }
         __decorate([
