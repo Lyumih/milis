@@ -1,14 +1,5 @@
 namespace $ {
-	export class $milis_skazka extends $mol_book2_catalog {
-		
-		/**
-		 * ```tree
-		 * param \skazka
-		 * ```
-		 */
-		param() {
-			return "skazka"
-		}
+	export class $milis_skazka extends $mol_page {
 		
 		/**
 		 * ```tree
@@ -21,190 +12,142 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * menu_title \Сказка
+		 * body / <= Hero
 		 * ```
 		 */
-		menu_title() {
-			return "Сказка"
-		}
-		
-		/**
-		 * ```tree
-		 * spreads *
-		 * 	heroes <= Button2
-		 * 	map <= Button
-		 * ```
-		 */
-		spreads() {
-			return {
-				heroes: this.Button2(),
-				map: this.Button()
-			}
-		}
-		
-		/**
-		 * ```tree
-		 * VasilisaHero $milis_skazka_hero
-		 * ```
-		 */
-		@ $mol_mem
-		VasilisaHero() {
-			const obj = new this.$.$milis_skazka_hero()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * VasilisaPage $mol_page
-		 * 	title \Василиса Премудрая
-		 * 	body / <= VasilisaHero
-		 * ```
-		 */
-		@ $mol_mem
-		VasilisaPage() {
-			const obj = new this.$.$mol_page()
-			
-			obj.title = () => "Василиса Премудрая"
-			obj.body = () => [
-				this.VasilisaHero()
+		body() {
+			return [
+				this.Hero()
 			] as readonly any[]
-			
-			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * TriBogatirya $milis_skazka_hero
+		 * foot /
+		 * 	<= Conact_link
+		 * 	<= LinkMol
 		 * ```
 		 */
-		@ $mol_mem
-		TriBogatirya() {
-			const obj = new this.$.$milis_skazka_hero()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * TriBogatiryaPage $mol_page
-		 * 	title \Три богатыря
-		 * 	body / <= TriBogatirya
-		 * ```
-		 */
-		@ $mol_mem
-		TriBogatiryaPage() {
-			const obj = new this.$.$mol_page()
-			
-			obj.title = () => "Три богатыря"
-			obj.body = () => [
-				this.TriBogatirya()
+		foot() {
+			return [
+				this.Conact_link(),
+				this.LinkMol()
 			] as readonly any[]
-			
-			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * Button2 $mol_book2_catalog
-		 * 	param \heroes
-		 * 	menu_title \Персонажи
-		 * 	spreads *
-		 * 		vasilisa <= VasilisaPage
-		 * 		tri_bogatirya <= TriBogatiryaPage
+		 * hero_name \
 		 * ```
 		 */
-		@ $mol_mem
-		Button2() {
-			const obj = new this.$.$mol_book2_catalog()
-			
-			obj.param = () => "heroes"
-			obj.menu_title = () => "Персонажи"
-			obj.spreads = () => ({
-				vasilisa: this.VasilisaPage(),
-				tri_bogatirya: this.TriBogatiryaPage()
-			})
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * place_title \
-		 * ```
-		 */
-		place_title() {
+		hero_name() {
 			return ""
 		}
 		
 		/**
 		 * ```tree
-		 * place_addres \Saint-Petersburg
+		 * hero_fairytale \
 		 * ```
 		 */
-		place_addres() {
-			return "Saint-Petersburg"
+		hero_fairytale() {
+			return ""
 		}
 		
 		/**
 		 * ```tree
-		 * place_content \It is Russia's second-largest city after Moscow
+		 * hero_description \
 		 * ```
 		 */
-		place_content() {
-			return "It is Russia's second-largest city after Moscow"
+		hero_description() {
+			return ""
 		}
 		
 		/**
 		 * ```tree
-		 * Place $mol_map_yandex_mark
-		 * 	title <= place_title
-		 * 	address <= place_addres
-		 * 	content <= place_content
+		 * hero_audio \
+		 * ```
+		 */
+		hero_audio() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * hero_video \
+		 * ```
+		 */
+		hero_video() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * hero_text \
+		 * ```
+		 */
+		hero_text() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Hero $milis_skazka_hero
+		 * 	name <= hero_name
+		 * 	fairytale <= hero_fairytale
+		 * 	description <= hero_description
+		 * 	audio <= hero_audio
+		 * 	video <= hero_video
+		 * 	book <= hero_text
 		 * ```
 		 */
 		@ $mol_mem
-		Place() {
-			const obj = new this.$.$mol_map_yandex_mark()
+		Hero() {
+			const obj = new this.$.$milis_skazka_hero()
 			
-			obj.title = () => this.place_title()
-			obj.address = () => this.place_addres()
-			obj.content = () => this.place_content()
+			obj.name = () => this.hero_name()
+			obj.fairytale = () => this.hero_fairytale()
+			obj.description = () => this.hero_description()
+			obj.audio = () => this.hero_audio()
+			obj.video = () => this.hero_video()
+			obj.book = () => this.hero_text()
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * Map $mol_map_yandex objects / <= Place
+		 * Conact_link $mol_link
+		 * 	title \Есть неточность?
+		 * 	uri \https://t.me/mikhail_eco_coach
+		 * 	target \_blank
 		 * ```
 		 */
 		@ $mol_mem
-		Map() {
-			const obj = new this.$.$mol_map_yandex()
+		Conact_link() {
+			const obj = new this.$.$mol_link()
 			
-			obj.objects = () => [
-				this.Place()
-			] as readonly any[]
+			obj.title = () => "Есть неточность?"
+			obj.uri = () => "https://t.me/mikhail_eco_coach"
+			obj.target = () => "_blank"
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * Button $mol_page
-		 * 	title \Карта
-		 * 	body / <= Map
+		 * LinkMol $mol_link
+		 * 	title \Сделано на $mol
+		 * 	uri \https://t.me/mam_mol
+		 * 	target \_blank
 		 * ```
 		 */
 		@ $mol_mem
-		Button() {
-			const obj = new this.$.$mol_page()
+		LinkMol() {
+			const obj = new this.$.$mol_link()
 			
-			obj.title = () => "Карта"
-			obj.body = () => [
-				this.Map()
-			] as readonly any[]
+			obj.title = () => "Сделано на $mol"
+			obj.uri = () => "https://t.me/mam_mol"
+			obj.target = () => "_blank"
 			
 			return obj
 		}

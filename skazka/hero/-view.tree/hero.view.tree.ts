@@ -25,9 +25,18 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * name \
+		 * ```
+		 */
+		name() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
 		 * Title $mol_section
 		 * 	level 2
-		 * 	title \Василиса Премудрая
+		 * 	title <= name
 		 * ```
 		 */
 		@ $mol_mem
@@ -35,16 +44,25 @@ namespace $ {
 			const obj = new this.$.$mol_section()
 			
 			obj.level = () => 2
-			obj.title = () => "Василиса Премудрая"
+			obj.title = () => this.name()
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
+		 * fairytale \
+		 * ```
+		 */
+		fairytale() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
 		 * TitleBook $mol_section
 		 * 	level 3
-		 * 	title \Сказка: МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ.
+		 * 	title <= fairytale
 		 * ```
 		 */
 		@ $mol_mem
@@ -52,7 +70,30 @@ namespace $ {
 			const obj = new this.$.$mol_section()
 			
 			obj.level = () => 3
-			obj.title = () => "Сказка: МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ."
+			obj.title = () => this.fairytale()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * description \
+		 * ```
+		 */
+		description() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Description_text $mol_text text <= description
+		 * ```
+		 */
+		@ $mol_mem
+		Description_text() {
+			const obj = new this.$.$mol_text()
+			
+			obj.text = () => this.description()
 			
 			return obj
 		}
@@ -62,7 +103,7 @@ namespace $ {
 		 * Description $mol_section
 		 * 	title \Описание
 		 * 	level 3
-		 * 	content / \Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания.
+		 * 	content / <= Description_text
 		 * ```
 		 */
 		@ $mol_mem
@@ -72,7 +113,7 @@ namespace $ {
 			obj.title = () => "Описание"
 			obj.level = () => 3
 			obj.content = () => [
-				"Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания."
+				this.Description_text()
 			] as readonly any[]
 			
 			return obj
@@ -80,9 +121,18 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * audio \
+		 * ```
+		 */
+		audio() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
 		 * Audiobook $mol_link
 		 * 	title \Слушать сказку онлайн
-		 * 	uri \https://audioskazki-online.ru/narodnye/russkie/morskoj-tsar-i-vasilisa-premudraya
+		 * 	uri <= audio
 		 * 	target \_blank
 		 * ```
 		 */
@@ -91,7 +141,7 @@ namespace $ {
 			const obj = new this.$.$mol_link()
 			
 			obj.title = () => "Слушать сказку онлайн"
-			obj.uri = () => "https://audioskazki-online.ru/narodnye/russkie/morskoj-tsar-i-vasilisa-premudraya"
+			obj.uri = () => this.audio()
 			obj.target = () => "_blank"
 			
 			return obj
@@ -99,14 +149,46 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Videobook $mol_embed_youtube uri \https://www.youtube.com/embed/LDqEw-M8iyE
+		 * video \
+		 * ```
+		 */
+		video() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Videobook $mol_embed_youtube uri <= video
 		 * ```
 		 */
 		@ $mol_mem
 		Videobook() {
 			const obj = new this.$.$mol_embed_youtube()
 			
-			obj.uri = () => "https://www.youtube.com/embed/LDqEw-M8iyE"
+			obj.uri = () => this.video()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * book \
+		 * ```
+		 */
+		book() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Book_text $mol_text text <= book
+		 * ```
+		 */
+		@ $mol_mem
+		Book_text() {
+			const obj = new this.$.$mol_text()
+			
+			obj.text = () => this.book()
 			
 			return obj
 		}
@@ -115,7 +197,7 @@ namespace $ {
 		 * ```tree
 		 * Book $mol_section
 		 * 	title \Сказка
-		 * 	content / \МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ. Русская народная сказка. За тридевять земель, в тридесятом государстве жил-был царь с царицею; детей у них не было. Поехал ...
+		 * 	content / <= Book_text
 		 * ```
 		 */
 		@ $mol_mem
@@ -124,7 +206,7 @@ namespace $ {
 			
 			obj.title = () => "Сказка"
 			obj.content = () => [
-				"МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ. Русская народная сказка. За тридевять земель, в тридесятом государстве жил-был царь с царицею; детей у них не было. Поехал ..."
+				this.Book_text()
 			] as readonly any[]
 			
 			return obj

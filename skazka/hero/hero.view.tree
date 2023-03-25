@@ -2,20 +2,22 @@ $milis_skazka_hero $mol_list
 	rows /$mol_view
 		<= Title $mol_section
 			level 2
-			title \Василиса Премудрая
+			title <= name \
 		<= TitleBook $mol_section
 			level 3
-			title \Сказка: МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ.
+			title <= fairytale \
 		<= Description $mol_section
 			title \Описание
 			level 3
-			content / \Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания.
+			content /
+				<= Description_text $mol_text text <= description \
 		<= Audiobook $mol_link
 			title \Слушать сказку онлайн
-			uri \https://audioskazki-online.ru/narodnye/russkie/morskoj-tsar-i-vasilisa-premudraya
+			uri <= audio \
 			target \_blank
 		<= Videobook $mol_embed_youtube
-			uri \https://www.youtube.com/embed/LDqEw-M8iyE
+			uri <= video \
 		<= Book $mol_section
 			title \Сказка
-			content / \МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ. Русская народная сказка. За тридевять земель, в тридесятом государстве жил-был царь с царицею; детей у них не было. Поехал ...
+			content /
+				<= Book_text $mol_text text <= book \
