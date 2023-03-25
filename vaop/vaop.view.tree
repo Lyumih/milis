@@ -36,14 +36,23 @@ $milis_vaop $mol_page
 		<= Runner_table $mol_list
 			rows /$mol_view
 				<= Table_header $mol_section
-					title \Ваш Runner
-					content / <= Runner_input $mol_string hint \Runner "Парсер АПИ"
+					title \Раннер
+					content / <= Runner_input $mol_string hint \Описание - Парсер АПИ - распарсить сайт https://mol.hyoo.ru/ на статьи
+				<= Agent_header $mol_section
+					title \Агенты
 				<= Agent_rows $mol_list
 					rows <= agents /
 						<= Agent*0 $milis_vaop_agent
 							business? <=> agent_business*? null
-							programmer_enabled <= agent_programmer_enabled* false
+							programmer? <=> agent_programmer*? null
 							machine? <=> agent_machine*? null
+							current_step? <=> current_step*? null
+							next_step? <=> next_step*? null
+							machine_enabled <= machine_enabled* false
+							programmer_enabled <= programmer_enabled* false
+							current_step_enabled <= current_step_enabled* false
+							next_step_enabled <= next_step_enabled* false
+							name_enabled <= name_enabled* false
 							add? <=> add_agent*? null
 							delete? <=> delete_agent*? null
 
@@ -63,16 +72,22 @@ $milis_vaop_agent $mol_row
 		<= Machine $mol_string
 			hint \Машина
 			value? <=> machine? \
-		<= Current_step $mol_number
+			enabled <= machine_enabled false
+		<= Current $mol_number
 			hint \Текущий шаг
+			value_min 0
 			precision_change 100
-			value? <=> current_step? 100
-		<= Next_step $mol_number
+			enabled <= current_step_enabled false
+			value? <=> current_step? 0
+		<= Next $mol_number
 			hint \Следующий шаг
 			precision_change 100
-			value? <=> next_step? 200
+			value_min 0
+			enabled <= next_step_enabled false
+			value? <=> next_step? 0
 		<= Name $mol_string
 			hint \Имя агента
+			enabled <= name_enabled false
 			value? <=> name? \
 		<= Delete $mol_button_minor
 			sub / <= Icon_delete_agent $mol_icon_delete
