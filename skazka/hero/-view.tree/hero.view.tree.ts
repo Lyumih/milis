@@ -114,6 +114,15 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * fairytale \
+		 * ```
+		 */
+		fairytale() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
 		 * book \
 		 * ```
 		 */

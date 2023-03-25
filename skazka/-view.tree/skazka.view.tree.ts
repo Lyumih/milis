@@ -15,12 +15,14 @@ namespace $ {
 		 * tools /
 		 * 	<= Audio_tool
 		 * 	<= Video_tool
+		 * 	<= Menu
 		 * ```
 		 */
 		tools() {
 			return [
 				this.Audio_tool(),
-				this.Video_tool()
+				this.Video_tool(),
+				this.Menu()
 			] as readonly any[]
 		}
 		
@@ -38,14 +40,10 @@ namespace $ {
 		/**
 		 * ```tree
 		 * foot /
-		 * 	<= Conact_link
-		 * 	<= LinkMol
 		 * ```
 		 */
 		foot() {
 			return [
-				this.Conact_link(),
-				this.LinkMol()
 			] as readonly any[]
 		}
 		
@@ -107,6 +105,96 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * Menu_trigger_icon $mol_icon_dots_vertical
+		 * ```
+		 */
+		@ $mol_mem
+		Menu_trigger_icon() {
+			const obj = new this.$.$mol_icon_dots_vertical()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Conact_link $mol_link
+		 * 	title \Есть неточность?
+		 * 	uri \https://t.me/mikhail_eco_coach
+		 * 	target \_blank
+		 * ```
+		 */
+		@ $mol_mem
+		Conact_link() {
+			const obj = new this.$.$mol_link()
+			
+			obj.title = () => "Есть неточность?"
+			obj.uri = () => "https://t.me/mikhail_eco_coach"
+			obj.target = () => "_blank"
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * LinkMol $mol_link
+		 * 	title \Сделано на $mol
+		 * 	uri \https://mol.hyoo.ru/
+		 * 	target \_blank
+		 * ```
+		 */
+		@ $mol_mem
+		LinkMol() {
+			const obj = new this.$.$mol_link()
+			
+			obj.title = () => "Сделано на $mol"
+			obj.uri = () => "https://mol.hyoo.ru/"
+			obj.target = () => "_blank"
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Options_content $mol_list rows /
+		 * 	<= Conact_link
+		 * 	<= LinkMol
+		 * ```
+		 */
+		@ $mol_mem
+		Options_content() {
+			const obj = new this.$.$mol_list()
+			
+			obj.rows = () => [
+				this.Conact_link(),
+				this.LinkMol()
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Menu $mol_pick
+		 * 	trigger_content / <= Menu_trigger_icon
+		 * 	bubble_content / <= Options_content
+		 * ```
+		 */
+		@ $mol_mem
+		Menu() {
+			const obj = new this.$.$mol_pick()
+			
+			obj.trigger_content = () => [
+				this.Menu_trigger_icon()
+			] as readonly any[]
+			obj.bubble_content = () => [
+				this.Options_content()
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
 		 * hero_name \
 		 * ```
 		 */
@@ -160,44 +248,6 @@ namespace $ {
 			obj.description = () => this.hero_description()
 			obj.video = () => this.hero_video()
 			obj.book = () => this.hero_text()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Conact_link $mol_link
-		 * 	title \Есть неточность?
-		 * 	uri \https://t.me/mikhail_eco_coach
-		 * 	target \_blank
-		 * ```
-		 */
-		@ $mol_mem
-		Conact_link() {
-			const obj = new this.$.$mol_link()
-			
-			obj.title = () => "Есть неточность?"
-			obj.uri = () => "https://t.me/mikhail_eco_coach"
-			obj.target = () => "_blank"
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * LinkMol $mol_link
-		 * 	title \Сделано на $mol
-		 * 	uri \https://mol.hyoo.ru/
-		 * 	target \_blank
-		 * ```
-		 */
-		@ $mol_mem
-		LinkMol() {
-			const obj = new this.$.$mol_link()
-			
-			obj.title = () => "Сделано на $mol"
-			obj.uri = () => "https://mol.hyoo.ru/"
-			obj.target = () => "_blank"
 			
 			return obj
 		}

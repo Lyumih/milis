@@ -31,6 +31,7 @@ namespace $.$$ {
 			}
 		}
 
+		@ $mol_mem
 		hero() {
 			console.log($mol_state_arg.value('id'))
 			const id = $mol_state_arg.value('id')
