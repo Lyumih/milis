@@ -5,9 +5,7 @@ namespace $ {
 		 * ```tree
 		 * rows /$mol_view
 		 * 	<= Title
-		 * 	<= TitleBook
 		 * 	<= Description
-		 * 	<= Audiobook
 		 * 	<= Videobook
 		 * 	<= Book
 		 * ```
@@ -15,9 +13,7 @@ namespace $ {
 		rows() {
 			return [
 				this.Title(),
-				this.TitleBook(),
 				this.Description(),
-				this.Audiobook(),
 				this.Videobook(),
 				this.Book()
 			] as readonly $mol_view[]
@@ -35,7 +31,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Title $mol_section
-		 * 	level 2
+		 * 	level 4
 		 * 	title <= name
 		 * ```
 		 */
@@ -43,34 +39,8 @@ namespace $ {
 		Title() {
 			const obj = new this.$.$mol_section()
 			
-			obj.level = () => 2
+			obj.level = () => 4
 			obj.title = () => this.name()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * fairytale \
-		 * ```
-		 */
-		fairytale() {
-			return ""
-		}
-		
-		/**
-		 * ```tree
-		 * TitleBook $mol_section
-		 * 	level 3
-		 * 	title <= fairytale
-		 * ```
-		 */
-		@ $mol_mem
-		TitleBook() {
-			const obj = new this.$.$mol_section()
-			
-			obj.level = () => 3
-			obj.title = () => this.fairytale()
 			
 			return obj
 		}
@@ -101,7 +71,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Description $mol_section
-		 * 	title \Описание
+		 * 	title \
 		 * 	level 3
 		 * 	content / <= Description_text
 		 * ```
@@ -110,39 +80,11 @@ namespace $ {
 		Description() {
 			const obj = new this.$.$mol_section()
 			
-			obj.title = () => "Описание"
+			obj.title = () => ""
 			obj.level = () => 3
 			obj.content = () => [
 				this.Description_text()
 			] as readonly any[]
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * audio \
-		 * ```
-		 */
-		audio() {
-			return ""
-		}
-		
-		/**
-		 * ```tree
-		 * Audiobook $mol_link
-		 * 	title \Слушать сказку онлайн
-		 * 	uri <= audio
-		 * 	target \_blank
-		 * ```
-		 */
-		@ $mol_mem
-		Audiobook() {
-			const obj = new this.$.$mol_link()
-			
-			obj.title = () => "Слушать сказку онлайн"
-			obj.uri = () => this.audio()
-			obj.target = () => "_blank"
 			
 			return obj
 		}
@@ -196,7 +138,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Book $mol_section
-		 * 	title \Сказка
+		 * 	title <= fairytale
 		 * 	content / <= Book_text
 		 * ```
 		 */
@@ -204,7 +146,7 @@ namespace $ {
 		Book() {
 			const obj = new this.$.$mol_section()
 			
-			obj.title = () => "Сказка"
+			obj.title = () => this.fairytale()
 			obj.content = () => [
 				this.Book_text()
 			] as readonly any[]

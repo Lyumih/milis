@@ -14,7 +14,8 @@ namespace $.$$ {
 			fairytale: 'ТРИ БОГАТЫРЯ',
 			description: '"Три богатыря" - это сказка про известных русских героев былин, сказка про богатырей Илью Муромца, Алешу Поповича и Добрыню Никитича.',
 			audioUrl: 'https://audioskazki-online.ru/podborki/raznoe/tri-bogatyrya',
-			videoUrl: 'https://www.youtube.com/embed/uopfqauEz64',
+			// videoUrl: 'https://www.youtube.com/embed/uopfqauEz64',
+			videoUrl: 'https://www.youtube.com/watch?v=uopfqauEz64&ab_channel=%D0%9A%D0%B8%D0%BD%D0%BE%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D0%BD%22%D0%9C%D0%BE%D1%81%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%22',
 			textUrl: 'Давным-давно жил один человек, не богатый не бедный. У него было три сына. Все трое красивые, подобно месяцу, грамоте обучались, уму-разуму набирались, с плохими людьми не знались. Старшему Тонгуч-батыру был двадцать один год, среднему Ортанча-батыру — восемнадцать лет, а младшему Кенджа-батыру — шестнадцать. Однажды отец позвал сыновей к себе, усадил, приласкал каждого, погладил по голове и сказал: ...',
 		}
 	]
@@ -37,7 +38,7 @@ namespace $.$$ {
 		}
 
 		hero_name(): string {
-			return this.hero().hero
+			return 'Персонаж: ' + this.hero().hero
 		}
 		hero_fairytale(): string {
 			return this.hero().fairytale

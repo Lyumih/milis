@@ -1,23 +1,23 @@
 $milis_skazka_hero $mol_list
 	rows /$mol_view
 		<= Title $mol_section
-			level 2
+			level 4
 			title <= name \
-		<= TitleBook $mol_section
-			level 3
-			title <= fairytale \
 		<= Description $mol_section
-			title \Описание
+			title \
 			level 3
 			content /
 				<= Description_text $mol_text text <= description \
-		<= Audiobook $mol_link
+		- <= Audiobook $mol_link
 			title \Слушать сказку онлайн
 			uri <= audio \
 			target \_blank
 		<= Videobook $mol_embed_youtube
 			uri <= video \
+		- <= TitleBook $mol_section
+			level 3
+			title <= fairytale \
 		<= Book $mol_section
-			title \Сказка
+			title <= fairytale
 			content /
 				<= Book_text $mol_text text <= book \

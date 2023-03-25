@@ -32,6 +32,23 @@ $mol_page $mol_view
 			dom_name \footer
 			sub <= foot /$mol_view
 
+$mol_link $mol_view
+	uri \
+	dom_name \a
+	attr *
+		^
+		href <= uri_toggle \
+		title <= hint_safe <= hint \
+		target <= target \_self
+		download <= file_name \
+		mol_link_current <= current false
+	sub /$mol_view_content
+		<= title
+	arg *
+	event *
+		^
+		click?event <=> click?event <=> event_click?event null
+
 $mol_list $mol_view
 	render_visible_only true
 	render_over 0
@@ -294,23 +311,6 @@ $mol_grid_cell $mol_view
 
 $mol_grid_number $mol_grid_cell
 
-$mol_link $mol_view
-	uri \
-	dom_name \a
-	attr *
-		^
-		href <= uri_toggle \
-		title <= hint_safe <= hint \
-		target <= target \_self
-		download <= file_name \
-		mol_link_current <= current false
-	sub /$mol_view_content
-		<= title
-	arg *
-	event *
-		^
-		click?event <=> click?event <=> event_click?event null
-
 $mol_image $mol_view
 	dom_name \img
 	field *
@@ -501,29 +501,38 @@ $mol_text_list_item $mol_paragraph
 $milis_skazka_hero $mol_list
 	rows /$mol_view
 		<= Title $mol_section
-			level 2
+			level 4
 			title <= name \
-		<= TitleBook $mol_section
-			level 3
-			title <= fairytale \
 		<= Description $mol_section
-			title \Описание
+			title \
 			level 3
 			content /
 				<= Description_text $mol_text text <= description \
-		<= Audiobook $mol_link
+		- <= Audiobook $mol_link
 			title \Слушать сказку онлайн
 			uri <= audio \
 			target \_blank
 		<= Videobook $mol_embed_youtube
 			uri <= video \
+		- <= TitleBook $mol_section
+			level 3
+			title <= fairytale \
 		<= Book $mol_section
-			title \Сказка
+			title <= fairytale
 			content /
 				<= Book_text $mol_text text <= book \
 
 $milis_skazka $mol_page
 	title \Сказка в Лесу
+	tools /
+		<= Audio_tool $mol_link
+			title \Слушать
+			uri <= hero_audio \
+			target \_blank
+		<= Video_tool $mol_link
+			title \Смотреть
+			uri <= hero_video \
+			target \_blank
 	body /
 		<= Hero $milis_skazka_hero
 			name <= hero_name \

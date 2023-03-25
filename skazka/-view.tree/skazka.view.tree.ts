@@ -12,6 +12,20 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * tools /
+		 * 	<= Audio_tool
+		 * 	<= Video_tool
+		 * ```
+		 */
+		tools() {
+			return [
+				this.Audio_tool(),
+				this.Video_tool()
+			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
 		 * body / <= Hero
 		 * ```
 		 */
@@ -33,6 +47,62 @@ namespace $ {
 				this.Conact_link(),
 				this.LinkMol()
 			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
+		 * hero_audio \
+		 * ```
+		 */
+		hero_audio() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Audio_tool $mol_link
+		 * 	title \Слушать
+		 * 	uri <= hero_audio
+		 * 	target \_blank
+		 * ```
+		 */
+		@ $mol_mem
+		Audio_tool() {
+			const obj = new this.$.$mol_link()
+			
+			obj.title = () => "Слушать"
+			obj.uri = () => this.hero_audio()
+			obj.target = () => "_blank"
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * hero_video \
+		 * ```
+		 */
+		hero_video() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Video_tool $mol_link
+		 * 	title \Смотреть
+		 * 	uri <= hero_video
+		 * 	target \_blank
+		 * ```
+		 */
+		@ $mol_mem
+		Video_tool() {
+			const obj = new this.$.$mol_link()
+			
+			obj.title = () => "Смотреть"
+			obj.uri = () => this.hero_video()
+			obj.target = () => "_blank"
+			
+			return obj
 		}
 		
 		/**
@@ -59,24 +129,6 @@ namespace $ {
 		 * ```
 		 */
 		hero_description() {
-			return ""
-		}
-		
-		/**
-		 * ```tree
-		 * hero_audio \
-		 * ```
-		 */
-		hero_audio() {
-			return ""
-		}
-		
-		/**
-		 * ```tree
-		 * hero_video \
-		 * ```
-		 */
-		hero_video() {
 			return ""
 		}
 		

@@ -1,5 +1,14 @@
 $milis_skazka $mol_page
 	title \Сказка в Лесу
+	tools /
+		<= Audio_tool $mol_link
+			title \Слушать
+			uri <= hero_audio \
+			target \_blank
+		<= Video_tool $mol_link
+			title \Смотреть
+			uri <= hero_video \
+			target \_blank
 	body /
 		<= Hero $milis_skazka_hero
 			name <= hero_name \
