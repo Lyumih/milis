@@ -21,21 +21,20 @@ namespace $.$$ {
 	]
 
 	export class $milis_skazka extends $.$milis_skazka {
-		constructor(){
-			super()
-			console.log('fetched')
-			try {
-				this.fetch_skazka('1')
-			} catch (e: any) {
-				console.error(e)
-			}
-		}
 
 		@ $mol_mem
-		hero() {
+		hero_id() {
 			console.log($mol_state_arg.value('id'))
-			const id = $mol_state_arg.value('id')
-			return heroItems[Number(id)] ?? heroItems[0]
+			const id = $mol_state_arg.value('id') ?? '1'
+			return id
+		}
+		
+		@ $mol_mem
+		hero(): any {
+			const url = `http://sbook.kinsle.ru/find/one/by/id/${this.hero_id()}`
+			const result = $mol_fetch.json(url);
+			console.log(result)
+			return result
 		}
 
 		hero_name(): string {
@@ -57,10 +56,6 @@ namespace $.$$ {
 			return this.hero().textUrl
 		}
 
-		fetch_skazka(id?: string) {
-			const url = `http://sbook.kinsle.ru/find/one/by/id/${id}`
-			const result = $mol_fetch.json(url);
-			console.log(result)
-		}
+
 	}
 }
