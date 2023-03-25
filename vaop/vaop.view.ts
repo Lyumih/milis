@@ -17,9 +17,11 @@ namespace $.$$ {
 	export class $milis_vaop extends $.$milis_vaop {
 		@$mol_mem
 		agent_list( next?: AgentDTO[] ) {
+			console.log('FIX ME agent list', next)
 			return next ?? [
+				{ id: crypto.randomUUID(), business: 'test' },
 				{ id: crypto.randomUUID() },
-				{ id: crypto.randomUUID() },
+				// { id: crypto.randomUUID() },
 				// { id: 3 }
 			]
 		}
@@ -37,9 +39,7 @@ namespace $.$$ {
 
 		@$mol_action
 		add_agent( id: string ) {
-			console.log( 'FIX ME: id before', id, this.agent_list() )
 			const current_index = this.agent_list().findIndex( ( item ) => item.id === id ) + 1
-			console.log( current_index )
 			this.agent_list( [ ...this.agent_list().slice( 0, current_index ), { id: crypto.randomUUID() }, ...this.agent_list().slice( current_index ) ] )
 		}
 
@@ -50,6 +50,7 @@ namespace $.$$ {
 
 		@$mol_mem_key
 		agent_business( id: string, next?: string ) {
+			console.log('FIX ME',id, next)
 			return next ?? ''
 		}
 
@@ -101,6 +102,16 @@ namespace $.$$ {
 		download(): Blob {
 			console.log( 'download' )
 			return new $mol_dom_context.Blob( [ this.text_to_download() ], { type: 'text/x-marked' } )
+		}
+
+		@$mol_action
+		set_example(): void {
+			this.agent_list( [
+				{ id: crypto.randomUUID(), business: 'Создать парсер' },
+				{ id: crypto.randomUUID() },
+				{ id: crypto.randomUUID() }
+			]
+			)
 		}
 
 	}

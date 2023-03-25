@@ -1188,6 +1188,18 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_presentation extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_presentation_play extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_dots_vertical extends $mol_icon {
         path(): string;
     }
@@ -2900,6 +2912,9 @@ declare namespace $ {
         body(): readonly any[];
         download(): Blob;
         Download(): $$.$mol_button_download;
+        Example_icon(): $mol_icon_presentation_play;
+        set_example(): any;
+        Example(): $mol_button_minor;
         Menu_trigger_icon(): $mol_icon_dots_vertical;
         Telegram(): $$.$mol_link;
         LinkMol(): $$.$mol_link;
@@ -2982,6 +2997,7 @@ declare namespace $.$$ {
         name_enabled(id: string): boolean;
         text_to_download(): string;
         download(): Blob;
+        set_example(): void;
     }
     export {};
 }

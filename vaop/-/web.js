@@ -3660,6 +3660,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_presentation extends $mol_icon {
+        path() {
+            return "M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5Z";
+        }
+    }
+    $.$mol_icon_presentation = $mol_icon_presentation;
+})($ || ($ = {}));
+//mol/icon/presentation/-view.tree/presentation.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_presentation_play extends $mol_icon {
+        path() {
+            return "M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5M11.85,11.85C11.76,11.94 11.64,12 11.5,12C11.22,12 11,11.78 11,11.5V7.5C11,7.22 11.22,7 11.5,7C11.64,7 11.76,7.06 11.85,7.15L13.25,8.54C13.57,8.86 13.89,9.18 13.89,9.5C13.89,9.82 13.57,10.14 13.25,10.46L11.85,11.85Z";
+        }
+    }
+    $.$mol_icon_presentation_play = $mol_icon_presentation_play;
+})($ || ($ = {}));
+//mol/icon/presentation/play/-view.tree/play.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_dots_vertical extends $mol_icon {
         path() {
             return "M12,16C13.1,16 14,16.9 14,18C14,19.1 13.1,20 12,20C10.9,20 10,19.1 10,18C10,16.9 10.9,16 12,16M12,10C13.1,10 14,10.9 14,12C14,13.1 13.1,14 12,14C10.9,14 10,13.1 10,12C10,10.9 10.9,10 12,10M12,4C13.1,4 14,4.9 14,6C14,7.1 13.1,8 12,8C10.9,8 10,7.1 10,6C10,4.9 10.9,4 12,4Z";
@@ -9133,6 +9157,7 @@ var $;
         tools() {
             return [
                 this.Download(),
+                this.Example(),
                 this.Menu()
             ];
         }
@@ -9149,7 +9174,24 @@ var $;
         Download() {
             const obj = new this.$.$mol_button_download();
             obj.file_name = () => "vaop_script.txt";
+            obj.hint = () => "Скачать VAOP скрипт";
             obj.blob = () => this.download();
+            return obj;
+        }
+        Example_icon() {
+            const obj = new this.$.$mol_icon_presentation_play();
+            return obj;
+        }
+        set_example() {
+            return null;
+        }
+        Example() {
+            const obj = new this.$.$mol_button_minor();
+            obj.sub = () => [
+                this.Example_icon()
+            ];
+            obj.hine = () => "Показать пример";
+            obj.click = (next) => this.set_example();
             return obj;
         }
         Menu_trigger_icon() {
@@ -9336,6 +9378,12 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Download", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Example_icon", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Example", null);
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Menu_trigger_icon", null);
@@ -9541,6 +9589,7 @@ var $;
             obj.sub = () => [
                 this.Icon_delete_agent()
             ];
+            obj.hint = () => "Удалить агента";
             obj.click = (next) => this.delete(next);
             return obj;
         }
@@ -9610,8 +9659,9 @@ var $;
     (function ($$) {
         class $milis_vaop extends $.$milis_vaop {
             agent_list(next) {
+                console.log('FIX ME agent list', next);
                 return next ?? [
-                    { id: crypto.randomUUID() },
+                    { id: crypto.randomUUID(), business: 'test' },
                     { id: crypto.randomUUID() },
                 ];
             }
@@ -9622,15 +9672,14 @@ var $;
                 this.agent_list(this.agent_list().filter((agent, index) => agent.id !== id));
             }
             add_agent(id) {
-                console.log('FIX ME: id before', id, this.agent_list());
                 const current_index = this.agent_list().findIndex((item) => item.id === id) + 1;
-                console.log(current_index);
                 this.agent_list([...this.agent_list().slice(0, current_index), { id: crypto.randomUUID() }, ...this.agent_list().slice(current_index)]);
             }
             agent_machine(id, next) {
                 return next ?? '';
             }
             agent_business(id, next) {
+                console.log('FIX ME', id, next);
                 return next ?? '';
             }
             agent_programmer(id, next) {
@@ -9664,6 +9713,13 @@ var $;
             download() {
                 console.log('download');
                 return new $mol_dom_context.Blob([this.text_to_download()], { type: 'text/x-marked' });
+            }
+            set_example() {
+                this.agent_list([
+                    { id: crypto.randomUUID(), business: 'Создать парсер' },
+                    { id: crypto.randomUUID() },
+                    { id: crypto.randomUUID() }
+                ]);
             }
         }
         __decorate([
@@ -9708,6 +9764,9 @@ var $;
         __decorate([
             $mol_mem_key
         ], $milis_vaop.prototype, "name_enabled", null);
+        __decorate([
+            $mol_action
+        ], $milis_vaop.prototype, "set_example", null);
         $$.$milis_vaop = $milis_vaop;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

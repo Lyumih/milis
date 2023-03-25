@@ -14,12 +14,14 @@ namespace $ {
 		 * ```tree
 		 * tools /
 		 * 	<= Download
+		 * 	<= Example
 		 * 	<= Menu
 		 * ```
 		 */
 		tools() {
 			return [
 				this.Download(),
+				this.Example(),
 				this.Menu()
 			] as readonly any[]
 		}
@@ -54,6 +56,7 @@ namespace $ {
 		 * ```tree
 		 * Download $mol_button_download
 		 * 	file_name \vaop_script.txt
+		 * 	hint \Скачать VAOP скрипт
 		 * 	blob <= download
 		 * ```
 		 */
@@ -62,7 +65,50 @@ namespace $ {
 			const obj = new this.$.$mol_button_download()
 			
 			obj.file_name = () => "vaop_script.txt"
+			obj.hint = () => "Скачать VAOP скрипт"
 			obj.blob = () => this.download()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Example_icon $mol_icon_presentation_play
+		 * ```
+		 */
+		@ $mol_mem
+		Example_icon() {
+			const obj = new this.$.$mol_icon_presentation_play()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * set_example null
+		 * ```
+		 */
+		set_example() {
+			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * Example $mol_button_minor
+		 * 	sub / <= Example_icon
+		 * 	hine \Показать пример
+		 * 	click? <= set_example
+		 * ```
+		 */
+		@ $mol_mem
+		Example() {
+			const obj = new this.$.$mol_button_minor()
+			
+			obj.sub = () => [
+				this.Example_icon()
+			] as readonly any[]
+			obj.hine = () => "Показать пример"
+			obj.click = (next?: any) => this.set_example()
 			
 			return obj
 		}
@@ -845,6 +891,7 @@ namespace $ {
 		 * ```tree
 		 * Delete $mol_button_minor
 		 * 	sub / <= Icon_delete_agent
+		 * 	hint \Удалить агента
 		 * 	click? <=> delete?
 		 * ```
 		 */
@@ -855,6 +902,7 @@ namespace $ {
 			obj.sub = () => [
 				this.Icon_delete_agent()
 			] as readonly any[]
+			obj.hint = () => "Удалить агента"
 			obj.click = (next?: any) => this.delete(next)
 			
 			return obj

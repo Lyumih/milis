@@ -132,6 +132,8 @@
     "$mol_state_time",
     "$mol_state",
     "$mol_svg_path",
+    "$mol_icon_presentation_play",
+    "$mol_icon_presentation",
     "$mol_icon_dots_vertical",
     "$mol_icon_dots",
     "$mol_link",
