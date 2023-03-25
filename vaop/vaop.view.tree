@@ -3,7 +3,12 @@ $milis_vaop $mol_page
 	tools /
 		<= Download $mol_button_download
 			file_name \vaop_script.txt
+			hint \Скачать VAOP скрипт
 			blob <= download $mol_blob
+		<= Example $mol_button_minor
+			sub / <= Example_icon $mol_icon_presentation_play
+			hine \Показать пример
+			click? <= set_example null
 		<= Menu $mol_pick
 			trigger_content / <= Menu_trigger_icon $mol_icon_dots_vertical
 			bubble_content / <= Options_content $mol_list rows /
@@ -96,4 +101,5 @@ $milis_vaop_agent $mol_row
 			value? <=> name? \
 		<= Delete $mol_button_minor
 			sub / <= Icon_delete_agent $mol_icon_delete
+			hint \Удалить агента
 			click? <=> delete? null
