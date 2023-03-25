@@ -8576,7 +8576,7 @@ var $;
         current_step(next) {
             if (next !== undefined)
                 return next;
-            return 0;
+            return 100;
         }
         Current_step() {
             const obj = new this.$.$mol_number();
@@ -8588,7 +8588,7 @@ var $;
         next_step(next) {
             if (next !== undefined)
                 return next;
-            return 0;
+            return 200;
         }
         Next_step() {
             const obj = new this.$.$mol_number();
@@ -8691,7 +8691,7 @@ var $;
     (function ($$) {
         class $milis_vaop extends $.$milis_vaop {
             agent_list(next) {
-                return next ?? Array.from(Array(10)).map((item, index) => ({ id: item, machine: index }));
+                return next ?? Array.from(Array(3)).map((item, index) => ({ id: item }));
             }
             agents() {
                 return this.agent_list().map((item, index) => this.Agent(index));
@@ -8699,9 +8699,6 @@ var $;
             add_agent(id) {
                 console.log('123', id, this.agent_list());
                 this.agent_list([...this.agent_list(), { id: 12 }]);
-            }
-            agent_machine(id) {
-                return 'atwer' + id;
             }
             delete_agent(id) {
                 console.log('id before', id, this.agents());
@@ -8718,9 +8715,6 @@ var $;
         __decorate([
             $mol_action
         ], $milis_vaop.prototype, "add_agent", null);
-        __decorate([
-            $mol_mem_key
-        ], $milis_vaop.prototype, "agent_machine", null);
         __decorate([
             $mol_action
         ], $milis_vaop.prototype, "delete_agent", null);

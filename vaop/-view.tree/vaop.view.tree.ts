@@ -396,13 +396,13 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * current_step? 0
+		 * current_step? 100
 		 * ```
 		 */
 		@ $mol_mem
 		current_step(next?: any) {
 			if ( next !== undefined ) return next as never
-			return 0
+			return 100
 		}
 		
 		/**
@@ -426,13 +426,13 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * next_step? 0
+		 * next_step? 200
 		 * ```
 		 */
 		@ $mol_mem
 		next_step(next?: any) {
 			if ( next !== undefined ) return next as never
-			return 0
+			return 200
 		}
 		
 		/**

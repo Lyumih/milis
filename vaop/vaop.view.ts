@@ -4,7 +4,7 @@ namespace $.$$ {
 	export class $milis_vaop extends $.$milis_vaop {
 		@ $mol_mem
 		agent_list(next?: Object[]){
-			return next ?? Array.from(Array(10)).map((item, index)=> ({id: item, machine: index}))
+			return next ?? Array.from(Array(3)).map((item, index)=> ({id: item}))
 		}
 		
 		@ $mol_mem
@@ -18,10 +18,10 @@ namespace $.$$ {
 			this.agent_list([...this.agent_list(), {id: 12}])
 		}
 
-		@ $mol_mem_key
-		agent_machine(id: any){
-			return 'atwer' + id
-		}
+		// @ $mol_mem_key
+		// agent_machine(id: any){
+		// 	return this.agent_list[id].agent_machine ?? ''
+		// }
 
 		@ $mol_action
 		delete_agent(id: any) {

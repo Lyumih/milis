@@ -53,11 +53,11 @@ $milis_vaop_agent $mol_row
 		<= Current_step $mol_number
 			hint \Текущий шаг
 			precision_change 100
-			value? <=> current_step? 0
+			value? <=> current_step? 100
 		<= Next_step $mol_number
 			hint \Следующий шаг
 			precision_change 100
-			value? <=> next_step? 0
+			value? <=> next_step? 200
 		<= Name $mol_string
 			hint \Имя агента
 			value? <=> name? \

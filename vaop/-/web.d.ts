@@ -2689,7 +2689,6 @@ declare namespace $.$$ {
         agent_list(next?: Object[]): Object[];
         agents(): $milis_vaop_agent[];
         add_agent(id: any): void;
-        agent_machine(id: any): string;
         delete_agent(id: any): void;
     }
 }
