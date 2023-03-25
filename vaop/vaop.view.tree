@@ -2,6 +2,8 @@ $milis_vaop $mol_page
 	title \VAOP - экологичное программирование
 	tools /
 		<= Download $mol_button_download
+			file_name \vaop_script.txt
+			blob <= download $mol_blob
 		<= Menu $mol_pick
 			trigger_content / <= Menu_trigger_icon $mol_icon_dots_vertical
 			bubble_content / <= Options_content $mol_list rows /
@@ -51,6 +53,13 @@ $milis_vaop $mol_page
 							add? <=> add_agent*? null
 							delete? <=> delete_agent*? null
 							- status? <= agent_status* false
+				<= Text_download_section $mol_section
+					title \Превью
+					content /
+						<= Text_download $mol_textarea
+							sidebar_showed true
+							enabled false
+							value? <= text_to_download? \Текст для скачивания
 
 $milis_vaop_agent $mol_row
 	sub /
