@@ -24,7 +24,7 @@ $milis_skazka $mol_page
 	body /
 		<= Hero $mol_list
 			rows /$mol_view
-				<= Title $mol_section
+				<= Name $mol_section
 					level 4
 					title <= hero_name \
 				<= Description $mol_section

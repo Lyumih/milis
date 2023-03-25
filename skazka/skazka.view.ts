@@ -24,17 +24,18 @@ namespace $.$$ {
 
 		@ $mol_mem
 		hero_id() {
-			console.log($mol_state_arg.value('id'))
-			const id = $mol_state_arg.value('id') ?? '1'
-			return id
+			return $mol_state_arg.value('id') ?? '1'
 		}
 		
 		@ $mol_mem
 		hero(): any {
 			const url = `http://sbook.kinsle.ru/find/one/by/id/${this.hero_id()}`
-			const result = $mol_fetch.json(url);
-			console.log(result)
-			return result
+			try {
+				return $mol_fetch.json(url);
+			} catch (e) {
+				if (e instanceof Promise) $mol_fail_hidden(e)
+				return heroItems[this.hero_id()] ?? heroItems[0]
+			}
 		}
 
 		hero_name(): string {
@@ -55,7 +56,5 @@ namespace $.$$ {
 		hero_text(): string {
 			return this.hero().textUrl
 		}
-
-
 	}
 }
