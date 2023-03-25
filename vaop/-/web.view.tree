@@ -593,7 +593,7 @@ $milis_vaop $mol_page
 	title \VAOP - экологичное программирование
 	body /
 		<= About_vaop $mol_expander
-			label \Что такое VAOP
+			label / \Что такое VAOP
 			content /
 				<= Vaop $mol_text
 					text <= vaop_description \
@@ -612,14 +612,12 @@ $milis_vaop $mol_page
 		<= Runner_table $mol_list
 			rows /$mol_view
 				<= Table_header $mol_text text \# Runner "Парсер АПИ"
-				<= Agent $milis_vaop_agent
-					business? <=> business_example? \Создать новый экземпляр парсера сайта
-					programmer? <=> programmer_example? \new Parser()
-					machine? <=> machine_example? \const parser = new Parser()
-					current_step? <=> current_step_example? 100
-					next_step? <=> next_step_example? 200
-					name? <=> name_example? \agent_create_parser
-				<= Agent_new $milis_vaop_agent
+				<= Agent_rows $mol_list
+					rows <= agents /
+						<= Agent*0 $milis_vaop_agent
+							machine? <= agent_machine*? null
+							add? <= add_agent*? null
+							delete? <= delete_agent*? null
 	foot /
 		<= Contacts $mol_section
 			title \Контакты
@@ -633,11 +631,12 @@ $milis_vaop_agent $mol_row
 		<= Add $mol_button_minor
 			hint \Добавить агента
 			sub / <= Icon_add_list $mol_icon_account_plus
+			click? <=> add? null
 		<= Business $mol_string
 			hint \Бизнес
 			value? <=> business? \
 		<= Programmer $mol_string
-			hint \Псевдокод
+			hint \Программист
 			value? <=> programmer? \
 		<= Machine $mol_string
 			hint \Машина
@@ -645,13 +644,14 @@ $milis_vaop_agent $mol_row
 		<= Current_step $mol_number
 			hint \Текущий шаг
 			precision_change 100
-			value? <=> current_step? \
+			value? <=> current_step? 0
 		<= Next_step $mol_number
 			hint \Следующий шаг
 			precision_change 100
-			value? <=> next_step? \
+			value? <=> next_step? 0
 		<= Name $mol_string
 			hint \Имя агента
 			value? <=> name? \
 		<= Delete $mol_button_minor
 			sub / <= Icon_delete_agent $mol_icon_delete
+			click? <=> delete? null

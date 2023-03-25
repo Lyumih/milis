@@ -8333,313 +8333,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $milis_vaop extends $mol_page {
-        title() {
-            return "VAOP - экологичное программирование";
-        }
-        body() {
-            return [
-                this.About_vaop(),
-                this.Runner_table()
-            ];
-        }
-        foot() {
-            return [
-                this.Contacts()
-            ];
-        }
-        vaop_description() {
-            return "**VAOP** - это методология по ведению IT продукта, которая позволить динамически создавать неустаревающие программы\nVAOP состоит из 2 основных понятий: Раннер и Агент.\n**Раннер** - это точка запуска программы, которая содержит всех Агентов.\n**Aгент** - это условная единица инструкции, которая состоит из 5 понятий: *Бизнес*, *Программист*, *Машина*, *Текущий шаг*, *Следующий шаг* и дополнительного *Имя*\n*Бизнес* - согласованные, человекочитаемая инструкция требований от заказчика. Сначало идёт описание, только потом открываются все шаги.\n*Программист* - псевдокод от программиста, который реализует поставленную инструкцию от Бизнеса. Все изменения доступны только после того, как появилось требование от бизнеса.\n*Машина* - конкретный код, выполняющий эту инструкцию. Инструкция может быть выполнена в произвольном порядке\n*Текущий шаг* - текущий шаг агента\n*Следующий шаг* - следующий шаг агента, если он есть\nПолное описание VAOP: https://habr.com/ru/post/554014/\nСообщество VAOP: https://t.me/ecoprog\nРеализовано на [$mol](https://mol.hyoo.ru/)";
-        }
-        Vaop() {
-            const obj = new this.$.$mol_text();
-            obj.text = () => this.vaop_description();
-            return obj;
-        }
-        About_vaop() {
-            const obj = new this.$.$mol_expander();
-            obj.label = () => "Что такое VAOP";
-            obj.content = () => [
-                this.Vaop()
-            ];
-            return obj;
-        }
-        Table_header() {
-            const obj = new this.$.$mol_text();
-            obj.text = () => "# Runner \"Парсер АПИ\"";
-            return obj;
-        }
-        business_example(next) {
-            if (next !== undefined)
-                return next;
-            return "Создать новый экземпляр парсера сайта";
-        }
-        programmer_example(next) {
-            if (next !== undefined)
-                return next;
-            return "new Parser()";
-        }
-        machine_example(next) {
-            if (next !== undefined)
-                return next;
-            return "const parser = new Parser()";
-        }
-        current_step_example(next) {
-            if (next !== undefined)
-                return next;
-            return 100;
-        }
-        next_step_example(next) {
-            if (next !== undefined)
-                return next;
-            return 200;
-        }
-        name_example(next) {
-            if (next !== undefined)
-                return next;
-            return "agent_create_parser";
-        }
-        Agent() {
-            const obj = new this.$.$milis_vaop_agent();
-            obj.business = (next) => this.business_example(next);
-            obj.programmer = (next) => this.programmer_example(next);
-            obj.machine = (next) => this.machine_example(next);
-            obj.current_step = (next) => this.current_step_example(next);
-            obj.next_step = (next) => this.next_step_example(next);
-            obj.name = (next) => this.name_example(next);
-            return obj;
-        }
-        Agent_new() {
-            const obj = new this.$.$milis_vaop_agent();
-            return obj;
-        }
-        Runner_table() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
-                this.Table_header(),
-                this.Agent(),
-                this.Agent_new()
-            ];
-            return obj;
-        }
-        Telegram() {
-            const obj = new this.$.$mol_link();
-            obj.uri = () => "https://t.me/ecoprog";
-            obj.target = () => "_blank";
-            return obj;
-        }
-        Contacts() {
-            const obj = new this.$.$mol_section();
-            obj.title = () => "Контакты";
-            obj.content = () => [
-                this.Telegram()
-            ];
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Vaop", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "About_vaop", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Table_header", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "business_example", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "programmer_example", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "machine_example", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "current_step_example", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "next_step_example", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "name_example", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Agent", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Agent_new", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Runner_table", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Telegram", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Contacts", null);
-    $.$milis_vaop = $milis_vaop;
-    class $milis_vaop_agent extends $mol_row {
-        sub() {
-            return [
-                this.Add(),
-                this.Business(),
-                this.Programmer(),
-                this.Machine(),
-                this.Current_step(),
-                this.Next_step(),
-                this.Name(),
-                this.Delete()
-            ];
-        }
-        Icon_add_list() {
-            const obj = new this.$.$mol_icon_account_plus();
-            return obj;
-        }
-        Add() {
-            const obj = new this.$.$mol_button_minor();
-            obj.hint = () => "Добавить агента";
-            obj.sub = () => [
-                this.Icon_add_list()
-            ];
-            return obj;
-        }
-        business(next) {
-            if (next !== undefined)
-                return next;
-            return "";
-        }
-        Business() {
-            const obj = new this.$.$mol_string();
-            obj.hint = () => "Бизнес";
-            obj.value = (next) => this.business(next);
-            return obj;
-        }
-        programmer(next) {
-            if (next !== undefined)
-                return next;
-            return "";
-        }
-        Programmer() {
-            const obj = new this.$.$mol_string();
-            obj.hint = () => "Псевдокод";
-            obj.value = (next) => this.programmer(next);
-            return obj;
-        }
-        machine(next) {
-            if (next !== undefined)
-                return next;
-            return "";
-        }
-        Machine() {
-            const obj = new this.$.$mol_string();
-            obj.hint = () => "Машина";
-            obj.value = (next) => this.machine(next);
-            return obj;
-        }
-        current_step(next) {
-            if (next !== undefined)
-                return next;
-            return "";
-        }
-        Current_step() {
-            const obj = new this.$.$mol_number();
-            obj.hint = () => "Текущий шаг";
-            obj.precision_change = () => 100;
-            obj.value = (next) => this.current_step(next);
-            return obj;
-        }
-        next_step(next) {
-            if (next !== undefined)
-                return next;
-            return "";
-        }
-        Next_step() {
-            const obj = new this.$.$mol_number();
-            obj.hint = () => "Следующий шаг";
-            obj.precision_change = () => 100;
-            obj.value = (next) => this.next_step(next);
-            return obj;
-        }
-        name(next) {
-            if (next !== undefined)
-                return next;
-            return "";
-        }
-        Name() {
-            const obj = new this.$.$mol_string();
-            obj.hint = () => "Имя агента";
-            obj.value = (next) => this.name(next);
-            return obj;
-        }
-        Icon_delete_agent() {
-            const obj = new this.$.$mol_icon_delete();
-            return obj;
-        }
-        Delete() {
-            const obj = new this.$.$mol_button_minor();
-            obj.sub = () => [
-                this.Icon_delete_agent()
-            ];
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Icon_add_list", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Add", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "business", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Business", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "programmer", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Programmer", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "machine", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Machine", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "current_step", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Current_step", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "next_step", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Next_step", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "name", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Name", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Icon_delete_agent", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop_agent.prototype, "Delete", null);
-    $.$milis_vaop_agent = $milis_vaop_agent;
-})($ || ($ = {}));
-//milis/vaop/-view.tree/vaop.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_text_list extends $mol_text {
         auto_scroll() {
             return null;
@@ -8685,5 +8378,355 @@ var $;
     $mol_style_attach("mol/text/list/list.view.css", "[mol_text_list] {\r\n\tpadding-left: 1.75rem;\r\n}\r\n\r\n[mol_text_list_item] {\r\n\tcontain: none;\r\n\tdisplay: list-item;\r\n}\r\n\r\n[mol_text_list_item]::before {\r\n\tcontent: attr( mol_text_list_item_index ) \".\";\r\n\twidth: 1.25rem;\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\tmargin-left: -1.75rem;\r\n\ttext-align: end;\r\n}\r\n\r\n[mol_text_list_type=\"-\"] > [mol_text_list_item]::before,\r\n[mol_text_list_type=\"*\"] > [mol_text_list_item]::before {\r\n\tcontent: \"•\";\r\n}\r\n");
 })($ || ($ = {}));
 //mol/text/list/-css/list.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $milis_vaop extends $mol_page {
+        title() {
+            return "VAOP - экологичное программирование";
+        }
+        body() {
+            return [
+                this.About_vaop(),
+                this.Runner_table()
+            ];
+        }
+        foot() {
+            return [
+                this.Contacts()
+            ];
+        }
+        vaop_description() {
+            return "**VAOP** - это методология по ведению IT продукта, которая позволить динамически создавать неустаревающие программы\nVAOP состоит из 2 основных понятий: Раннер и Агент.\n**Раннер** - это точка запуска программы, которая содержит всех Агентов.\n**Aгент** - это условная единица инструкции, которая состоит из 5 понятий: *Бизнес*, *Программист*, *Машина*, *Текущий шаг*, *Следующий шаг* и дополнительного *Имя*\n*Бизнес* - согласованные, человекочитаемая инструкция требований от заказчика. Сначало идёт описание, только потом открываются все шаги.\n*Программист* - псевдокод от программиста, который реализует поставленную инструкцию от Бизнеса. Все изменения доступны только после того, как появилось требование от бизнеса.\n*Машина* - конкретный код, выполняющий эту инструкцию. Инструкция может быть выполнена в произвольном порядке\n*Текущий шаг* - текущий шаг агента\n*Следующий шаг* - следующий шаг агента, если он есть\nПолное описание VAOP: https://habr.com/ru/post/554014/\nСообщество VAOP: https://t.me/ecoprog\nРеализовано на [$mol](https://mol.hyoo.ru/)";
+        }
+        Vaop() {
+            const obj = new this.$.$mol_text();
+            obj.text = () => this.vaop_description();
+            return obj;
+        }
+        About_vaop() {
+            const obj = new this.$.$mol_expander();
+            obj.label = () => [
+                "Что такое VAOP"
+            ];
+            obj.content = () => [
+                this.Vaop()
+            ];
+            return obj;
+        }
+        Table_header() {
+            const obj = new this.$.$mol_text();
+            obj.text = () => "# Runner \"Парсер АПИ\"";
+            return obj;
+        }
+        agent_machine(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        add_agent(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        delete_agent(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Agent(id) {
+            const obj = new this.$.$milis_vaop_agent();
+            obj.machine = (next) => this.agent_machine(id);
+            obj.add = (next) => this.add_agent(id);
+            obj.delete = (next) => this.delete_agent(id);
+            return obj;
+        }
+        agents() {
+            return [
+                this.Agent("0")
+            ];
+        }
+        Agent_rows() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.agents();
+            return obj;
+        }
+        Runner_table() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Table_header(),
+                this.Agent_rows()
+            ];
+            return obj;
+        }
+        Telegram() {
+            const obj = new this.$.$mol_link();
+            obj.uri = () => "https://t.me/ecoprog";
+            obj.target = () => "_blank";
+            return obj;
+        }
+        Contacts() {
+            const obj = new this.$.$mol_section();
+            obj.title = () => "Контакты";
+            obj.content = () => [
+                this.Telegram()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Vaop", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "About_vaop", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Table_header", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_vaop.prototype, "agent_machine", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_vaop.prototype, "add_agent", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_vaop.prototype, "delete_agent", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_vaop.prototype, "Agent", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Agent_rows", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Runner_table", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Telegram", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Contacts", null);
+    $.$milis_vaop = $milis_vaop;
+    class $milis_vaop_agent extends $mol_row {
+        sub() {
+            return [
+                this.Add(),
+                this.Business(),
+                this.Programmer(),
+                this.Machine(),
+                this.Current_step(),
+                this.Next_step(),
+                this.Name(),
+                this.Delete()
+            ];
+        }
+        Icon_add_list() {
+            const obj = new this.$.$mol_icon_account_plus();
+            return obj;
+        }
+        add(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Add() {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => "Добавить агента";
+            obj.sub = () => [
+                this.Icon_add_list()
+            ];
+            obj.click = (next) => this.add(next);
+            return obj;
+        }
+        business(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Business() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => "Бизнес";
+            obj.value = (next) => this.business(next);
+            return obj;
+        }
+        programmer(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Programmer() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => "Программист";
+            obj.value = (next) => this.programmer(next);
+            return obj;
+        }
+        machine(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Machine() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => "Машина";
+            obj.value = (next) => this.machine(next);
+            return obj;
+        }
+        current_step(next) {
+            if (next !== undefined)
+                return next;
+            return 0;
+        }
+        Current_step() {
+            const obj = new this.$.$mol_number();
+            obj.hint = () => "Текущий шаг";
+            obj.precision_change = () => 100;
+            obj.value = (next) => this.current_step(next);
+            return obj;
+        }
+        next_step(next) {
+            if (next !== undefined)
+                return next;
+            return 0;
+        }
+        Next_step() {
+            const obj = new this.$.$mol_number();
+            obj.hint = () => "Следующий шаг";
+            obj.precision_change = () => 100;
+            obj.value = (next) => this.next_step(next);
+            return obj;
+        }
+        name(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Name() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => "Имя агента";
+            obj.value = (next) => this.name(next);
+            return obj;
+        }
+        Icon_delete_agent() {
+            const obj = new this.$.$mol_icon_delete();
+            return obj;
+        }
+        delete(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Delete() {
+            const obj = new this.$.$mol_button_minor();
+            obj.sub = () => [
+                this.Icon_delete_agent()
+            ];
+            obj.click = (next) => this.delete(next);
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Icon_add_list", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "add", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Add", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "business", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Business", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "programmer", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Programmer", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "machine", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Machine", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "current_step", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Current_step", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "next_step", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Next_step", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "name", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Name", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Icon_delete_agent", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "delete", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop_agent.prototype, "Delete", null);
+    $.$milis_vaop_agent = $milis_vaop_agent;
+})($ || ($ = {}));
+//milis/vaop/-view.tree/vaop.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $milis_vaop extends $.$milis_vaop {
+            agent_list(next) {
+                return next ?? Array.from(Array(10)).map((item, index) => ({ id: item, machine: index }));
+            }
+            agents() {
+                return this.agent_list().map((item, index) => this.Agent(index));
+            }
+            add_agent(id) {
+                console.log('123', id, this.agent_list());
+                this.agent_list([...this.agent_list(), { id: 12 }]);
+            }
+            agent_machine(id) {
+                return 'atwer' + id;
+            }
+            delete_agent(id) {
+                console.log('id before', id, this.agents());
+                this.agent_list(this.agent_list().filter((agent, index) => index !== id));
+                console.log('id after', id, this.agents());
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $milis_vaop.prototype, "agent_list", null);
+        __decorate([
+            $mol_mem
+        ], $milis_vaop.prototype, "agents", null);
+        __decorate([
+            $mol_action
+        ], $milis_vaop.prototype, "add_agent", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "agent_machine", null);
+        __decorate([
+            $mol_action
+        ], $milis_vaop.prototype, "delete_agent", null);
+        $$.$milis_vaop = $milis_vaop;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//milis/vaop/vaop.view.ts
 
 //# sourceMappingURL=web.js.map

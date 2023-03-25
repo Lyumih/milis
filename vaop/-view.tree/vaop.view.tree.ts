@@ -73,7 +73,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * About_vaop $mol_expander
-		 * 	label \Что такое VAOP
+		 * 	label / \Что такое VAOP
 		 * 	content / <= Vaop
 		 * ```
 		 */
@@ -81,7 +81,9 @@ namespace $ {
 		About_vaop() {
 			const obj = new this.$.$mol_expander()
 			
-			obj.label = () => "Что такое VAOP"
+			obj.label = () => [
+				"Что такое VAOP"
+			] as readonly any[]
 			obj.content = () => [
 				this.Vaop()
 			] as readonly any[]
@@ -105,103 +107,77 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * business_example? \Создать новый экземпляр парсера сайта
+		 * agent_machine*? null
 		 * ```
 		 */
-		@ $mol_mem
-		business_example(next?: any) {
+		@ $mol_mem_key
+		agent_machine(id: any, next?: any) {
 			if ( next !== undefined ) return next as never
-			return "Создать новый экземпляр парсера сайта"
+			return null as any
 		}
 		
 		/**
 		 * ```tree
-		 * programmer_example? \new Parser()
+		 * add_agent*? null
 		 * ```
 		 */
-		@ $mol_mem
-		programmer_example(next?: any) {
+		@ $mol_mem_key
+		add_agent(id: any, next?: any) {
 			if ( next !== undefined ) return next as never
-			return "new Parser()"
+			return null as any
 		}
 		
 		/**
 		 * ```tree
-		 * machine_example? \const parser = new Parser()
+		 * delete_agent*? null
 		 * ```
 		 */
-		@ $mol_mem
-		machine_example(next?: any) {
+		@ $mol_mem_key
+		delete_agent(id: any, next?: any) {
 			if ( next !== undefined ) return next as never
-			return "const parser = new Parser()"
+			return null as any
 		}
 		
 		/**
 		 * ```tree
-		 * current_step_example? 100
+		 * Agent*0 $milis_vaop_agent
+		 * 	machine? <= agent_machine*?
+		 * 	add? <= add_agent*?
+		 * 	delete? <= delete_agent*?
 		 * ```
 		 */
-		@ $mol_mem
-		current_step_example(next?: any) {
-			if ( next !== undefined ) return next as never
-			return 100
-		}
-		
-		/**
-		 * ```tree
-		 * next_step_example? 200
-		 * ```
-		 */
-		@ $mol_mem
-		next_step_example(next?: any) {
-			if ( next !== undefined ) return next as never
-			return 200
-		}
-		
-		/**
-		 * ```tree
-		 * name_example? \agent_create_parser
-		 * ```
-		 */
-		@ $mol_mem
-		name_example(next?: any) {
-			if ( next !== undefined ) return next as never
-			return "agent_create_parser"
-		}
-		
-		/**
-		 * ```tree
-		 * Agent $milis_vaop_agent
-		 * 	business? <=> business_example?
-		 * 	programmer? <=> programmer_example?
-		 * 	machine? <=> machine_example?
-		 * 	current_step? <=> current_step_example?
-		 * 	next_step? <=> next_step_example?
-		 * 	name? <=> name_example?
-		 * ```
-		 */
-		@ $mol_mem
-		Agent() {
+		@ $mol_mem_key
+		Agent(id: any) {
 			const obj = new this.$.$milis_vaop_agent()
 			
-			obj.business = (next?: any) => this.business_example(next)
-			obj.programmer = (next?: any) => this.programmer_example(next)
-			obj.machine = (next?: any) => this.machine_example(next)
-			obj.current_step = (next?: any) => this.current_step_example(next)
-			obj.next_step = (next?: any) => this.next_step_example(next)
-			obj.name = (next?: any) => this.name_example(next)
+			obj.machine = (next?: any) => this.agent_machine(id)
+			obj.add = (next?: any) => this.add_agent(id)
+			obj.delete = (next?: any) => this.delete_agent(id)
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * Agent_new $milis_vaop_agent
+		 * agents / <= Agent*0
+		 * ```
+		 */
+		agents() {
+			return [
+				this.Agent("0")
+			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
+		 * Agent_rows $mol_list rows <= agents
 		 * ```
 		 */
 		@ $mol_mem
-		Agent_new() {
-			const obj = new this.$.$milis_vaop_agent()
+		Agent_rows() {
+			const obj = new this.$.$mol_list()
+			
+			obj.rows = () => this.agents()
 			
 			return obj
 		}
@@ -210,8 +186,7 @@ namespace $ {
 		 * ```tree
 		 * Runner_table $mol_list rows /$mol_view
 		 * 	<= Table_header
-		 * 	<= Agent
-		 * 	<= Agent_new
+		 * 	<= Agent_rows
 		 * ```
 		 */
 		@ $mol_mem
@@ -220,8 +195,7 @@ namespace $ {
 			
 			obj.rows = () => [
 				this.Table_header(),
-				this.Agent(),
-				this.Agent_new()
+				this.Agent_rows()
 			] as readonly $mol_view[]
 			
 			return obj
@@ -306,9 +280,21 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * add? null
+		 * ```
+		 */
+		@ $mol_mem
+		add(next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
 		 * Add $mol_button_minor
 		 * 	hint \Добавить агента
 		 * 	sub / <= Icon_add_list
+		 * 	click? <=> add?
 		 * ```
 		 */
 		@ $mol_mem
@@ -319,6 +305,7 @@ namespace $ {
 			obj.sub = () => [
 				this.Icon_add_list()
 			] as readonly any[]
+			obj.click = (next?: any) => this.add(next)
 			
 			return obj
 		}
@@ -365,7 +352,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Programmer $mol_string
-		 * 	hint \Псевдокод
+		 * 	hint \Программист
 		 * 	value? <=> programmer?
 		 * ```
 		 */
@@ -373,7 +360,7 @@ namespace $ {
 		Programmer() {
 			const obj = new this.$.$mol_string()
 			
-			obj.hint = () => "Псевдокод"
+			obj.hint = () => "Программист"
 			obj.value = (next?: any) => this.programmer(next)
 			
 			return obj
@@ -409,13 +396,13 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * current_step? \
+		 * current_step? 0
 		 * ```
 		 */
 		@ $mol_mem
 		current_step(next?: any) {
 			if ( next !== undefined ) return next as never
-			return ""
+			return 0
 		}
 		
 		/**
@@ -439,13 +426,13 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * next_step? \
+		 * next_step? 0
 		 * ```
 		 */
 		@ $mol_mem
 		next_step(next?: any) {
 			if ( next !== undefined ) return next as never
-			return ""
+			return 0
 		}
 		
 		/**
@@ -509,7 +496,20 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Delete $mol_button_minor sub / <= Icon_delete_agent
+		 * delete? null
+		 * ```
+		 */
+		@ $mol_mem
+		delete(next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * Delete $mol_button_minor
+		 * 	sub / <= Icon_delete_agent
+		 * 	click? <=> delete?
 		 * ```
 		 */
 		@ $mol_mem
@@ -519,6 +519,7 @@ namespace $ {
 			obj.sub = () => [
 				this.Icon_delete_agent()
 			] as readonly any[]
+			obj.click = (next?: any) => this.delete(next)
 			
 			return obj
 		}

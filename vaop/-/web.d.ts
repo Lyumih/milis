@@ -2623,48 +2623,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $milis_vaop extends $mol_page {
-        title(): string;
-        body(): readonly any[];
-        foot(): readonly any[];
-        vaop_description(): string;
-        Vaop(): $$.$mol_text;
-        About_vaop(): $$.$mol_expander;
-        Table_header(): $$.$mol_text;
-        business_example(next?: any): string;
-        programmer_example(next?: any): string;
-        machine_example(next?: any): string;
-        current_step_example(next?: any): number;
-        next_step_example(next?: any): number;
-        name_example(next?: any): string;
-        Agent(): $milis_vaop_agent;
-        Agent_new(): $milis_vaop_agent;
-        Runner_table(): $$.$mol_list;
-        Telegram(): $$.$mol_link;
-        Contacts(): $$.$mol_section;
-    }
-    class $milis_vaop_agent extends $mol_row {
-        sub(): readonly any[];
-        Icon_add_list(): $mol_icon_account_plus;
-        Add(): $mol_button_minor;
-        business(next?: any): string;
-        Business(): $$.$mol_string;
-        programmer(next?: any): string;
-        Programmer(): $$.$mol_string;
-        machine(next?: any): string;
-        Machine(): $$.$mol_string;
-        current_step(next?: any): string;
-        Current_step(): $$.$mol_number;
-        next_step(next?: any): string;
-        Next_step(): $$.$mol_number;
-        name(next?: any): string;
-        Name(): $$.$mol_string;
-        Icon_delete_agent(): $mol_icon_delete;
-        Delete(): $mol_button_minor;
-    }
-}
-
-declare namespace $ {
     class $mol_text_list extends $mol_text {
         auto_scroll(): any;
         attr(): {
@@ -2682,6 +2640,58 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
+    class $milis_vaop extends $mol_page {
+        title(): string;
+        body(): readonly any[];
+        foot(): readonly any[];
+        vaop_description(): string;
+        Vaop(): $$.$mol_text;
+        About_vaop(): $$.$mol_expander;
+        Table_header(): $$.$mol_text;
+        agent_machine(id: any, next?: any): any;
+        add_agent(id: any, next?: any): any;
+        delete_agent(id: any, next?: any): any;
+        Agent(id: any): $milis_vaop_agent;
+        agents(): readonly any[];
+        Agent_rows(): $$.$mol_list;
+        Runner_table(): $$.$mol_list;
+        Telegram(): $$.$mol_link;
+        Contacts(): $$.$mol_section;
+    }
+    class $milis_vaop_agent extends $mol_row {
+        sub(): readonly any[];
+        Icon_add_list(): $mol_icon_account_plus;
+        add(next?: any): any;
+        Add(): $mol_button_minor;
+        business(next?: any): string;
+        Business(): $$.$mol_string;
+        programmer(next?: any): string;
+        Programmer(): $$.$mol_string;
+        machine(next?: any): string;
+        Machine(): $$.$mol_string;
+        current_step(next?: any): number;
+        Current_step(): $$.$mol_number;
+        next_step(next?: any): number;
+        Next_step(): $$.$mol_number;
+        name(next?: any): string;
+        Name(): $$.$mol_string;
+        Icon_delete_agent(): $mol_icon_delete;
+        delete(next?: any): any;
+        Delete(): $mol_button_minor;
+    }
+}
+
+declare namespace $.$$ {
+    class $milis_vaop extends $.$milis_vaop {
+        agent_list(next?: Object[]): Object[];
+        agents(): $milis_vaop_agent[];
+        add_agent(id: any): void;
+        agent_machine(id: any): string;
+        delete_agent(id: any): void;
+    }
 }
 
 export = $;
