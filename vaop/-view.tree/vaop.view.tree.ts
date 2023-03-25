@@ -12,23 +12,15 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * tools / <= Menu
+		 * tools /
+		 * 	<= Download
+		 * 	<= Menu
 		 * ```
 		 */
 		tools() {
 			return [
+				this.Download(),
 				this.Menu()
-			] as readonly any[]
-		}
-		
-		/**
-		 * ```tree
-		 * foot / <= Contacts
-		 * ```
-		 */
-		foot() {
-			return [
-				this.Contacts()
 			] as readonly any[]
 		}
 		
@@ -44,6 +36,18 @@ namespace $ {
 				this.About_vaop(),
 				this.Runner_table()
 			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
+		 * Download $mol_button_download
+		 * ```
+		 */
+		@ $mol_mem
+		Download() {
+			const obj = new this.$.$mol_button_download()
+			
+			return obj
 		}
 		
 		/**
@@ -129,25 +133,6 @@ namespace $ {
 			] as readonly any[]
 			obj.bubble_content = () => [
 				this.Options_content()
-			] as readonly any[]
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Contacts $mol_section
-		 * 	title \Контакты
-		 * 	content / <= Telegram
-		 * ```
-		 */
-		@ $mol_mem
-		Contacts() {
-			const obj = new this.$.$mol_section()
-			
-			obj.title = () => "Контакты"
-			obj.content = () => [
-				this.Telegram()
 			] as readonly any[]
 			
 			return obj

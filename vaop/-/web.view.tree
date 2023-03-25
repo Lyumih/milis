@@ -32,6 +32,42 @@ $mol_page $mol_view
 			dom_name \footer
 			sub <= foot /$mol_view
 
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme <= theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
+	sub /
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		dblclick?event <=> clicks?event null
+		keydown?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_safe <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+		value <= error \
+
+$mol_button_typed $mol_button
+	minimal_height 40
+	minimal_width 40
+
+$mol_button_minor $mol_button_typed
+
 $mol_svg $mol_view
 	dom_name \svg
 	dom_name_space \http://www.w3.org/2000/svg
@@ -60,6 +96,16 @@ $mol_icon $mol_svg_root
 	sub /
 		<= Path $mol_svg_path
 			geometry <= path \
+
+$mol_icon_download $mol_icon path \M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z
+
+$mol_button_download $mol_button_minor
+	blob null
+	uri \
+	file_name \blob.bin
+	sub /
+		<= Icon $mol_icon_download
+		<= title \
 
 $mol_icon_dots_vertical $mol_icon path \M12,16C13.1,16 14,16.9 14,18C14,19.1 13.1,20 12,20C10.9,20 10,19.1 10,18C10,16.9 10.9,16 12,16M12,10C13.1,10 14,10.9 14,12C14,13.1 13.1,14 12,14C10.9,14 10,13.1 10,12C10,10.9 10.9,10 12,10M12,4C13.1,4 14,4.9 14,6C14,7.1 13.1,8 12,8C10.9,8 10,7.1 10,6C10,4.9 10.9,4 12,4Z
 
@@ -115,42 +161,6 @@ $mol_pop_bubble $mol_view
 		mol_pop_align <= align \
 		tabindex 0
 
-$mol_speck $mol_view
-	attr *
-		^
-		mol_theme <= theme \$mol_theme_accent
-	style *
-		^
-		minHeight \1em
-	sub /
-		<= value null
-
-$mol_button $mol_view
-	enabled true
-	click?event null
-	event_click?event null
-	event *
-		^
-		click?event <=> event_activate?event null
-		dblclick?event <=> clicks?event null
-		keydown?event <=> event_key_press?event null 
-	attr *
-		^
-		disabled <= disabled false
-		role \button
-		tabindex <= tab_index 0
-		title <= hint_safe <= hint \
-	sub /$mol_view_content
-		<= title
-	Speck $mol_speck
-		value <= error \
-
-$mol_button_typed $mol_button
-	minimal_height 40
-	minimal_width 40
-
-$mol_button_minor $mol_button_typed
-
 $mol_check $mol_button_minor
 	attr *
 		^
@@ -183,18 +193,6 @@ $mol_paragraph $mol_view
 	width_limit +Infinity
 	row_width 0
 	sub / <= title
-
-$mol_section $mol_list
-	level 1
-	rows /
-		<= Head $mol_view
-			sub <= head /
-				<= Title $mol_paragraph
-					dom_name <= title_dom_name \h1
-					title <= title
-				<= Tools $mol_view sub <= tools /
-		<= Content $mol_list
-			rows <= content /
 
 $mol_stack $mol_view
 
@@ -578,6 +576,18 @@ $mol_string $mol_view
 			mod_ctrl <= submit_with_ctrl false
 			key * enter?event <=> submit?event null
 
+$mol_section $mol_list
+	level 1
+	rows /
+		<= Head $mol_view
+			sub <= head /
+				<= Title $mol_paragraph
+					dom_name <= title_dom_name \h1
+					title <= title
+				<= Tools $mol_view sub <= tools /
+		<= Content $mol_list
+			rows <= content /
+
 $mol_row $mol_view
 
 $mol_icon_account $mol_icon path \M12,4C14.21,4 16,5.79 16,8C16,10.21 14.21,12 12,12C9.79,12 8,10.21 8,8C8,5.79 9.79,4 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z
@@ -630,22 +640,17 @@ $mol_text_list_item $mol_paragraph
 
 $milis_vaop $mol_page
 	title \VAOP - экологичное программирование
-	tools / <= Menu $mol_pick
-		trigger_content / <= Menu_trigger_icon $mol_icon_dots_vertical
-		bubble_content / <= Options_content $mol_list rows /
-			<= Telegram $mol_link
-				uri \https://t.me/ecoprog
-				target \_blank
-			<= LinkMol $mol_link
-				title \Сделано на $mol
-				uri \https://mol.hyoo.ru/
-				target \_blank
-	foot /
-		<= Contacts $mol_section
-			title \Контакты
-			content /
+	tools /
+		<= Download $mol_button_download
+		<= Menu $mol_pick
+			trigger_content / <= Menu_trigger_icon $mol_icon_dots_vertical
+			bubble_content / <= Options_content $mol_list rows /
 				<= Telegram $mol_link
 					uri \https://t.me/ecoprog
+					target \_blank
+				<= LinkMol $mol_link
+					title \Сделано на $mol
+					uri \https://mol.hyoo.ru/
 					target \_blank
 	body /
 		<= About_vaop $mol_expander
@@ -685,6 +690,7 @@ $milis_vaop $mol_page
 							name_enabled <= name_enabled* false
 							add? <=> add_agent*? null
 							delete? <=> delete_agent*? null
+							- status? <= agent_status* false
 
 $milis_vaop_agent $mol_row
 	sub /

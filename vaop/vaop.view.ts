@@ -6,7 +6,7 @@ namespace $.$$ {
 		agent_list( next?: Object[] ) {
 			return next ?? [
 				{ id: 1 },
-				// { id: 2 },
+				{ id: 2 },
 				// { id: 3 }
 			]
 		}
@@ -80,16 +80,5 @@ namespace $.$$ {
 			return this.machine_enabled( id )
 		}
 
-
-
 	}
 }
-
-// Содержание
-// - <= Agent $milis_vaop_agent
-// business? <=> business_example? \Создать новый экземпляр парсера сайта
-// programmer? <=> programmer_example? \new Parser()
-// machine? <=> machine_example? \const parser = new Parser()
-// current_step? <=> current_step_example? 100
-// next_step? <=> next_step_example? 200
-// name? <=> name_example? \agent_create_parser
