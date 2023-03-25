@@ -9190,7 +9190,7 @@ var $;
             obj.sub = () => [
                 this.Example_icon()
             ];
-            obj.hine = () => "Показать пример";
+            obj.hint = () => "Показать пример";
             obj.click = (next) => this.set_example();
             return obj;
         }

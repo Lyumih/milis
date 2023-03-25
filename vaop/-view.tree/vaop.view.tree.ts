@@ -96,7 +96,7 @@ namespace $ {
 		 * ```tree
 		 * Example $mol_button_minor
 		 * 	sub / <= Example_icon
-		 * 	hine \Показать пример
+		 * 	hint \Показать пример
 		 * 	click? <= set_example
 		 * ```
 		 */
@@ -107,7 +107,7 @@ namespace $ {
 			obj.sub = () => [
 				this.Example_icon()
 			] as readonly any[]
-			obj.hine = () => "Показать пример"
+			obj.hint = () => "Показать пример"
 			obj.click = (next?: any) => this.set_example()
 			
 			return obj
