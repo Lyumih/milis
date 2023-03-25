@@ -8321,7 +8321,6 @@ var $;
             obj.name = () => this.hero_name();
             obj.fairytale = () => this.hero_fairytale();
             obj.description = () => this.hero_description();
-            obj.audio = () => this.hero_audio();
             obj.video = () => this.hero_video();
             obj.book = () => this.hero_text();
             return obj;
@@ -8336,7 +8335,7 @@ var $;
         LinkMol() {
             const obj = new this.$.$mol_link();
             obj.title = () => "Сделано на $mol";
-            obj.uri = () => "https://t.me/mam_mol";
+            obj.uri = () => "https://mol.hyoo.ru/";
             obj.target = () => "_blank";
             return obj;
         }

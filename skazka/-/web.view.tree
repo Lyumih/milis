@@ -508,15 +508,8 @@ $milis_skazka_hero $mol_list
 			level 3
 			content /
 				<= Description_text $mol_text text <= description \
-		- <= Audiobook $mol_link
-			title \Слушать сказку онлайн
-			uri <= audio \
-			target \_blank
 		<= Videobook $mol_embed_youtube
 			uri <= video \
-		- <= TitleBook $mol_section
-			level 3
-			title <= fairytale \
 		<= Book $mol_section
 			title <= fairytale
 			content /
@@ -538,7 +531,6 @@ $milis_skazka $mol_page
 			name <= hero_name \
 			fairytale <= hero_fairytale \
 			description <= hero_description \
-			audio <= hero_audio \
 			video <= hero_video \
 			book <= hero_text \
 	foot /
@@ -548,5 +540,5 @@ $milis_skazka $mol_page
 			target \_blank
 		<= LinkMol $mol_link
 			title \Сделано на $mol
-			uri \https://t.me/mam_mol
+			uri \https://mol.hyoo.ru/
 			target \_blank
