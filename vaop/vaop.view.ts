@@ -12,6 +12,7 @@ namespace $.$$ {
 		id: string
 		business?: string
 		current_step?: number
+		next_step?: number
 	}
 
 	export class $milis_vaop extends $.$milis_vaop {
@@ -19,8 +20,8 @@ namespace $.$$ {
 		agent_list( next?: AgentDTO[] ) {
 			console.log('FIX ME agent list', next)
 			return next ?? [
-				{ id: crypto.randomUUID(), business: 'test' },
-				{ id: crypto.randomUUID() },
+				{ id: crypto.randomUUID(), business: 'test', current_step: 100, next_step: 200 },
+				{ id: crypto.randomUUID(), current_step:300, next_step: 400 },
 				// { id: crypto.randomUUID() },
 				// { id: 3 }
 			]
@@ -93,6 +94,18 @@ namespace $.$$ {
 		name_enabled( id: string ): boolean {
 			return this.machine_enabled( id )
 		}
+
+		@$mol_mem_key
+		agent_empty(id: string): boolean {
+			const current = this.current_step(id)
+			const filtered_agents_by_step = this.agent_list().find(agent => agent.next_step === current)
+			console.log('agent empty', id, filtered_agents_by_step,current, this.agent_list())
+			return !filtered_agents_by_step
+		}
+
+		// agent_entry(): boolean  {
+		// 	return true
+		// }
 
 		text_to_download(): string {
 			console.log()
