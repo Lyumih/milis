@@ -8,15 +8,8 @@ $milis_skazka_hero $mol_list
 			level 3
 			content /
 				<= Description_text $mol_text text <= description \
-		- <= Audiobook $mol_link
-			title \Слушать сказку онлайн
-			uri <= audio \
-			target \_blank
 		<= Videobook $mol_embed_youtube
 			uri <= video \
-		- <= TitleBook $mol_section
-			level 3
-			title <= fairytale \
 		<= Book $mol_section
 			title <= fairytale
 			content /

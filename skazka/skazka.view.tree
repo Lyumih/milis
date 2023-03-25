@@ -14,7 +14,6 @@ $milis_skazka $mol_page
 			name <= hero_name \
 			fairytale <= hero_fairytale \
 			description <= hero_description \
-			audio <= hero_audio \
 			video <= hero_video \
 			book <= hero_text \
 	foot /
@@ -24,5 +23,5 @@ $milis_skazka $mol_page
 			target \_blank
 		<= LinkMol $mol_link
 			title \Сделано на $mol
-			uri \https://t.me/mam_mol
+			uri \https://mol.hyoo.ru/
 			target \_blank
