@@ -3,3 +3,7 @@
 	border-radius: var(--mol_gap_round);
 	margin-bottom: var(--mol_gap_block);
 }
+
+[milis_vaop_agent_agent_empty="true"] {
+	border-color: gray;
+}

@@ -9772,6 +9772,9 @@ var $;
                 return next;
             return null;
         }
+        agent_empty(id) {
+            return false;
+        }
         Agent(id) {
             const obj = new this.$.$milis_vaop_agent();
             obj.business = (next) => this.agent_business(id, next);
@@ -9786,6 +9789,7 @@ var $;
             obj.name_enabled = () => this.name_enabled(id);
             obj.add = (next) => this.add_agent(id, next);
             obj.delete = (next) => this.delete_agent(id, next);
+            obj.agent_empty = () => this.agent_empty(id);
             return obj;
         }
         agents() {
@@ -9912,6 +9916,12 @@ var $;
     ], $milis_vaop.prototype, "Runner_table", null);
     $.$milis_vaop = $milis_vaop;
     class $milis_vaop_agent extends $mol_row {
+        attr() {
+            return {
+                ...super.attr(),
+                milis_vaop_agent_agent_empty: this.agent_empty()
+            };
+        }
         sub() {
             return [
                 this.Add(),
@@ -9923,6 +9933,9 @@ var $;
                 this.Name(),
                 this.Delete()
             ];
+        }
+        agent_empty() {
+            return false;
         }
         Icon_add_list() {
             const obj = new this.$.$mol_icon_account_plus();
@@ -10118,8 +10131,8 @@ var $;
             agent_list(next) {
                 console.log('FIX ME agent list', next);
                 return next ?? [
-                    { id: crypto.randomUUID(), business: 'test' },
-                    { id: crypto.randomUUID() },
+                    { id: crypto.randomUUID(), business: 'test', current_step: 100, next_step: 200 },
+                    { id: crypto.randomUUID(), current_step: 300, next_step: 400 },
                 ];
             }
             agents() {
@@ -10162,6 +10175,12 @@ var $;
             }
             name_enabled(id) {
                 return this.machine_enabled(id);
+            }
+            agent_empty(id) {
+                const current = this.current_step(id);
+                const filtered_agents_by_step = this.agent_list().find(agent => agent.next_step === current);
+                console.log('agent empty', id, filtered_agents_by_step, current, this.agent_list());
+                return !filtered_agents_by_step;
             }
             text_to_download() {
                 console.log();
@@ -10222,6 +10241,9 @@ var $;
             $mol_mem_key
         ], $milis_vaop.prototype, "name_enabled", null);
         __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "agent_empty", null);
+        __decorate([
             $mol_action
         ], $milis_vaop.prototype, "set_example", null);
         $$.$milis_vaop = $milis_vaop;
@@ -10232,7 +10254,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/vaop/vaop.view.css", "[milis_vaop_agent] {\n\tborder: 1px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n\tmargin-bottom: var(--mol_gap_block);\n}\n");
+    $mol_style_attach("milis/vaop/vaop.view.css", "[milis_vaop_agent] {\n\tborder: 1px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n\tmargin-bottom: var(--mol_gap_block);\n}\n\n[milis_vaop_agent_agent_empty=\"true\"] {\n\tborder-color: gray;\n}\n");
 })($ || ($ = {}));
 //milis/vaop/-css/vaop.view.css.ts
 ;

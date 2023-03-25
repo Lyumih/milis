@@ -2938,6 +2938,7 @@ declare namespace $ {
         name_enabled(id: any): boolean;
         add_agent(id: any, next?: any): any;
         delete_agent(id: any, next?: any): any;
+        agent_empty(id: any): boolean;
         Agent(id: any): $milis_vaop_agent;
         agents(): readonly any[];
         Agent_rows(): $$.$mol_list;
@@ -2947,7 +2948,11 @@ declare namespace $ {
         Runner_table(): $$.$mol_list;
     }
     class $milis_vaop_agent extends $mol_row {
+        attr(): {
+            milis_vaop_agent_agent_empty: boolean;
+        };
         sub(): readonly any[];
+        agent_empty(): boolean;
         Icon_add_list(): $mol_icon_account_plus;
         add(next?: any): any;
         Add(): $mol_button_minor;
@@ -2979,6 +2984,7 @@ declare namespace $.$$ {
         id: string;
         business?: string;
         current_step?: number;
+        next_step?: number;
     };
     export class $milis_vaop extends $.$milis_vaop {
         agent_list(next?: AgentDTO[]): AgentDTO[];
@@ -2995,6 +3001,7 @@ declare namespace $.$$ {
         current_step_enabled(id: string): boolean;
         next_step_enabled(id: string): boolean;
         name_enabled(id: string): boolean;
+        agent_empty(id: string): boolean;
         text_to_download(): string;
         download(): Blob;
         set_example(): void;

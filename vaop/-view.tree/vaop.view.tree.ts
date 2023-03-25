@@ -428,6 +428,15 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * agent_empty* false
+		 * ```
+		 */
+		agent_empty(id: any) {
+			return false
+		}
+		
+		/**
+		 * ```tree
 		 * Agent*0 $milis_vaop_agent
 		 * 	business? <=> agent_business*?
 		 * 	programmer? <=> agent_programmer*?
@@ -441,6 +450,7 @@ namespace $ {
 		 * 	name_enabled <= name_enabled*
 		 * 	add? <=> add_agent*?
 		 * 	delete? <=> delete_agent*?
+		 * 	agent_empty <= agent_empty*
 		 * ```
 		 */
 		@ $mol_mem_key
@@ -459,6 +469,7 @@ namespace $ {
 			obj.name_enabled = () => this.name_enabled(id)
 			obj.add = (next?: any) => this.add_agent(id, next)
 			obj.delete = (next?: any) => this.delete_agent(id, next)
+			obj.agent_empty = () => this.agent_empty(id)
 			
 			return obj
 		}
@@ -565,6 +576,20 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * attr *
+		 * 	^
+		 * 	milis_vaop_agent_agent_empty <= agent_empty
+		 * ```
+		 */
+		attr() {
+			return {
+				...super.attr(),
+				milis_vaop_agent_agent_empty: this.agent_empty()
+			}
+		}
+		
+		/**
+		 * ```tree
 		 * sub /
 		 * 	<= Add
 		 * 	<= Business
@@ -587,6 +612,15 @@ namespace $ {
 				this.Name(),
 				this.Delete()
 			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
+		 * agent_empty false
+		 * ```
+		 */
+		agent_empty() {
+			return false
 		}
 		
 		/**

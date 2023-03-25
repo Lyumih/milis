@@ -57,6 +57,7 @@ $milis_vaop $mol_page
 							name_enabled <= name_enabled* false
 							add? <=> add_agent*? null
 							delete? <=> delete_agent*? null
+							agent_empty <= agent_empty* false
 							- status? <= agent_status* false
 				<= Text_download_section $mol_section
 					title \Превью
@@ -67,6 +68,9 @@ $milis_vaop $mol_page
 							value? <= text_to_download? \Текст для скачивания
 
 $milis_vaop_agent $mol_row
+	attr *
+		^
+		milis_vaop_agent_agent_empty <= agent_empty false
 	sub /
 		<= Add $mol_button_minor
 			hint \Добавить агента
