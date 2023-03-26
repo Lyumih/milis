@@ -150,7 +150,7 @@ namespace $.$$ {
 		set_example(): void {
 			this.agent_list( [
 				{ id: crypto.randomUUID(), business: 'Создать парсер', programmer: 'class Parser; parser = Parser()', current_step: 100, next_step: 200, name: 'agent_create_parser'},
-				{ id: crypto.randomUUID(), business: 'Сформировать правила "<num>":"4", "2"; "2*<num>":"<num>+<num>" ', programmer: 'cards = ["<num>":["4","2"],"2*<num>":["<num>+<num>"]]', current_step: 200, next_step: 250, name: 'agent_rules' },
+				{ id: crypto.randomUUID(), business: 'Сформировать правила\n"<num>":"4""2"\n"2*<num>":"<num>+<num>" ', programmer: 'cards = ["<num>":["4","2"],"2*<num>":["<num>+<num>"]]', current_step: 200, next_step: 250, name: 'agent_rules' },
 				{ id: crypto.randomUUID(), business: 'Передать правила в парсер', programmer: 'parser.add_rules(cards)', current_step: 250, next_step: 300, name: 'agent_add_rules' },
 				{ id: crypto.randomUUID(), business: 'Сформулировать условие (2+2)', programmer: 'inp_str = ["2+2"]', current_step: 300, next_step: 350, name: 'agent_input' },
 				{ id: crypto.randomUUID(), business: 'Если входная строка != "2+2", то ошибка', programmer: 'if inp_str != "2+2" throw Error', current_step: 350, next_step: 9000, name: 'agent_input_error' },
