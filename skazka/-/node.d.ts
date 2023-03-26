@@ -2563,34 +2563,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $milis_skazka_hero extends $mol_list {
-        rows(): readonly $mol_view[];
-        name(): string;
-        Title(): $$.$mol_section;
-        description(): string;
-        Description_text(): $$.$mol_text;
-        Description(): $$.$mol_section;
-        video(): string;
-        Videobook(): $$.$mol_embed_youtube;
-        fairytale(): string;
-        book(): string;
-        Book_text(): $$.$mol_text;
-        Book(): $$.$mol_section;
-    }
-}
-
-declare namespace $ {
-    type $milis_skazka_hero_type = {
-        hero: string;
-        fairytale: string;
-        description: string;
-        audioUrl: string;
-        videoUrl: string;
-        textUrl: string;
-    };
-}
-
-declare namespace $ {
     function $mol_dom_parse(text: string, type?: DOMParserSupportedType): Document;
 }
 
@@ -2627,10 +2599,23 @@ declare namespace $ {
     }
 }
 
+declare namespace $ {
+    type $milis_skazka_hero_type = {
+        id: number;
+        city?: string;
+        place?: string;
+        hero?: string;
+        fairytale?: string;
+        description?: string;
+        audiobook?: string;
+        videobook?: string;
+        book?: string;
+    };
+}
 declare namespace $.$$ {
     class $milis_skazka extends $.$milis_skazka {
         hero_id(): string;
-        hero(): any;
+        hero(): $milis_skazka_hero_type;
         hero_name(): string;
         hero_fairytale(): string;
         hero_description(): string;

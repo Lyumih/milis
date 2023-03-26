@@ -186,7 +186,6 @@
     "$mol_promise",
     "$mol_embed_youtube",
     "$mol_frame",
-    "$milis_skazka_hero",
     "$mol_fetch",
     "$mol_dom_parse"
   ],

@@ -8639,97 +8639,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $milis_skazka_hero extends $mol_list {
-        rows() {
-            return [
-                this.Title(),
-                this.Description(),
-                this.Videobook(),
-                this.Book()
-            ];
-        }
-        name() {
-            return "";
-        }
-        Title() {
-            const obj = new this.$.$mol_section();
-            obj.level = () => 4;
-            obj.title = () => this.name();
-            return obj;
-        }
-        description() {
-            return "";
-        }
-        Description_text() {
-            const obj = new this.$.$mol_text();
-            obj.text = () => this.description();
-            return obj;
-        }
-        Description() {
-            const obj = new this.$.$mol_section();
-            obj.title = () => "";
-            obj.level = () => 3;
-            obj.content = () => [
-                this.Description_text()
-            ];
-            return obj;
-        }
-        video() {
-            return "";
-        }
-        Videobook() {
-            const obj = new this.$.$mol_embed_youtube();
-            obj.uri = () => this.video();
-            return obj;
-        }
-        fairytale() {
-            return "";
-        }
-        book() {
-            return "";
-        }
-        Book_text() {
-            const obj = new this.$.$mol_text();
-            obj.text = () => this.book();
-            return obj;
-        }
-        Book() {
-            const obj = new this.$.$mol_section();
-            obj.title = () => this.fairytale();
-            obj.content = () => [
-                this.Book_text()
-            ];
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $milis_skazka_hero.prototype, "Title", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka_hero.prototype, "Description_text", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka_hero.prototype, "Description", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka_hero.prototype, "Videobook", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka_hero.prototype, "Book_text", null);
-    __decorate([
-        $mol_mem
-    ], $milis_skazka_hero.prototype, "Book", null);
-    $.$milis_skazka_hero = $milis_skazka_hero;
-})($ || ($ = {}));
-//milis/skazka/hero/-view.tree/hero.view.tree.ts
-;
-"use strict";
-//milis/skazka/hero/hero.view.ts
-;
-"use strict";
-var $;
-(function ($) {
     function $mol_dom_parse(text, type = 'application/xhtml+xml') {
         const parser = new $mol_dom_context.DOMParser();
         const doc = parser.parseFromString(text, type);
@@ -8900,20 +8809,22 @@ var $;
     (function ($$) {
         const heroItems = [
             {
-                hero: 'Василиса Премудрая',
-                fairytale: 'МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ.',
-                description: 'Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания.',
-                audioUrl: 'https://audioskazki-online.ru/narodnye/russkie/morskoj-tsar-i-vasilisa-premudraya',
-                videoUrl: 'https://www.youtube.com/embed/LDqEw-M8iyE',
-                textUrl: 'МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ. Русская народная сказка. За тридевять земель, в тридесятом государстве жил-был царь с царицею; детей у них не было. Поехал ...',
-            },
-            {
+                id: 0,
                 hero: 'Три богатыря',
                 fairytale: 'ТРИ БОГАТЫРЯ',
                 description: '"Три богатыря" - это сказка про известных русских героев былин, сказка про богатырей Илью Муромца, Алешу Поповича и Добрыню Никитича.',
-                audioUrl: 'https://audioskazki-online.ru/podborki/raznoe/tri-bogatyrya',
-                videoUrl: 'https://www.youtube.com/watch?v=uopfqauEz64&ab_channel=%D0%9A%D0%B8%D0%BD%D0%BE%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D0%BD%22%D0%9C%D0%BE%D1%81%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%22',
-                textUrl: 'Давным-давно жил один человек, не богатый не бедный. У него было три сына. Все трое красивые, подобно месяцу, грамоте обучались, уму-разуму набирались, с плохими людьми не знались. Старшему Тонгуч-батыру был двадцать один год, среднему Ортанча-батыру — восемнадцать лет, а младшему Кенджа-батыру — шестнадцать. Однажды отец позвал сыновей к себе, усадил, приласкал каждого, погладил по голове и сказал: ...',
+                audiobook: 'https://audioskazki-online.ru/podborki/raznoe/tri-bogatyrya',
+                videobook: 'https://www.youtube.com/watch?v=uopfqauEz64&ab_channel=%D0%9A%D0%B8%D0%BD%D0%BE%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D0%BD%22%D0%9C%D0%BE%D1%81%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%22',
+                book: 'Давным-давно жил один человек, не богатый не бедный. У него было три сына. Все трое красивые, подобно месяцу, грамоте обучались, уму-разуму набирались, с плохими людьми не знались. Старшему Тонгуч-батыру был двадцать один год, среднему Ортанча-батыру — восемнадцать лет, а младшему Кенджа-батыру — шестнадцать. Однажды отец позвал сыновей к себе, усадил, приласкал каждого, погладил по голове и сказал: ...',
+            },
+            {
+                id: 1,
+                hero: 'Василиса Премудрая',
+                fairytale: 'МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ.',
+                description: 'Иван родился в момент, когда его отца не было дома. Отец не знал, что у него родился сын, а Морской Царь воспользовался этим. Иван-царевич растет и встречает дочь морского царя, принцессу Василису Премудрую, которая помогает ему избежать наказания.',
+                audiobook: 'https://audioskazki-online.ru/narodnye/russkie/morskoj-tsar-i-vasilisa-premudraya',
+                videobook: 'https://www.youtube.com/embed/LDqEw-M8iyE',
+                book: 'МОРСКОЙ ЦАРЬ И ВАСИЛИСА ПРЕМУДРАЯ. Русская народная сказка. За тридевять земель, в тридесятом государстве жил-был царь с царицею; детей у них не было. Поехал ...',
             }
         ];
         class $milis_skazka extends $.$milis_skazka {
@@ -8923,7 +8834,8 @@ var $;
             hero() {
                 const url = `https://sbook.kinsle.ru/find/one/by/id/${this.hero_id()}`;
                 try {
-                    return $mol_fetch.json(url);
+                    const data = $mol_fetch.json(url);
+                    return data ?? heroItems[0];
                 }
                 catch (e) {
                     if (e instanceof Promise)
@@ -8935,19 +8847,19 @@ var $;
                 return 'Персонаж: ' + this.hero().hero;
             }
             hero_fairytale() {
-                return this.hero().fairytale;
+                return this.hero().fairytale ?? '';
             }
             hero_description() {
-                return this.hero().description;
+                return this.hero().description ?? '';
             }
             hero_audio() {
-                return this.hero().audioUrl;
+                return this.hero().audiobook ?? '';
             }
             hero_video() {
-                return this.hero().videoUrl;
+                return this.hero().videobook ?? '';
             }
             hero_text() {
-                return this.hero().textUrl;
+                return this.hero().book ?? '';
             }
         }
         __decorate([
