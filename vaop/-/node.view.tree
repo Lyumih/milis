@@ -32,6 +32,39 @@ $mol_page $mol_view
 			dom_name \footer
 			sub <= foot /$mol_view
 
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+	font_size 16
+	font_family \
+	style_size *
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	minimal_width 16
+	minimal_height 16
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
+
+$mol_icon_presentation $mol_icon path \M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5Z
+
+$mol_icon_presentation_play $mol_icon path \M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5M11.85,11.85C11.76,11.94 11.64,12 11.5,12C11.22,12 11,11.78 11,11.5V7.5C11,7.22 11.22,7 11.5,7C11.64,7 11.76,7.06 11.85,7.15L13.25,8.54C13.57,8.86 13.89,9.18 13.89,9.5C13.89,9.82 13.57,10.14 13.25,10.46L11.85,11.85Z
+
 $mol_speck $mol_view
 	attr *
 		^
@@ -68,35 +101,6 @@ $mol_button_typed $mol_button
 
 $mol_button_minor $mol_button_typed
 
-$mol_svg $mol_view
-	dom_name \svg
-	dom_name_space \http://www.w3.org/2000/svg
-	font_size 16
-	font_family \
-	style_size *
-
-$mol_svg_root $mol_svg
-	dom_name \svg
-	attr *
-		^
-		viewBox <= view_box \0 0 100 100
-		preserveAspectRatio <= aspect \xMidYMid
-
-$mol_svg_path $mol_svg
-	dom_name \path
-	attr *
-		^
-		d <= geometry \
-
-
-$mol_icon $mol_svg_root
-	view_box \0 0 24 24
-	minimal_width 16
-	minimal_height 16
-	sub /
-		<= Path $mol_svg_path
-			geometry <= path \
-
 $mol_icon_download $mol_icon path \M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z
 
 $mol_button_download $mol_button_minor
@@ -106,10 +110,6 @@ $mol_button_download $mol_button_minor
 	sub /
 		<= Icon $mol_icon_download
 		<= title \
-
-$mol_icon_presentation $mol_icon path \M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5Z
-
-$mol_icon_presentation_play $mol_icon path \M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5M11.85,11.85C11.76,11.94 11.64,12 11.5,12C11.22,12 11,11.78 11,11.5V7.5C11,7.22 11.22,7 11.5,7C11.64,7 11.76,7.06 11.85,7.15L13.25,8.54C13.57,8.86 13.89,9.18 13.89,9.5C13.89,9.82 13.57,10.14 13.25,10.46L11.85,11.85Z
 
 $mol_icon_dots_vertical $mol_icon path \M12,16C13.1,16 14,16.9 14,18C14,19.1 13.1,20 12,20C10.9,20 10,19.1 10,18C10,16.9 10.9,16 12,16M12,10C13.1,10 14,10.9 14,12C14,13.1 13.1,14 12,14C10.9,14 10,13.1 10,12C10,10.9 10.9,10 12,10M12,4C13.1,4 14,4.9 14,6C14,7.1 13.1,8 12,8C10.9,8 10,7.1 10,6C10,4.9 10.9,4 12,4Z
 
@@ -716,14 +716,14 @@ $mol_text_list_item $mol_paragraph
 $milis_vaop $mol_page
 	title \VAOP - экологичное программирование
 	tools /
-		<= Download $mol_button_download
-			file_name \vaop_script.txt
-			hint \Скачать VAOP скрипт
-			blob <= download $mol_blob
 		<= Example $mol_button_minor
 			sub / <= Example_icon $mol_icon_presentation_play
 			hint \Показать пример
 			click? <= set_example null
+		<= Download $mol_button_download
+			file_name \vaop_script.txt
+			hint \Скачать VAOP скрипт
+			blob <= download $mol_blob
 		<= Menu $mol_pick
 			trigger_content / <= Menu_trigger_icon $mol_icon_dots_vertical
 			bubble_content / <= Options_content $mol_list rows /
@@ -774,9 +774,8 @@ $milis_vaop $mol_page
 							add? <=> add_agent*? null
 							delete? <=> delete_agent*? null
 							agent_empty <= agent_empty* false
-							- status? <= agent_status* false
 				<= Text_download_section $mol_section
-					title \Превью
+					title \Раннер для скачивания
 					content /
 						<= Text_download $mol_textarea
 							sidebar_showed true

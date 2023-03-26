@@ -23,7 +23,7 @@ namespace $.$$ {
 		agent_list( next?: AgentDTO[] ) {
 			console.log('FIX ME agent list', next)
 			return next ?? [
-				{ id: crypto.randomUUID(), business: '1 Бизнес требование', current_step: 100, next_step: 200 },
+				{ id: crypto.randomUUID(),current_step: 100, next_step: 200, name: 'agent_' },
 			]
 		}
 
@@ -149,9 +149,18 @@ namespace $.$$ {
 		@$mol_action
 		set_example(): void {
 			this.agent_list( [
-				{ id: crypto.randomUUID(), business: 'Создать парсер' },
-				{ id: crypto.randomUUID() },
-				{ id: crypto.randomUUID() }
+				{ id: crypto.randomUUID(), business: 'Создать парсер', programmer: 'class Parser; parser = Parser()', current_step: 100, next_step: 200, name: 'agent_create_parser'},
+				{ id: crypto.randomUUID(), business: 'Сформировать правила "<num>":"4", "2"; "2*<num>":"<num>+<num>" ', programmer: 'cards = ["<num>":["4","2"],"2*<num>":["<num>+<num>"]]', current_step: 200, next_step: 250, name: 'agent_rules' },
+				{ id: crypto.randomUUID(), business: 'Передать правила в парсер', programmer: 'parser.add_rules(cards)', current_step: 250, next_step: 300, name: 'agent_add_rules' },
+				{ id: crypto.randomUUID(), business: 'Сформулировать условие (2+2)', programmer: 'inp_str = ["2+2"]', current_step: 300, next_step: 350, name: 'agent_input' },
+				{ id: crypto.randomUUID(), business: 'Если входная строка != "2+2", то ошибка', programmer: 'if inp_str != "2+2" throw Error', current_step: 350, next_step: 9000, name: 'agent_input_error' },
+				{ id: crypto.randomUUID(), business: 'Если входная строка валидна, продолжить программу', programmer: 'else continue', current_step: 350, next_step: 401, name: 'agent_input_continue' },
+				{ id: crypto.randomUUID(), business: 'Ввести строку-условие', programmer: 'tasks = Tasks(inp_str)', current_step: 400, next_step: 500, name: 'agent_add_tasks' },
+				{ id: crypto.randomUUID(), business: 'Запустить парсер', programmer: 'parser.parse(tasks)', current_step: 500, next_step: 600, name: 'agent_parser_parse' },
+				{ id: crypto.randomUUID(), business: 'Получить ответ', programmer: 'res = parser.get_response()', current_step: 600, next_step: 700, name: 'agent_parser_response' },
+				{ id: crypto.randomUUID(), business: 'Вывести ответ на экран [2*2]', programmer: 'print(res)', current_step: 700, next_step: 8000, name: 'agent_parser_print' },
+				{ id: crypto.randomUUID(), business: 'Вывести на экран "Программа завершена"', programmer: 'print("Программа завершена")', current_step: 8000, next_step: 8000, name: 'agent_program_end' },
+				{ id: crypto.randomUUID(), business: 'Вывести на экран "Ошибка: неверный input"', programmer: 'print("ошибка: неверный input")', current_step: 9000, next_step: 9000, name: 'agent_program_end_error' },
 			]
 			)
 		}

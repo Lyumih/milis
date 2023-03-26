@@ -13,15 +13,15 @@ namespace $ {
 		/**
 		 * ```tree
 		 * tools /
-		 * 	<= Download
 		 * 	<= Example
+		 * 	<= Download
 		 * 	<= Menu
 		 * ```
 		 */
 		tools() {
 			return [
-				this.Download(),
 				this.Example(),
+				this.Download(),
 				this.Menu()
 			] as readonly any[]
 		}
@@ -38,37 +38,6 @@ namespace $ {
 				this.About_vaop(),
 				this.Runner_table()
 			] as readonly any[]
-		}
-		
-		/**
-		 * ```tree
-		 * download $mol_blob
-		 * ```
-		 */
-		@ $mol_mem
-		download() {
-			const obj = new this.$.$mol_blob()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Download $mol_button_download
-		 * 	file_name \vaop_script.txt
-		 * 	hint \Скачать VAOP скрипт
-		 * 	blob <= download
-		 * ```
-		 */
-		@ $mol_mem
-		Download() {
-			const obj = new this.$.$mol_button_download()
-			
-			obj.file_name = () => "vaop_script.txt"
-			obj.hint = () => "Скачать VAOP скрипт"
-			obj.blob = () => this.download()
-			
-			return obj
 		}
 		
 		/**
@@ -109,6 +78,37 @@ namespace $ {
 			] as readonly any[]
 			obj.hint = () => "Показать пример"
 			obj.click = (next?: any) => this.set_example()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * download $mol_blob
+		 * ```
+		 */
+		@ $mol_mem
+		download() {
+			const obj = new this.$.$mol_blob()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Download $mol_button_download
+		 * 	file_name \vaop_script.txt
+		 * 	hint \Скачать VAOP скрипт
+		 * 	blob <= download
+		 * ```
+		 */
+		@ $mol_mem
+		Download() {
+			const obj = new this.$.$mol_button_download()
+			
+			obj.file_name = () => "vaop_script.txt"
+			obj.hint = () => "Скачать VAOP скрипт"
+			obj.blob = () => this.download()
 			
 			return obj
 		}
@@ -545,7 +545,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Text_download_section $mol_section
-		 * 	title \Превью
+		 * 	title \Раннер для скачивания
 		 * 	content / <= Text_download
 		 * ```
 		 */
@@ -553,7 +553,7 @@ namespace $ {
 		Text_download_section() {
 			const obj = new this.$.$mol_section()
 			
-			obj.title = () => "Превью"
+			obj.title = () => "Раннер для скачивания"
 			obj.content = () => [
 				this.Text_download()
 			] as readonly any[]

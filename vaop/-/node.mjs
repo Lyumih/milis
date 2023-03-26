@@ -3437,9 +3437,205 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_blob = ($node.buffer?.Blob ?? $mol_dom_context.Blob);
+    class $mol_svg extends $mol_view {
+        dom_name() {
+            return "svg";
+        }
+        dom_name_space() {
+            return "http://www.w3.org/2000/svg";
+        }
+        font_size() {
+            return 16;
+        }
+        font_family() {
+            return "";
+        }
+        style_size() {
+            return {};
+        }
+    }
+    $.$mol_svg = $mol_svg;
 })($ || ($ = {}));
-//mol/blob/blob.ts
+//mol/svg/-view.tree/svg.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_state_time extends $mol_object {
+        static task(precision, reset) {
+            if (precision) {
+                return new $mol_after_timeout(precision, () => this.task(precision, null));
+            }
+            else {
+                return new $mol_after_frame(() => this.task(precision, null));
+            }
+        }
+        static now(precision) {
+            this.task(precision);
+            return Date.now();
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_time, "task", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_time, "now", null);
+    $.$mol_state_time = $mol_state_time;
+})($ || ($ = {}));
+//mol/state/time/time.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_svg extends $.$mol_svg {
+            computed_style() {
+                const win = this.$.$mol_dom_context;
+                const style = win.getComputedStyle(this.dom_node());
+                if (!style['font-size'])
+                    $mol_state_time.now(0);
+                return style;
+            }
+            font_size() {
+                return parseInt(this.computed_style()['font-size']) || 16;
+            }
+            font_family() {
+                return this.computed_style()['font-family'];
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_svg.prototype, "computed_style", null);
+        __decorate([
+            $mol_mem
+        ], $mol_svg.prototype, "font_size", null);
+        __decorate([
+            $mol_mem
+        ], $mol_svg.prototype, "font_family", null);
+        $$.$mol_svg = $mol_svg;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/svg/svg.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_root extends $mol_svg {
+        dom_name() {
+            return "svg";
+        }
+        attr() {
+            return {
+                ...super.attr(),
+                viewBox: this.view_box(),
+                preserveAspectRatio: this.aspect()
+            };
+        }
+        view_box() {
+            return "0 0 100 100";
+        }
+        aspect() {
+            return "xMidYMid";
+        }
+    }
+    $.$mol_svg_root = $mol_svg_root;
+})($ || ($ = {}));
+//mol/svg/root/-view.tree/root.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/svg/root/root.view.css", "[mol_svg_root] {\n\toverflow: hidden;\n}\n");
+})($ || ($ = {}));
+//mol/svg/root/-css/root.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_path extends $mol_svg {
+        dom_name() {
+            return "path";
+        }
+        attr() {
+            return {
+                ...super.attr(),
+                d: this.geometry()
+            };
+        }
+        geometry() {
+            return "";
+        }
+    }
+    $.$mol_svg_path = $mol_svg_path;
+})($ || ($ = {}));
+//mol/svg/path/-view.tree/path.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon extends $mol_svg_root {
+        view_box() {
+            return "0 0 24 24";
+        }
+        minimal_width() {
+            return 16;
+        }
+        minimal_height() {
+            return 16;
+        }
+        sub() {
+            return [
+                this.Path()
+            ];
+        }
+        path() {
+            return "";
+        }
+        Path() {
+            const obj = new this.$.$mol_svg_path();
+            obj.geometry = () => this.path();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_icon.prototype, "Path", null);
+    $.$mol_icon = $mol_icon;
+})($ || ($ = {}));
+//mol/icon/-view.tree/icon.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/icon/icon.view.css", "[mol_icon] {\n\tfill: currentColor;\n\tstroke: none;\n\twidth: 1em;\n\theight: 1.5em;\n\tflex: 0 0 auto;\n\tvertical-align: top;\n\tdisplay: inline-block;\n\tfilter: drop-shadow(0px 1px 1px var(--mol_theme_back));\n\ttransform-origin: center;\n}\n\n[mol_icon_path] {\n\ttransform-origin: center;\n}\n");
+})($ || ($ = {}));
+//mol/icon/-css/icon.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_presentation extends $mol_icon {
+        path() {
+            return "M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5Z";
+        }
+    }
+    $.$mol_icon_presentation = $mol_icon_presentation;
+})($ || ($ = {}));
+//mol/icon/presentation/-view.tree/presentation.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_presentation_play extends $mol_icon {
+        path() {
+            return "M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5M11.85,11.85C11.76,11.94 11.64,12 11.5,12C11.22,12 11,11.78 11,11.5V7.5C11,7.22 11.22,7 11.5,7C11.64,7 11.76,7.06 11.85,7.15L13.25,8.54C13.57,8.86 13.89,9.18 13.89,9.5C13.89,9.82 13.57,10.14 13.25,10.46L11.85,11.85Z";
+        }
+    }
+    $.$mol_icon_presentation_play = $mol_icon_presentation_play;
+})($ || ($ = {}));
+//mol/icon/presentation/play/-view.tree/play.view.tree.ts
 ;
 "use strict";
 var $;
@@ -3781,6 +3977,51 @@ var $;
 //mol/button/-css/button.view.css.ts
 ;
 "use strict";
+var $;
+(function ($) {
+    class $mol_button_typed extends $mol_button {
+        minimal_height() {
+            return 40;
+        }
+        minimal_width() {
+            return 40;
+        }
+    }
+    $.$mol_button_typed = $mol_button_typed;
+})($ || ($ = {}));
+//mol/button/typed/-view.tree/typed.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/typed/typed.view.css", "[mol_button_typed] {\n\talign-content: center;\n\talign-items: center;\n\tpadding: var(--mol_gap_text);\n\tborder-radius: var(--mol_gap_round);\n\tgap: var(--mol_gap_space);\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[mol_button_typed][disabled] {\n\tpointer-events: none;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus {\n\tbackground-color: var(--mol_theme_hover);\n}\n\n[mol_button_typed]:active {\n\tcolor: var(--mol_theme_focus);\n}\n\n");
+})($ || ($ = {}));
+//mol/button/typed/-css/typed.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_button_minor extends $mol_button_typed {
+    }
+    $.$mol_button_minor = $mol_button_minor;
+})($ || ($ = {}));
+//mol/button/minor/-view.tree/minor.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_button_minor][disabled] {\n\tcolor: var(--mol_theme_shade);\n}\n");
+})($ || ($ = {}));
+//mol/button/minor/-css/minor.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_blob = ($node.buffer?.Blob ?? $mol_dom_context.Blob);
+})($ || ($ = {}));
+//mol/blob/blob.ts
+;
+"use strict";
 //mol/type/partial/deep/deep.ts
 ;
 "use strict";
@@ -3907,223 +4148,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_button_typed extends $mol_button {
-        minimal_height() {
-            return 40;
-        }
-        minimal_width() {
-            return 40;
-        }
-    }
-    $.$mol_button_typed = $mol_button_typed;
-})($ || ($ = {}));
-//mol/button/typed/-view.tree/typed.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/typed/typed.view.css", "[mol_button_typed] {\n\talign-content: center;\n\talign-items: center;\n\tpadding: var(--mol_gap_text);\n\tborder-radius: var(--mol_gap_round);\n\tgap: var(--mol_gap_space);\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[mol_button_typed][disabled] {\n\tpointer-events: none;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus {\n\tbackground-color: var(--mol_theme_hover);\n}\n\n[mol_button_typed]:active {\n\tcolor: var(--mol_theme_focus);\n}\n\n");
-})($ || ($ = {}));
-//mol/button/typed/-css/typed.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_button_minor extends $mol_button_typed {
-    }
-    $.$mol_button_minor = $mol_button_minor;
-})($ || ($ = {}));
-//mol/button/minor/-view.tree/minor.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_button_minor][disabled] {\n\tcolor: var(--mol_theme_shade);\n}\n");
-})($ || ($ = {}));
-//mol/button/minor/-css/minor.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg extends $mol_view {
-        dom_name() {
-            return "svg";
-        }
-        dom_name_space() {
-            return "http://www.w3.org/2000/svg";
-        }
-        font_size() {
-            return 16;
-        }
-        font_family() {
-            return "";
-        }
-        style_size() {
-            return {};
-        }
-    }
-    $.$mol_svg = $mol_svg;
-})($ || ($ = {}));
-//mol/svg/-view.tree/svg.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_state_time extends $mol_object {
-        static task(precision, reset) {
-            if (precision) {
-                return new $mol_after_timeout(precision, () => this.task(precision, null));
-            }
-            else {
-                return new $mol_after_frame(() => this.task(precision, null));
-            }
-        }
-        static now(precision) {
-            this.task(precision);
-            return Date.now();
-        }
-    }
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_time, "task", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_time, "now", null);
-    $.$mol_state_time = $mol_state_time;
-})($ || ($ = {}));
-//mol/state/time/time.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_svg extends $.$mol_svg {
-            computed_style() {
-                const win = this.$.$mol_dom_context;
-                const style = win.getComputedStyle(this.dom_node());
-                if (!style['font-size'])
-                    $mol_state_time.now(0);
-                return style;
-            }
-            font_size() {
-                return parseInt(this.computed_style()['font-size']) || 16;
-            }
-            font_family() {
-                return this.computed_style()['font-family'];
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_svg.prototype, "computed_style", null);
-        __decorate([
-            $mol_mem
-        ], $mol_svg.prototype, "font_size", null);
-        __decorate([
-            $mol_mem
-        ], $mol_svg.prototype, "font_family", null);
-        $$.$mol_svg = $mol_svg;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/svg/svg.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_root extends $mol_svg {
-        dom_name() {
-            return "svg";
-        }
-        attr() {
-            return {
-                ...super.attr(),
-                viewBox: this.view_box(),
-                preserveAspectRatio: this.aspect()
-            };
-        }
-        view_box() {
-            return "0 0 100 100";
-        }
-        aspect() {
-            return "xMidYMid";
-        }
-    }
-    $.$mol_svg_root = $mol_svg_root;
-})($ || ($ = {}));
-//mol/svg/root/-view.tree/root.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/svg/root/root.view.css", "[mol_svg_root] {\n\toverflow: hidden;\n}\n");
-})($ || ($ = {}));
-//mol/svg/root/-css/root.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_path extends $mol_svg {
-        dom_name() {
-            return "path";
-        }
-        attr() {
-            return {
-                ...super.attr(),
-                d: this.geometry()
-            };
-        }
-        geometry() {
-            return "";
-        }
-    }
-    $.$mol_svg_path = $mol_svg_path;
-})($ || ($ = {}));
-//mol/svg/path/-view.tree/path.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon extends $mol_svg_root {
-        view_box() {
-            return "0 0 24 24";
-        }
-        minimal_width() {
-            return 16;
-        }
-        minimal_height() {
-            return 16;
-        }
-        sub() {
-            return [
-                this.Path()
-            ];
-        }
-        path() {
-            return "";
-        }
-        Path() {
-            const obj = new this.$.$mol_svg_path();
-            obj.geometry = () => this.path();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_icon.prototype, "Path", null);
-    $.$mol_icon = $mol_icon;
-})($ || ($ = {}));
-//mol/icon/-view.tree/icon.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/icon/icon.view.css", "[mol_icon] {\n\tfill: currentColor;\n\tstroke: none;\n\twidth: 1em;\n\theight: 1.5em;\n\tflex: 0 0 auto;\n\tvertical-align: top;\n\tdisplay: inline-block;\n\tfilter: drop-shadow(0px 1px 1px var(--mol_theme_back));\n\ttransform-origin: center;\n}\n\n[mol_icon_path] {\n\ttransform-origin: center;\n}\n");
-})($ || ($ = {}));
-//mol/icon/-css/icon.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_icon_download extends $mol_icon {
         path() {
             return "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
@@ -4188,30 +4212,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/button/download/download.view.tsx
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_presentation extends $mol_icon {
-        path() {
-            return "M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5Z";
-        }
-    }
-    $.$mol_icon_presentation = $mol_icon_presentation;
-})($ || ($ = {}));
-//mol/icon/presentation/-view.tree/presentation.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_presentation_play extends $mol_icon {
-        path() {
-            return "M2,3H10C10,1.9 10.9,1 12,1C13.1,1 14,1.9 14,3H22V5H21V16H15.25L17,22H15L13.25,16H10.75L9,22H7L8.75,16H3V5H2V3M5,5V14H19V5H5M11.85,11.85C11.76,11.94 11.64,12 11.5,12C11.22,12 11,11.78 11,11.5V7.5C11,7.22 11.22,7 11.5,7C11.64,7 11.76,7.06 11.85,7.15L13.25,8.54C13.57,8.86 13.89,9.18 13.89,9.5C13.89,9.82 13.57,10.14 13.25,10.46L11.85,11.85Z";
-        }
-    }
-    $.$mol_icon_presentation_play = $mol_icon_presentation_play;
-})($ || ($ = {}));
-//mol/icon/presentation/play/-view.tree/play.view.tree.ts
 ;
 "use strict";
 var $;
@@ -9613,8 +9613,8 @@ var $;
         }
         tools() {
             return [
-                this.Download(),
                 this.Example(),
+                this.Download(),
                 this.Menu()
             ];
         }
@@ -9623,17 +9623,6 @@ var $;
                 this.About_vaop(),
                 this.Runner_table()
             ];
-        }
-        download() {
-            const obj = new this.$.$mol_blob();
-            return obj;
-        }
-        Download() {
-            const obj = new this.$.$mol_button_download();
-            obj.file_name = () => "vaop_script.txt";
-            obj.hint = () => "Скачать VAOP скрипт";
-            obj.blob = () => this.download();
-            return obj;
         }
         Example_icon() {
             const obj = new this.$.$mol_icon_presentation_play();
@@ -9649,6 +9638,17 @@ var $;
             ];
             obj.hint = () => "Показать пример";
             obj.click = (next) => this.set_example();
+            return obj;
+        }
+        download() {
+            const obj = new this.$.$mol_blob();
+            return obj;
+        }
+        Download() {
+            const obj = new this.$.$mol_button_download();
+            obj.file_name = () => "vaop_script.txt";
+            obj.hint = () => "Скачать VAOP скрипт";
+            obj.blob = () => this.download();
             return obj;
         }
         Menu_trigger_icon() {
@@ -9822,7 +9822,7 @@ var $;
         }
         Text_download_section() {
             const obj = new this.$.$mol_section();
-            obj.title = () => "Превью";
+            obj.title = () => "Раннер для скачивания";
             obj.content = () => [
                 this.Text_download()
             ];
@@ -9841,16 +9841,16 @@ var $;
     }
     __decorate([
         $mol_mem
-    ], $milis_vaop.prototype, "download", null);
-    __decorate([
-        $mol_mem
-    ], $milis_vaop.prototype, "Download", null);
-    __decorate([
-        $mol_mem
     ], $milis_vaop.prototype, "Example_icon", null);
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Example", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "download", null);
+    __decorate([
+        $mol_mem
+    ], $milis_vaop.prototype, "Download", null);
     __decorate([
         $mol_mem
     ], $milis_vaop.prototype, "Menu_trigger_icon", null);
@@ -10140,7 +10140,7 @@ var $;
             agent_list(next) {
                 console.log('FIX ME agent list', next);
                 return next ?? [
-                    { id: crypto.randomUUID(), business: '1 Бизнес требование', current_step: 100, next_step: 200 },
+                    { id: crypto.randomUUID(), current_step: 100, next_step: 200, name: 'agent_' },
                 ];
             }
             agents() {
@@ -10232,9 +10232,18 @@ var $;
             }
             set_example() {
                 this.agent_list([
-                    { id: crypto.randomUUID(), business: 'Создать парсер' },
-                    { id: crypto.randomUUID() },
-                    { id: crypto.randomUUID() }
+                    { id: crypto.randomUUID(), business: 'Создать парсер', programmer: 'class Parser; parser = Parser()', current_step: 100, next_step: 200, name: 'agent_create_parser' },
+                    { id: crypto.randomUUID(), business: 'Сформировать правила "<num>":"4", "2"; "2*<num>":"<num>+<num>" ', programmer: 'cards = ["<num>":["4","2"],"2*<num>":["<num>+<num>"]]', current_step: 200, next_step: 250, name: 'agent_rules' },
+                    { id: crypto.randomUUID(), business: 'Передать правила в парсер', programmer: 'parser.add_rules(cards)', current_step: 250, next_step: 300, name: 'agent_add_rules' },
+                    { id: crypto.randomUUID(), business: 'Сформулировать условие (2+2)', programmer: 'inp_str = ["2+2"]', current_step: 300, next_step: 350, name: 'agent_input' },
+                    { id: crypto.randomUUID(), business: 'Если входная строка != "2+2", то ошибка', programmer: 'if inp_str != "2+2" throw Error', current_step: 350, next_step: 9000, name: 'agent_input_error' },
+                    { id: crypto.randomUUID(), business: 'Если входная строка валидна, продолжить программу', programmer: 'else continue', current_step: 350, next_step: 401, name: 'agent_input_continue' },
+                    { id: crypto.randomUUID(), business: 'Ввести строку-условие', programmer: 'tasks = Tasks(inp_str)', current_step: 400, next_step: 500, name: 'agent_add_tasks' },
+                    { id: crypto.randomUUID(), business: 'Запустить парсер', programmer: 'parser.parse(tasks)', current_step: 500, next_step: 600, name: 'agent_parser_parse' },
+                    { id: crypto.randomUUID(), business: 'Получить ответ', programmer: 'res = parser.get_response()', current_step: 600, next_step: 700, name: 'agent_parser_response' },
+                    { id: crypto.randomUUID(), business: 'Вывести ответ на экран [2*2]', programmer: 'print(res)', current_step: 700, next_step: 8000, name: 'agent_parser_print' },
+                    { id: crypto.randomUUID(), business: 'Вывести на экран "Программа завершена"', programmer: 'print("Программа завершена")', current_step: 8000, next_step: 8000, name: 'agent_program_end' },
+                    { id: crypto.randomUUID(), business: 'Вывести на экран "Ошибка: неверный input"', programmer: 'print("ошибка: неверный input")', current_step: 9000, next_step: 9000, name: 'agent_program_end_error' },
                 ]);
             }
         }
@@ -10297,7 +10306,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/vaop/vaop.view.css", "[milis_vaop_agent] {\n\tborder: 1px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n\tmargin-bottom: var(--mol_gap_block);\n}\n\n[milis_vaop_agent_agent_empty=\"true\"] {\n\tborder-color: gray;\n}\n");
+    $mol_style_attach("milis/vaop/vaop.view.css", "[milis_vaop_agent] {\n\tborder: 1px solid var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n\tmargin-bottom: var(--mol_gap_block);\n}\n\n[milis_vaop_agent]:first-child {\n\tborder-color: var(--mol_theme_text);\n}\n\n[milis_vaop_agent_agent_empty=\"true\"] {\n\tborder-color:  var(--mol_theme_special);\n}\n");
 })($ || ($ = {}));
 //milis/vaop/-css/vaop.view.css.ts
 ;

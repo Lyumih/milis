@@ -1,21 +1,18 @@
-namespace $ {
-	export type $milis_skazka_hero_type = {
-		id: number
-		city?: string
-		place?: string
-		hero?: string
-		fairytale?: string
-		description?: string
-		audiobook?: string
-		videobook?: string
-		book?: string
-	}
-}
-
-
 namespace $.$$ {
 
-	const heroItems: $milis_skazka_hero_type[] = [
+	const HeroDTO = $mol_data_record({
+		id: $mol_data_number,
+		city: $mol_data_optional($mol_data_string),
+		place: $mol_data_optional($mol_data_string),
+		hero: $mol_data_optional($mol_data_string),
+		fairytale: $mol_data_optional($mol_data_string),
+		description: $mol_data_optional($mol_data_string),
+		audiobook: $mol_data_optional($mol_data_string),
+		videobook: $mol_data_optional($mol_data_string),
+		book: $mol_data_optional($mol_data_string),
+	})
+
+	const heroItems: typeof HeroDTO.Value[] = [
 		{
 			id: 0,
 			hero: 'Три богатыря',
@@ -44,10 +41,10 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		hero(): $milis_skazka_hero_type {
+		hero(){
 			const url = `https://sbook.kinsle.ru/find/one/by/id/${ this.hero_id() }`
 			try {
-				const data = $mol_fetch.json( url ) as $milis_skazka_hero_type | null
+				const data = $mol_fetch.json( url ) as any | null
 				return data ?? heroItems[ 0 ]
 			} catch( e ) {
 				if( e instanceof Promise ) $mol_fail_hidden( e )
