@@ -76,14 +76,14 @@ $milis_vaop_agent $mol_row
 			hint \Добавить агента
 			sub / <= Icon_add_list $mol_icon_account_plus
 			click? <=> add? null
-		<= Business $mol_string
+		<= Business $mol_textarea
 			hint \Бизнес
 			value? <=> business? \
-		<= Programmer $mol_string
+		<= Programmer $mol_textarea
 			hint \Программист
 			value? <=> programmer? \
 			enabled <= programmer_enabled false
-		<= Machine $mol_string
+		<= Machine $mol_textarea
 			hint \Машина
 			value? <=> machine? \
 			enabled <= machine_enabled false
@@ -99,7 +99,7 @@ $milis_vaop_agent $mol_row
 			value_min 0
 			enabled <= next_step_enabled false
 			value? <=> next_step? 0
-		<= Name $mol_string
+		<= Name $mol_textarea
 			hint \Имя агента
 			enabled <= name_enabled false
 			value? <=> name? \
