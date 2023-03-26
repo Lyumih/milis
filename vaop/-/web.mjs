@@ -9513,7 +9513,7 @@ var $;
             return "";
         }
         Business() {
-            const obj = new this.$.$mol_string();
+            const obj = new this.$.$mol_textarea();
             obj.hint = () => "Бизнес";
             obj.value = (next) => this.business(next);
             return obj;
@@ -9527,7 +9527,7 @@ var $;
             return false;
         }
         Programmer() {
-            const obj = new this.$.$mol_string();
+            const obj = new this.$.$mol_textarea();
             obj.hint = () => "Программист";
             obj.value = (next) => this.programmer(next);
             obj.enabled = () => this.programmer_enabled();
@@ -9542,7 +9542,7 @@ var $;
             return false;
         }
         Machine() {
-            const obj = new this.$.$mol_string();
+            const obj = new this.$.$mol_textarea();
             obj.hint = () => "Машина";
             obj.value = (next) => this.machine(next);
             obj.enabled = () => this.machine_enabled();
@@ -9591,7 +9591,7 @@ var $;
             return "";
         }
         Name() {
-            const obj = new this.$.$mol_string();
+            const obj = new this.$.$mol_textarea();
             obj.hint = () => "Имя агента";
             obj.enabled = () => this.name_enabled();
             obj.value = (next) => this.name(next);

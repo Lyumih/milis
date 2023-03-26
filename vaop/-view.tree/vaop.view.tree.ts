@@ -693,14 +693,14 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Business $mol_string
+		 * Business $mol_textarea
 		 * 	hint \Бизнес
 		 * 	value? <=> business?
 		 * ```
 		 */
 		@ $mol_mem
 		Business() {
-			const obj = new this.$.$mol_string()
+			const obj = new this.$.$mol_textarea()
 			
 			obj.hint = () => "Бизнес"
 			obj.value = (next?: any) => this.business(next)
@@ -730,7 +730,7 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Programmer $mol_string
+		 * Programmer $mol_textarea
 		 * 	hint \Программист
 		 * 	value? <=> programmer?
 		 * 	enabled <= programmer_enabled
@@ -738,7 +738,7 @@ namespace $ {
 		 */
 		@ $mol_mem
 		Programmer() {
-			const obj = new this.$.$mol_string()
+			const obj = new this.$.$mol_textarea()
 			
 			obj.hint = () => "Программист"
 			obj.value = (next?: any) => this.programmer(next)
@@ -769,7 +769,7 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Machine $mol_string
+		 * Machine $mol_textarea
 		 * 	hint \Машина
 		 * 	value? <=> machine?
 		 * 	enabled <= machine_enabled
@@ -777,7 +777,7 @@ namespace $ {
 		 */
 		@ $mol_mem
 		Machine() {
-			const obj = new this.$.$mol_string()
+			const obj = new this.$.$mol_textarea()
 			
 			obj.hint = () => "Машина"
 			obj.value = (next?: any) => this.machine(next)
@@ -894,7 +894,7 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Name $mol_string
+		 * Name $mol_textarea
 		 * 	hint \Имя агента
 		 * 	enabled <= name_enabled
 		 * 	value? <=> name?
@@ -902,7 +902,7 @@ namespace $ {
 		 */
 		@ $mol_mem
 		Name() {
-			const obj = new this.$.$mol_string()
+			const obj = new this.$.$mol_textarea()
 			
 			obj.hint = () => "Имя агента"
 			obj.enabled = () => this.name_enabled()

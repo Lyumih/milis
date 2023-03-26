@@ -3051,13 +3051,13 @@ declare namespace $ {
         add(next?: any): any;
         Add(): $mol_button_minor;
         business(next?: any): string;
-        Business(): $$.$mol_string;
+        Business(): $$.$mol_textarea;
         programmer(next?: any): string;
         programmer_enabled(): boolean;
-        Programmer(): $$.$mol_string;
+        Programmer(): $$.$mol_textarea;
         machine(next?: any): string;
         machine_enabled(): boolean;
-        Machine(): $$.$mol_string;
+        Machine(): $$.$mol_textarea;
         current_step_enabled(): boolean;
         current_step(next?: any): number;
         Current(): $$.$mol_number;
@@ -3066,7 +3066,7 @@ declare namespace $ {
         Next(): $$.$mol_number;
         name_enabled(): boolean;
         name(next?: any): string;
-        Name(): $$.$mol_string;
+        Name(): $$.$mol_textarea;
         Icon_delete_agent(): $mol_icon_delete;
         delete(next?: any): any;
         Delete(): $mol_button_minor;
