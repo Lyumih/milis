@@ -765,6 +765,7 @@ $milis_vaop $mol_page
 							machine? <=> agent_machine*? null
 							current_step? <=> current_step*? null
 							next_step? <=> next_step*? null
+							name? <=> agent_name*? null
 							machine_enabled <= machine_enabled* false
 							programmer_enabled <= programmer_enabled* false
 							current_step_enabled <= current_step_enabled* false

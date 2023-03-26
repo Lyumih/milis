@@ -9739,6 +9739,11 @@ var $;
                 return next;
             return null;
         }
+        agent_name(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
         machine_enabled(id) {
             return false;
         }
@@ -9774,6 +9779,7 @@ var $;
             obj.machine = (next) => this.agent_machine(id, next);
             obj.current_step = (next) => this.current_step(id, next);
             obj.next_step = (next) => this.next_step(id, next);
+            obj.name = (next) => this.agent_name(id, next);
             obj.machine_enabled = () => this.machine_enabled(id);
             obj.programmer_enabled = () => this.programmer_enabled(id);
             obj.current_step_enabled = () => this.current_step_enabled(id);
@@ -9882,6 +9888,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $milis_vaop.prototype, "next_step", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_vaop.prototype, "agent_name", null);
     __decorate([
         $mol_mem_key
     ], $milis_vaop.prototype, "add_agent", null);
@@ -10123,8 +10132,7 @@ var $;
             agent_list(next) {
                 console.log('FIX ME agent list', next);
                 return next ?? [
-                    { id: crypto.randomUUID(), business: 'test', current_step: 100, next_step: 200 },
-                    { id: crypto.randomUUID(), current_step: 300, next_step: 400 },
+                    { id: crypto.randomUUID(), business: '1 Бизнес требование', current_step: 100, next_step: 200 },
                 ];
             }
             agents() {
@@ -10137,20 +10145,52 @@ var $;
                 const current_index = this.agent_list().findIndex((item) => item.id === id) + 1;
                 this.agent_list([...this.agent_list().slice(0, current_index), { id: crypto.randomUUID() }, ...this.agent_list().slice(current_index)]);
             }
-            agent_machine(id, next) {
+            agent_business(id, next) {
+                const current = this.agent_list().find(agent => agent.id === id);
+                if (next === undefined)
+                    return current?.business ?? '';
+                const copy = { ...current, id: current?.id, business: next };
+                this.agent_list(this.agent_list().map(agent => agent === current ? copy : agent));
                 return next ?? '';
             }
-            agent_business(id, next) {
-                console.log('FIX ME', id, next);
+            agent_machine(id, next) {
+                const current = this.agent_list().find(agent => agent.id === id);
+                if (next === undefined)
+                    return current?.machine ?? '';
+                const copy = { ...current, id: current?.id, machine: next };
+                this.agent_list(this.agent_list().map(agent => agent === current ? copy : agent));
                 return next ?? '';
             }
             agent_programmer(id, next) {
+                const current = this.agent_list().find(agent => agent.id === id);
+                if (next === undefined)
+                    return current?.programmer ?? '';
+                const copy = { ...current, id: current?.id, programmer: next };
+                this.agent_list(this.agent_list().map(agent => agent === current ? copy : agent));
+                return next ?? '';
+            }
+            agent_name(id, next) {
+                const current = this.agent_list().find(agent => agent.id === id);
+                if (next === undefined)
+                    return current?.name ?? '';
+                const copy = { ...current, id: current?.id, name: next };
+                this.agent_list(this.agent_list().map(agent => agent === current ? copy : agent));
                 return next ?? '';
             }
             current_step(id, next) {
+                const current = this.agent_list().find(agent => agent.id === id);
+                if (next === undefined)
+                    return current?.current_step ?? 0;
+                const copy = { ...current, id: current?.id, current_step: next };
+                this.agent_list(this.agent_list().map(agent => agent === current ? copy : agent));
                 return next ?? 0;
             }
             next_step(id, next) {
+                const current = this.agent_list().find(agent => agent.id === id);
+                if (next === undefined)
+                    return current?.next_step ?? 0;
+                const copy = { ...current, id: current?.id, next_step: next };
+                this.agent_list(this.agent_list().map(agent => agent === current ? copy : agent));
                 return next ?? 0;
             }
             programmer_enabled(id) {
@@ -10204,13 +10244,16 @@ var $;
         ], $milis_vaop.prototype, "add_agent", null);
         __decorate([
             $mol_mem_key
-        ], $milis_vaop.prototype, "agent_machine", null);
-        __decorate([
-            $mol_mem_key
         ], $milis_vaop.prototype, "agent_business", null);
         __decorate([
             $mol_mem_key
+        ], $milis_vaop.prototype, "agent_machine", null);
+        __decorate([
+            $mol_mem_key
         ], $milis_vaop.prototype, "agent_programmer", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_vaop.prototype, "agent_name", null);
         __decorate([
             $mol_mem_key
         ], $milis_vaop.prototype, "current_step", null);

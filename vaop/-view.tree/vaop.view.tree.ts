@@ -361,6 +361,17 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * agent_name*? null
+		 * ```
+		 */
+		@ $mol_mem_key
+		agent_name(id: any, next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
 		 * machine_enabled* false
 		 * ```
 		 */
@@ -443,6 +454,7 @@ namespace $ {
 		 * 	machine? <=> agent_machine*?
 		 * 	current_step? <=> current_step*?
 		 * 	next_step? <=> next_step*?
+		 * 	name? <=> agent_name*?
 		 * 	machine_enabled <= machine_enabled*
 		 * 	programmer_enabled <= programmer_enabled*
 		 * 	current_step_enabled <= current_step_enabled*
@@ -462,6 +474,7 @@ namespace $ {
 			obj.machine = (next?: any) => this.agent_machine(id, next)
 			obj.current_step = (next?: any) => this.current_step(id, next)
 			obj.next_step = (next?: any) => this.next_step(id, next)
+			obj.name = (next?: any) => this.agent_name(id, next)
 			obj.machine_enabled = () => this.machine_enabled(id)
 			obj.programmer_enabled = () => this.programmer_enabled(id)
 			obj.current_step_enabled = () => this.current_step_enabled(id)

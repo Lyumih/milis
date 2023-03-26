@@ -2931,6 +2931,7 @@ declare namespace $ {
         agent_machine(id: any, next?: any): any;
         current_step(id: any, next?: any): any;
         next_step(id: any, next?: any): any;
+        agent_name(id: any, next?: any): any;
         machine_enabled(id: any): boolean;
         programmer_enabled(id: any): boolean;
         current_step_enabled(id: any): boolean;
@@ -2983,17 +2984,21 @@ declare namespace $.$$ {
     type AgentDTO = {
         id: string;
         business?: string;
+        machine?: string;
+        programmer?: string;
         current_step?: number;
         next_step?: number;
+        name?: string;
     };
     export class $milis_vaop extends $.$milis_vaop {
         agent_list(next?: AgentDTO[]): AgentDTO[];
         agents(): $milis_vaop_agent[];
         delete_agent(id: string): void;
         add_agent(id: string): void;
-        agent_machine(id: string, next?: string): string;
         agent_business(id: string, next?: string): string;
+        agent_machine(id: string, next?: string): string;
         agent_programmer(id: string, next?: string): string;
+        agent_name(id: string, next?: string): string;
         current_step(id: string, next?: number): number;
         next_step(id: string, next?: number): number;
         programmer_enabled(id: string): boolean;
