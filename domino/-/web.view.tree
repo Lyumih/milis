@@ -32,23 +32,80 @@ $mol_page $mol_view
 			dom_name \footer
 			sub <= foot /$mol_view
 
+$mol_list $mol_view
+	render_visible_only true
+	render_over 0
+	sub <= rows /$mol_view
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
+	view_window /
+		0
+		0
+
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme <= theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
+	sub /
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		dblclick?event <=> clicks?event null
+		keydown?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_safe <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+		value <= error \
+
+$mol_button_typed $mol_button
+	minimal_height 40
+	minimal_width 40
+
+$mol_button_minor $mol_button_typed
+
 $milis_domino $mol_page
 	title \Домино
 	body /
-		<= Dice1 $milis_domino_dice
-			first 0
-			second 1
-		<= Dice2 $milis_domino_dice
-			first 2
-			second 3
-		<= Dice3 $milis_domino_dice
-			first 4
-			second 5
-		<= Dice4 $milis_domino_dice
-			first 6
-			second 6
+		\Магазин
+		<= Shop_list $mol_list
+			rows <= shop_dices /
+				<= Show_dice*0 $milis_domino_dice
+					dice_click? <= shop_dice_click*? null
+					first <= shop_dice_first* 0
+					second <= shop_dice_second* 0
+		\Игрок
+		<= Player $mol_list
+			rows <= player_dices /
+				<= Player_dice*0 $milis_domino_dice
+					dice_click? <= player_dice_click*? null
+					first <= player_dice_first* 0
+					second <= player_dice_second* 0
+		\Стол
+		<= Deck $mol_list
+			rows <= deck_dices /
+				<= Deck_dice*0 $milis_domino_dice
+					dice_click? <= deck_dice_click*? null
+					first <= deck_dice_first* 0
+					second <= deck_dice_second* 0
 
-$milis_domino_dice $mol_view
+$milis_domino_dice $mol_button_minor
+	click? <= dice_click? null
 	sub /
 		<= First $mol_view
 			attr *

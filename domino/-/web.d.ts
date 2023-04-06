@@ -848,16 +848,269 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_list extends $mol_view {
+        render_visible_only(): boolean;
+        render_over(): number;
+        sub(): readonly $mol_view[];
+        Empty(): $mol_view;
+        Gap_before(): $mol_view;
+        Gap_after(): $mol_view;
+        view_window(): readonly any[];
+        rows(): readonly $mol_view[];
+        gap_before(): number;
+        gap_after(): number;
+    }
+}
+
+declare namespace $ {
+    function $mol_support_css_overflow_anchor(this: $): boolean;
+}
+
+declare namespace $ {
+    let $mol_mem_cached: typeof $mol_wire_probe;
+}
+
+declare namespace $.$$ {
+    class $mol_list extends $.$mol_list {
+        sub(): readonly $mol_view[];
+        render_visible_only(): boolean;
+        view_window(next?: [number, number]): [number, number];
+        gap_before(): number;
+        gap_after(): number;
+        sub_visible(): $mol_view[];
+        minimal_height(): number;
+        force_render(path: Set<$mol_view>): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_speck extends $mol_view {
+        attr(): {
+            mol_theme: string;
+        };
+        style(): {
+            minHeight: string;
+        };
+        sub(): readonly any[];
+        theme(): string;
+        value(): any;
+    }
+}
+
+declare namespace $ {
+    let $mol_layer: {
+        readonly hover: $mol_style_func<"var", "--mol_layer_hover">;
+        readonly focus: $mol_style_func<"var", "--mol_layer_focus">;
+        readonly speck: $mol_style_func<"var", "--mol_layer_speck">;
+        readonly float: $mol_style_func<"var", "--mol_layer_float">;
+        readonly popup: $mol_style_func<"var", "--mol_layer_popup">;
+    };
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_button extends $mol_view {
+        enabled(): boolean;
+        click(event?: any): any;
+        event_click(event?: any): any;
+        event(): {
+            click: (event?: any) => any;
+            dblclick: (event?: any) => any;
+            keydown: (event?: any) => any;
+        };
+        attr(): {
+            disabled: boolean;
+            role: string;
+            tabindex: number;
+            title: string;
+        };
+        sub(): readonly $mol_view_content[];
+        Speck(): $mol_speck;
+        event_activate(event?: any): any;
+        clicks(event?: any): any;
+        event_key_press(event?: any): any;
+        disabled(): boolean;
+        tab_index(): number;
+        hint(): string;
+        hint_safe(): string;
+        error(): string;
+    }
+}
+
+declare namespace $ {
+    enum $mol_keyboard_code {
+        backspace = 8,
+        tab = 9,
+        enter = 13,
+        shift = 16,
+        ctrl = 17,
+        alt = 18,
+        pause = 19,
+        capsLock = 20,
+        escape = 27,
+        space = 32,
+        pageUp = 33,
+        pageDown = 34,
+        end = 35,
+        home = 36,
+        left = 37,
+        up = 38,
+        right = 39,
+        down = 40,
+        insert = 45,
+        delete = 46,
+        key0 = 48,
+        key1 = 49,
+        key2 = 50,
+        key3 = 51,
+        key4 = 52,
+        key5 = 53,
+        key6 = 54,
+        key7 = 55,
+        key8 = 56,
+        key9 = 57,
+        A = 65,
+        B = 66,
+        C = 67,
+        D = 68,
+        E = 69,
+        F = 70,
+        G = 71,
+        H = 72,
+        I = 73,
+        J = 74,
+        K = 75,
+        L = 76,
+        M = 77,
+        N = 78,
+        O = 79,
+        P = 80,
+        Q = 81,
+        R = 82,
+        S = 83,
+        T = 84,
+        U = 85,
+        V = 86,
+        W = 87,
+        X = 88,
+        Y = 89,
+        Z = 90,
+        metaLeft = 91,
+        metaRight = 92,
+        select = 93,
+        numpad0 = 96,
+        numpad1 = 97,
+        numpad2 = 98,
+        numpad3 = 99,
+        numpad4 = 100,
+        numpad5 = 101,
+        numpad6 = 102,
+        numpad7 = 103,
+        numpad8 = 104,
+        numpad9 = 105,
+        multiply = 106,
+        add = 107,
+        subtract = 109,
+        decimal = 110,
+        divide = 111,
+        F1 = 112,
+        F2 = 113,
+        F3 = 114,
+        F4 = 115,
+        F5 = 116,
+        F6 = 117,
+        F7 = 118,
+        F8 = 119,
+        F9 = 120,
+        F10 = 121,
+        F11 = 122,
+        F12 = 123,
+        numLock = 144,
+        scrollLock = 145,
+        semicolon = 186,
+        equals = 187,
+        comma = 188,
+        dash = 189,
+        period = 190,
+        forwardSlash = 191,
+        graveAccent = 192,
+        bracketOpen = 219,
+        slashBack = 220,
+        slashBackLeft = 226,
+        bracketClose = 221,
+        quoteSingle = 222
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_button extends $.$mol_button {
+        status(next?: any[]): any[];
+        disabled(): boolean;
+        event_activate(next: Event): void;
+        event_key_press(event: KeyboardEvent): void;
+        tab_index(): number;
+        error(): string;
+        hint_safe(): string;
+        sub_visible(): ($mol_view_content | $mol_speck)[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_button_typed extends $mol_button {
+        minimal_height(): number;
+        minimal_width(): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_button_minor extends $mol_button_typed {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $milis_domino extends $mol_page {
         title(): string;
         body(): readonly any[];
-        Dice1(): $milis_domino_dice;
-        Dice2(): $milis_domino_dice;
-        Dice3(): $milis_domino_dice;
-        Dice4(): $milis_domino_dice;
+        shop_dice_click(id: any, next?: any): any;
+        shop_dice_first(id: any): number;
+        shop_dice_second(id: any): number;
+        Show_dice(id: any): $milis_domino_dice;
+        shop_dices(): readonly any[];
+        Shop_list(): $$.$mol_list;
+        player_dice_click(id: any, next?: any): any;
+        player_dice_first(id: any): number;
+        player_dice_second(id: any): number;
+        Player_dice(id: any): $milis_domino_dice;
+        player_dices(): readonly any[];
+        Player(): $$.$mol_list;
+        deck_dice_click(id: any, next?: any): any;
+        deck_dice_first(id: any): number;
+        deck_dice_second(id: any): number;
+        Deck_dice(id: any): $milis_domino_dice;
+        deck_dices(): readonly any[];
+        Deck(): $$.$mol_list;
     }
-    class $milis_domino_dice extends $mol_view {
+    class $milis_domino_dice extends $mol_button_minor {
+        click(next?: any): any;
         sub(): readonly any[];
+        dice_click(next?: any): any;
         first(): number;
         First(): $mol_view;
         second(): number;
@@ -865,9 +1118,121 @@ declare namespace $ {
     }
 }
 
-declare namespace $.$$ {
-    class $milis_domino extends $.$milis_domino {
+declare namespace $ {
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
+}
+
+declare namespace $ {
+    type $mol_type_equals<A, B> = (<X>() => X extends A ? 1 : 2) extends (<X>() => X extends B ? 1 : 2) ? unknown : never;
+}
+
+declare namespace $ {
+    type $mol_type_merge<Intersection> = Intersection extends (...a: any[]) => any ? Intersection : Intersection extends new (...a: any[]) => any ? Intersection : Intersection extends object ? $mol_type_merge_object<Intersection> extends Intersection ? unknown extends $mol_type_equals<$mol_type_merge_object<Intersection>, Intersection> ? Intersection : {
+        [Key in keyof Intersection]: $mol_type_merge<Intersection[Key]>;
+    } : Intersection : Intersection;
+    type $mol_type_merge_object<Intersection> = {
+        [Key in keyof Intersection]: Intersection[Key];
+    };
+}
+
+declare namespace $ {
+    type $mol_type_partial_undefined<Val> = $mol_type_merge<Partial<Val> & Pick<Val, {
+        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
+    }[keyof Val]>>;
+}
+
+declare namespace $ {
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_data_record<Sub extends Record<string, $mol_data_value>>(sub: Sub): ((val: $mol_type_merge<Partial<{ [key in keyof Sub]: Parameters<Sub[key]>[0]; }> & Pick<{ [key in keyof Sub]: Parameters<Sub[key]>[0]; }, ({ [key in keyof Sub]: Parameters<Sub[key]>[0]; } extends infer T ? { [Field in keyof T]: undefined extends { [key in keyof Sub]: Parameters<Sub[key]>[0]; }[Field] ? never : Field; } : never)[keyof Sub]>>) => Readonly<$mol_type_merge<Partial<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }> & Pick<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }, ({ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; } extends infer T_1 ? { [Field_1 in keyof T_1]: undefined extends { [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }[Field_1] ? never : Field_1; } : never)[keyof Sub]>>>) & {
+        config: Sub;
+        Value: Readonly<$mol_type_merge<Partial<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }> & Pick<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }, ({ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; } extends infer T_2 ? { [Field_1 in keyof T_2]: undefined extends { [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }[Field_1] ? never : Field_1; } : never)[keyof Sub]>>>;
+    };
+}
+
+declare namespace $ {
+    function $mol_diff_path<Item>(...paths: Item[][]): {
+        prefix: Item[];
+        suffix: Item[][];
+    };
+}
+
+declare namespace $ {
+    class $mol_error_mix extends Error {
+        errors: Error[];
+        constructor(message: string, ...errors: Error[]);
+        toJSON(): string;
     }
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    let $mol_data_string: (val: string) => string;
+}
+
+declare namespace $ {
+    let $mol_data_boolean: (val: boolean) => boolean;
+}
+
+declare namespace $ {
+    let $mol_data_number: (val: number) => number;
+}
+
+declare namespace $ {
+    let $mol_action: typeof $mol_wire_method;
+}
+
+declare namespace $.$$ {
+    const DiceType: ((val: {
+        id: string;
+        shop: boolean;
+        first: number;
+        second: number;
+    }) => Readonly<{
+        id: string;
+        shop: boolean;
+        first: number;
+        second: number;
+    }>) & {
+        config: {
+            id: (val: string) => string;
+            shop: (val: boolean) => boolean;
+            first: (val: number) => number;
+            second: (val: number) => number;
+        };
+        Value: Readonly<{
+            id: string;
+            shop: boolean;
+            first: number;
+            second: number;
+        }>;
+    };
+    export class $milis_domino extends $.$milis_domino {
+        dices(next?: typeof DiceType.Value[]): Readonly<{
+            id: string;
+            shop: boolean;
+            first: number;
+            second: number;
+        }>[];
+        shop_dices(): $milis_domino_dice[];
+        player_dices(): $milis_domino_dice[];
+        shop_dice_first(id: string): number;
+        shop_dice_second(id: string): number;
+        shop_dice_click(id: string): void;
+        player_dice_first(id: string): number;
+        player_dice_second(id: string): number;
+        player_dice_click(id: string): void;
+    }
+    export {};
 }
 
 declare namespace $ {
