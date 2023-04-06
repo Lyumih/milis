@@ -1,20 +1,30 @@
 $milis_domino $mol_page
 	title \Домино
 	body /
-		<= Dice1 $milis_domino_dice
-			first 0
-			second 1
-		<= Dice2 $milis_domino_dice
-			first 2
-			second 3
-		<= Dice3 $milis_domino_dice
-			first 4
-			second 5
-		<= Dice4 $milis_domino_dice
-			first 6
-			second 6
+		\Магазин
+		<= Shop_list $mol_list
+			rows <= shop_dices /
+				<= Show_dice*0 $milis_domino_dice
+					dice_click? <= shop_dice_click*? null
+					first <= shop_dice_first* 0
+					second <= shop_dice_second* 0
+		\Игрок
+		<= Player $mol_list
+			rows <= player_dices /
+				<= Player_dice*0 $milis_domino_dice
+					dice_click? <= player_dice_click*? null
+					first <= player_dice_first* 0
+					second <= player_dice_second* 0
+		\Стол
+		<= Deck $mol_list
+			rows <= deck_dices /
+				<= Deck_dice*0 $milis_domino_dice
+					dice_click? <= deck_dice_click*? null
+					first <= deck_dice_first* 0
+					second <= deck_dice_second* 0
 
-$milis_domino_dice $mol_view
+$milis_domino_dice $mol_button_minor
+	click? <= dice_click? null
 	sub /
 		<= First $mol_view
 			attr *

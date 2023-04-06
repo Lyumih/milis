@@ -12,7 +12,7 @@
 }
 
 [milis_domino_dice] > *[first="1"]::after, [second="1"]::after {
-	content: '1';
+	content: '*';
 }
 [milis_domino_dice] > *[first="2"]::after, [second="2"]::after {
 	content: '2';
