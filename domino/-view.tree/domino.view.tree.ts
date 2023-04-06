@@ -13,94 +13,94 @@ namespace $ {
 		/**
 		 * ```tree
 		 * body /
-		 * 	\Магазин
-		 * 	<= Shop_list
-		 * 	\Игрок
-		 * 	<= Player
 		 * 	\Стол
 		 * 	<= Deck
+		 * 	\Игрок
+		 * 	<= Player
+		 * 	\Магазин
+		 * 	<= Shop_list
 		 * ```
 		 */
 		body() {
 			return [
-				"Магазин",
-				this.Shop_list(),
+				"Стол",
+				this.Deck(),
 				"Игрок",
 				this.Player(),
-				"Стол",
-				this.Deck()
+				"Магазин",
+				this.Shop_list()
 			] as readonly any[]
 		}
 		
 		/**
 		 * ```tree
-		 * shop_dice_click*? null
+		 * deck_dice_click*? null
 		 * ```
 		 */
 		@ $mol_mem_key
-		shop_dice_click(id: any, next?: any) {
+		deck_dice_click(id: any, next?: any) {
 			if ( next !== undefined ) return next as never
 			return null as any
 		}
 		
 		/**
 		 * ```tree
-		 * shop_dice_first* 0
+		 * deck_dice_first* 0
 		 * ```
 		 */
-		shop_dice_first(id: any) {
+		deck_dice_first(id: any) {
 			return 0
 		}
 		
 		/**
 		 * ```tree
-		 * shop_dice_second* 0
+		 * deck_dice_second* 0
 		 * ```
 		 */
-		shop_dice_second(id: any) {
+		deck_dice_second(id: any) {
 			return 0
 		}
 		
 		/**
 		 * ```tree
-		 * Show_dice*0 $milis_domino_dice
-		 * 	dice_click? <= shop_dice_click*?
-		 * 	first <= shop_dice_first*
-		 * 	second <= shop_dice_second*
+		 * Deck_dice*0 $milis_domino_dice
+		 * 	dice_click? <= deck_dice_click*?
+		 * 	first <= deck_dice_first*
+		 * 	second <= deck_dice_second*
 		 * ```
 		 */
 		@ $mol_mem_key
-		Show_dice(id: any) {
+		Deck_dice(id: any) {
 			const obj = new this.$.$milis_domino_dice()
 			
-			obj.dice_click = (next?: any) => this.shop_dice_click(id)
-			obj.first = () => this.shop_dice_first(id)
-			obj.second = () => this.shop_dice_second(id)
+			obj.dice_click = (next?: any) => this.deck_dice_click(id)
+			obj.first = () => this.deck_dice_first(id)
+			obj.second = () => this.deck_dice_second(id)
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * shop_dices / <= Show_dice*0
+		 * deck_dices / <= Deck_dice*0
 		 * ```
 		 */
-		shop_dices() {
+		deck_dices() {
 			return [
-				this.Show_dice("0")
+				this.Deck_dice("0")
 			] as readonly any[]
 		}
 		
 		/**
 		 * ```tree
-		 * Shop_list $mol_list rows <= shop_dices
+		 * Deck $mol_list rows <= deck_dices
 		 * ```
 		 */
 		@ $mol_mem
-		Shop_list() {
+		Deck() {
 			const obj = new this.$.$mol_list()
 			
-			obj.rows = () => this.shop_dices()
+			obj.rows = () => this.deck_dices()
 			
 			return obj
 		}
@@ -180,73 +180,73 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * deck_dice_click*? null
+		 * shop_dice_click*? null
 		 * ```
 		 */
 		@ $mol_mem_key
-		deck_dice_click(id: any, next?: any) {
+		shop_dice_click(id: any, next?: any) {
 			if ( next !== undefined ) return next as never
 			return null as any
 		}
 		
 		/**
 		 * ```tree
-		 * deck_dice_first* 0
+		 * shop_dice_first* 0
 		 * ```
 		 */
-		deck_dice_first(id: any) {
+		shop_dice_first(id: any) {
 			return 0
 		}
 		
 		/**
 		 * ```tree
-		 * deck_dice_second* 0
+		 * shop_dice_second* 0
 		 * ```
 		 */
-		deck_dice_second(id: any) {
+		shop_dice_second(id: any) {
 			return 0
 		}
 		
 		/**
 		 * ```tree
-		 * Deck_dice*0 $milis_domino_dice
-		 * 	dice_click? <= deck_dice_click*?
-		 * 	first <= deck_dice_first*
-		 * 	second <= deck_dice_second*
+		 * Show_dice*0 $milis_domino_dice
+		 * 	dice_click? <= shop_dice_click*?
+		 * 	first <= shop_dice_first*
+		 * 	second <= shop_dice_second*
 		 * ```
 		 */
 		@ $mol_mem_key
-		Deck_dice(id: any) {
+		Show_dice(id: any) {
 			const obj = new this.$.$milis_domino_dice()
 			
-			obj.dice_click = (next?: any) => this.deck_dice_click(id)
-			obj.first = () => this.deck_dice_first(id)
-			obj.second = () => this.deck_dice_second(id)
+			obj.dice_click = (next?: any) => this.shop_dice_click(id)
+			obj.first = () => this.shop_dice_first(id)
+			obj.second = () => this.shop_dice_second(id)
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * deck_dices / <= Deck_dice*0
+		 * shop_dices / <= Show_dice*0
 		 * ```
 		 */
-		deck_dices() {
+		shop_dices() {
 			return [
-				this.Deck_dice("0")
+				this.Show_dice("0")
 			] as readonly any[]
 		}
 		
 		/**
 		 * ```tree
-		 * Deck $mol_list rows <= deck_dices
+		 * Shop_list $mol_list rows <= shop_dices
 		 * ```
 		 */
 		@ $mol_mem
-		Deck() {
+		Shop_list() {
 			const obj = new this.$.$mol_list()
 			
-			obj.rows = () => this.deck_dices()
+			obj.rows = () => this.shop_dices()
 			
 			return obj
 		}

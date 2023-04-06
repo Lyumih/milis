@@ -82,20 +82,6 @@ $mol_button_minor $mol_button_typed
 $milis_domino $mol_page
 	title \Домино
 	body /
-		\Магазин
-		<= Shop_list $mol_list
-			rows <= shop_dices /
-				<= Show_dice*0 $milis_domino_dice
-					dice_click? <= shop_dice_click*? null
-					first <= shop_dice_first* 0
-					second <= shop_dice_second* 0
-		\Игрок
-		<= Player $mol_list
-			rows <= player_dices /
-				<= Player_dice*0 $milis_domino_dice
-					dice_click? <= player_dice_click*? null
-					first <= player_dice_first* 0
-					second <= player_dice_second* 0
 		\Стол
 		<= Deck $mol_list
 			rows <= deck_dices /
@@ -103,6 +89,20 @@ $milis_domino $mol_page
 					dice_click? <= deck_dice_click*? null
 					first <= deck_dice_first* 0
 					second <= deck_dice_second* 0
+		\Игрок
+		<= Player $mol_list
+			rows <= player_dices /
+				<= Player_dice*0 $milis_domino_dice
+					dice_click? <= player_dice_click*? null
+					first <= player_dice_first* 0
+					second <= player_dice_second* 0
+		\Магазин
+		<= Shop_list $mol_list
+			rows <= shop_dices /
+				<= Show_dice*0 $milis_domino_dice
+					dice_click? <= shop_dice_click*? null
+					first <= shop_dice_first* 0
+					second <= shop_dice_second* 0
 
 $milis_domino_dice $mol_button_minor
 	click? <= dice_click? null

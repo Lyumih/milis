@@ -1230,24 +1230,24 @@ declare namespace $ {
     class $milis_domino extends $mol_page {
         title(): string;
         body(): readonly any[];
-        shop_dice_click(id: any, next?: any): any;
-        shop_dice_first(id: any): number;
-        shop_dice_second(id: any): number;
-        Show_dice(id: any): $milis_domino_dice;
-        shop_dices(): readonly any[];
-        Shop_list(): $$.$mol_list;
-        player_dice_click(id: any, next?: any): any;
-        player_dice_first(id: any): number;
-        player_dice_second(id: any): number;
-        Player_dice(id: any): $milis_domino_dice;
-        player_dices(): readonly any[];
-        Player(): $$.$mol_list;
         deck_dice_click(id: any, next?: any): any;
         deck_dice_first(id: any): number;
         deck_dice_second(id: any): number;
         Deck_dice(id: any): $milis_domino_dice;
         deck_dices(): readonly any[];
         Deck(): $$.$mol_list;
+        player_dice_click(id: any, next?: any): any;
+        player_dice_first(id: any): number;
+        player_dice_second(id: any): number;
+        Player_dice(id: any): $milis_domino_dice;
+        player_dices(): readonly any[];
+        Player(): $$.$mol_list;
+        shop_dice_click(id: any, next?: any): any;
+        shop_dice_first(id: any): number;
+        shop_dice_second(id: any): number;
+        Show_dice(id: any): $milis_domino_dice;
+        shop_dices(): readonly any[];
+        Shop_list(): $$.$mol_list;
     }
     class $milis_domino_dice extends $mol_button_minor {
         click(next?: any): any;
@@ -1322,10 +1322,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    let $mol_data_boolean: (val: boolean) => boolean;
-}
-
-declare namespace $ {
     let $mol_data_number: (val: number) => number;
 }
 
@@ -1336,43 +1332,48 @@ declare namespace $ {
 declare namespace $.$$ {
     const DiceType: ((val: {
         id: string;
-        shop: boolean;
+        place: string;
         first: number;
         second: number;
     }) => Readonly<{
         id: string;
-        shop: boolean;
+        place: string;
         first: number;
         second: number;
     }>) & {
         config: {
             id: (val: string) => string;
-            shop: (val: boolean) => boolean;
+            place: (val: string) => string;
             first: (val: number) => number;
             second: (val: number) => number;
         };
         Value: Readonly<{
             id: string;
-            shop: boolean;
+            place: string;
             first: number;
             second: number;
         }>;
     };
     export class $milis_domino extends $.$milis_domino {
+        generate_dices(): typeof DiceType.Value[];
         dices(next?: typeof DiceType.Value[]): Readonly<{
             id: string;
-            shop: boolean;
+            place: string;
             first: number;
             second: number;
         }>[];
         shop_dices(): $milis_domino_dice[];
-        player_dices(): $milis_domino_dice[];
         shop_dice_first(id: string): number;
         shop_dice_second(id: string): number;
         shop_dice_click(id: string): void;
+        player_dices(): $milis_domino_dice[];
         player_dice_first(id: string): number;
         player_dice_second(id: string): number;
         player_dice_click(id: string): void;
+        deck_dices(): $milis_domino_dice[];
+        deck_dice_first(id: string): number;
+        deck_dice_second(id: string): number;
+        deck_dice_click(id: string): void;
     }
     export {};
 }

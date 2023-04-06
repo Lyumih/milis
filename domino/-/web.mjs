@@ -3494,40 +3494,40 @@ var $;
         }
         body() {
             return [
-                "Магазин",
-                this.Shop_list(),
+                "Стол",
+                this.Deck(),
                 "Игрок",
                 this.Player(),
-                "Стол",
-                this.Deck()
+                "Магазин",
+                this.Shop_list()
             ];
         }
-        shop_dice_click(id, next) {
+        deck_dice_click(id, next) {
             if (next !== undefined)
                 return next;
             return null;
         }
-        shop_dice_first(id) {
+        deck_dice_first(id) {
             return 0;
         }
-        shop_dice_second(id) {
+        deck_dice_second(id) {
             return 0;
         }
-        Show_dice(id) {
+        Deck_dice(id) {
             const obj = new this.$.$milis_domino_dice();
-            obj.dice_click = (next) => this.shop_dice_click(id);
-            obj.first = () => this.shop_dice_first(id);
-            obj.second = () => this.shop_dice_second(id);
+            obj.dice_click = (next) => this.deck_dice_click(id);
+            obj.first = () => this.deck_dice_first(id);
+            obj.second = () => this.deck_dice_second(id);
             return obj;
         }
-        shop_dices() {
+        deck_dices() {
             return [
-                this.Show_dice("0")
+                this.Deck_dice("0")
             ];
         }
-        Shop_list() {
+        Deck() {
             const obj = new this.$.$mol_list();
-            obj.rows = () => this.shop_dices();
+            obj.rows = () => this.deck_dices();
             return obj;
         }
         player_dice_click(id, next) {
@@ -3558,44 +3558,44 @@ var $;
             obj.rows = () => this.player_dices();
             return obj;
         }
-        deck_dice_click(id, next) {
+        shop_dice_click(id, next) {
             if (next !== undefined)
                 return next;
             return null;
         }
-        deck_dice_first(id) {
+        shop_dice_first(id) {
             return 0;
         }
-        deck_dice_second(id) {
+        shop_dice_second(id) {
             return 0;
         }
-        Deck_dice(id) {
+        Show_dice(id) {
             const obj = new this.$.$milis_domino_dice();
-            obj.dice_click = (next) => this.deck_dice_click(id);
-            obj.first = () => this.deck_dice_first(id);
-            obj.second = () => this.deck_dice_second(id);
+            obj.dice_click = (next) => this.shop_dice_click(id);
+            obj.first = () => this.shop_dice_first(id);
+            obj.second = () => this.shop_dice_second(id);
             return obj;
         }
-        deck_dices() {
+        shop_dices() {
             return [
-                this.Deck_dice("0")
+                this.Show_dice("0")
             ];
         }
-        Deck() {
+        Shop_list() {
             const obj = new this.$.$mol_list();
-            obj.rows = () => this.deck_dices();
+            obj.rows = () => this.shop_dices();
             return obj;
         }
     }
     __decorate([
         $mol_mem_key
-    ], $milis_domino.prototype, "shop_dice_click", null);
+    ], $milis_domino.prototype, "deck_dice_click", null);
     __decorate([
         $mol_mem_key
-    ], $milis_domino.prototype, "Show_dice", null);
+    ], $milis_domino.prototype, "Deck_dice", null);
     __decorate([
         $mol_mem
-    ], $milis_domino.prototype, "Shop_list", null);
+    ], $milis_domino.prototype, "Deck", null);
     __decorate([
         $mol_mem_key
     ], $milis_domino.prototype, "player_dice_click", null);
@@ -3607,13 +3607,13 @@ var $;
     ], $milis_domino.prototype, "Player", null);
     __decorate([
         $mol_mem_key
-    ], $milis_domino.prototype, "deck_dice_click", null);
+    ], $milis_domino.prototype, "shop_dice_click", null);
     __decorate([
         $mol_mem_key
-    ], $milis_domino.prototype, "Deck_dice", null);
+    ], $milis_domino.prototype, "Show_dice", null);
     __decorate([
         $mol_mem
-    ], $milis_domino.prototype, "Deck", null);
+    ], $milis_domino.prototype, "Shop_list", null);
     $.$milis_domino = $milis_domino;
     class $milis_domino_dice extends $mol_button_minor {
         click(next) {
@@ -3786,17 +3786,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_data_boolean = (val) => {
-        if (typeof val === 'boolean')
-            return val;
-        return $mol_fail(new $mol_data_error(`${val} is not a boolean`));
-    };
-})($ || ($ = {}));
-//mol/data/boolean/boolean.ts
-;
-"use strict";
-var $;
-(function ($) {
     $.$mol_data_number = (val) => {
         if (typeof val === 'number')
             return val;
@@ -3819,39 +3808,27 @@ var $;
     (function ($$) {
         const DiceType = $mol_data_record({
             id: $mol_data_string,
-            shop: $mol_data_boolean,
+            place: $mol_data_string,
             first: $mol_data_number,
             second: $mol_data_number,
         });
         class $milis_domino extends $.$milis_domino {
+            generate_dices() {
+                const numbers = [0, 1, 2, 3, 4, 5, 6];
+                const new_dice = (first, second) => ({ id: `${first}${second}`, place: 'shop', first, second });
+                const result = [];
+                numbers.forEach(first => {
+                    numbers.forEach(second => result.push(new_dice(first, second)));
+                });
+                return result;
+            }
             dices(next) {
-                return next ?? [{
-                        id: '00',
-                        shop: true,
-                        first: 0,
-                        second: 0,
-                    }, {
-                        id: '01',
-                        shop: false,
-                        first: 0,
-                        second: 1,
-                    }, {
-                        id: '11',
-                        shop: true,
-                        first: 1,
-                        second: 2,
-                    },
-                ];
+                return next ?? this.generate_dices();
             }
             shop_dices() {
                 return this.dices().
-                    filter(dice => dice.shop).
+                    filter(dice => dice.place === 'shop').
                     map(dice => this.Show_dice(dice.id));
-            }
-            player_dices() {
-                return this.dices().
-                    filter(dice => !dice.shop).
-                    map(dice => this.Player_dice(dice.id));
             }
             shop_dice_first(id) {
                 return this.dices().find(item => id === item.id)?.first ?? 0;
@@ -3861,7 +3838,12 @@ var $;
             }
             shop_dice_click(id) {
                 this.dices(this.dices().
-                    map((dice) => dice.id === id ? { ...dice, shop: false } : dice));
+                    map((dice) => dice.id === id ? { ...dice, place: 'player' } : dice));
+            }
+            player_dices() {
+                return this.dices().
+                    filter(dice => dice.place === 'player').
+                    map(dice => this.Player_dice(dice.id));
             }
             player_dice_first(id) {
                 return this.dices().find(item => id === item.id)?.first ?? 0;
@@ -3871,7 +3853,22 @@ var $;
             }
             player_dice_click(id) {
                 this.dices(this.dices().
-                    map((dice) => dice.id === id ? { ...dice, shop: false } : dice));
+                    map((dice) => dice.id === id ? { ...dice, place: 'deck' } : dice));
+            }
+            deck_dices() {
+                return this.dices().
+                    filter(dice => dice.place === 'deck').
+                    map(dice => this.Deck_dice(dice.id));
+            }
+            deck_dice_first(id) {
+                return this.dices().find(item => id === item.id)?.first ?? 0;
+            }
+            deck_dice_second(id) {
+                return this.dices().find(item => id === item.id)?.second ?? 0;
+            }
+            deck_dice_click(id) {
+                this.dices(this.dices().
+                    map((dice) => dice.id === id ? { ...dice, place: 'deck' } : dice));
             }
         }
         __decorate([
@@ -3880,9 +3877,6 @@ var $;
         __decorate([
             $mol_mem
         ], $milis_domino.prototype, "shop_dices", null);
-        __decorate([
-            $mol_mem
-        ], $milis_domino.prototype, "player_dices", null);
         __decorate([
             $mol_mem_key
         ], $milis_domino.prototype, "shop_dice_first", null);
@@ -3893,6 +3887,9 @@ var $;
             $mol_action
         ], $milis_domino.prototype, "shop_dice_click", null);
         __decorate([
+            $mol_mem
+        ], $milis_domino.prototype, "player_dices", null);
+        __decorate([
             $mol_mem_key
         ], $milis_domino.prototype, "player_dice_first", null);
         __decorate([
@@ -3901,6 +3898,18 @@ var $;
         __decorate([
             $mol_action
         ], $milis_domino.prototype, "player_dice_click", null);
+        __decorate([
+            $mol_mem
+        ], $milis_domino.prototype, "deck_dices", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_domino.prototype, "deck_dice_first", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_domino.prototype, "deck_dice_second", null);
+        __decorate([
+            $mol_action
+        ], $milis_domino.prototype, "deck_dice_click", null);
         $$.$milis_domino = $milis_domino;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
