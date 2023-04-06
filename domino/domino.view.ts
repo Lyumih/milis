@@ -1,46 +1,33 @@
 namespace $.$$ {
 	const DiceType = $mol_data_record( {
 		id: $mol_data_string,
-		shop: $mol_data_boolean,
+		place: $mol_data_string,
 		first: $mol_data_number,
 		second: $mol_data_number,
 	} )
 
 	export class $milis_domino extends $.$milis_domino {
 
+		generate_dices(): typeof DiceType.Value[] {
+			const numbers = [ 0, 1, 2, 3, 4, 5, 6 ]
+			const new_dice = ( first: number, second: number ): typeof DiceType.Value => ( { id: `${ first }${ second }`, place: 'shop', first, second } )
+			const result: typeof DiceType.Value[] = []
+			numbers.forEach(first => {
+				numbers.forEach(second => result.push(new_dice(first, second)))
+			})
+			return result
+		}
+
 		@$mol_mem
 		dices( next?: typeof DiceType.Value[] ) {
-			return next ?? [ {
-				id: '00',
-				shop: true,
-				first: 0,
-				second: 0,
-			}, {
-				id: '01',
-				shop: false,
-				first: 0,
-				second: 1,
-			}, {
-				id: '11',
-				shop: true,
-				first: 1,
-				second: 2,
-			},
-			]
+			return next ?? this.generate_dices()
 		}
 
 		@$mol_mem
 		shop_dices() {
 			return this.dices().
-				filter( dice => dice.shop ).
+				filter( dice => dice.place === 'shop' ).
 				map( dice => this.Show_dice( dice.id ) )
-		}
-
-		@$mol_mem
-		player_dices() {
-			return this.dices().
-				filter( dice => !dice.shop ).
-				map( dice => this.Player_dice( dice.id ) )
 		}
 
 		@$mol_mem_key
@@ -56,7 +43,14 @@ namespace $.$$ {
 		@$mol_action
 		shop_dice_click( id: string ) {
 			this.dices( this.dices().
-				map( ( dice ) => dice.id === id ? { ...dice, shop: false } : dice ) )
+				map( ( dice ) => dice.id === id ? { ...dice, place: 'player' } : dice ) )
+		}
+
+		@$mol_mem
+		player_dices() {
+			return this.dices().
+				filter( dice => dice.place === 'player' ).
+				map( dice => this.Player_dice( dice.id ) )
 		}
 
 		@$mol_mem_key
@@ -72,7 +66,30 @@ namespace $.$$ {
 		@$mol_action
 		player_dice_click( id: string ) {
 			this.dices( this.dices().
-				map( ( dice ) => dice.id === id ? { ...dice, shop: false } : dice ) )
+				map( ( dice ) => dice.id === id ? { ...dice, place: 'deck' } : dice ) )
+		}
+
+		@$mol_mem
+		deck_dices() {
+			return this.dices().
+				filter( dice => dice.place === 'deck' ).
+				map( dice => this.Deck_dice( dice.id ) )
+		}
+
+		@$mol_mem_key
+		deck_dice_first( id: string ): number {
+			return this.dices().find( item => id === item.id )?.first ?? 0
+		}
+
+		@$mol_mem_key
+		deck_dice_second( id: string ): number {
+			return this.dices().find( item => id === item.id )?.second ?? 0
+		}
+
+		@$mol_action
+		deck_dice_click( id: string ) {
+			this.dices( this.dices().
+				map( ( dice ) => dice.id === id ? { ...dice, place: 'deck' } : dice ) )
 		}
 	}
 }
