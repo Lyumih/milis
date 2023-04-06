@@ -1,0 +1,42 @@
+[milis_domino_dice] > * {
+	background-color: antiquewhite;
+	position: relative;
+	width: 4rem;
+	height: 4rem;
+	border: 1px solid var(--mol_theme_line);
+	border-radius: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+}
+
+[milis_domino_dice] > *[first="1"]::after, [second="1"]::after {
+	content: '1';
+}
+[milis_domino_dice] > *[first="2"]::after, [second="2"]::after {
+	content: '2';
+}
+[milis_domino_dice] > *[first="3"]::after, [second="3"]::after {
+	content: '3';
+}
+[milis_domino_dice] > *[first="4"]::after, [second="4"]::after {
+	content: '4';
+}
+[milis_domino_dice] > *[first="5"]::after, [second="5"]::after {
+	content: '5';
+}
+[milis_domino_dice] > *[first="6"]::after, [second="6"]::after {
+	content: '6';
+}
+
+/* [milis_domino_dice] > *[first="2"]::after, [second="2"]::after {
+	content: '2';
+	width: 1rem;
+	height: 1rem;
+	border-radius: 1rem;
+	position: absolute;
+	top: calc(50% - 1rem/2);
+	left: calc(50% - 1rem/2);
+	background: black;
+} */
