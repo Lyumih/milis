@@ -1,0 +1,58 @@
+$mol_scroll $mol_view
+	scroll_top?val 0
+	scroll_left?val 0
+	field *
+		^
+		tabIndex <= tabindex -1
+	event *
+		^
+		scroll?event <=> event_scroll?event null
+
+$mol_page $mol_view
+	dom_name \article
+	field *
+		^
+		tabIndex <= tabindex -1
+	sub /
+		<= Head $mol_view
+			minimal_height 64
+			dom_name \header
+			sub <= head /
+				<= Title $mol_view
+					dom_name \h1
+					sub <= title_content /
+						<= Logo null
+						<= title
+				<= Tools $mol_view
+					sub <= tools /$mol_view_content
+		<= Body $mol_scroll
+			scroll_top?val => body_scroll_top?val
+			sub <= body /$mol_view_content
+		<= Foot $mol_view
+			dom_name \footer
+			sub <= foot /$mol_view
+
+$milis_domino $mol_page
+	title \Домино
+	body /
+		<= Dice1 $milis_domino_dice
+			first 0
+			second 1
+		<= Dice2 $milis_domino_dice
+			first 2
+			second 3
+		<= Dice3 $milis_domino_dice
+			first 4
+			second 5
+		<= Dice4 $milis_domino_dice
+			first 6
+			second 6
+
+$milis_domino_dice $mol_view
+	sub /
+		<= First $mol_view
+			attr *
+				first <= first 0
+		<= Second $mol_view
+			attr *
+				second <= second 0

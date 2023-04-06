@@ -131,13 +131,14 @@ $mol_icon_clipboard $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6
 $mol_icon_clipboard_outline $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M12,3C12.55,3 13,3.45 13,4C13,4.55 12.55,5 12,5C11.45,5 11,4.55 11,4C11,3.45 11.45,3 12,3M7,7H17V5H19V19H5V5H7V7Z
 
 $mol_button_copy $mol_button_minor
-	data *
-		text/plain <= text_blob? $mol_blob /
+	blobs /$mol_blob
+		<= text_blob? $mol_blob /
 			/BlobPart <= text <= title
 			* type \text/plain
-		text/html <= html_blob? $mol_blob /
+		<= html_blob? $mol_blob /
 			/BlobPart <= html \
 			* type \text/html
+	data *
 	sub /
 		<= Icon $mol_icon_clipboard_outline
 		<= title \
@@ -174,9 +175,9 @@ $mol_float $mol_view
 $mol_check $mol_button_minor
 	attr *
 		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
+		mol_check_checked <= checked? false
+		aria-checked <= aria_checked \false
+		role <= aria_role \checkbox
 	sub /$mol_view_content
 		<= Icon null
 		<= label /
@@ -274,6 +275,12 @@ $mol_image $mol_view
 		loading <= loading \eager
 		decoding <= decoding \async
 		crossOrigin <= cors null
+	attr *
+		^
+		width <= natural_width? 0
+		height <= natural_height? 0
+	event *
+		load? <=> load? null
 	minimal_width 16
 	minimal_height 16
 
@@ -665,37 +672,32 @@ $mol_expander $mol_list
 			rows <= content /
 
 $mol_tag_tree $mol_list
-	ids_tags *
-	- tag_current? \
-	tree *
-	tree_path /string
-	path_sep \/
-	tag_names *
-	tag_name* \
+	sieve $mol_tag_sieve
+		ids_tags <= ids_tags *
+		separator <= separator \/
 	levels_expanded 0
-	sort_tags null
 	sort_items null
+	sort_tags null
+	sub /$mol_view
+		^ tag_list /$mol_view
+		^ item_list /$mol_view
+	tag_name* \
+	tag_names *
+	tag_list /$mol_view
+	item_list /$mol_view
 	Item* $mol_view
 		sub /
 			<= item_title* \
-	Tags /$mol_view
-	Items /$mol_view
-	sub /$mol_view
-		^
-			Tags /$mol_view
-		^
-			Items /$mol_view
 	Tag* $mol_expander
-		title <= tag_name* \
+		expandable true
 		expanded? <=> tag_expanded*? false
-		content /
-			<= Tag_tree* $mol_tag_tree
-				tree_path <= tree_path_id* /string
-				tree <= tree
-				Item* <= Item*
-				tag_name* <= tag_name*
-				item_title* <= item_title*
-				tag_expanded*? <=> tag_expanded*?
+		title <= tag_name* \
+		content / <= Tag_tree* $mol_tag_tree
+			sieve <= sieve_sub* $mol_tag_sieve
+			Item* <= Item*
+			item_title* <= item_title*
+			tag_expanded*? <=> tag_expanded*?
+			tag_name* <= tag_name*
 
 $mol_app_demo_menu $mol_page
 	names /string
@@ -713,15 +715,6 @@ $mol_app_demo_menu $mol_page
 					Item* <= Option*
 					ids_tags <= ids_tags *
 					levels_expanded <= levels_expanded <= levels_expanded_default 1
-					tag_names *
-						gui @ \GUI
-						input @ \Input
-						island @ \Island
-						layout @ \Layout
-						nav @ \Navigation
-						menu @ \Menu
-						string @ \Input strings
-						button @ \Button
 	Option* $mol_link
 		arg <= option_arg* *
 		sub /
