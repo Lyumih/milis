@@ -4066,10 +4066,16 @@ var $;
         ], $milis_domino.prototype, "player_get_dice_from_shop", null);
         __decorate([
             $mol_mem
+        ], $milis_domino.prototype, "player_dices_list", null);
+        __decorate([
+            $mol_mem
         ], $milis_domino.prototype, "player_dice_enabled", null);
         __decorate([
             $mol_mem
         ], $milis_domino.prototype, "deck_dices", null);
+        __decorate([
+            $mol_mem
+        ], $milis_domino.prototype, "deck_dices_list", null);
         __decorate([
             $mol_mem_key
         ], $milis_domino.prototype, "deck_dice_first", null);
