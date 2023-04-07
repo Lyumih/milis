@@ -4478,11 +4478,21 @@ var $;
             generate_dices() {
                 const numbers = [0, 1, 2, 3, 4, 5, 6];
                 const new_dice = (first, second) => ({ id: `${first}${second}`, place: 'shop', first, second });
-                const result = [];
+                const generated_dices = [];
                 numbers.forEach(first => {
-                    numbers.forEach(second => result.push(new_dice(first, second)));
+                    numbers.forEach(second => first <= second && generated_dices.push(new_dice(first, second)));
                 });
-                return result;
+                generated_dices.sort(() => Math.random() - 0.5);
+                const normalized_dices = [];
+                for (let i = 0; i < generated_dices.length; i++) {
+                    const current_dice = { ...generated_dices[i] };
+                    if (i === 0)
+                        current_dice.place = 'deck';
+                    else if (i < 6)
+                        current_dice.place = 'player';
+                    normalized_dices.push(current_dice);
+                }
+                return normalized_dices;
             }
             dices(next) {
                 return next ?? this.generate_dices();
