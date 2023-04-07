@@ -89,6 +89,7 @@ namespace $.$$ {
 			map( ( dice ) => dice.id === first_dice_shop?.id ? { ...dice, place: 'player' } : dice ) )
 		}
 
+		@$mol_mem
 		player_dices_list(){
 			return this.dices().filter( dice => dice.place === 'player' )
 		}
@@ -108,6 +109,7 @@ namespace $.$$ {
 				map( dice => this.Deck_dice( dice.id ) )
 		}
 
+		@$mol_mem
 		deck_dices_list(){
 			return this.dices().filter( dice => dice.place === 'deck' )
 		}
