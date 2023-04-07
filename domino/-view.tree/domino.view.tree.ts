@@ -16,6 +16,7 @@ namespace $ {
 		 * 	\Стол
 		 * 	<= Deck
 		 * 	\Игрок
+		 * 	<= Player_score
 		 * 	<= Player
 		 * 	\Магазин
 		 * 	<= Shop_list
@@ -26,6 +27,7 @@ namespace $ {
 				"Стол",
 				this.Deck(),
 				"Игрок",
+				this.Player_score(),
 				this.Player(),
 				"Магазин",
 				this.Shop_list()
@@ -64,6 +66,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Deck_dice*0 $milis_domino_dice
+		 * 	dice_enabled false
 		 * 	dice_click? <= deck_dice_click*?
 		 * 	first <= deck_dice_first*
 		 * 	second <= deck_dice_second*
@@ -73,6 +76,7 @@ namespace $ {
 		Deck_dice(id: any) {
 			const obj = new this.$.$milis_domino_dice()
 			
+			obj.dice_enabled = () => false
 			obj.dice_click = (next?: any) => this.deck_dice_click(id)
 			obj.first = () => this.deck_dice_first(id)
 			obj.second = () => this.deck_dice_second(id)
@@ -101,6 +105,29 @@ namespace $ {
 			const obj = new this.$.$mol_list()
 			
 			obj.rows = () => this.deck_dices()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * player_dices_score \0 очков
+		 * ```
+		 */
+		player_dices_score() {
+			return "0 очков"
+		}
+		
+		/**
+		 * ```tree
+		 * Player_score $mol_paragraph title <= player_dices_score
+		 * ```
+		 */
+		@ $mol_mem
+		Player_score() {
+			const obj = new this.$.$mol_paragraph()
+			
+			obj.title = () => this.player_dices_score()
 			
 			return obj
 		}
@@ -210,6 +237,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Show_dice*0 $milis_domino_dice
+		 * 	back true
 		 * 	dice_click? <= shop_dice_click*?
 		 * 	first <= shop_dice_first*
 		 * 	second <= shop_dice_second*
@@ -219,6 +247,7 @@ namespace $ {
 		Show_dice(id: any) {
 			const obj = new this.$.$milis_domino_dice()
 			
+			obj.back = () => true
 			obj.dice_click = (next?: any) => this.shop_dice_click(id)
 			obj.first = () => this.shop_dice_first(id)
 			obj.second = () => this.shop_dice_second(id)
@@ -265,6 +294,29 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * enabled <= dice_enabled
+		 * ```
+		 */
+		enabled() {
+			return this.dice_enabled()
+		}
+		
+		/**
+		 * ```tree
+		 * attr *
+		 * 	^
+		 * 	back <= back
+		 * ```
+		 */
+		attr() {
+			return {
+				...super.attr(),
+				back: this.back()
+			}
+		}
+		
+		/**
+		 * ```tree
 		 * sub /
 		 * 	<= First
 		 * 	<= Second
@@ -286,6 +338,24 @@ namespace $ {
 		dice_click(next?: any) {
 			if ( next !== undefined ) return next as never
 			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * dice_enabled true
+		 * ```
+		 */
+		dice_enabled() {
+			return true
+		}
+		
+		/**
+		 * ```tree
+		 * back false
+		 * ```
+		 */
+		back() {
+			return false
 		}
 		
 		/**

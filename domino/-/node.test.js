@@ -3663,6 +3663,87 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_paragraph extends $mol_view {
+        line_height() {
+            return 24;
+        }
+        letter_width() {
+            return 7;
+        }
+        width_limit() {
+            return +Infinity;
+        }
+        row_width() {
+            return 0;
+        }
+        sub() {
+            return [
+                this.title()
+            ];
+        }
+    }
+    $.$mol_paragraph = $mol_paragraph;
+})($ || ($ = {}));
+//mol/paragraph/-view.tree/paragraph.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_paragraph extends $.$mol_paragraph {
+            maximal_width() {
+                let width = 0;
+                const letter = this.letter_width();
+                for (const kid of this.sub()) {
+                    if (!kid)
+                        continue;
+                    if (kid instanceof $mol_view) {
+                        width += kid.maximal_width();
+                    }
+                    else if (typeof kid !== 'object') {
+                        width += String(kid).length * letter;
+                    }
+                }
+                return width;
+            }
+            width_limit() {
+                return this.$.$mol_window.size().width;
+            }
+            minimal_width() {
+                return this.letter_width();
+            }
+            row_width() {
+                return Math.max(Math.min(this.width_limit(), this.maximal_width()), this.letter_width());
+            }
+            minimal_height() {
+                return Math.max(1, Math.ceil(this.maximal_width() / this.row_width())) * this.line_height();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_paragraph.prototype, "maximal_width", null);
+        __decorate([
+            $mol_mem
+        ], $mol_paragraph.prototype, "row_width", null);
+        __decorate([
+            $mol_mem
+        ], $mol_paragraph.prototype, "minimal_height", null);
+        $$.$mol_paragraph = $mol_paragraph;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/paragraph/paragraph.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/paragraph/paragraph.view.css", ":where([mol_paragraph]) {\n\tmargin: 0;\n\tmax-width: 100%;\n}\n");
+})($ || ($ = {}));
+//mol/paragraph/-css/paragraph.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_speck extends $mol_view {
         attr() {
             return {
@@ -4049,6 +4130,7 @@ var $;
                 "Стол",
                 this.Deck(),
                 "Игрок",
+                this.Player_score(),
                 this.Player(),
                 "Магазин",
                 this.Shop_list()
@@ -4067,6 +4149,7 @@ var $;
         }
         Deck_dice(id) {
             const obj = new this.$.$milis_domino_dice();
+            obj.dice_enabled = () => false;
             obj.dice_click = (next) => this.deck_dice_click(id);
             obj.first = () => this.deck_dice_first(id);
             obj.second = () => this.deck_dice_second(id);
@@ -4080,6 +4163,14 @@ var $;
         Deck() {
             const obj = new this.$.$mol_list();
             obj.rows = () => this.deck_dices();
+            return obj;
+        }
+        player_dices_score() {
+            return "0 очков";
+        }
+        Player_score() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.player_dices_score();
             return obj;
         }
         player_dice_click(id, next) {
@@ -4123,6 +4214,7 @@ var $;
         }
         Show_dice(id) {
             const obj = new this.$.$milis_domino_dice();
+            obj.back = () => true;
             obj.dice_click = (next) => this.shop_dice_click(id);
             obj.first = () => this.shop_dice_first(id);
             obj.second = () => this.shop_dice_second(id);
@@ -4149,6 +4241,9 @@ var $;
         $mol_mem
     ], $milis_domino.prototype, "Deck", null);
     __decorate([
+        $mol_mem
+    ], $milis_domino.prototype, "Player_score", null);
+    __decorate([
         $mol_mem_key
     ], $milis_domino.prototype, "player_dice_click", null);
     __decorate([
@@ -4171,6 +4266,15 @@ var $;
         click(next) {
             return this.dice_click();
         }
+        enabled() {
+            return this.dice_enabled();
+        }
+        attr() {
+            return {
+                ...super.attr(),
+                back: this.back()
+            };
+        }
         sub() {
             return [
                 this.First(),
@@ -4181,6 +4285,12 @@ var $;
             if (next !== undefined)
                 return next;
             return null;
+        }
+        dice_enabled() {
+            return true;
+        }
+        back() {
+            return false;
         }
         first() {
             return 0;
@@ -4407,6 +4517,10 @@ var $;
                 this.dices(this.dices().
                     map((dice) => dice.id === id ? { ...dice, place: 'deck' } : dice));
             }
+            player_dices_score() {
+                return this.dices().filter(dice => dice.place === 'player').
+                    reduce((a, c) => a + c.first + c.second, 0) + ' очков';
+            }
             deck_dices() {
                 return this.dices().
                     filter(dice => dice.place === 'deck').
@@ -4470,7 +4584,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/domino/domino.view.css", "[milis_domino_dice] > * {\n\tbackground-color: antiquewhite;\n\tposition: relative;\n\twidth: 4rem;\n\theight: 4rem;\n\tborder: 1px solid var(--mol_theme_line);\n\tborder-radius: 2px;\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\tcolor: black;\n}\n\n[milis_domino_dice] > *[first=\"1\"]::after, [second=\"1\"]::after {\n\tcontent: '*';\n}\n[milis_domino_dice] > *[first=\"2\"]::after, [second=\"2\"]::after {\n\tcontent: '2';\n}\n[milis_domino_dice] > *[first=\"3\"]::after, [second=\"3\"]::after {\n\tcontent: '3';\n}\n[milis_domino_dice] > *[first=\"4\"]::after, [second=\"4\"]::after {\n\tcontent: '4';\n}\n[milis_domino_dice] > *[first=\"5\"]::after, [second=\"5\"]::after {\n\tcontent: '5';\n}\n[milis_domino_dice] > *[first=\"6\"]::after, [second=\"6\"]::after {\n\tcontent: '6';\n}\n\n/* [milis_domino_dice] > *[first=\"2\"]::after, [second=\"2\"]::after {\n\tcontent: '2';\n\twidth: 1rem;\n\theight: 1rem;\n\tborder-radius: 1rem;\n\tposition: absolute;\n\ttop: calc(50% - 1rem/2);\n\tleft: calc(50% - 1rem/2);\n\tbackground: black;\n} */\n");
+    $mol_style_attach("milis/domino/domino.view.css", "[milis_domino_dice]>* {\n\tbackground-color: antiquewhite;\n\tposition: relative;\n\twidth: 4rem;\n\theight: 4rem;\n\tborder: 1px solid var(--mol_theme_line);\n\tborder-radius: 2px;\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\tcolor: black;\n}\n\n[milis_domino_dice][back=\"true\"]>* {\n\tbackground-color: gray;\n}\n\n[milis_domino_dice][back=\"true\"]>*::after {\n\tcontent: '' !important;\n}\n\n[milis_domino_dice]>*[first=\"1\"]::after,\n[second=\"1\"]::after {\n\tcontent: '*';\n}\n\n[milis_domino_dice]>*[first=\"2\"]::after,\n[second=\"2\"]::after {\n\tcontent: '2';\n}\n\n[milis_domino_dice]>*[first=\"3\"]::after,\n[second=\"3\"]::after {\n\tcontent: '3';\n}\n\n[milis_domino_dice]>*[first=\"4\"]::after,\n[second=\"4\"]::after {\n\tcontent: '4';\n}\n\n[milis_domino_dice]>*[first=\"5\"]::after,\n[second=\"5\"]::after {\n\tcontent: '5';\n}\n\n[milis_domino_dice]>*[first=\"6\"]::after,\n[second=\"6\"]::after {\n\tcontent: '6';\n}\n\n/* [milis_domino_dice] > *[first=\"2\"]::after, [second=\"2\"]::after {\n\tcontent: '2';\n\twidth: 1rem;\n\theight: 1rem;\n\tborder-radius: 1rem;\n\tposition: absolute;\n\ttop: calc(50% - 1rem/2);\n\tleft: calc(50% - 1rem/2);\n\tbackground: black;\n} */\n");
 })($ || ($ = {}));
 //milis/domino/-css/domino.view.css.ts
 ;

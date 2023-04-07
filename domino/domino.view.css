@@ -1,4 +1,4 @@
-[milis_domino_dice] > * {
+[milis_domino_dice]>* {
 	background-color: antiquewhite;
 	position: relative;
 	width: 4rem;
@@ -11,22 +11,41 @@
 	color: black;
 }
 
-[milis_domino_dice] > *[first="1"]::after, [second="1"]::after {
+[milis_domino_dice][back="true"]>* {
+	background-color: gray;
+}
+
+[milis_domino_dice][back="true"]>*::after {
+	content: '' !important;
+}
+
+[milis_domino_dice]>*[first="1"]::after,
+[second="1"]::after {
 	content: '*';
 }
-[milis_domino_dice] > *[first="2"]::after, [second="2"]::after {
+
+[milis_domino_dice]>*[first="2"]::after,
+[second="2"]::after {
 	content: '2';
 }
-[milis_domino_dice] > *[first="3"]::after, [second="3"]::after {
+
+[milis_domino_dice]>*[first="3"]::after,
+[second="3"]::after {
 	content: '3';
 }
-[milis_domino_dice] > *[first="4"]::after, [second="4"]::after {
+
+[milis_domino_dice]>*[first="4"]::after,
+[second="4"]::after {
 	content: '4';
 }
-[milis_domino_dice] > *[first="5"]::after, [second="5"]::after {
+
+[milis_domino_dice]>*[first="5"]::after,
+[second="5"]::after {
 	content: '5';
 }
-[milis_domino_dice] > *[first="6"]::after, [second="6"]::after {
+
+[milis_domino_dice]>*[first="6"]::after,
+[second="6"]::after {
 	content: '6';
 }
 

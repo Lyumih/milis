@@ -5,10 +5,12 @@ $milis_domino $mol_page
 		<= Deck $mol_list
 			rows <= deck_dices /
 				<= Deck_dice*0 $milis_domino_dice
+					dice_enabled false
 					dice_click? <= deck_dice_click*? null
 					first <= deck_dice_first* 0
 					second <= deck_dice_second* 0
 		\Игрок
+		<= Player_score $mol_paragraph title <= player_dices_score \0 очков
 		<= Player $mol_list
 			rows <= player_dices /
 				<= Player_dice*0 $milis_domino_dice
@@ -19,12 +21,17 @@ $milis_domino $mol_page
 		<= Shop_list $mol_list
 			rows <= shop_dices /
 				<= Show_dice*0 $milis_domino_dice
+					back true
 					dice_click? <= shop_dice_click*? null
 					first <= shop_dice_first* 0
 					second <= shop_dice_second* 0
 
 $milis_domino_dice $mol_button_minor
 	click? <= dice_click? null
+	enabled <= dice_enabled true
+	attr *
+		^
+		back <= back false
 	sub /
 		<= First $mol_view
 			attr *

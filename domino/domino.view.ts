@@ -15,6 +15,8 @@ namespace $.$$ {
 			numbers.forEach(first => {
 				numbers.forEach(second => result.push(new_dice(first, second)))
 			})
+			// Todo: добавить 1 кость на Стол
+			// Todo: добавить 7 костей игроку
 			return result
 		}
 
@@ -67,6 +69,11 @@ namespace $.$$ {
 		player_dice_click( id: string ) {
 			this.dices( this.dices().
 				map( ( dice ) => dice.id === id ? { ...dice, place: 'deck' } : dice ) )
+		}
+
+		player_dices_score(): string {
+			return this.dices().filter(dice => dice.place === 'player').
+				reduce((a, c) => a + c.first + c.second, 0) + ' очков'
 		}
 
 		@$mol_mem

@@ -1029,6 +1029,29 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_paragraph extends $mol_view {
+        line_height(): number;
+        letter_width(): number;
+        width_limit(): number;
+        row_width(): number;
+        sub(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_paragraph extends $.$mol_paragraph {
+        maximal_width(): number;
+        width_limit(): number;
+        minimal_width(): number;
+        row_width(): number;
+        minimal_height(): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_speck extends $mol_view {
         attr(): {
             mol_theme: string;
@@ -1236,6 +1259,8 @@ declare namespace $ {
         Deck_dice(id: any): $milis_domino_dice;
         deck_dices(): readonly any[];
         Deck(): $$.$mol_list;
+        player_dices_score(): string;
+        Player_score(): $$.$mol_paragraph;
         player_dice_click(id: any, next?: any): any;
         player_dice_first(id: any): number;
         player_dice_second(id: any): number;
@@ -1251,8 +1276,18 @@ declare namespace $ {
     }
     class $milis_domino_dice extends $mol_button_minor {
         click(next?: any): any;
+        enabled(): boolean;
+        attr(): {
+            back: boolean;
+            disabled: boolean;
+            role: string;
+            tabindex: number;
+            title: string;
+        };
         sub(): readonly any[];
         dice_click(next?: any): any;
+        dice_enabled(): boolean;
+        back(): boolean;
         first(): number;
         First(): $mol_view;
         second(): number;
@@ -1370,6 +1405,7 @@ declare namespace $.$$ {
         player_dice_first(id: string): number;
         player_dice_second(id: string): number;
         player_dice_click(id: string): void;
+        player_dices_score(): string;
         deck_dices(): $milis_domino_dice[];
         deck_dice_first(id: string): number;
         deck_dice_second(id: string): number;
