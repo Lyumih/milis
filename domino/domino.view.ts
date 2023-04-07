@@ -11,13 +11,19 @@ namespace $.$$ {
 		generate_dices(): typeof DiceType.Value[] {
 			const numbers = [ 0, 1, 2, 3, 4, 5, 6 ]
 			const new_dice = ( first: number, second: number ): typeof DiceType.Value => ( { id: `${ first }${ second }`, place: 'shop', first, second } )
-			const result: typeof DiceType.Value[] = []
-			numbers.forEach(first => {
-				numbers.forEach(second => result.push(new_dice(first, second)))
-			})
-			// Todo: добавить 1 кость на Стол
-			// Todo: добавить 7 костей игроку
-			return result
+			const generated_dices: typeof DiceType.Value[] = []
+			numbers.forEach( first => {
+				numbers.forEach( second => first <= second && generated_dices.push( new_dice( first, second ) ) )
+			} )
+			generated_dices.sort(() => Math.random() - 0.5)
+			const normalized_dices: typeof DiceType.Value[] = []
+			for( let i = 0; i < generated_dices.length; i++ ) {
+				const current_dice = { ...generated_dices[ i ] }
+				if( i === 0 ) current_dice.place = 'deck'
+				else if( i < 6 ) current_dice.place = 'player'
+				normalized_dices.push( current_dice )
+			}
+			return normalized_dices
 		}
 
 		@$mol_mem
@@ -72,8 +78,8 @@ namespace $.$$ {
 		}
 
 		player_dices_score(): string {
-			return this.dices().filter(dice => dice.place === 'player').
-				reduce((a, c) => a + c.first + c.second, 0) + ' очков'
+			return this.dices().filter( dice => dice.place === 'player' ).
+				reduce( ( a, c ) => a + c.first + c.second, 0 ) + ' очков'
 		}
 
 		@$mol_mem
