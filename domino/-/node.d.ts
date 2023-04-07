@@ -1261,6 +1261,9 @@ declare namespace $ {
         Deck(): $$.$mol_list;
         player_dices_score(): string;
         Player_score(): $$.$mol_paragraph;
+        player_get_dice_from_shop(next?: any): any;
+        Player_get_dice(): $mol_button_minor;
+        player_dice_enabled(id: any): boolean;
         player_dice_click(id: any, next?: any): any;
         player_dice_first(id: any): number;
         player_dice_second(id: any): number;
@@ -1406,7 +1409,21 @@ declare namespace $.$$ {
         player_dice_second(id: string): number;
         player_dice_click(id: string): void;
         player_dices_score(): string;
+        player_get_dice_from_shop(): void;
+        player_dices_list(): Readonly<{
+            id: string;
+            place: string;
+            first: number;
+            second: number;
+        }>[];
+        player_dice_enabled(id: any): boolean;
         deck_dices(): $milis_domino_dice[];
+        deck_dices_list(): Readonly<{
+            id: string;
+            place: string;
+            first: number;
+            second: number;
+        }>[];
         deck_dice_first(id: string): number;
         deck_dice_second(id: string): number;
         deck_dice_click(id: string): void;

@@ -82,11 +82,34 @@ namespace $.$$ {
 				reduce( ( a, c ) => a + c.first + c.second, 0 ) + ' очков'
 		}
 
+		@ $mol_action
+		player_get_dice_from_shop(){
+			const first_dice_shop = this.dices().find(dice => dice.place === 'shop')
+			this.dices( this.dices().
+			map( ( dice ) => dice.id === first_dice_shop?.id ? { ...dice, place: 'player' } : dice ) )
+		}
+
+		player_dices_list(){
+			return this.dices().filter( dice => dice.place === 'player' )
+		}
+
+		@ $mol_mem
+		player_dice_enabled(id: any):boolean {
+			const current_dice = this.dices().find(dice => dice.id === id)
+			const edges = [current_dice?.first, current_dice?.second]
+			return !this.deck_dices_list().
+				findIndex(dice => edges.includes(dice.first) ||  edges.includes(dice.second))
+		}
+
 		@$mol_mem
 		deck_dices() {
 			return this.dices().
 				filter( dice => dice.place === 'deck' ).
 				map( dice => this.Deck_dice( dice.id ) )
+		}
+
+		deck_dices_list(){
+			return this.dices().filter( dice => dice.place === 'deck' )
 		}
 
 		@$mol_mem_key

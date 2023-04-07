@@ -11,9 +11,13 @@ $milis_domino $mol_page
 					second <= deck_dice_second* 0
 		\Игрок
 		<= Player_score $mol_paragraph title <= player_dices_score \0 очков
+		<= Player_get_dice $mol_button_minor
+			title \Взять из магазина
+			click? <= player_get_dice_from_shop? null
 		<= Player $mol_list
 			rows <= player_dices /
 				<= Player_dice*0 $milis_domino_dice
+					dice_enabled <= player_dice_enabled* false
 					dice_click? <= player_dice_click*? null
 					first <= player_dice_first* 0
 					second <= player_dice_second* 0

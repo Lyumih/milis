@@ -4139,6 +4139,7 @@ var $;
                 this.Deck(),
                 "Игрок",
                 this.Player_score(),
+                this.Player_get_dice(),
                 this.Player(),
                 "Магазин",
                 this.Shop_list()
@@ -4181,6 +4182,20 @@ var $;
             obj.title = () => this.player_dices_score();
             return obj;
         }
+        player_get_dice_from_shop(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Player_get_dice() {
+            const obj = new this.$.$mol_button_minor();
+            obj.title = () => "Взять из магазина";
+            obj.click = (next) => this.player_get_dice_from_shop();
+            return obj;
+        }
+        player_dice_enabled(id) {
+            return false;
+        }
         player_dice_click(id, next) {
             if (next !== undefined)
                 return next;
@@ -4194,6 +4209,7 @@ var $;
         }
         Player_dice(id) {
             const obj = new this.$.$milis_domino_dice();
+            obj.dice_enabled = () => this.player_dice_enabled(id);
             obj.dice_click = (next) => this.player_dice_click(id);
             obj.first = () => this.player_dice_first(id);
             obj.second = () => this.player_dice_second(id);
@@ -4251,6 +4267,12 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_domino.prototype, "Player_score", null);
+    __decorate([
+        $mol_mem
+    ], $milis_domino.prototype, "player_get_dice_from_shop", null);
+    __decorate([
+        $mol_mem
+    ], $milis_domino.prototype, "Player_get_dice", null);
     __decorate([
         $mol_mem_key
     ], $milis_domino.prototype, "player_dice_click", null);
@@ -4539,10 +4561,27 @@ var $;
                 return this.dices().filter(dice => dice.place === 'player').
                     reduce((a, c) => a + c.first + c.second, 0) + ' очков';
             }
+            player_get_dice_from_shop() {
+                const first_dice_shop = this.dices().find(dice => dice.place === 'shop');
+                this.dices(this.dices().
+                    map((dice) => dice.id === first_dice_shop?.id ? { ...dice, place: 'player' } : dice));
+            }
+            player_dices_list() {
+                return this.dices().filter(dice => dice.place === 'player');
+            }
+            player_dice_enabled(id) {
+                const current_dice = this.dices().find(dice => dice.id === id);
+                const edges = [current_dice?.first, current_dice?.second];
+                return !this.deck_dices_list().
+                    findIndex(dice => edges.includes(dice.first) || edges.includes(dice.second));
+            }
             deck_dices() {
                 return this.dices().
                     filter(dice => dice.place === 'deck').
                     map(dice => this.Deck_dice(dice.id));
+            }
+            deck_dices_list() {
+                return this.dices().filter(dice => dice.place === 'deck');
             }
             deck_dice_first(id) {
                 return this.dices().find(item => id === item.id)?.first ?? 0;
@@ -4582,6 +4621,12 @@ var $;
         __decorate([
             $mol_action
         ], $milis_domino.prototype, "player_dice_click", null);
+        __decorate([
+            $mol_action
+        ], $milis_domino.prototype, "player_get_dice_from_shop", null);
+        __decorate([
+            $mol_mem
+        ], $milis_domino.prototype, "player_dice_enabled", null);
         __decorate([
             $mol_mem
         ], $milis_domino.prototype, "deck_dices", null);

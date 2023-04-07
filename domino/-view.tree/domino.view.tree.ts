@@ -17,6 +17,7 @@ namespace $ {
 		 * 	<= Deck
 		 * 	\Игрок
 		 * 	<= Player_score
+		 * 	<= Player_get_dice
 		 * 	<= Player
 		 * 	\Магазин
 		 * 	<= Shop_list
@@ -28,6 +29,7 @@ namespace $ {
 				this.Deck(),
 				"Игрок",
 				this.Player_score(),
+				this.Player_get_dice(),
 				this.Player(),
 				"Магазин",
 				this.Shop_list()
@@ -134,6 +136,43 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * player_get_dice_from_shop? null
+		 * ```
+		 */
+		@ $mol_mem
+		player_get_dice_from_shop(next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
+		 * Player_get_dice $mol_button_minor
+		 * 	title \Взять из магазина
+		 * 	click? <= player_get_dice_from_shop?
+		 * ```
+		 */
+		@ $mol_mem
+		Player_get_dice() {
+			const obj = new this.$.$mol_button_minor()
+			
+			obj.title = () => "Взять из магазина"
+			obj.click = (next?: any) => this.player_get_dice_from_shop()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * player_dice_enabled* false
+		 * ```
+		 */
+		player_dice_enabled(id: any) {
+			return false
+		}
+		
+		/**
+		 * ```tree
 		 * player_dice_click*? null
 		 * ```
 		 */
@@ -164,6 +203,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Player_dice*0 $milis_domino_dice
+		 * 	dice_enabled <= player_dice_enabled*
 		 * 	dice_click? <= player_dice_click*?
 		 * 	first <= player_dice_first*
 		 * 	second <= player_dice_second*
@@ -173,6 +213,7 @@ namespace $ {
 		Player_dice(id: any) {
 			const obj = new this.$.$milis_domino_dice()
 			
+			obj.dice_enabled = () => this.player_dice_enabled(id)
 			obj.dice_click = (next?: any) => this.player_dice_click(id)
 			obj.first = () => this.player_dice_first(id)
 			obj.second = () => this.player_dice_second(id)
