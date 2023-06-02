@@ -235,65 +235,10 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * seed_id \s0tdoy_es6nsm
-		 * ```
-		 */
-		seed_id() {
-			return "s0tdoy_es6nsm"
-		}
-		
-		/**
-		 * ```tree
-		 * chat_pages
-		 * ```
-		 */
-		chat_pages() {
-			return this.Chat().pages()
-		}
-		
-		/**
-		 * ```tree
-		 * Chat $mol_chat
-		 * 	opened true
-		 * 	seed <= seed_id
-		 * 	pages => chat_pages
-		 * ```
-		 */
-		@ $mol_mem
-		Chat() {
-			const obj = new this.$.$mol_chat()
-			
-			obj.opened = () => true
-			obj.seed = () => this.seed_id()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Pages $mol_view
-		 * 	minimal_height 100
-		 * 	sub <= chat_pages
-		 * ```
-		 */
-		@ $mol_mem
-		Pages() {
-			const obj = new this.$.$mol_view()
-			
-			obj.minimal_height = () => 100
-			obj.sub = () => this.chat_pages()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
 		 * Game $mol_list sub /
 		 * 	<= Info
 		 * 	<= Scene
 		 * 	<= Win
-		 * 	<= Chat
-		 * 	<= Pages
 		 * ```
 		 */
 		@ $mol_mem
@@ -303,9 +248,7 @@ namespace $ {
 			obj.sub = () => [
 				this.Info(),
 				this.Scene(),
-				this.Win(),
-				this.Chat(),
-				this.Pages()
+				this.Win()
 			] as readonly any[]
 			
 			return obj

@@ -16,13 +16,6 @@ $milis_ballsort $mol_page
 						<= Moves $mol_text text <= moves_text \
 				<= Scene $mol_view sub <= columns /
 				<= Win $mol_view sub <= win_content / \You are win!
-				<= Chat $mol_chat
-					opened true
-					seed <= seed_id \s0tdoy_es6nsm
-					pages => chat_pages
-				<= Pages $mol_view
-					minimal_height 100
-					sub <= chat_pages
 	Column* $mol_button_minor
 		attr * active <= active* false
 		click? <= click_column*? null

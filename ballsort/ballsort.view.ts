@@ -57,8 +57,8 @@ namespace $.$$ {
 
 		body(): readonly any[] {
 			switch( this.game_stage() ) {
-				case "start": return [ this.Start(), this.Chat() ]
-				case "game": return [ this.Game(), this.Chat() ]
+				case "start": return [ this.Start() ]
+				case "game": return [ this.Game() ]
 			}
 		}
 
