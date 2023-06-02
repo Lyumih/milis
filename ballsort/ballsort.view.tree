@@ -16,7 +16,7 @@ $milis_ballsort $mol_page
 						<= Moves $mol_text text <= moves_text \
 				<= Table $mol_view
 					sub /
-						<= Cup $milis_ballsort_cup
+						<= Cup1 $milis_ballsort_cup
 							click_cup? <= click_cup? null
 						<= Cup2 $milis_ballsort_cup
 							click_cup? <= click_cup? null
