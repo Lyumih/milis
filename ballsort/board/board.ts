@@ -53,7 +53,10 @@ namespace $ {
 		}
 
 		@$mol_mem
-		active( next = -1 ) { return next }
+		active( next = -1 ) {
+			$mol_wire_solid();
+			return next;
+		}
 
 		@$mol_action
 		touch( col: number ) {
@@ -87,7 +90,7 @@ namespace $ {
 
 				const mut = $mol_mutable( balls )
 				mut[ active ]( colors => colors.slice( 1 ) )
-				mut[ col ]( () => [ color ] )
+				mut[ col ]( colors => [ color, ...colors ] )
 
 				this.balls( mut() )
 				this.active( -1 )
