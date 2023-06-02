@@ -14,14 +14,13 @@ $milis_ballsort $mol_page
 						<= Restart $mol_button_minor
 							click? <= restart? null
 						<= Moves $mol_text text <= moves_text \
-				<= Table $mol_view
-					sub <= columns /
-	Column* $milis_ballsort_column
+				<= Win $mol_view sub <= win_content / \You are win!
+				<= Scene $mol_view sub <= columns /
+	Column* $mol_button_minor
 		click? <= click_column*? null
 		sub <= column_balls* /
-			<= Ball* $milis_ballsort_ball
-				attr *
-					color <= ball_color* \
+			<= Ball* $mol_view
+				attr * color <= ball_color* \
 	foot /
 		<= Mol $mol_link_iconed
 			title \$mol
@@ -29,10 +28,3 @@ $milis_ballsort $mol_page
 		<= Source $mol_link_iconed
 			title \Source Code
 			uri \https://github.com/Lyumih/milis//tree/main/ballsort
-
-$milis_ballsort_column $mol_button_minor
-	- click? <= click_column? null
-	- sub <= balls /
-		<= Ball $milis_ballsort_ball
-
-$milis_ballsort_ball $mol_view
