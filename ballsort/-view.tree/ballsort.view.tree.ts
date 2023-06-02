@@ -165,108 +165,44 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * click_cup? null
+		 * Column3 $milis_ballsort_column
 		 * ```
 		 */
 		@ $mol_mem
-		click_cup(next?: any) {
-			if ( next !== undefined ) return next as never
-			return null as any
-		}
-		
-		/**
-		 * ```tree
-		 * Cup1 $milis_ballsort_cup click_cup? <= click_cup?
-		 * ```
-		 */
-		@ $mol_mem
-		Cup1() {
-			const obj = new this.$.$milis_ballsort_cup()
-			
-			obj.click_cup = (next?: any) => this.click_cup()
+		Column3() {
+			const obj = new this.$.$milis_ballsort_column()
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * Cup2 $milis_ballsort_cup click_cup? <= click_cup?
+		 * Column*0 $milis_ballsort_column
 		 * ```
 		 */
-		@ $mol_mem
-		Cup2() {
-			const obj = new this.$.$milis_ballsort_cup()
-			
-			obj.click_cup = (next?: any) => this.click_cup()
+		@ $mol_mem_key
+		Column(id: any) {
+			const obj = new this.$.$milis_ballsort_column()
 			
 			return obj
 		}
 		
 		/**
 		 * ```tree
-		 * Cup3 $milis_ballsort_cup click_cup? <= click_cup?
+		 * columns / <= Column*0
 		 * ```
 		 */
-		@ $mol_mem
-		Cup3() {
-			const obj = new this.$.$milis_ballsort_cup()
-			
-			obj.click_cup = (next?: any) => this.click_cup()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Cup4 $milis_ballsort_cup click_cup? <= click_cup?
-		 * ```
-		 */
-		@ $mol_mem
-		Cup4() {
-			const obj = new this.$.$milis_ballsort_cup()
-			
-			obj.click_cup = (next?: any) => this.click_cup()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Cup5 $milis_ballsort_cup click_cup? <= click_cup?
-		 * ```
-		 */
-		@ $mol_mem
-		Cup5() {
-			const obj = new this.$.$milis_ballsort_cup()
-			
-			obj.click_cup = (next?: any) => this.click_cup()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Cup6 $milis_ballsort_cup click_cup? <= click_cup?
-		 * ```
-		 */
-		@ $mol_mem
-		Cup6() {
-			const obj = new this.$.$milis_ballsort_cup()
-			
-			obj.click_cup = (next?: any) => this.click_cup()
-			
-			return obj
+		columns() {
+			return [
+				this.Column("0")
+			] as readonly any[]
 		}
 		
 		/**
 		 * ```tree
 		 * Table $mol_view sub /
-		 * 	<= Cup1
-		 * 	<= Cup2
-		 * 	<= Cup3
-		 * 	<= Cup4
-		 * 	<= Cup5
-		 * 	<= Cup6
+		 * 	<= Column3
+		 * 	<= columns
 		 * ```
 		 */
 		@ $mol_mem
@@ -274,12 +210,8 @@ namespace $ {
 			const obj = new this.$.$mol_view()
 			
 			obj.sub = () => [
-				this.Cup1(),
-				this.Cup2(),
-				this.Cup3(),
-				this.Cup4(),
-				this.Cup5(),
-				this.Cup6()
+				this.Column3(),
+				this.columns()
 			] as readonly any[]
 			
 			return obj
@@ -339,15 +271,15 @@ namespace $ {
 		}
 	}
 	
-	export class $milis_ballsort_cup extends $mol_button_minor {
+	export class $milis_ballsort_column extends $mol_button_minor {
 		
 		/**
 		 * ```tree
-		 * click? <= click_cup?
+		 * click? <= click_column?
 		 * ```
 		 */
 		click(next?: any) {
-			return this.click_cup()
+			return this.click_column()
 		}
 		
 		/**
@@ -370,11 +302,11 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * click_cup? null
+		 * click_column? null
 		 * ```
 		 */
 		@ $mol_mem
-		click_cup(next?: any) {
+		click_column(next?: any) {
 			if ( next !== undefined ) return next as never
 			return null as any
 		}

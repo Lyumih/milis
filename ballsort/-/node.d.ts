@@ -2469,22 +2469,18 @@ declare namespace $ {
         moves_text(): string;
         Moves(): $$.$mol_text;
         Info(): $$.$mol_hor;
-        click_cup(next?: any): any;
-        Cup1(): $milis_ballsort_cup;
-        Cup2(): $milis_ballsort_cup;
-        Cup3(): $milis_ballsort_cup;
-        Cup4(): $milis_ballsort_cup;
-        Cup5(): $milis_ballsort_cup;
-        Cup6(): $milis_ballsort_cup;
+        Column3(): $milis_ballsort_column;
+        Column(id: any): $milis_ballsort_column;
+        columns(): readonly any[];
         Table(): $mol_view;
         Game(): $$.$mol_list;
         Mol(): $$.$mol_link_iconed;
         Source(): $$.$mol_link_iconed;
     }
-    class $milis_ballsort_cup extends $mol_button_minor {
+    class $milis_ballsort_column extends $mol_button_minor {
         click(next?: any): any;
         sub(): readonly any[];
-        click_cup(next?: any): any;
+        click_column(next?: any): any;
         Ball1(): $milis_ballsort_ball;
         Ball2(): $milis_ballsort_ball;
         Ball3(): $milis_ballsort_ball;
@@ -2494,9 +2490,44 @@ declare namespace $ {
     }
 }
 
+declare namespace $ {
+    function $mol_array_shuffle<Item>(array: Item[]): Item[];
+}
+
+declare namespace $ {
+    type $mol_type_immutable_deep<Val> = {
+        readonly [field in keyof Val]: $mol_type_immutable_deep<Val[field]>;
+    };
+}
+
+declare namespace $ {
+    type $mol_mutable_wrapper<Value> = {
+        (patch?: (next: $mol_type_immutable_deep<Value>) => $mol_type_immutable_deep<Value>): $mol_type_immutable_deep<Value>;
+    } & {
+        [Field in keyof Value]: $mol_mutable_wrapper<Value[Field]>;
+    };
+    function $mol_mutable<Value>(input: Value, update?: (next: Value) => Value): $mol_mutable_wrapper<Value>;
+}
+
+declare namespace $ {
+    class $milis_ballsort_board extends $mol_object2 {
+        colors(): string[];
+        balls(next?: null | readonly (readonly string[])[]): readonly (readonly string[])[];
+        col_full(col: number): boolean;
+        col_empty(col: number): boolean;
+        col_complete(col: number): boolean;
+        col_active(col: number): boolean;
+        complete(): boolean;
+        active(next?: number): number;
+        touch(col: number): void;
+    }
+}
+
 declare namespace $.$$ {
     class $milis_ballsort extends $.$milis_ballsort {
+        board(next?: $milis_ballsort_board): $milis_ballsort_board;
         game_stage(next?: 'start' | 'game' | 'win'): "start" | "game" | "win";
+        columns(): $milis_ballsort_column[];
         moves(next?: number): number;
         moves_text(): string;
         start_game(): void;

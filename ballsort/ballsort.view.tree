@@ -16,18 +16,9 @@ $milis_ballsort $mol_page
 						<= Moves $mol_text text <= moves_text \
 				<= Table $mol_view
 					sub /
-						<= Cup1 $milis_ballsort_cup
-							click_cup? <= click_cup? null
-						<= Cup2 $milis_ballsort_cup
-							click_cup? <= click_cup? null
-						<= Cup3 $milis_ballsort_cup
-							click_cup? <= click_cup? null
-						<= Cup4 $milis_ballsort_cup
-							click_cup? <= click_cup? null
-						<= Cup5 $milis_ballsort_cup
-							click_cup? <= click_cup? null
-						<= Cup6 $milis_ballsort_cup
-							click_cup? <= click_cup? null
+						<= Column3 $milis_ballsort_column
+						<= columns /
+							<= Column*0 $milis_ballsort_column
 	foot /
 		<= Mol $mol_link_iconed
 			title \$mol
@@ -36,8 +27,8 @@ $milis_ballsort $mol_page
 			title \Source Code
 			uri \https://github.com/Lyumih/milis//tree/main/ballsort
 
-$milis_ballsort_cup $mol_button_minor
-	click? <= click_cup? null
+$milis_ballsort_column $mol_button_minor
+	click? <= click_column? null
 	sub /
 		<= Ball1 $milis_ballsort_ball
 		<= Ball2 $milis_ballsort_ball

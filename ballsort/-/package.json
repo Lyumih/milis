@@ -191,7 +191,14 @@
     "$mol_embed_youtube",
     "$mol_icon_youtube",
     "$mol_frame",
-    "$mol_hor"
+    "$mol_hor",
+    "$milis_ballsort_board",
+    "$mol_array_shuffle",
+    "$mol_array",
+    "$mol_mutable",
+    "$mol_type_immutable_deep_deep",
+    "$mol_type_immutable_deep",
+    "$mol_type_immutable"
   ],
   "dependencies": {
     "jsdom": "*",

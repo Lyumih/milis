@@ -8652,50 +8652,24 @@ var $;
             ];
             return obj;
         }
-        click_cup(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        Cup1() {
-            const obj = new this.$.$milis_ballsort_cup();
-            obj.click_cup = (next) => this.click_cup();
+        Column3() {
+            const obj = new this.$.$milis_ballsort_column();
             return obj;
         }
-        Cup2() {
-            const obj = new this.$.$milis_ballsort_cup();
-            obj.click_cup = (next) => this.click_cup();
+        Column(id) {
+            const obj = new this.$.$milis_ballsort_column();
             return obj;
         }
-        Cup3() {
-            const obj = new this.$.$milis_ballsort_cup();
-            obj.click_cup = (next) => this.click_cup();
-            return obj;
-        }
-        Cup4() {
-            const obj = new this.$.$milis_ballsort_cup();
-            obj.click_cup = (next) => this.click_cup();
-            return obj;
-        }
-        Cup5() {
-            const obj = new this.$.$milis_ballsort_cup();
-            obj.click_cup = (next) => this.click_cup();
-            return obj;
-        }
-        Cup6() {
-            const obj = new this.$.$milis_ballsort_cup();
-            obj.click_cup = (next) => this.click_cup();
-            return obj;
+        columns() {
+            return [
+                this.Column("0")
+            ];
         }
         Table() {
             const obj = new this.$.$mol_view();
             obj.sub = () => [
-                this.Cup1(),
-                this.Cup2(),
-                this.Cup3(),
-                this.Cup4(),
-                this.Cup5(),
-                this.Cup6()
+                this.Column3(),
+                this.columns()
             ];
             return obj;
         }
@@ -8746,25 +8720,10 @@ var $;
     ], $milis_ballsort.prototype, "Info", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort.prototype, "click_cup", null);
+    ], $milis_ballsort.prototype, "Column3", null);
     __decorate([
-        $mol_mem
-    ], $milis_ballsort.prototype, "Cup1", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort.prototype, "Cup2", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort.prototype, "Cup3", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort.prototype, "Cup4", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort.prototype, "Cup5", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort.prototype, "Cup6", null);
+        $mol_mem_key
+    ], $milis_ballsort.prototype, "Column", null);
     __decorate([
         $mol_mem
     ], $milis_ballsort.prototype, "Table", null);
@@ -8778,9 +8737,9 @@ var $;
         $mol_mem
     ], $milis_ballsort.prototype, "Source", null);
     $.$milis_ballsort = $milis_ballsort;
-    class $milis_ballsort_cup extends $mol_button_minor {
+    class $milis_ballsort_column extends $mol_button_minor {
         click(next) {
-            return this.click_cup();
+            return this.click_column();
         }
         sub() {
             return [
@@ -8790,7 +8749,7 @@ var $;
                 this.Ball4()
             ];
         }
-        click_cup(next) {
+        click_column(next) {
             if (next !== undefined)
                 return next;
             return null;
@@ -8814,20 +8773,20 @@ var $;
     }
     __decorate([
         $mol_mem
-    ], $milis_ballsort_cup.prototype, "click_cup", null);
+    ], $milis_ballsort_column.prototype, "click_column", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort_cup.prototype, "Ball1", null);
+    ], $milis_ballsort_column.prototype, "Ball1", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort_cup.prototype, "Ball2", null);
+    ], $milis_ballsort_column.prototype, "Ball2", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort_cup.prototype, "Ball3", null);
+    ], $milis_ballsort_column.prototype, "Ball3", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort_cup.prototype, "Ball4", null);
-    $.$milis_ballsort_cup = $milis_ballsort_cup;
+    ], $milis_ballsort_column.prototype, "Ball4", null);
+    $.$milis_ballsort_column = $milis_ballsort_column;
     class $milis_ballsort_ball extends $mol_view {
     }
     $.$milis_ballsort_ball = $milis_ballsort_ball;
@@ -8837,11 +8796,160 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_array_shuffle(array) {
+        const res = array.slice();
+        for (let index = res.length - 1; index > 0; index--) {
+            const index_swap = Math.floor(Math.random() * (index + 1));
+            const temp = res[index];
+            res[index] = res[index_swap];
+            res[index_swap] = temp;
+        }
+        return res;
+    }
+    $.$mol_array_shuffle = $mol_array_shuffle;
+})($ || ($ = {}));
+//mol/array/shuffle/shuffle.ts
+;
+"use strict";
+//mol/type/immutable/deep/deep/deep.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_mutable(input, update = next => input = next) {
+        let output = undefined;
+        const clone = Array.isArray(input)
+            ? () => [...input]
+            : () => ({ ...input });
+        return new Proxy($mol_mutable, {
+            get: (Mut, field) => Mut(input[field], next => (output ?? (output = update(clone())))[field] = next),
+            set: () => false,
+            apply: (Mut, self, [patch]) => {
+                if (patch)
+                    update(output = input = patch(input));
+                return output ?? input;
+            },
+        });
+    }
+    $.$mol_mutable = $mol_mutable;
+})($ || ($ = {}));
+//mol/mutable/mutable.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $milis_ballsort_board extends $mol_object2 {
+        colors() {
+            return ['red', 'blue', 'green', 'magenta'];
+        }
+        balls(next) {
+            if (next)
+                return next;
+            const colors = this.colors();
+            return [
+                ...colors.map(() => $mol_array_shuffle(colors)),
+                [],
+                [],
+            ];
+        }
+        col_full(col) {
+            return this.balls()[col].length === this.colors().length;
+        }
+        col_empty(col) {
+            return this.balls()[col].length === 0;
+        }
+        col_complete(col) {
+            if (this.col_empty(col))
+                return true;
+            if (!this.col_full(col))
+                return false;
+            const balls = this.balls()[col];
+            return balls.every(color => color === balls[0]);
+        }
+        col_active(col) {
+            return this.active() == col;
+        }
+        complete() {
+            return this.balls().every((_, i) => this.col_complete(i));
+        }
+        active(next = -1) { return next; }
+        touch(col) {
+            let active = this.active();
+            if (active === -1) {
+                if (this.col_empty(col))
+                    return;
+                this.active(col);
+            }
+            else if (active === col) {
+                this.active(-1);
+            }
+            else {
+                if (this.col_full(col)) {
+                    this.active(col);
+                    return;
+                }
+                let balls = this.balls();
+                const color = balls[active][0];
+                if (!this.col_empty(col)) {
+                    if (balls[col][0] !== color) {
+                        this.active(col);
+                        return;
+                    }
+                }
+                const mut = $mol_mutable(balls);
+                mut[active](colors => colors.slice(1));
+                mut[col](() => [color]);
+                this.balls(mut());
+                this.active(-1);
+            }
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $milis_ballsort_board.prototype, "colors", null);
+    __decorate([
+        $mol_mem
+    ], $milis_ballsort_board.prototype, "balls", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_ballsort_board.prototype, "col_full", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_ballsort_board.prototype, "col_empty", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_ballsort_board.prototype, "col_complete", null);
+    __decorate([
+        $mol_mem
+    ], $milis_ballsort_board.prototype, "complete", null);
+    __decorate([
+        $mol_mem
+    ], $milis_ballsort_board.prototype, "active", null);
+    __decorate([
+        $mol_action
+    ], $milis_ballsort_board.prototype, "touch", null);
+    $.$milis_ballsort_board = $milis_ballsort_board;
+})($ || ($ = {}));
+//milis/ballsort/board/board.ts
+;
+"use strict";
+var $;
+(function ($) {
     var $$;
     (function ($$) {
         class $milis_ballsort extends $.$milis_ballsort {
+            board(next) {
+                console.log(next);
+                return next ?? new $milis_ballsort_board();
+            }
             game_stage(next) {
-                return next ?? 'start';
+                return next ?? 'game';
+            }
+            columns() {
+                console.log(this.board().balls());
+                const result = this.board().balls().map((balls, index) => this.Column(index));
+                console.log(result);
+                return [...result];
             }
             moves(next) {
                 return next ?? 0;
@@ -8856,6 +8964,7 @@ var $;
                 this.moves(0);
             }
             click_cup() {
+                this.board().touch(1);
                 this.moves(this.moves() + 1);
             }
             back() {
@@ -8867,7 +8976,13 @@ var $;
         }
         __decorate([
             $mol_mem
+        ], $milis_ballsort.prototype, "board", null);
+        __decorate([
+            $mol_mem
         ], $milis_ballsort.prototype, "game_stage", null);
+        __decorate([
+            $mol_mem
+        ], $milis_ballsort.prototype, "columns", null);
         __decorate([
             $mol_mem
         ], $milis_ballsort.prototype, "moves", null);
@@ -8879,7 +8994,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/ballsort/ballsort.view.css", ":root {\n\t--milis_ballsort_ball_main: #466799;\n\t--milis_ballsort_ball_light: #00B2FF;\n}\n\n[milis_ballsort_body] {\n\tgap: var(--mol_gap_block);\n\talign-items: center;\n}\n\n[milis_ballsort_game] {\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_info] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_table] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_cup] {\n    display: flex;\n    flex-direction: column;\n    -webkit-box-pack: end;\n    justify-content: flex-end;\n    flex-shrink: 0;\n    -webkit-box-align: center;\n    align-items: center;\n    border-right: 2px solid lightgray;\n    border-bottom: 2px solid lightgray;\n    border-left: 2px solid lightgray;\n    border-image: initial;\n    border-top: none;\n    width: 3rem;\n    height: 10rem;\n    padding-bottom: 0.4rem;\n    padding-top: 0.4rem;\n    border-bottom-left-radius: 2.4rem;\n    border-bottom-right-radius: 2.4rem;\n}\n\n[milis_ballsort_ball] {\n    width: 2rem;\n    height: 2rem;\n    border-radius: 50%;\n    border: 2px solid black;\n    margin: 1px;\n    flex-shrink: 0;\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_light) 3%, var(--milis_ballsort_ball_main) 60%, var(--milis_ballsort_ball_light) 100% );\n    position: relative;\n}\n");
+    $mol_style_attach("milis/ballsort/ballsort.view.css", ":root {\n\t--milis_ballsort_ball_main: #466799;\n\t--milis_ballsort_ball_light: #00B2FF;\n}\n\n[milis_ballsort_body] {\n\tgap: var(--mol_gap_block);\n\talign-items: center;\n}\n\n[milis_ballsort_game] {\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_info] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_table] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_column] {\n    display: flex;\n    flex-direction: column;\n    -webkit-box-pack: end;\n    justify-content: flex-end;\n    flex-shrink: 0;\n    -webkit-box-align: center;\n    align-items: center;\n    border-right: 2px solid lightgray;\n    border-bottom: 2px solid lightgray;\n    border-left: 2px solid lightgray;\n    border-image: initial;\n    border-top: none;\n    width: 3rem;\n    height: 10rem;\n    padding-bottom: 0.4rem;\n    padding-top: 0.4rem;\n    border-bottom-left-radius: 2.4rem;\n    border-bottom-right-radius: 2.4rem;\n}\n\n[milis_ballsort_ball] {\n    width: 2rem;\n    height: 2rem;\n    border-radius: 50%;\n    border: 2px solid black;\n    margin: 1px;\n    flex-shrink: 0;\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_light) 3%, var(--milis_ballsort_ball_main) 60%, var(--milis_ballsort_ball_light) 100% );\n    position: relative;\n}\n");
 })($ || ($ = {}));
 //milis/ballsort/-css/ballsort.view.css.ts
 
