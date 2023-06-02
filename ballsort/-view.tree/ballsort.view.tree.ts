@@ -26,13 +26,16 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Column* $milis_ballsort_column sub <= column_balls*
+		 * Column* $milis_ballsort_column
+		 * 	click? <= click_column*?
+		 * 	sub <= column_balls*
 		 * ```
 		 */
 		@ $mol_mem_key
 		Column(id: any) {
 			const obj = new this.$.$milis_ballsort_column()
 			
+			obj.click = (next?: any) => this.click_column(id)
 			obj.sub = () => this.column_balls(id)
 			
 			return obj
@@ -222,6 +225,17 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * click_column*? null
+		 * ```
+		 */
+		@ $mol_mem_key
+		click_column(id: any, next?: any) {
+			if ( next !== undefined ) return next as never
+			return null as any
+		}
+		
+		/**
+		 * ```tree
 		 * ball_color* \
 		 * ```
 		 */
@@ -292,26 +306,6 @@ namespace $ {
 	}
 	
 	export class $milis_ballsort_column extends $mol_button_minor {
-		
-		/**
-		 * ```tree
-		 * click? <= click_column?
-		 * ```
-		 */
-		click(next?: any) {
-			return this.click_column()
-		}
-		
-		/**
-		 * ```tree
-		 * click_column? null
-		 * ```
-		 */
-		@ $mol_mem
-		click_column(next?: any) {
-			if ( next !== undefined ) return next as never
-			return null as any
-		}
 	}
 	
 	export class $milis_ballsort_ball extends $mol_view {

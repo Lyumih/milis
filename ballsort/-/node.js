@@ -8599,6 +8599,7 @@ var $;
         }
         Column(id) {
             const obj = new this.$.$milis_ballsort_column();
+            obj.click = (next) => this.click_column(id);
             obj.sub = () => this.column_balls(id);
             return obj;
         }
@@ -8673,6 +8674,11 @@ var $;
             ];
             return obj;
         }
+        click_column(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
         ball_color(id) {
             return "";
         }
@@ -8736,6 +8742,9 @@ var $;
     ], $milis_ballsort.prototype, "Game", null);
     __decorate([
         $mol_mem_key
+    ], $milis_ballsort.prototype, "click_column", null);
+    __decorate([
+        $mol_mem_key
     ], $milis_ballsort.prototype, "Ball", null);
     __decorate([
         $mol_mem
@@ -8745,18 +8754,7 @@ var $;
     ], $milis_ballsort.prototype, "Source", null);
     $.$milis_ballsort = $milis_ballsort;
     class $milis_ballsort_column extends $mol_button_minor {
-        click(next) {
-            return this.click_column();
-        }
-        click_column(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
     }
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort_column.prototype, "click_column", null);
     $.$milis_ballsort_column = $milis_ballsort_column;
     class $milis_ballsort_ball extends $mol_view {
     }
@@ -8910,7 +8908,6 @@ var $;
     (function ($$) {
         class $milis_ballsort extends $.$milis_ballsort {
             board(next) {
-                console.log(next);
                 return next ?? new $milis_ballsort_board();
             }
             game_stage(next) {
@@ -8923,7 +8920,8 @@ var $;
                 return this.board().balls()[id].map((ball, index) => this.Ball(`${id}-${index}`));
             }
             ball_color(id, color) {
-                return this.board().balls()[+id.split('-')[0]][+id.split('-')[1]] ?? 'blue';
+                const [column_index, ball_index] = id.split('-');
+                return color ?? this.board().balls()[+column_index][+ball_index];
             }
             moves(next) {
                 return next ?? 0;
@@ -8938,7 +8936,7 @@ var $;
                 this.moves(0);
                 this.board(new $milis_ballsort_board);
             }
-            click_cup() {
+            click_column(id) {
                 this.board().touch(1);
                 this.moves(this.moves() + 1);
             }

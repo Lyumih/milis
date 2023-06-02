@@ -2343,6 +2343,7 @@ declare namespace $ {
         columns(): readonly any[];
         Table(): $mol_view;
         Game(): $$.$mol_list;
+        click_column(id: any, next?: any): any;
         ball_color(id: any): string;
         Ball(id: any): $milis_ballsort_ball;
         column_balls(id: any): readonly any[];
@@ -2350,8 +2351,6 @@ declare namespace $ {
         Source(): $$.$mol_link_iconed;
     }
     class $milis_ballsort_column extends $mol_button_minor {
-        click(next?: any): any;
-        click_column(next?: any): any;
     }
     class $milis_ballsort_ball extends $mol_view {
     }
@@ -2401,7 +2400,7 @@ declare namespace $.$$ {
         moves_text(): string;
         start_game(): void;
         restart(): void;
-        click_cup(): void;
+        click_column(id?: any): void;
         back(): void;
         body(): readonly any[];
     }

@@ -522,6 +522,7 @@ $milis_ballsort $mol_page
 				<= Table $mol_view
 					sub <= columns /
 	Column* $milis_ballsort_column
+		click? <= click_column*? null
 		sub <= column_balls* /
 			<= Ball* $milis_ballsort_ball
 				attr *
@@ -535,7 +536,7 @@ $milis_ballsort $mol_page
 			uri \https://github.com/Lyumih/milis//tree/main/ballsort
 
 $milis_ballsort_column $mol_button_minor
-	click? <= click_column? null
+	- click? <= click_column? null
 	- sub <= balls /
 		<= Ball $milis_ballsort_ball
 
