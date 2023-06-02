@@ -19,7 +19,7 @@ namespace $.$$ {
 			return this.view_tree_parse().join('\n')
 		}
 		say(event?: any) {
-			console.log(this.view_tree_parse[0])
+			// console.log(this.view_tree_parse[0])
 			$mol_speech.say(this.view_tree_parse().join('.'))
 		}
 		@ $mol_mem

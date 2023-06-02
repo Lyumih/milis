@@ -598,7 +598,7 @@ namespace $ {
 			return {
 				...super.attr(),
 				milis_vaop_agent_agent_empty: this.agent_empty()
-			}
+			} as Record< string, any >
 		}
 		
 		/**

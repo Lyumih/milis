@@ -353,7 +353,7 @@ namespace $ {
 			return {
 				...super.attr(),
 				back: this.back()
-			}
+			} as Record< string, any >
 		}
 		
 		/**
@@ -419,7 +419,7 @@ namespace $ {
 			
 			obj.attr = () => ({
 				first: this.first()
-			})
+			} as Record< string, any >)
 			
 			return obj
 		}
@@ -444,7 +444,7 @@ namespace $ {
 			
 			obj.attr = () => ({
 				second: this.second()
-			})
+			} as Record< string, any >)
 			
 			return obj
 		}

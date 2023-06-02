@@ -41,7 +41,7 @@ namespace $ {
 				...super.repo_dict(),
 				milis: "Lyumih/milis",
 				mol: "no/no"
-			}
+			} as Record< string, any >
 		}
 		
 		/**

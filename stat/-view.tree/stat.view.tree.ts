@@ -53,7 +53,7 @@ namespace $ {
 				events: this.EventsPage(),
 				conversion: this.ConversionPage(),
 				github: this.GitHub()
-			}
+			} as Record< string, any >
 		}
 		
 		/**

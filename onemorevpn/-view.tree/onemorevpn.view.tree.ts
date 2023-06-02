@@ -27,7 +27,7 @@ namespace $ {
 		spreads() {
 			return {
 				search_page: this.SearchPage()
-			}
+			} as Record< string, any >
 		}
 		
 		/**
