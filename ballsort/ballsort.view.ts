@@ -45,8 +45,9 @@ namespace $.$$ {
 			this.board( new $milis_ballsort_board )
 		}
 
+		@$mol_action
 		click_column(id?: any) {
-			this.board().touch( 1 )
+			this.board().touch( id )
 			this.moves( this.moves() + 1 )
 		}
 
