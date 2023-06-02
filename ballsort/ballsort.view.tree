@@ -1,0 +1,47 @@
+$milis_ballsort $mol_page
+	title \BALL SORT
+	body /
+		<= Start $mol_button_major
+			title \Start game
+			click? <= start_game? null
+		<= Game $mol_list
+			sub /
+				<= Info $mol_hor
+					sub /
+						<= Back $mol_button_minor
+							title \<-
+							click? <= back? null
+						<= Restart $mol_button_minor
+							click? <= restart? null
+						<= Moves $mol_text text <= moves_text \
+				<= Table $mol_view
+					sub /
+						<= Cup $milis_ballsort_cup
+							click_cup? <= click_cup? null
+						<= Cup2 $milis_ballsort_cup
+							click_cup? <= click_cup? null
+						<= Cup3 $milis_ballsort_cup
+							click_cup? <= click_cup? null
+						<= Cup4 $milis_ballsort_cup
+							click_cup? <= click_cup? null
+						<= Cup5 $milis_ballsort_cup
+							click_cup? <= click_cup? null
+						<= Cup6 $milis_ballsort_cup
+							click_cup? <= click_cup? null
+	foot /
+		<= Mol $mol_link_iconed
+			title \$mol
+			uri \https://mol.hyoo.ru/
+		<= Source $mol_link_iconed
+			title \Source Code
+			uri \https://github.com/Lyumih/milis//tree/main/ballsort
+
+$milis_ballsort_cup $mol_button_minor
+	click? <= click_cup? null
+	sub /
+		<= Ball1 $milis_ballsort_ball
+		<= Ball2 $milis_ballsort_ball
+		<= Ball3 $milis_ballsort_ball
+		<= Ball4 $milis_ballsort_ball
+
+$milis_ballsort_ball $mol_view
