@@ -3836,6 +3836,22 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_button_minor extends $mol_button_typed {
+    }
+    $.$mol_button_minor = $mol_button_minor;
+})($ || ($ = {}));
+//mol/button/minor/-view.tree/minor.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_button_minor][disabled] {\n\tcolor: var(--mol_theme_shade);\n}\n");
+})($ || ($ = {}));
+//mol/button/minor/-css/minor.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_button_major extends $mol_button_typed {
         attr() {
             return {
@@ -3854,22 +3870,6 @@ var $;
     $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n\tfilter: grayscale();\n}\n");
 })($ || ($ = {}));
 //mol/button/major/-css/major.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_button_minor extends $mol_button_typed {
-    }
-    $.$mol_button_minor = $mol_button_minor;
-})($ || ($ = {}));
-//mol/button/minor/-view.tree/minor.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_button_minor][disabled] {\n\tcolor: var(--mol_theme_shade);\n}\n");
-})($ || ($ = {}));
-//mol/button/minor/-css/minor.view.css.ts
 ;
 "use strict";
 var $;
@@ -8598,7 +8598,7 @@ var $;
             ];
         }
         Column(id) {
-            const obj = new this.$.$milis_ballsort_column();
+            const obj = new this.$.$mol_button_minor();
             obj.click = (next) => this.click_column(id);
             obj.sub = () => this.column_balls(id);
             return obj;
@@ -8658,10 +8658,20 @@ var $;
             ];
             return obj;
         }
+        win_content() {
+            return [
+                "You are win!"
+            ];
+        }
+        Win() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.win_content();
+            return obj;
+        }
         columns() {
             return [];
         }
-        Table() {
+        Scene() {
             const obj = new this.$.$mol_view();
             obj.sub = () => this.columns();
             return obj;
@@ -8670,7 +8680,8 @@ var $;
             const obj = new this.$.$mol_list();
             obj.sub = () => [
                 this.Info(),
-                this.Table()
+                this.Win(),
+                this.Scene()
             ];
             return obj;
         }
@@ -8683,7 +8694,7 @@ var $;
             return "";
         }
         Ball(id) {
-            const obj = new this.$.$milis_ballsort_ball();
+            const obj = new this.$.$mol_view();
             obj.attr = () => ({
                 color: this.ball_color(id)
             });
@@ -8736,7 +8747,10 @@ var $;
     ], $milis_ballsort.prototype, "Info", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort.prototype, "Table", null);
+    ], $milis_ballsort.prototype, "Win", null);
+    __decorate([
+        $mol_mem
+    ], $milis_ballsort.prototype, "Scene", null);
     __decorate([
         $mol_mem
     ], $milis_ballsort.prototype, "Game", null);
@@ -8753,12 +8767,6 @@ var $;
         $mol_mem
     ], $milis_ballsort.prototype, "Source", null);
     $.$milis_ballsort = $milis_ballsort;
-    class $milis_ballsort_column extends $mol_button_minor {
-    }
-    $.$milis_ballsort_column = $milis_ballsort_column;
-    class $milis_ballsort_ball extends $mol_view {
-    }
-    $.$milis_ballsort_ball = $milis_ballsort_ball;
 })($ || ($ = {}));
 //milis/ballsort/-view.tree/ballsort.view.tree.ts
 ;
@@ -8947,7 +8955,13 @@ var $;
                 this.game_stage('start');
             }
             body() {
-                return this.game_stage() === 'start' ? [this.Start()] : [this.Game()];
+                switch (this.game_stage()) {
+                    case "start": return [this.Start()];
+                    case "game": return [this.Game()];
+                }
+            }
+            win_content() {
+                return this.board().complete() ? super.win_content() : [];
             }
         }
         __decorate([

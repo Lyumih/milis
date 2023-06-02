@@ -26,14 +26,14 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Column* $milis_ballsort_column
+		 * Column* $mol_button_minor
 		 * 	click? <= click_column*?
 		 * 	sub <= column_balls*
 		 * ```
 		 */
 		@ $mol_mem_key
 		Column(id: any) {
-			const obj = new this.$.$milis_ballsort_column()
+			const obj = new this.$.$mol_button_minor()
 			
 			obj.click = (next?: any) => this.click_column(id)
 			obj.sub = () => this.column_balls(id)
@@ -182,6 +182,31 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * win_content / \You are win!
+		 * ```
+		 */
+		win_content() {
+			return [
+				"You are win!"
+			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
+		 * Win $mol_view sub <= win_content
+		 * ```
+		 */
+		@ $mol_mem
+		Win() {
+			const obj = new this.$.$mol_view()
+			
+			obj.sub = () => this.win_content()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
 		 * columns /
 		 * ```
 		 */
@@ -192,11 +217,11 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Table $mol_view sub <= columns
+		 * Scene $mol_view sub <= columns
 		 * ```
 		 */
 		@ $mol_mem
-		Table() {
+		Scene() {
 			const obj = new this.$.$mol_view()
 			
 			obj.sub = () => this.columns()
@@ -208,7 +233,8 @@ namespace $ {
 		 * ```tree
 		 * Game $mol_list sub /
 		 * 	<= Info
-		 * 	<= Table
+		 * 	<= Win
+		 * 	<= Scene
 		 * ```
 		 */
 		@ $mol_mem
@@ -217,7 +243,8 @@ namespace $ {
 			
 			obj.sub = () => [
 				this.Info(),
-				this.Table()
+				this.Win(),
+				this.Scene()
 			] as readonly any[]
 			
 			return obj
@@ -245,12 +272,12 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Ball* $milis_ballsort_ball attr * color <= ball_color*
+		 * Ball* $mol_view attr * color <= ball_color*
 		 * ```
 		 */
 		@ $mol_mem_key
 		Ball(id: any) {
-			const obj = new this.$.$milis_ballsort_ball()
+			const obj = new this.$.$mol_view()
 			
 			obj.attr = () => ({
 				color: this.ball_color(id)
@@ -303,12 +330,6 @@ namespace $ {
 			
 			return obj
 		}
-	}
-	
-	export class $milis_ballsort_column extends $mol_button_minor {
-	}
-	
-	export class $milis_ballsort_ball extends $mol_view {
 	}
 	
 }

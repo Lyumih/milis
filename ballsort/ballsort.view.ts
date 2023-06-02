@@ -7,7 +7,7 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		game_stage( next?: 'start' | 'game' | 'win' ) {
+		game_stage( next?: 'start' | 'game' ) {
 			return next ?? 'game'
 		}
 
@@ -56,7 +56,14 @@ namespace $.$$ {
 		}
 
 		body(): readonly any[] {
-			return this.game_stage() === 'start' ? [ this.Start() ] : [ this.Game() ]
+			switch (this.game_stage()) {
+				case "start": return [ this.Start() ]
+				case "game": return [ this.Game() ]
+			}
+		}
+
+		win_content(){
+			return this.board().complete() ? super.win_content() : []
 		}
 	}
 }

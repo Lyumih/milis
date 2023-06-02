@@ -1026,8 +1026,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_button_major extends $mol_button_typed {
-        attr(): Record<string, any>;
+    class $mol_button_minor extends $mol_button_typed {
     }
 }
 
@@ -1035,7 +1034,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_button_minor extends $mol_button_typed {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): Record<string, any>;
     }
 }
 
@@ -2329,7 +2329,7 @@ declare namespace $ {
     class $milis_ballsort extends $mol_page {
         title(): string;
         body(): readonly any[];
-        Column(id: any): $milis_ballsort_column;
+        Column(id: any): $mol_button_minor;
         foot(): readonly any[];
         start_game(next?: any): any;
         Start(): $mol_button_major;
@@ -2340,19 +2340,17 @@ declare namespace $ {
         moves_text(): string;
         Moves(): $$.$mol_text;
         Info(): $$.$mol_hor;
+        win_content(): readonly any[];
+        Win(): $mol_view;
         columns(): readonly any[];
-        Table(): $mol_view;
+        Scene(): $mol_view;
         Game(): $$.$mol_list;
         click_column(id: any, next?: any): any;
         ball_color(id: any): string;
-        Ball(id: any): $milis_ballsort_ball;
+        Ball(id: any): $mol_view;
         column_balls(id: any): readonly any[];
         Mol(): $$.$mol_link_iconed;
         Source(): $$.$mol_link_iconed;
-    }
-    class $milis_ballsort_column extends $mol_button_minor {
-    }
-    class $milis_ballsort_ball extends $mol_view {
     }
 }
 
@@ -2392,8 +2390,8 @@ declare namespace $ {
 declare namespace $.$$ {
     class $milis_ballsort extends $.$milis_ballsort {
         board(next?: $milis_ballsort_board): $milis_ballsort_board;
-        game_stage(next?: 'start' | 'game' | 'win'): "start" | "game" | "win";
-        columns(): $milis_ballsort_column[];
+        game_stage(next?: 'start' | 'game'): "start" | "game";
+        columns(): $mol_button_minor[];
         column_balls(id: any): readonly any[];
         ball_color(id: string, color?: string): string;
         moves(next?: number): number;
@@ -2403,6 +2401,7 @@ declare namespace $.$$ {
         click_column(id?: any): void;
         back(): void;
         body(): readonly any[];
+        win_content(): readonly any[];
     }
 }
 
