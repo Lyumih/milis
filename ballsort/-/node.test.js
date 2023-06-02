@@ -8589,6 +8589,11 @@ var $;
                 this.Game()
             ];
         }
+        Column(id) {
+            const obj = new this.$.$milis_ballsort_column();
+            obj.sub = () => this.column_balls(id);
+            return obj;
+        }
         foot() {
             return [
                 this.Mol(),
@@ -8644,25 +8649,12 @@ var $;
             ];
             return obj;
         }
-        Column3() {
-            const obj = new this.$.$milis_ballsort_column();
-            return obj;
-        }
-        Column(id) {
-            const obj = new this.$.$milis_ballsort_column();
-            return obj;
-        }
         columns() {
-            return [
-                this.Column("0")
-            ];
+            return [];
         }
         Table() {
             const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.Column3(),
-                this.columns()
-            ];
+            obj.sub = () => this.columns();
             return obj;
         }
         Game() {
@@ -8672,6 +8664,21 @@ var $;
                 this.Table()
             ];
             return obj;
+        }
+        ball_color(id) {
+            return "";
+        }
+        Ball(id) {
+            const obj = new this.$.$milis_ballsort_ball();
+            obj.attr = () => ({
+                color: this.ball_color(id)
+            });
+            return obj;
+        }
+        column_balls(id) {
+            return [
+                this.Ball(id)
+            ];
         }
         Mol() {
             const obj = new this.$.$mol_link_iconed();
@@ -8686,6 +8693,9 @@ var $;
             return obj;
         }
     }
+    __decorate([
+        $mol_mem_key
+    ], $milis_ballsort.prototype, "Column", null);
     __decorate([
         $mol_mem
     ], $milis_ballsort.prototype, "start_game", null);
@@ -8712,16 +8722,13 @@ var $;
     ], $milis_ballsort.prototype, "Info", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort.prototype, "Column3", null);
-    __decorate([
-        $mol_mem_key
-    ], $milis_ballsort.prototype, "Column", null);
-    __decorate([
-        $mol_mem
     ], $milis_ballsort.prototype, "Table", null);
     __decorate([
         $mol_mem
     ], $milis_ballsort.prototype, "Game", null);
+    __decorate([
+        $mol_mem_key
+    ], $milis_ballsort.prototype, "Ball", null);
     __decorate([
         $mol_mem
     ], $milis_ballsort.prototype, "Mol", null);
@@ -8733,51 +8740,15 @@ var $;
         click(next) {
             return this.click_column();
         }
-        sub() {
-            return [
-                this.Ball1(),
-                this.Ball2(),
-                this.Ball3(),
-                this.Ball4()
-            ];
-        }
         click_column(next) {
             if (next !== undefined)
                 return next;
             return null;
         }
-        Ball1() {
-            const obj = new this.$.$milis_ballsort_ball();
-            return obj;
-        }
-        Ball2() {
-            const obj = new this.$.$milis_ballsort_ball();
-            return obj;
-        }
-        Ball3() {
-            const obj = new this.$.$milis_ballsort_ball();
-            return obj;
-        }
-        Ball4() {
-            const obj = new this.$.$milis_ballsort_ball();
-            return obj;
-        }
     }
     __decorate([
         $mol_mem
     ], $milis_ballsort_column.prototype, "click_column", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort_column.prototype, "Ball1", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort_column.prototype, "Ball2", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort_column.prototype, "Ball3", null);
-    __decorate([
-        $mol_mem
-    ], $milis_ballsort_column.prototype, "Ball4", null);
     $.$milis_ballsort_column = $milis_ballsort_column;
     class $milis_ballsort_ball extends $mol_view {
     }
@@ -8832,7 +8803,7 @@ var $;
 (function ($) {
     class $milis_ballsort_board extends $mol_object2 {
         colors() {
-            return ['red', 'blue', 'green', 'magenta'];
+            return ['green', 'yellow', 'cyan', 'blue'];
         }
         balls(next) {
             if (next)
@@ -8938,10 +8909,13 @@ var $;
                 return next ?? 'game';
             }
             columns() {
-                console.log(this.board().balls());
-                const result = this.board().balls().map((balls, index) => this.Column(index));
-                console.log(result);
-                return [...result];
+                return this.board().balls().map((balls, index) => this.Column(index));
+            }
+            column_balls(id) {
+                return this.board().balls()[id].map((ball, index) => this.Ball(`${id}-${index}`));
+            }
+            ball_color(id, color) {
+                return this.board().balls()[+id.split('-')[0]][+id.split('-')[1]] ?? 'blue';
             }
             moves(next) {
                 return next ?? 0;
@@ -8954,6 +8928,7 @@ var $;
             }
             restart() {
                 this.moves(0);
+                this.board(new $milis_ballsort_board);
             }
             click_cup() {
                 this.board().touch(1);
@@ -8976,6 +8951,12 @@ var $;
             $mol_mem
         ], $milis_ballsort.prototype, "columns", null);
         __decorate([
+            $mol_mem_key
+        ], $milis_ballsort.prototype, "column_balls", null);
+        __decorate([
+            $mol_mem_key
+        ], $milis_ballsort.prototype, "ball_color", null);
+        __decorate([
             $mol_mem
         ], $milis_ballsort.prototype, "moves", null);
         $$.$milis_ballsort = $milis_ballsort;
@@ -8986,7 +8967,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/ballsort/ballsort.view.css", ":root {\n\t--milis_ballsort_ball_main: #466799;\n\t--milis_ballsort_ball_light: #00B2FF;\n}\n\n[milis_ballsort_body] {\n\tgap: var(--mol_gap_block);\n\talign-items: center;\n}\n\n[milis_ballsort_game] {\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_info] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_table] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_column] {\n    display: flex;\n    flex-direction: column;\n    -webkit-box-pack: end;\n    justify-content: flex-end;\n    flex-shrink: 0;\n    -webkit-box-align: center;\n    align-items: center;\n    border-right: 2px solid lightgray;\n    border-bottom: 2px solid lightgray;\n    border-left: 2px solid lightgray;\n    border-image: initial;\n    border-top: none;\n    width: 3rem;\n    height: 10rem;\n    padding-bottom: 0.4rem;\n    padding-top: 0.4rem;\n    border-bottom-left-radius: 2.4rem;\n    border-bottom-right-radius: 2.4rem;\n}\n\n[milis_ballsort_ball] {\n    width: 2rem;\n    height: 2rem;\n    border-radius: 50%;\n    border: 2px solid black;\n    margin: 1px;\n    flex-shrink: 0;\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_light) 3%, var(--milis_ballsort_ball_main) 60%, var(--milis_ballsort_ball_light) 100% );\n    position: relative;\n}\n");
+    $mol_style_attach("milis/ballsort/ballsort.view.css", ":root {\n\t--milis_ballsort_ball_main: #466799;\n\t--milis_ballsort_ball_light: #00B2FF;\n\t--milis_ballsort_ball_green_main: #247516;\n\t--milis_ballsort_ball_green_light: #70FF00;\n\t--milis_ballsort_ball_yellow_main: #8F7E22;\n\t--milis_ballsort_ball_yellow_light: #FFE600;\n\t--milis_ballsort_ball_cyan_main: #29777C;\n\t--milis_ballsort_ball_cyan_light: #00FFF0;\n\t--milis_ballsort_ball_blue_main: #466799;\n\t--milis_ballsort_ball_blue_light: #00B2FF;\n}\n\n[milis_ballsort_body] {\n\tgap: var(--mol_gap_block);\n\talign-items: center;\n}\n\n[milis_ballsort_game] {\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_info] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_table] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_column] {\n    display: flex;\n    flex-direction: column;\n    -webkit-box-pack: end;\n    justify-content: flex-end;\n    flex-shrink: 0;\n    -webkit-box-align: center;\n    align-items: center;\n    border-right: 2px solid lightgray;\n    border-bottom: 2px solid lightgray;\n    border-left: 2px solid lightgray;\n    border-image: initial;\n    border-top: none;\n    width: 3rem;\n    height: 10rem;\n    padding-bottom: 0.4rem;\n    padding-top: 0.4rem;\n    border-bottom-left-radius: 2.4rem;\n    border-bottom-right-radius: 2.4rem;\n}\n\n[milis_ballsort_ball] {\n    width: 2rem;\n    height: 2rem;\n    border-radius: 50%;\n    border: 2px solid black;\n    margin: 1px;\n    flex-shrink: 0;\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_light) 3%, var(--milis_ballsort_ball_main) 60%, var(--milis_ballsort_ball_light) 100% );\n    position: relative;\n}\n\n[color='green'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_green_light) 3%, var(--milis_ballsort_ball_green_main) 60%, var(--milis_ballsort_ball_green_light) 100% );\n}\n\n[color='yellow'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_yellow_light) 3%, var(--milis_ballsort_ball_yellow_main) 60%, var(--milis_ballsort_ball_yellow_light) 100% );\n}\n\n[color='cyan'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_cyan_light) 3%, var(--milis_ballsort_ball_cyan_main) 60%, var(--milis_ballsort_ball_cyan_light) 100% );\n}\n[color='blue'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_blue_light) 3%, var(--milis_ballsort_ball_blue_main) 60%, var(--milis_ballsort_ball_blue_light) 100% );\n}\n");
 })($ || ($ = {}));
 //milis/ballsort/-css/ballsort.view.css.ts
 ;

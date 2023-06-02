@@ -4,7 +4,7 @@ namespace $ {
 
 		@$mol_mem
 		colors() {
-			return [ 'red', 'blue', 'green', 'magenta' ]
+			return [ 'green', 'yellow', 'cyan', 'blue' ]
 		}
 
 		@$mol_mem

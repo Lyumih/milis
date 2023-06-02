@@ -26,6 +26,20 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * Column* $milis_ballsort_column sub <= column_balls*
+		 * ```
+		 */
+		@ $mol_mem_key
+		Column(id: any) {
+			const obj = new this.$.$milis_ballsort_column()
+			
+			obj.sub = () => this.column_balls(id)
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
 		 * foot /
 		 * 	<= Mol
 		 * 	<= Source
@@ -165,54 +179,24 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Column3 $milis_ballsort_column
-		 * ```
-		 */
-		@ $mol_mem
-		Column3() {
-			const obj = new this.$.$milis_ballsort_column()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Column*0 $milis_ballsort_column
-		 * ```
-		 */
-		@ $mol_mem_key
-		Column(id: any) {
-			const obj = new this.$.$milis_ballsort_column()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * columns / <= Column*0
+		 * columns /
 		 * ```
 		 */
 		columns() {
 			return [
-				this.Column("0")
 			] as readonly any[]
 		}
 		
 		/**
 		 * ```tree
-		 * Table $mol_view sub /
-		 * 	<= Column3
-		 * 	<= columns
+		 * Table $mol_view sub <= columns
 		 * ```
 		 */
 		@ $mol_mem
 		Table() {
 			const obj = new this.$.$mol_view()
 			
-			obj.sub = () => [
-				this.Column3(),
-				this.columns()
-			] as readonly any[]
+			obj.sub = () => this.columns()
 			
 			return obj
 		}
@@ -234,6 +218,42 @@ namespace $ {
 			] as readonly any[]
 			
 			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * ball_color* \
+		 * ```
+		 */
+		ball_color(id: any) {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Ball* $milis_ballsort_ball attr * color <= ball_color*
+		 * ```
+		 */
+		@ $mol_mem_key
+		Ball(id: any) {
+			const obj = new this.$.$milis_ballsort_ball()
+			
+			obj.attr = () => ({
+				color: this.ball_color(id)
+			} as Record< string, any >)
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * column_balls* / <= Ball*
+		 * ```
+		 */
+		column_balls(id: any) {
+			return [
+				this.Ball(id)
+			] as readonly any[]
 		}
 		
 		/**
@@ -284,24 +304,6 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * sub /
-		 * 	<= Ball1
-		 * 	<= Ball2
-		 * 	<= Ball3
-		 * 	<= Ball4
-		 * ```
-		 */
-		sub() {
-			return [
-				this.Ball1(),
-				this.Ball2(),
-				this.Ball3(),
-				this.Ball4()
-			] as readonly any[]
-		}
-		
-		/**
-		 * ```tree
 		 * click_column? null
 		 * ```
 		 */
@@ -309,54 +311,6 @@ namespace $ {
 		click_column(next?: any) {
 			if ( next !== undefined ) return next as never
 			return null as any
-		}
-		
-		/**
-		 * ```tree
-		 * Ball1 $milis_ballsort_ball
-		 * ```
-		 */
-		@ $mol_mem
-		Ball1() {
-			const obj = new this.$.$milis_ballsort_ball()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Ball2 $milis_ballsort_ball
-		 * ```
-		 */
-		@ $mol_mem
-		Ball2() {
-			const obj = new this.$.$milis_ballsort_ball()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Ball3 $milis_ballsort_ball
-		 * ```
-		 */
-		@ $mol_mem
-		Ball3() {
-			const obj = new this.$.$milis_ballsort_ball()
-			
-			return obj
-		}
-		
-		/**
-		 * ```tree
-		 * Ball4 $milis_ballsort_ball
-		 * ```
-		 */
-		@ $mol_mem
-		Ball4() {
-			const obj = new this.$.$milis_ballsort_ball()
-			
-			return obj
 		}
 	}
 	

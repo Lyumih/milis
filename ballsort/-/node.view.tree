@@ -520,10 +520,12 @@ $milis_ballsort $mol_page
 							click? <= restart? null
 						<= Moves $mol_text text <= moves_text \
 				<= Table $mol_view
-					sub /
-						<= Column3 $milis_ballsort_column
-						<= columns /
-							<= Column*0 $milis_ballsort_column
+					sub <= columns /
+	Column* $milis_ballsort_column
+		sub <= column_balls* /
+			<= Ball* $milis_ballsort_ball
+				attr *
+					color <= ball_color* \
 	foot /
 		<= Mol $mol_link_iconed
 			title \$mol
@@ -534,10 +536,7 @@ $milis_ballsort $mol_page
 
 $milis_ballsort_column $mol_button_minor
 	click? <= click_column? null
-	sub /
-		<= Ball1 $milis_ballsort_ball
-		<= Ball2 $milis_ballsort_ball
-		<= Ball3 $milis_ballsort_ball
-		<= Ball4 $milis_ballsort_ball
+	- sub <= balls /
+		<= Ball $milis_ballsort_ball
 
 $milis_ballsort_ball $mol_view

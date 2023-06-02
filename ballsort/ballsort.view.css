@@ -1,6 +1,14 @@
 :root {
 	--milis_ballsort_ball_main: #466799;
 	--milis_ballsort_ball_light: #00B2FF;
+	--milis_ballsort_ball_green_main: #247516;
+	--milis_ballsort_ball_green_light: #70FF00;
+	--milis_ballsort_ball_yellow_main: #8F7E22;
+	--milis_ballsort_ball_yellow_light: #FFE600;
+	--milis_ballsort_ball_cyan_main: #29777C;
+	--milis_ballsort_ball_cyan_light: #00FFF0;
+	--milis_ballsort_ball_blue_main: #466799;
+	--milis_ballsort_ball_blue_light: #00B2FF;
 }
 
 [milis_ballsort_body] {
@@ -54,4 +62,19 @@
     flex-shrink: 0;
     background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_light) 3%, var(--milis_ballsort_ball_main) 60%, var(--milis_ballsort_ball_light) 100% );
     position: relative;
+}
+
+[color='green'] {
+    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_green_light) 3%, var(--milis_ballsort_ball_green_main) 60%, var(--milis_ballsort_ball_green_light) 100% );
+}
+
+[color='yellow'] {
+    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_yellow_light) 3%, var(--milis_ballsort_ball_yellow_main) 60%, var(--milis_ballsort_ball_yellow_light) 100% );
+}
+
+[color='cyan'] {
+    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_cyan_light) 3%, var(--milis_ballsort_ball_cyan_main) 60%, var(--milis_ballsort_ball_cyan_light) 100% );
+}
+[color='blue'] {
+    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_blue_light) 3%, var(--milis_ballsort_ball_blue_main) 60%, var(--milis_ballsort_ball_blue_light) 100% );
 }

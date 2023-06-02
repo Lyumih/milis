@@ -14,11 +14,17 @@ namespace $.$$ {
 
 		@ $mol_mem
 		columns() {
-			console.log(this.board().balls())
-			const result =  this.board().balls().map((balls, index) => this.Column(index))
-			console.log(result)
-			// return [this.Column3()]
-			return [...result]
+			return this.board().balls().map((balls, index) => this.Column(index))
+		}
+
+		@ $mol_mem_key
+		column_balls( id: any ): readonly any[] {
+			return this.board().balls()[id].map((ball, index)=> this.Ball(`${id}-${index}`))
+		}
+
+		@ $mol_mem_key
+		ball_color( id: string, color?: string ): string {
+			return this.board().balls()[+id.split('-')[0]][+id.split('-')[1]] ?? 'blue'
 		}
 
 		@ $mol_mem
@@ -36,6 +42,7 @@ namespace $.$$ {
 
 		restart() {
 			this.moves(0)
+			this.board(new $milis_ballsort_board)
 		}
 
 		click_cup() {
