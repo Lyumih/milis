@@ -27,6 +27,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Column* $mol_button_minor
+		 * 	attr * active <= active*
 		 * 	click? <= click_column*?
 		 * 	sub <= column_balls*
 		 * ```
@@ -35,6 +36,9 @@ namespace $ {
 		Column(id: any) {
 			const obj = new this.$.$mol_button_minor()
 			
+			obj.attr = () => ({
+				active: this.active(id)
+			} as Record< string, any >)
 			obj.click = (next?: any) => this.click_column(id)
 			obj.sub = () => this.column_balls(id)
 			
@@ -182,6 +186,30 @@ namespace $ {
 		
 		/**
 		 * ```tree
+		 * columns /
+		 * ```
+		 */
+		columns() {
+			return [
+			] as readonly any[]
+		}
+		
+		/**
+		 * ```tree
+		 * Scene $mol_view sub <= columns
+		 * ```
+		 */
+		@ $mol_mem
+		Scene() {
+			const obj = new this.$.$mol_view()
+			
+			obj.sub = () => this.columns()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
 		 * win_content / \You are win!
 		 * ```
 		 */
@@ -207,24 +235,53 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * columns /
+		 * seed_id \pa0a7c_f52f05
 		 * ```
 		 */
-		columns() {
-			return [
-			] as readonly any[]
+		seed_id() {
+			return "pa0a7c_f52f05"
 		}
 		
 		/**
 		 * ```tree
-		 * Scene $mol_view sub <= columns
+		 * chat_pages
+		 * ```
+		 */
+		chat_pages() {
+			return this.Chat().pages()
+		}
+		
+		/**
+		 * ```tree
+		 * Chat $mol_chat
+		 * 	opened true
+		 * 	seed <= seed_id
+		 * 	pages => chat_pages
 		 * ```
 		 */
 		@ $mol_mem
-		Scene() {
+		Chat() {
+			const obj = new this.$.$mol_chat()
+			
+			obj.opened = () => true
+			obj.seed = () => this.seed_id()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Pages $mol_view
+		 * 	minimal_height 100
+		 * 	sub <= chat_pages
+		 * ```
+		 */
+		@ $mol_mem
+		Pages() {
 			const obj = new this.$.$mol_view()
 			
-			obj.sub = () => this.columns()
+			obj.minimal_height = () => 100
+			obj.sub = () => this.chat_pages()
 			
 			return obj
 		}
@@ -233,8 +290,10 @@ namespace $ {
 		 * ```tree
 		 * Game $mol_list sub /
 		 * 	<= Info
-		 * 	<= Win
 		 * 	<= Scene
+		 * 	<= Win
+		 * 	<= Chat
+		 * 	<= Pages
 		 * ```
 		 */
 		@ $mol_mem
@@ -243,11 +302,22 @@ namespace $ {
 			
 			obj.sub = () => [
 				this.Info(),
+				this.Scene(),
 				this.Win(),
-				this.Scene()
+				this.Chat(),
+				this.Pages()
 			] as readonly any[]
 			
 			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * active* false
+		 * ```
+		 */
+		active(id: any) {
+			return false
 		}
 		
 		/**

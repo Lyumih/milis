@@ -8538,6 +8538,234 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_forum extends $mol_icon {
+        path() {
+            return "M17,12V3C17,2.45 16.55,2 16,2H3C2.45,2 2,2.45 2,3V17L6,13H16C16.55,13 17,12.55 17,12M21,6H19V15H6V17C6,17.55 6.45,18 7,18H18L22,22V7C22,6.45 21.55,6 21,6Z";
+        }
+    }
+    $.$mol_icon_forum = $mol_icon_forum;
+})($ || ($ = {}));
+//mol/icon/forum/-view.tree/forum.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_forum_outline extends $mol_icon {
+        path() {
+            return "M15,4V11H5.17L4,12.17V4H15M16,2H3C2.45,2 2,2.45 2,3V17L6,13H16C16.55,13 17,12.55 17,12V3C17,2.45 16.55,2 16,2M21,6H19V15H6V17C6,17.55 6.45,18 7,18H18L22,22V7C22,6.45 21.55,6 21,6Z";
+        }
+    }
+    $.$mol_icon_forum_outline = $mol_icon_forum_outline;
+})($ || ($ = {}));
+//mol/icon/forum/outline/-view.tree/outline.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_open_in_new extends $mol_icon {
+        path() {
+            return "M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V12H19V19Z";
+        }
+    }
+    $.$mol_icon_open_in_new = $mol_icon_open_in_new;
+})($ || ($ = {}));
+//mol/icon/open/in/new/-view.tree/new.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_cross extends $mol_icon {
+        path() {
+            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
+        }
+    }
+    $.$mol_icon_cross = $mol_icon_cross;
+})($ || ($ = {}));
+//mol/icon/cross/-view.tree/cross.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_chat extends $mol_link {
+        seed() {
+            return "";
+        }
+        opened() {
+            return false;
+        }
+        arg() {
+            return {
+                mol_chat: ""
+            };
+        }
+        hint() {
+            return this.title();
+        }
+        sub() {
+            return [
+                this.Icon()
+            ];
+        }
+        pages() {
+            return [
+                this.Page()
+            ];
+        }
+        Icon() {
+            const obj = new this.$.$mol_icon_forum_outline();
+            return obj;
+        }
+        title() {
+            return this.$.$mol_locale.text('$mol_chat_title');
+        }
+        standalone() {
+            return "";
+        }
+        Standalone_icon() {
+            const obj = new this.$.$mol_icon_open_in_new();
+            return obj;
+        }
+        Esternal() {
+            const obj = new this.$.$mol_link();
+            obj.uri = () => this.standalone();
+            obj.sub = () => [
+                this.Standalone_icon()
+            ];
+            return obj;
+        }
+        Close_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Close() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                mol_chat: null
+            });
+            obj.sub = () => [
+                this.Close_icon()
+            ];
+            return obj;
+        }
+        embed() {
+            return "";
+        }
+        Embed() {
+            const obj = new this.$.$mol_frame();
+            obj.uri = () => this.embed();
+            return obj;
+        }
+        Page() {
+            const obj = new this.$.$mol_page();
+            obj.title = () => this.title();
+            obj.tools = () => [
+                this.Esternal(),
+                this.Close()
+            ];
+            obj.Body = () => this.Embed();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_chat.prototype, "Icon", null);
+    __decorate([
+        $mol_mem
+    ], $mol_chat.prototype, "Standalone_icon", null);
+    __decorate([
+        $mol_mem
+    ], $mol_chat.prototype, "Esternal", null);
+    __decorate([
+        $mol_mem
+    ], $mol_chat.prototype, "Close_icon", null);
+    __decorate([
+        $mol_mem
+    ], $mol_chat.prototype, "Close", null);
+    __decorate([
+        $mol_mem
+    ], $mol_chat.prototype, "Embed", null);
+    __decorate([
+        $mol_mem
+    ], $mol_chat.prototype, "Page", null);
+    $.$mol_chat = $mol_chat;
+})($ || ($ = {}));
+//mol/chat/-view.tree/chat.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function parse(theme) {
+        if (theme === 'true')
+            return true;
+        if (theme === 'false')
+            return false;
+        return null;
+    }
+    function $mol_lights(next) {
+        const arg = parse(this.$mol_state_arg.value('mol_lights'));
+        const base = false;
+        if (next === undefined) {
+            return arg ?? this.$mol_state_local.value('$mol_lights') ?? base;
+        }
+        else {
+            if (arg === null) {
+                this.$mol_state_local.value('$mol_lights', next === base ? null : next);
+            }
+            else {
+                this.$mol_state_arg.value('mol_lights', String(next));
+            }
+            return next;
+        }
+    }
+    $.$mol_lights = $mol_lights;
+})($ || ($ = {}));
+//mol/lights/lights.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_chat extends $.$mol_chat {
+            opened() {
+                return this.$.$mol_state_arg.value('mol_chat') !== null;
+            }
+            pages() {
+                return this.opened() ? [this.Page()] : [];
+            }
+            standalone() {
+                const seed = this.seed();
+                const origin = new URL(this.$.$mol_state_arg.href()).origin;
+                return `https://talks.hyoo.ru/#!chat=${seed}`;
+            }
+            embed() {
+                const seed = this.seed();
+                const lights = String(this.$.$mol_lights());
+                const embed = this.$.$mol_state_arg.href();
+                return `https://talks.hyoo.ru/#!chat=${encodeURIComponent(seed)}/mol_lights=${lights}`;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_chat.prototype, "standalone", null);
+        __decorate([
+            $mol_mem
+        ], $mol_chat.prototype, "embed", null);
+        $$.$mol_chat = $mol_chat;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/chat/chat.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/chat/chat.view.css", "[mol_chat_page] {\n\tflex: 1 0 30rem;\n}\n");
+})($ || ($ = {}));
+//mol/chat/-css/chat.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_text_list extends $mol_text {
         auto_scroll() {
             return null;
@@ -8599,6 +8827,9 @@ var $;
         }
         Column(id) {
             const obj = new this.$.$mol_button_minor();
+            obj.attr = () => ({
+                active: this.active(id)
+            });
             obj.click = (next) => this.click_column(id);
             obj.sub = () => this.column_balls(id);
             return obj;
@@ -8658,6 +8889,14 @@ var $;
             ];
             return obj;
         }
+        columns() {
+            return [];
+        }
+        Scene() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.columns();
+            return obj;
+        }
         win_content() {
             return [
                 "You are win!"
@@ -8668,22 +8907,37 @@ var $;
             obj.sub = () => this.win_content();
             return obj;
         }
-        columns() {
-            return [];
+        seed_id() {
+            return "pa0a7c_f52f05";
         }
-        Scene() {
+        chat_pages() {
+            return this.Chat().pages();
+        }
+        Chat() {
+            const obj = new this.$.$mol_chat();
+            obj.opened = () => true;
+            obj.seed = () => this.seed_id();
+            return obj;
+        }
+        Pages() {
             const obj = new this.$.$mol_view();
-            obj.sub = () => this.columns();
+            obj.minimal_height = () => 100;
+            obj.sub = () => this.chat_pages();
             return obj;
         }
         Game() {
             const obj = new this.$.$mol_list();
             obj.sub = () => [
                 this.Info(),
+                this.Scene(),
                 this.Win(),
-                this.Scene()
+                this.Chat(),
+                this.Pages()
             ];
             return obj;
+        }
+        active(id) {
+            return false;
         }
         click_column(id, next) {
             if (next !== undefined)
@@ -8747,10 +9001,16 @@ var $;
     ], $milis_ballsort.prototype, "Info", null);
     __decorate([
         $mol_mem
+    ], $milis_ballsort.prototype, "Scene", null);
+    __decorate([
+        $mol_mem
     ], $milis_ballsort.prototype, "Win", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort.prototype, "Scene", null);
+    ], $milis_ballsort.prototype, "Chat", null);
+    __decorate([
+        $mol_mem
+    ], $milis_ballsort.prototype, "Pages", null);
     __decorate([
         $mol_mem
     ], $milis_ballsort.prototype, "Game", null);
@@ -8881,6 +9141,7 @@ var $;
                 mut[col](colors => [color, ...colors]);
                 this.balls(mut());
                 this.active(-1);
+                return true;
             }
         }
     }
@@ -8948,20 +9209,23 @@ var $;
                 this.board(new $milis_ballsort_board);
             }
             click_column(id) {
-                this.board().touch(id);
-                this.moves(this.moves() + 1);
+                if (this.board().touch(id))
+                    this.moves(this.moves() + 1);
             }
             back() {
                 this.game_stage('start');
             }
             body() {
                 switch (this.game_stage()) {
-                    case "start": return [this.Start()];
-                    case "game": return [this.Game()];
+                    case "start": return [this.Start(), this.Chat()];
+                    case "game": return [this.Game(), this.Chat()];
                 }
             }
             win_content() {
                 return this.board().complete() ? super.win_content() : [];
+            }
+            active(id) {
+                return this.board().active() === id;
             }
         }
         __decorate([
@@ -8993,7 +9257,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("milis/ballsort/ballsort.view.css", ":root {\n\t--milis_ballsort_ball_main: #466799;\n\t--milis_ballsort_ball_light: #00B2FF;\n\t--milis_ballsort_ball_green_main: #247516;\n\t--milis_ballsort_ball_green_light: #70FF00;\n\t--milis_ballsort_ball_yellow_main: #8F7E22;\n\t--milis_ballsort_ball_yellow_light: #FFE600;\n\t--milis_ballsort_ball_cyan_main: #29777C;\n\t--milis_ballsort_ball_cyan_light: #00FFF0;\n\t--milis_ballsort_ball_blue_main: #466799;\n\t--milis_ballsort_ball_blue_light: #00B2FF;\n}\n\n[milis_ballsort_body] {\n\tgap: var(--mol_gap_block);\n\talign-items: center;\n}\n\n[milis_ballsort_game] {\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_info] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_table] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_column] {\n    display: flex;\n    flex-direction: column;\n    -webkit-box-pack: end;\n    justify-content: flex-end;\n    flex-shrink: 0;\n    -webkit-box-align: center;\n    align-items: center;\n    border-right: 2px solid lightgray;\n    border-bottom: 2px solid lightgray;\n    border-left: 2px solid lightgray;\n    border-image: initial;\n    border-top: none;\n    width: 3rem;\n    height: 10rem;\n    padding-bottom: 0.4rem;\n    padding-top: 0.4rem;\n    border-bottom-left-radius: 2.4rem;\n    border-bottom-right-radius: 2.4rem;\n}\n\n[milis_ballsort_ball] {\n    width: 2rem;\n    height: 2rem;\n    border-radius: 50%;\n    border: 2px solid black;\n    margin: 1px;\n    flex-shrink: 0;\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_light) 3%, var(--milis_ballsort_ball_main) 60%, var(--milis_ballsort_ball_light) 100% );\n    position: relative;\n}\n\n[color='green'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_green_light) 3%, var(--milis_ballsort_ball_green_main) 60%, var(--milis_ballsort_ball_green_light) 100% );\n}\n\n[color='yellow'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_yellow_light) 3%, var(--milis_ballsort_ball_yellow_main) 60%, var(--milis_ballsort_ball_yellow_light) 100% );\n}\n\n[color='cyan'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_cyan_light) 3%, var(--milis_ballsort_ball_cyan_main) 60%, var(--milis_ballsort_ball_cyan_light) 100% );\n}\n[color='blue'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_blue_light) 3%, var(--milis_ballsort_ball_blue_main) 60%, var(--milis_ballsort_ball_blue_light) 100% );\n}\n");
+    $mol_style_attach("milis/ballsort/ballsort.view.css", ":root {\n\t--milis_ballsort_ball_main: #466799;\n\t--milis_ballsort_ball_light: #00B2FF;\n\t--milis_ballsort_ball_green_main: #247516;\n\t--milis_ballsort_ball_green_light: #70FF00;\n\t--milis_ballsort_ball_yellow_main: #8F7E22;\n\t--milis_ballsort_ball_yellow_light: #FFE600;\n\t--milis_ballsort_ball_cyan_main: #29777C;\n\t--milis_ballsort_ball_cyan_light: #00FFF0;\n\t--milis_ballsort_ball_blue_main: #466799;\n\t--milis_ballsort_ball_blue_light: #00B2FF;\n}\n\n[milis_ballsort_body] {\n\tgap: var(--mol_gap_block);\n\talign-items: center;\n}\n\n[milis_ballsort_game] {\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_info] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_table] {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: var(--mol_gap_block);\n}\n\n[milis_ballsort_column] {\n    display: flex;\n    flex-direction: column;\n    -webkit-box-pack: end;\n    justify-content: flex-end;\n    flex-shrink: 0;\n    -webkit-box-align: center;\n    align-items: center;\n    border-right: 2px solid lightgray;\n    border-bottom: 2px solid lightgray;\n    border-left: 2px solid lightgray;\n    border-image: initial;\n    border-top: none;\n    width: 3rem;\n    height: 10rem;\n    padding-bottom: 0.4rem;\n    padding-top: 0.4rem;\n    border-bottom-left-radius: 2.4rem;\n    border-bottom-right-radius: 2.4rem;\n}\n\n[active=\"true\"]>[milis_ballsort_ball]:first-child {\n\tmargin-bottom: 20px;\n}\n\n[milis_ballsort_ball] {\n    width: 2rem;\n    height: 2rem;\n    border-radius: 50%;\n    border: 2px solid black;\n    margin: 1px;\n    flex-shrink: 0;\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_light) 3%, var(--milis_ballsort_ball_main) 60%, var(--milis_ballsort_ball_light) 100% );\n    position: relative;\n}\n\n[color='green'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_green_light) 3%, var(--milis_ballsort_ball_green_main) 60%, var(--milis_ballsort_ball_green_light) 100% );\n}\n\n[color='yellow'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_yellow_light) 3%, var(--milis_ballsort_ball_yellow_main) 60%, var(--milis_ballsort_ball_yellow_light) 100% );\n}\n\n[color='cyan'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_cyan_light) 3%, var(--milis_ballsort_ball_cyan_main) 60%, var(--milis_ballsort_ball_cyan_light) 100% );\n}\n[color='blue'] {\n    background: radial-gradient( circle at 65% 15%, white 1px, var(--milis_ballsort_ball_blue_light) 3%, var(--milis_ballsort_ball_blue_main) 60%, var(--milis_ballsort_ball_blue_light) 100% );\n}\n");
 })($ || ($ = {}));
 //milis/ballsort/-css/ballsort.view.css.ts
 

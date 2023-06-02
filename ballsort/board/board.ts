@@ -95,6 +95,7 @@ namespace $ {
 				this.balls( mut() )
 				this.active( -1 )
 
+				return true
 			}
 		}
 
