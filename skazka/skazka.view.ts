@@ -37,7 +37,8 @@ namespace $.$$ {
 
 		@$mol_mem
 		hero_id() {
-			return $mol_state_arg.value( 'id' ) ?? '1'
+			// return Number($mol_state_arg.value( 'id' )) || 1
+			return 1
 		}
 
 		@$mol_mem
