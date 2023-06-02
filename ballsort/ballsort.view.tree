@@ -14,9 +14,12 @@ $milis_ballsort $mol_page
 						<= Restart $mol_button_minor
 							click? <= restart? null
 						<= Moves $mol_text text <= moves_text \
-				<= Win $mol_view sub <= win_content / \You are win!
 				<= Scene $mol_view sub <= columns /
+				<= Win $mol_view sub <= win_content / \You are win!
+		<= Chat $hyoo_talks
+			seed \pa0a7c_f52f05
 	Column* $mol_button_minor
+		attr * active <= active* false
 		click? <= click_column*? null
 		sub <= column_balls* /
 			<= Ball* $mol_view

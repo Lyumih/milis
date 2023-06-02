@@ -53,6 +53,10 @@
     border-bottom-right-radius: 2.4rem;
 }
 
+[active="true"]>[milis_ballsort_ball]:first-child {
+	margin-bottom: 20px;
+}
+
 [milis_ballsort_ball] {
     width: 2rem;
     height: 2rem;
