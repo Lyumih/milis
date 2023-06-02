@@ -24,7 +24,7 @@
 	gap: var(--mol_gap_block);
 }
 
-[milis_ballsort_cup] {
+[milis_ballsort_column] {
     display: flex;
     flex-direction: column;
     -webkit-box-pack: end;
