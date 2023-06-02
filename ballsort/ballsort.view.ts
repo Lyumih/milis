@@ -22,6 +22,11 @@ namespace $.$$ {
 			return this.board().balls()[id].map((ball, index)=> this.Ball(`${id}-${index}`))
 		}
 
+		@ $mol_mem_key
+		ball_color( id: string, color?: string ): string {
+			return this.board().balls()[+id.split('-')[0]][+id.split('-')[1]] ?? 'blue'
+		}
+
 		@ $mol_mem
 		moves(next?: number) {
 			return next ?? 0
@@ -37,6 +42,7 @@ namespace $.$$ {
 
 		restart() {
 			this.moves(0)
+			this.board(new $milis_ballsort_board)
 		}
 
 		click_cup() {

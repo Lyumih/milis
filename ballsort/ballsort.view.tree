@@ -16,9 +16,11 @@ $milis_ballsort $mol_page
 						<= Moves $mol_text text <= moves_text \
 				<= Table $mol_view
 					sub <= columns /
-						<= Column* $milis_ballsort_column
-							sub <= column_balls* /
-								<= Ball* $milis_ballsort_ball
+	Column* $milis_ballsort_column
+		sub <= column_balls* /
+			<= Ball* $milis_ballsort_ball
+				attr *
+					color <= ball_color* \
 	foot /
 		<= Mol $mol_link_iconed
 			title \$mol
