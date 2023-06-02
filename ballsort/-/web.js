@@ -8034,7 +8034,7 @@ var $;
                 return next;
             return null;
         }
-        Cup() {
+        Cup1() {
             const obj = new this.$.$milis_ballsort_cup();
             obj.click_cup = (next) => this.click_cup();
             return obj;
@@ -8067,7 +8067,7 @@ var $;
         Table() {
             const obj = new this.$.$mol_view();
             obj.sub = () => [
-                this.Cup(),
+                this.Cup1(),
                 this.Cup2(),
                 this.Cup3(),
                 this.Cup4(),
@@ -8126,7 +8126,7 @@ var $;
     ], $milis_ballsort.prototype, "click_cup", null);
     __decorate([
         $mol_mem
-    ], $milis_ballsort.prototype, "Cup", null);
+    ], $milis_ballsort.prototype, "Cup1", null);
     __decorate([
         $mol_mem
     ], $milis_ballsort.prototype, "Cup2", null);

@@ -176,11 +176,11 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * Cup $milis_ballsort_cup click_cup? <= click_cup?
+		 * Cup1 $milis_ballsort_cup click_cup? <= click_cup?
 		 * ```
 		 */
 		@ $mol_mem
-		Cup() {
+		Cup1() {
 			const obj = new this.$.$milis_ballsort_cup()
 			
 			obj.click_cup = (next?: any) => this.click_cup()
@@ -261,7 +261,7 @@ namespace $ {
 		/**
 		 * ```tree
 		 * Table $mol_view sub /
-		 * 	<= Cup
+		 * 	<= Cup1
 		 * 	<= Cup2
 		 * 	<= Cup3
 		 * 	<= Cup4
@@ -274,7 +274,7 @@ namespace $ {
 			const obj = new this.$.$mol_view()
 			
 			obj.sub = () => [
-				this.Cup(),
+				this.Cup1(),
 				this.Cup2(),
 				this.Cup3(),
 				this.Cup4(),

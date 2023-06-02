@@ -2470,7 +2470,7 @@ declare namespace $ {
         Moves(): $$.$mol_text;
         Info(): $$.$mol_hor;
         click_cup(next?: any): any;
-        Cup(): $milis_ballsort_cup;
+        Cup1(): $milis_ballsort_cup;
         Cup2(): $milis_ballsort_cup;
         Cup3(): $milis_ballsort_cup;
         Cup4(): $milis_ballsort_cup;
