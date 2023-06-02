@@ -8833,7 +8833,10 @@ var $;
         complete() {
             return this.balls().every((_, i) => this.col_complete(i));
         }
-        active(next = -1) { return next; }
+        active(next = -1) {
+            $mol_wire_solid();
+            return next;
+        }
         touch(col) {
             let active = this.active();
             if (active === -1) {
@@ -8859,7 +8862,7 @@ var $;
                 }
                 const mut = $mol_mutable(balls);
                 mut[active](colors => colors.slice(1));
-                mut[col](() => [color]);
+                mut[col](colors => [color, ...colors]);
                 this.balls(mut());
                 this.active(-1);
             }
@@ -8929,7 +8932,7 @@ var $;
                 this.board(new $milis_ballsort_board);
             }
             click_column(id) {
-                this.board().touch(1);
+                this.board().touch(id);
                 this.moves(this.moves() + 1);
             }
             back() {
@@ -8957,6 +8960,9 @@ var $;
         __decorate([
             $mol_mem
         ], $milis_ballsort.prototype, "moves", null);
+        __decorate([
+            $mol_action
+        ], $milis_ballsort.prototype, "click_column", null);
         $$.$milis_ballsort = $milis_ballsort;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
