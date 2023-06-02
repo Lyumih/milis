@@ -8908,7 +8908,7 @@ var $;
             return obj;
         }
         seed_id() {
-            return "pa0a7c_f52f05";
+            return "s0tdoy_es6nsm";
         }
         chat_pages() {
             return this.Chat().pages();

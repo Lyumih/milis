@@ -18,7 +18,7 @@ $milis_ballsort $mol_page
 				<= Win $mol_view sub <= win_content / \You are win!
 				<= Chat $mol_chat
 					opened true
-					seed <= seed_id \pa0a7c_f52f05
+					seed <= seed_id \s0tdoy_es6nsm
 					pages => chat_pages
 				<= Pages $mol_view
 					minimal_height 100

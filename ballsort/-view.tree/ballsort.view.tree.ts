@@ -235,11 +235,11 @@ namespace $ {
 		
 		/**
 		 * ```tree
-		 * seed_id \pa0a7c_f52f05
+		 * seed_id \s0tdoy_es6nsm
 		 * ```
 		 */
 		seed_id() {
-			return "pa0a7c_f52f05"
+			return "s0tdoy_es6nsm"
 		}
 		
 		/**
