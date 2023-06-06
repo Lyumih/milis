@@ -2356,7 +2356,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_array_shuffle<Item>(array: Item[]): Item[];
+    function $mol_array_shuffle<Item>(array: readonly Item[]): Item[];
 }
 
 declare namespace $ {
