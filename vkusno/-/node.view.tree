@@ -1,0 +1,23 @@
+$mol_link $mol_view
+	uri \
+	dom_name \a
+	attr *
+		^
+		href <= uri_toggle \
+		title <= hint_safe <= hint \
+		target <= target \_self
+		download <= file_name \
+		mol_link_current <= current false
+	sub /$mol_view_content
+		<= title
+	arg *
+	event *
+		^
+		click?event <=> click?event <=> event_click?event null
+
+$milis_vkusno $mol_view
+	title \$mol - и точка.
+	sub /
+		<= Link $mol_link
+			uri \https://mol.hyoo.ru/
+			title \$mol - и точка.

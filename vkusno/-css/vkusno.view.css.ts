@@ -1,0 +1,3 @@
+namespace $ { $mol_style_attach( "milis/vkusno/vkusno.view.css",
+ "[milis_vkusno] {\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\topacity: 1;\n\tanimation: fadeIn 5s;\n}\n\n[milis_vkusno_link] {\n\tfont-size: 40px;\n\theight: 200px;\n\tdisplay: flex;\n\tflex-direction: column;\n\tcolor: white;\n}\n\n[milis_vkusno_link]::before {\n\tcontent: '';\n\tdisplay: block;\n\tbackground-image: url(https://mol.hyoo.ru/mol/logo/logo.svg);\n\tbackground-size: contain;\n\tbackground-position: center;\n\tbackground-repeat: no-repeat;\n\tmargin-bottom: 25px;\n\tmin-width: 120px;\n\tmin-height: 120px;\n}\n\n@keyframes fadeIn {\n\t0% {\n\t\topacity: 0;\n\t}\n\t15% {\n\t\topacity: 0;\n\t}\n\t100% {\n\t\topacity: 1;\n\t}\n}\n"
+) }

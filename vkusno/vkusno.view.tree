@@ -1,0 +1,6 @@
+$milis_vkusno $mol_view
+	title \$mol - и точка.
+	sub /
+		<= Link $mol_link
+			uri \https://mol.hyoo.ru/
+			title \$mol - и точка.
