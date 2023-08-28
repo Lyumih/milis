@@ -2,7 +2,7 @@ $milis_room $mol_page
 	title \Длина и ширина комнаты по плану
 	body /
 		<= Square_labeler $mol_labeler
-			title \Площадь комнаты, м2 в мм
+			title \Площадь комнаты, м2 (нужно умножить на 100, т.е. 10.61м2 = 1061)
 			content /
 				<= Square $mol_number
 					value? <=> square? 1061
