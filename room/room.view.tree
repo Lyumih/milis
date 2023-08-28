@@ -5,13 +5,16 @@ $milis_room $mol_page
 			title \Площадь комнаты, м2 в мм
 			content /
 				<= Square $mol_number
+					value? <=> square? 1061
 		<= A_labeler $mol_labeler
 			title \Длина комнаты на плане, мм
 			content /
 				<= A $mol_number
+					value? <=> a? 29
 		<= B_labeler $mol_labeler
 			title \Ширина комнаты на плане, мм
 			content /
 				<= B $mol_number
+					value? <=> b? 25
 		<= Result $mol_text
 			text <= result \

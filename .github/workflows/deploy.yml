@@ -24,7 +24,7 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT }}
         package: milis
-        modules: hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn vaop domino ballsort bubl2 vkusno
+        modules: hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn vaop domino ballsort bubl2 vkusno room
         
     - name: Consolidate apps
       run: |
