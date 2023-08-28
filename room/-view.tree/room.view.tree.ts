@@ -17,6 +17,8 @@ namespace $ {
 		 * 	<= A_labeler
 		 * 	<= B_labeler
 		 * 	<= Result
+		 * 	<= Custom_labeler
+		 * 	<= Custom_result
 		 * ```
 		 */
 		body() {
@@ -24,7 +26,9 @@ namespace $ {
 				this.Square_labeler(),
 				this.A_labeler(),
 				this.B_labeler(),
-				this.Result()
+				this.Result(),
+				this.Custom_labeler(),
+				this.Custom_result()
 			] as readonly any[]
 		}
 		
@@ -179,6 +183,73 @@ namespace $ {
 			const obj = new this.$.$mol_text()
 			
 			obj.text = () => this.result()
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * custom? 100
+		 * ```
+		 */
+		@ $mol_mem
+		custom(next?: any) {
+			if ( next !== undefined ) return next as never
+			return 100
+		}
+		
+		/**
+		 * ```tree
+		 * Custom $mol_number value? <=> custom?
+		 * ```
+		 */
+		@ $mol_mem
+		Custom() {
+			const obj = new this.$.$mol_number()
+			
+			obj.value = (next?: any) => this.custom(next)
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * Custom_labeler $mol_labeler
+		 * 	title \Произвольная длина из мм плана
+		 * 	content / <= Custom
+		 * ```
+		 */
+		@ $mol_mem
+		Custom_labeler() {
+			const obj = new this.$.$mol_labeler()
+			
+			obj.title = () => "Произвольная длина из мм плана"
+			obj.content = () => [
+				this.Custom()
+			] as readonly any[]
+			
+			return obj
+		}
+		
+		/**
+		 * ```tree
+		 * custom_result \
+		 * ```
+		 */
+		custom_result() {
+			return ""
+		}
+		
+		/**
+		 * ```tree
+		 * Custom_result $mol_text text <= custom_result
+		 * ```
+		 */
+		@ $mol_mem
+		Custom_result() {
+			const obj = new this.$.$mol_text()
+			
+			obj.text = () => this.custom_result()
 			
 			return obj
 		}

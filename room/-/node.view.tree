@@ -597,3 +597,9 @@ $milis_room $mol_page
 					value? <=> b? 25
 		<= Result $mol_text
 			text <= result \
+		<= Custom_labeler $mol_labeler
+			title \Произвольная длина из мм плана
+			content /
+				<= Custom $mol_number
+					value? <=> custom? 100
+		<= Custom_result $mol_text text <= custom_result \

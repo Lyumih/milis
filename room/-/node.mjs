@@ -9153,7 +9153,9 @@ var $;
                 this.Square_labeler(),
                 this.A_labeler(),
                 this.B_labeler(),
-                this.Result()
+                this.Result(),
+                this.Custom_labeler(),
+                this.Custom_result()
             ];
         }
         square(next) {
@@ -9218,6 +9220,32 @@ var $;
             obj.text = () => this.result();
             return obj;
         }
+        custom(next) {
+            if (next !== undefined)
+                return next;
+            return 100;
+        }
+        Custom() {
+            const obj = new this.$.$mol_number();
+            obj.value = (next) => this.custom(next);
+            return obj;
+        }
+        Custom_labeler() {
+            const obj = new this.$.$mol_labeler();
+            obj.title = () => "Произвольная длина из мм плана";
+            obj.content = () => [
+                this.Custom()
+            ];
+            return obj;
+        }
+        custom_result() {
+            return "";
+        }
+        Custom_result() {
+            const obj = new this.$.$mol_text();
+            obj.text = () => this.custom_result();
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -9249,6 +9277,18 @@ var $;
     __decorate([
         $mol_mem
     ], $milis_room.prototype, "Result", null);
+    __decorate([
+        $mol_mem
+    ], $milis_room.prototype, "custom", null);
+    __decorate([
+        $mol_mem
+    ], $milis_room.prototype, "Custom", null);
+    __decorate([
+        $mol_mem
+    ], $milis_room.prototype, "Custom_labeler", null);
+    __decorate([
+        $mol_mem
+    ], $milis_room.prototype, "Custom_result", null);
     $.$milis_room = $milis_room;
 })($ || ($ = {}));
 //milis/room/-view.tree/room.view.tree.ts
@@ -9260,18 +9300,22 @@ var $;
     (function ($$) {
         class $milis_room extends $.$milis_room {
             real_length() {
-                const square_k = this.square() * 10000 / (this.a() * this.b());
+                const square_k = Math.sqrt(this.square() * 10000 / (this.a() * this.b()));
                 return {
-                    a: this.a() * Math.sqrt(square_k),
-                    b: this.b() * Math.sqrt(square_k),
+                    a: this.a() * square_k,
+                    b: this.b() * square_k,
                     k: square_k,
                 };
             }
             result() {
                 return `Реальная величины комнаты:
+			1мм на плане = ${this.real_length().k.toFixed(2)}мм реальной длины
+			Площадь: ${this.square() / 100}м2
 			Длина: ${this.real_length().a.toFixed(2)}мм (или ${(this.real_length().a / 1000).toFixed(2)}м)
-			Ширина: ${this.real_length().b.toFixed(2)}мм (или ${(this.real_length().b / 1000).toFixed(2)}м)
-			Площадь: ${this.square() / 100}м2`;
+			Ширина: ${this.real_length().b.toFixed(2)}мм (или ${(this.real_length().b / 1000).toFixed(2)}м)`;
+            }
+            custom_result() {
+                return `Реальная длина стены в ${this.custom()}мм составляет ${(this.custom() / this.real_length().k).toFixed(2)}мм на плане`;
             }
         }
         $$.$milis_room = $milis_room;

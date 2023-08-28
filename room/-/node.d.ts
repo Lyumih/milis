@@ -2725,6 +2725,11 @@ declare namespace $ {
         B_labeler(): $mol_labeler;
         result(): string;
         Result(): $$.$mol_text;
+        custom(next?: any): number;
+        Custom(): $$.$mol_number;
+        Custom_labeler(): $mol_labeler;
+        custom_result(): string;
+        Custom_result(): $$.$mol_text;
     }
 }
 
@@ -2736,6 +2741,7 @@ declare namespace $.$$ {
             k: number;
         };
         result(): string;
+        custom_result(): string;
     }
 }
 
