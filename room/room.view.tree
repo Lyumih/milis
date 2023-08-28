@@ -1,0 +1,17 @@
+$milis_room $mol_page
+	title \Длина и ширина комнаты по плану
+	body /
+		<= Square_labeler $mol_labeler
+			title \Площадь комнаты, м2 в мм
+			content /
+				<= Square $mol_number
+		<= A_labeler $mol_labeler
+			title \Длина комнаты на плане, мм
+			content /
+				<= A $mol_number
+		<= B_labeler $mol_labeler
+			title \Ширина комнаты на плане, мм
+			content /
+				<= B $mol_number
+		<= Result $mol_text
+			text <= result \
