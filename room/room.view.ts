@@ -1,6 +1,5 @@
 namespace $.$$ {
 	export class $milis_room extends $.$milis_room {
-		
 		real_length() {
 			const square_k =  Math.sqrt(this.square() * 10000 / (this.a() * this.b()))
 			return {
@@ -21,6 +20,5 @@ namespace $.$$ {
 		custom_result(): string {
 			return `Реальная длина стены в ${this.custom()}мм составляет ${(this.custom() / this.real_length().k).toFixed(2)}мм на плане`
 		}
-		
 	}
 }
