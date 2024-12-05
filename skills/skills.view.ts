@@ -2,35 +2,60 @@ namespace $.$$ {
 	export class $milis_skills extends $.$milis_skills {
 
 		@$mol_mem
-		skills(next?: {id: string, name: string, description: string, mod: string}[]) {
-			return next || [
-				{id: '1', name: 'Меч', description: 'Ваш меч наносит 100lvl урона за удар', mod: 'Шанс крита +10lvl%'}, 
-				{id: '2', name: 'Щит', description: 'Защищает от 30lvl урона с шансом 15lvl% процентов', mod: 'Шанс уворота 30lvl%'}
-			]
+		person(): $milis_skills_person {
+			return this.$.$hyoo_crus_glob.home($milis_skills_person)
 		}
+
+		person_id(): string {
+			console.log(this.person())
+			console.log(this.person().skill_list())
+			return 'Пользователь: ' + this.person().ref().description || 'no person id'
+		}
+
+		// @$mol_mem
+		// skills(next?: {id: string, name: string, description: string, mod: string}[]) {
+		// 	return next || [
+		// 		{id: '1', name: 'Меч', description: 'Ваш меч наносит 100lvl урона за удар', mod: 'Шанс крита +10lvl%'}, 
+		// 		{id: '2', name: 'Щит', description: 'Защищает от 30lvl урона с шансом 15lvl% процентов', mod: 'Шанс уворота 30lvl%'}
+		// 	]
+		// }
+
+		skills() {
+			return this.person().skill_list()
+		}
+
 		skill_list(): readonly (any)[] {
-			return this.skills().map((item) => this.Skill(item.id))
+			return this.skills().map((item) => this.Skill(item.ref().description))
 		}
 
 		get_skill(id:string) {
-			return this.skills().find((skill) => id === skill.id )
+			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $milis_skills_skill)
 		}
 
-		skill_name(id: any): string {
-			return '#' + id + ' - ' + this.get_skill(id)?.name || 'no name'
+		skill_id(id: any): string {
+			console.log(this.get_skill(id))
+			return this.get_skill(id)?.ref()?.description || 'no id'
 		}
 
-		skill_description(id: any): string {
-			return this.parse_skill_text(this.get_skill(id)?.description || 'no description') 
+		skill_name(id: any, next?: string): string {
+			return this.get_skill(id).name(next)
 		}
 
-		skill_mod(id: any): string {
-			return this.parse_skill_text(this.get_skill(id)?.mod || 'no mods') 
+		skill_description(id: any, next?: string): string {
+			return this.get_skill(id).description(next)
+		}
+
+		skill_mod(id: any, next?: string): string {
+			return this.get_skill(id).mod(next)
 		}
 
 		add_skill(next?: any) {
-			console.log(next, 'add skill')
-			this.skills([...this.skills(), {id: $mol_guid(4), name: this.new_skill_name(), description: this.new_skill_description(), mod: this.new_skill_mod()}])
+			this.person().skill_make()
+		}
+
+		skill_remove(id: string, next?: any) {
+			this.person().skill_remove(id)
+			// this.get_skill(id).has(id, false)
 		}
 
 		parse_skill_text(text: string): string {

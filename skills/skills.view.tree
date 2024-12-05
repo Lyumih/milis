@@ -1,29 +1,35 @@
 $milis_skills $mol_page
 	title \Gen Умения
+	person $milis_skills_person
+		level? => level?
+	tools /
+		<= Person_id $mol_text text <= person_id \
 	body /
 		<= Info_text $mol_text text \
 			\Добавь своё умение в базу данных
 			\Используй *valuelvl* для динамического задания параметров умений.
 			\Например, "Ваш меч наносит 40lvl урона за удар." - 40 ед. будет увеличиваться на 1% за каждый уровень.
-		<= Create_skill $mol_card
-			content /
-				<= New_skill_name $mol_textarea
-					hint \Ваш меч
-					value? <=> new_skill_name? \Ваш меч
-				<= New_skill_description $mol_textarea
-					hint \Ваш меч наносит 12lvl урона за удар, и имеет критический шанс 40lvl%.
-					value? <=> new_skill_description? \Ваш меч наносит 12lvl урона за удар, и имеет критический шанс 40lvl%.
-				<= New_skill_mod $mol_textarea
-					hint \Двойная атака с шансом 30lvl%.
-					value? <=> new_skill_mod? \Двойная атака с шансом 30lvl%.
-				<= Add_skill $mol_button_major
-					title \Добавить умение
-					click? <=> add_skill? null
+		<= Add_skill $mol_button_major
+			title \Добавить умение
+			click? <=> add_skill? null
 		<= Level_labeler $mol_labeler
 			title \Уровень умений
-			content / <= Level $mol_number value? <=> level? 150
+			content / <= Level $mol_number value? <=> level?
 		<= Skill_list $mol_list rows <= skill_list /
 			<= Skill*0 $mol_row sub /
-				<= Skill_name* $mol_text text <= skill_name* \
-				<= Skill_description* $mol_string value? <= skill_description* \
-				<= Skill_mod* $mol_string value? <= skill_mod* \
+				<= Skill_id* $mol_text text <= skill_id* \
+				<= Skill_name* $mol_string
+					value? <=> skill_name*? \
+					enabled <= skill_edit_checked*
+				<= Skill_description* $mol_string
+					value? <=> skill_description*? \
+					enabled <= skill_edit_checked*
+				<= Skill_mod* $mol_string
+					value? <=> skill_mod*? \
+					enabled <= skill_edit_checked*
+				<= Skill_edit_checkbox* $mol_check_icon
+					Icon <= Checked_icon* $mol_icon_pencil
+					checked? <=> skill_edit_checked*? false
+				<= Skill_remove* $mol_button_minor
+					title <= Remove_icon* $mol_icon_delete 
+					click? <=> skill_remove*? null
