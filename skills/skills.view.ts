@@ -46,7 +46,7 @@ namespace $.$$ {
 		}
 
 		skill_mod(id: any, next?: string): string {
-			return this.get_skill(id).mod(next)
+			return this.skill_edit_checked(id) ? this.get_skill(id).mod(next) : this.parse_skill_text( this.get_skill(id).mod(next))
 		}
 
 		add_skill(next?: any) {
