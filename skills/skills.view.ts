@@ -42,7 +42,7 @@ namespace $.$$ {
 		}
 
 		skill_description(id: any, next?: string): string {
-			return this.get_skill(id).description(next)
+			return this.skill_edit_checked(id) ? this.get_skill(id).description(next) :  this.parse_skill_text(this.get_skill(id).description(next))
 		}
 
 		skill_mod(id: any, next?: string): string {
@@ -55,7 +55,6 @@ namespace $.$$ {
 
 		skill_remove(id: string, next?: any) {
 			this.person().skill_remove(id)
-			// this.get_skill(id).has(id, false)
 		}
 
 		parse_skill_text(text: string): string {

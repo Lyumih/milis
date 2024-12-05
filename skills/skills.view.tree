@@ -16,8 +16,15 @@ $milis_skills $mol_page
 			title \Уровень умений
 			content / <= Level $mol_number value? <=> level?
 		<= Skill_list $mol_list rows <= skill_list /
-			<= Skill*0 $mol_row sub /
-				<= Skill_id* $mol_text text <= skill_id* \
+			<= Skill*0 $mol_card content /
+				<= Skill_info* $mol_row sub /
+					<= Skill_edit_checkbox* $mol_check_icon
+						Icon <= Checked_icon* $mol_icon_pencil
+						checked? <=> skill_edit_checked*? false
+					<= Skill_remove* $mol_button_minor
+						sub / <= Remove_icon* $mol_icon_delete 
+						click? <=> skill_remove*? null
+					<= Skill_id* $mol_text text <= skill_id* \
 				<= Skill_name* $mol_string
 					value? <=> skill_name*? \
 					enabled <= skill_edit_checked*
@@ -27,9 +34,3 @@ $milis_skills $mol_page
 				<= Skill_mod* $mol_string
 					value? <=> skill_mod*? \
 					enabled <= skill_edit_checked*
-				<= Skill_edit_checkbox* $mol_check_icon
-					Icon <= Checked_icon* $mol_icon_pencil
-					checked? <=> skill_edit_checked*? false
-				<= Skill_remove* $mol_button_minor
-					title <= Remove_icon* $mol_icon_delete 
-					click? <=> skill_remove*? null
