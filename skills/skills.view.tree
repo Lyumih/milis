@@ -3,24 +3,27 @@ $milis_skills $mol_page
 	body /
 		<= Info_text $mol_text text \
 			\Добавь своё умение в базу данных
-			\Используй *value%%* для динамического задания параметров умений.
-			\Например, "Ваш меч наносит 40%% урона за удар." - 40 ед. будет увеличиваться на 1% за каждый уровень.
+			\Используй *valuelvl* для динамического задания параметров умений.
+			\Например, "Ваш меч наносит 40lvl урона за удар." - 40 ед. будет увеличиваться на 1% за каждый уровень.
 		<= Create_skill $mol_card
 			content /
 				<= New_skill_name $mol_textarea
-					hint \Имя
-					value? <=> new_skill_name? \
+					hint \Ваш меч
+					value? <=> new_skill_name? \Ваш меч
 				<= New_skill_description $mol_textarea
-					hint \Ваш меч наносит 12%% урона за удар, и имеет критический шанс 40%%.
-					value? <=> new_skill_description? \
+					hint \Ваш меч наносит 12lvl урона за удар, и имеет критический шанс 40lvl%.
+					value? <=> new_skill_description? \Ваш меч наносит 12lvl урона за удар, и имеет критический шанс 40lvl%.
 				<= New_skill_mod $mol_textarea
-					hint \Двойная атака с шансом [[30%^100]].
-					value? <=> new_skill_mod? \
+					hint \Двойная атака с шансом 30lvl%.
+					value? <=> new_skill_mod? \Двойная атака с шансом 30lvl%.
 				<= Add_skill $mol_button_major
 					title \Добавить умение
 					click? <=> add_skill? null
-		<= Level $mol_number value? <=> level? 150
+		<= Level_labeler $mol_labeler
+			title \Уровень умений
+			content / <= Level $mol_number value? <=> level? 150
 		<= Skill_list $mol_list rows <= skill_list /
 			<= Skill*0 $mol_row sub /
 				<= Skill_name* $mol_text text <= skill_name* \
-				<= Skill_description* $mol_text text <= skill_description* \
+				<= Skill_description* $mol_string value? <= skill_description* \
+				<= Skill_mod* $mol_string value? <= skill_mod* \
