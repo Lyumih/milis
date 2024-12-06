@@ -1,10 +1,14 @@
-name: Deploy
+#FIXME change file name to actual app name
+#FIXME change to actual app name
+name: $milis
+
+#FIXME optional: change permissions if you don't want to allow everything
+# https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs#defining-access-for-the-github_token-permissions
+permissions: write-all
 
 on:
   workflow_dispatch:
   push:
-    branches: 
-    - main
   pull_request:
   schedule:
   - cron: "0 7 * * *"
@@ -16,40 +20,20 @@ jobs:
     
     steps:
     
-    - name: Environment Printer
-      uses: managedkaos/print-env@v1.0
+    - uses: hyoo-ru/mam_build@master2
+      with:
+        package: 'milis' #FIXME namespace of this package
+        modules: 'hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn vaop domino ballsort bubl2 vkusno room skills' #FIXME which modules to build, remove line if only on module at the root
     
-    - name: Build apps
-      uses: hyoo-ru/mam_build@master2
+    #FIXME remove one of the following
+    
+    - uses: JS-DevTools/npm-publish@v1
+      if: github.ref == 'refs/heads/master'
       with:
-        token: ${{ secrets.GH_PAT }}
-        package: milis
-        modules: hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn vaop domino ballsort bubl2 vkusno room skills
+        token: ${{ secrets.NPM_AUTH_TOKEN }}
+        package: ./mol/template/app/-/package.json #FIXME path to build module
         
-    - name: Consolidate apps
-      run: |
-        rm -rf milis/.git
-        rm -rf milis/.github
-        rm -rf milis/.gitignore
-        rm -rf milis/icon
-        
-    - name: Deploy on GitHub Pages
-      if: github.ref == 'refs/heads/main'
-      uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
+    - uses: hyoo-ru/gh-deploy@v4.4.1
+      if: github.ref == 'refs/heads/master'
       with:
-        repo-token: ${{ secrets.GH_PAT }}
-        site-directory: milis
-  
-  notify:
-    runs-on: ubuntu-latest
-    steps:
-    - env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        INPUTS_CLIENT_PAYLOAD: '{"repository":${{ toJson(github.event.repository.name) }}}'
-        INPUTS_EVENT_TYPE: dependency_changed
-        INPUTS_REPOSITORY: ${{ matrix.repo }}
-      uses: rekgrpth/github-repository-dispatch-shell-action@v1
-    strategy:
-      matrix:
-        repo:
-          - lyumih/milis
+        folder: 'hyoo/template/app/-' #FIXME path to build app
