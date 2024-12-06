@@ -1,9 +1,5 @@
 interface $node {
- 	"path" : typeof import( "path" )
-	"child_process" : typeof import( "child_process" )
-	"jsdom" : typeof import( "jsdom" )
-	"util" : typeof import( "util" )
-	"fs" : typeof import( "fs" )
-	"chokidar" : typeof import( "chokidar" )
-	"undici" : typeof import( "undici" )
+ 	"child_process" : typeof import( "child_process" ) // mol/run/run.node.ts
+	"path" : typeof import( "path" ) // mol/run/run.node.ts
+	"jsdom" : typeof import( "jsdom" ) // mol/dom/context/context.node.ts
 }

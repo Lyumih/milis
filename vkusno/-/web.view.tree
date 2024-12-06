@@ -1,6 +1,9 @@
 $mol_link $mol_view
 	uri \
 	dom_name \a
+	uri_off \
+	uri_native null
+	external false
 	attr *
 		^
 		href <= uri_toggle \
@@ -8,6 +11,7 @@ $mol_link $mol_view
 		target <= target \_self
 		download <= file_name \
 		mol_link_current <= current false
+		rel <= relation \
 	sub /$mol_view_content
 		<= title
 	arg *
