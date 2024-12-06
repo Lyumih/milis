@@ -35,6 +35,6 @@ jobs:
     #    package: ./mol/template/app/-/package.json #FIXME path to build module
         
     - uses: hyoo-ru/gh-deploy@v4.4.1
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       with:
         folder: 'lyumih/milis/-' #FIXME path to build app
