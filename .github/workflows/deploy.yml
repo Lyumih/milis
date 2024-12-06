@@ -23,7 +23,8 @@ jobs:
     - uses: hyoo-ru/mam_build@master2
       with:
         package: 'milis' #FIXME namespace of this package
-        modules: 'hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn vaop domino ballsort bubl2 vkusno room skills' #FIXME which modules to build, remove line if only on module at the root
+        # modules: 'hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn vaop domino ballsort bubl2 vkusno room skills' #FIXME which modules to build, remove line if only on module at the root
+        modules: 'vkusno skills' #FIXME which modules to build, remove line if only on module at the root
     
     #FIXME remove one of the following
     
