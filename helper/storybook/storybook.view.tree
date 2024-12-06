@@ -1,8 +1,0 @@
-$milis_helper_storybook $mol_app_demo
-	editor_title <= detail_title \$milis
-	source_prefix \https://github.com/Lyumih/milis/tree/main/
-	sources_uri \https://github.com/Lyumih/milis/
-	repo_dict *
-		^
-		milis \Lyumih/milis
-		mol \no/no

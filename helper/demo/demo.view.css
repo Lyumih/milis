@@ -1,8 +1,0 @@
-[milis_helper_demo] {
-	display: flex;
-	flex-direction: column;
-}
-
-[milis_helper_demo_SomeButtonForHelp2] {
-	min-height: 300px!important;
-}

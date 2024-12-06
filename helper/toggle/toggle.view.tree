@@ -1,5 +1,0 @@
-$milis_helper_toggle $mol_button_minor
-	hint \Start tutorial
-	sub /
-		<= Icon $mol_icon_comment_question_outline
-
