@@ -1,0 +1,35 @@
+$milis_skills_skill_card $mol_card
+	skill $milis_skills_skill
+		name? => name?
+		type? => type? \Без типа
+	event *
+		click? <=> level_up? null
+	content /
+		<= Skill_title $mol_list rows /
+			<= Skill_type $mol_string
+				hint \Тип
+				value? <=> type?
+				enabled <= skill_edit_checked
+			<= Skill_name $mol_string
+				hint \Имя
+				value? <=> name?
+				enabled <= skill_edit_checked
+		<= Skill_global_level $mol_text text <= global_level_text \
+		<= Skill_info $mol_list rows /
+			<= Skill_description $mol_textarea
+				hint \Описание
+				value? <=> skill_description? \
+				enabled <= skill_edit_checked
+			<= Skill_mod $mol_textarea
+				hint \Модификации
+				value? <=> skill_mod? \
+				enabled <= skill_edit_checked
+		<= Skill_meta $mol_row sub /
+			<= Skill_edit_checkbox $mol_check_icon
+				Icon <= Checked_icon $mol_icon_pencil
+				checked? <=> skill_edit_checked? false
+			<= Skill_id_copy $mol_button_copy
+				title <= skill_id \
+			<= Skill_remove $mol_button_minor
+				sub / <= Remove_icon $mol_icon_delete 
+				click? <=> skill_remove? null

@@ -4,6 +4,9 @@ namespace $ {
 		Name: $hyoo_crus_atom_str,
 		Description: $hyoo_crus_atom_str,
 		Mod: $hyoo_crus_atom_str,
+		Type: $hyoo_crus_atom_str,
+		Image: $hyoo_crus_atom_str,
+		Global_level: $hyoo_crus_atom_real,
 		// Limit: $hyoo_crus_atom_real,
 		// Category: $hyoo_crus_list_ref_to( ()=> $hyoo_budget_category ),
 	}) {
@@ -19,6 +22,24 @@ namespace $ {
 		mod( next?: string) {
 			return this.Mod( next )?.val( next ) ?? ''
 		}
+
+		type( next?: string) {
+			return this.Type( next )?.val( next ) ?? ''
+		}
+
+		image( next?: string) {
+			return this.Image( next )?.val( next ) ?? ''
+		}
+
+		global_level( next?: number) {
+			return this.Global_level( next )?.val( next ) ?? 0
+		}
+
+		chance_global_level_up() {
+			const random = Math.floor(Math.random() * 100 + 1)
+			if (random >= 100 || random >= this.global_level()) this.global_level(this.global_level() + 1)
+		}
+		
 		
 	// 	limit( next?: number ) {
 	// 		return this.Limit( next )?.val( next ) ?? null

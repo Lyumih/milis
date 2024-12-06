@@ -3,34 +3,26 @@ $milis_skills $mol_page
 	person $milis_skills_person
 		level? => level?
 	tools /
-		<= Person_id $mol_text text <= person_id \
-	body /
-		<= Info_text $mol_text text \
-			\Добавь своё умение в базу данных
-			\Используй *valuelvl* для динамического задания параметров умений.
-			\Например, "Ваш меч наносит 40lvl урона за удар." - 40 ед. будет увеличиваться на 1% за каждый уровень.
 		<= Add_skill $mol_button_major
-			title \Добавить умение
+			sub / <= Add_skill_icon $mol_icon_plus_box_multiple
 			click? <=> add_skill? null
-		<= Level_labeler $mol_labeler
-			title \Уровень умений
-			content / <= Level $mol_number value? <=> level?
-		<= Skill_list $mol_list rows <= skill_list /
-			<= Skill*0 $mol_card content /
-				<= Skill_info* $mol_row sub /
-					<= Skill_edit_checkbox* $mol_check_icon
-						Icon <= Checked_icon* $mol_icon_pencil
-						checked? <=> skill_edit_checked*? false
-					<= Skill_remove* $mol_button_minor
-						sub / <= Remove_icon* $mol_icon_delete 
-						click? <=> skill_remove*? null
-					<= Skill_id* $mol_text text <= skill_id* \
-				<= Skill_name* $mol_string
-					value? <=> skill_name*? \
-					enabled <= skill_edit_checked*
-				<= Skill_description* $mol_string
-					value? <=> skill_description*? \
-					enabled <= skill_edit_checked*
-				<= Skill_mod* $mol_string
-					value? <=> skill_mod*? \
-					enabled <= skill_edit_checked*
+			hint \Добавить умение
+		<= Tutorial_pick $mol_pick
+			trigger_content / <= Tutorial_icon $mol_icon_information_slab_circle_outline
+			bubble_content / <= Info_text $mol_text text \
+				\Добавь своё умение в базу данных
+				\Используй *число%%* для динамического задания параметров умений.
+				\Например, "Ваш меч наносит 40%% урона за удар." - 40 ед. будет увеличиваться на 1% за каждый уровень.
+	foot /
+		<= Level $mol_number
+			hint \Уровни
+			value? <=> level?
+			Dec null
+			Inc null
+		<= Person_id $mol_text text <= person_id \
+		<= Sources $mol_link_source
+			uri \https://github.com/hyoo-ru/budget.hyoo.ru/
+	body /
+		<= Skill_list $mol_row sub <= skill_list /
+			<= Skill*0 $milis_skills_skill_card
+				skill <= get_skill* $milis_skills_skill
