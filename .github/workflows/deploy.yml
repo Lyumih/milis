@@ -24,7 +24,7 @@ jobs:
       with:
         package: 'milis' #FIXME namespace of this package
         # modules: 'hello helper helper/demos helper/storybook skazka stat treesay/storybook onemorevpn vaop domino ballsort bubl2 vkusno room skills' #FIXME which modules to build, remove line if only on module at the root
-        modules: 'vkusno skills' #FIXME which modules to build, remove line if only on module at the root
+        modules: 'skills' #FIXME which modules to build, remove line if only on module at the root
     
     #FIXME remove one of the following
     
@@ -37,4 +37,4 @@ jobs:
     - uses: hyoo-ru/gh-deploy@v4.4.1
       if: github.ref == 'refs/heads/main'
       with:
-        folder: 'milis' #FIXME path to build app
+        folder: 'milis/-' #FIXME path to build app
