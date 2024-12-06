@@ -21,7 +21,7 @@ $milis_skills $mol_page
 			Inc null
 		<= Person_id $mol_text text <= person_id \
 		<= Sources $mol_link_source
-			uri \https://github.com/hyoo-ru/budget.hyoo.ru/
+			uri \https://github.com/Lyumih/milis/tree/main/skills
 	body /
 		<= Skill_list $mol_row sub <= skill_list /
 			<= Skill*0 $milis_skills_skill_card
