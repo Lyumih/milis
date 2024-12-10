@@ -10,7 +10,7 @@ namespace $.$$ {
         }
 
         global_level_text(): string {
-            return '' + (this.skill().global_level() + this.person().level()) + ' ур.'
+            return '' + (this.skill().global_level() + (this.person().level() || 0)) + ' ?'
         }
 
         skill_id(): string {
@@ -27,15 +27,27 @@ namespace $.$$ {
             return this.skill_edit_checked() ? this.skill().mod(next) : this.parse_skill_text(this.skill().mod(next))
         }
 
+		/** Проверят, можно ли применить данную модификацию для умения  */
+		skill_mod_disabled(): boolean {
+			return this.skill().global_level() < 100
+		}
+
         skill_remove(next?: any) {
             this.person().skill_remove(this.skill().ref().description!)
         }
+
+		skill_statistics(): string {
+			return `Уровень: ${this.skill().global_level()}.
+Использований: ${this.skill().uses_count()}.
+Ваша карточка прокачивается на 1 уровень за каждое использование с определённым шансом. На 1 уровне шанс 100% и снижается до 1% к 100 уровня. После 100 уровня шанс улучшения 1%.
+Модификации открываются за каждый 100 уровня карточки. Модификации имеют свой уровень и прокачиваются отдельно за каждую победу над врагом, а не за использование.`
+		}
 
         parse_skill_text(text: string): string {
             /** -число%%-процент_на_100_ур */
             const regexp_params = /(-?\d+%%-?\d*)/gm
             const separator = '%%'
-            const level = this.skill().global_level() + this.person().level() || 0
+            const level = this.skill().global_level() + (this.person().level() || 0)
             const splitted = text.split(regexp_params)
             const replaced = splitted.map(stringPart => {
                 if (stringPart.includes(separator)) {
