@@ -746,11 +746,34 @@ $mol_textarea_edit $mol_string
 		^
 		scrollTop 0
 
+$mol_icon_delete $mol_icon path \M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z
+
+$milis_skills_mod_input $mol_view
+	skill_edit_checked false
+	skill $milis_skills_skill
+	mod $milis_skills_mod
+	sub /
+		<= Mod_textarea $milis_skills_mod_input_textarea
+			hint \Модификации
+			mod_disabled_by_level <= mod_disabled_by_level true
+			value? <=> mod_description? null
+			enabled <= skill_edit_checked
+		<= Mod_actions $mol_view sub <= mod_actions /
+			<= Mod_add $mol_button_minor
+				sub / <= Add_icon $mol_icon_plus
+				click? <=> mod_add? null
+			<= Mod_remove $mol_button_minor
+				sub / <= Remove_icon $mol_icon_delete
+				click? <=> mod_remove? null
+
+$milis_skills_mod_input_textarea $mol_textarea
+	attr *
+		^
+		mod_disabled_by_level <= mod_disabled_by_level true
+
 $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z
 
 $mol_check_icon $mol_check
-
-$mol_icon_delete $mol_icon path \M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z
 
 $mol_row $mol_view
 
@@ -759,7 +782,7 @@ $milis_skills_skill_card $mol_card
 		name? => name?
 		type? => type? \Без типа
 	event *
-		click? <=> level_up? null
+		click? <=> skill_use? null
 	content /
 		<= Skill_title $mol_list rows /
 			<= Skill_type $mol_string
@@ -774,7 +797,7 @@ $milis_skills_skill_card $mol_card
 			Anchor <= Skill_global_level_text $mol_text text <= global_level_text \
 			bubble_content /
 				<= Skill_statistics $mol_text text <= skill_statistics \Использований 15
-		<= Skill_info $mol_list rows /
+		<= Skill_info $mol_list rows <= skill_info_rows /
 			<= Skill_description $mol_textarea
 				hint \Описание
 				value? <=> skill_description? \
@@ -782,10 +805,10 @@ $milis_skills_skill_card $mol_card
 			<= Skill_mod_list $mol_list rows <= skill_mod_list /
 				<= Skill_mod*0 $milis_skills_mod_input
 					mod <= get_skill_mod* $milis_skills_mod
-					mod_remove <=> mod_remove* null
+					skill <= skill
 					skill_edit_checked <= skill_edit_checked
-			<= Add_mod $mol_button_minor
-				sub / <= Add_mod_icon $mol_icon_plus
+			<= Mod_add $mol_button_minor
+				title \+ модификация
 				click? <=> add_skill_mod? null
 		<= Skill_meta $mol_row sub /
 			<= Skill_edit_checkbox $mol_check_icon
@@ -815,23 +838,6 @@ $mol_text_list_item $mol_paragraph
 	attr *
 		^
 		mol_text_list_item_index <= index 0
-
-$milis_skills_mod_input $mol_view
-	skill_edit_checked false
-	mod $milis_skills_mod
-		description? => description? \
-	attr *
-		^
-		mod_disabled_by_level <= mod_disabled_by_level true
-	sub /
-		<= Mod_textarea $milis_skills_skill_card_textarea
-			hint \Модификации
-			mod_disabled_by_level <= skill_mod_disabled true
-			value? <=> description?
-			enabled <= skill_edit_checked
-		<= Mod_remove $mol_button_minor
-			sub / <= Remove_icon $mol_icon_delete 
-			click? <=> mod_remove? null
 
 $milis_skills $mol_page
 	title \Gen Умения

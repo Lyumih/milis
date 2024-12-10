@@ -14911,6 +14911,14 @@ var $;
         Global_level: $hyoo_crus_atom_real,
         Uses_count: $hyoo_crus_atom_real,
     }) {
+        chance_global_level_up() {
+            this.uses_count(this.uses_count() + 1);
+            const random = Math.floor(Math.random() * 100 + 1);
+            if (random >= 100 || random >= this.global_level()) {
+                this.global_level(this.global_level() + 1);
+            }
+            return random;
+        }
         description(next) {
             return this.Description(next)?.val(next) ?? '';
         }
@@ -15064,6 +15072,11 @@ var $;
         description(next) {
             return this.Description(next)?.val(next) ?? '';
         }
+        win() {
+            if (this.global_level() >= 75) {
+                this.mod_list().forEach(mod => mod.chance_global_level_up());
+            }
+        }
         mod_list() {
             return this.Mod()?.remote_list() ?? [];
         }
@@ -15082,6 +15095,9 @@ var $;
         }
         global_level(next) {
             return this.Global_level(next)?.val(next) ?? 0;
+        }
+        mod_enabled() {
+            return this.global_level() < 75;
         }
         uses_count(next) {
             return this.Uses_count(next)?.val(next) ?? 0;
@@ -15494,6 +15510,177 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_icon_delete) = class $mol_icon_delete extends ($.$mol_icon) {
+		path(){
+			return "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$milis_skills_mod_input) = class $milis_skills_mod_input extends ($.$mol_view) {
+		mod_disabled_by_level(){
+			return true;
+		}
+		mod_description(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Mod_textarea(){
+			const obj = new this.$.$milis_skills_mod_input_textarea();
+			(obj.hint) = () => ("Модификации");
+			(obj.mod_disabled_by_level) = () => ((this.mod_disabled_by_level()));
+			(obj.value) = (next) => ((this.mod_description(next)));
+			(obj.enabled) = () => ((this.skill_edit_checked()));
+			return obj;
+		}
+		Add_icon(){
+			const obj = new this.$.$mol_icon_plus();
+			return obj;
+		}
+		mod_add(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Mod_add(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.Add_icon())]);
+			(obj.click) = (next) => ((this.mod_add(next)));
+			return obj;
+		}
+		Remove_icon(){
+			const obj = new this.$.$mol_icon_delete();
+			return obj;
+		}
+		mod_remove(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Mod_remove(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.Remove_icon())]);
+			(obj.click) = (next) => ((this.mod_remove(next)));
+			return obj;
+		}
+		mod_actions(){
+			return [(this.Mod_add()), (this.Mod_remove())];
+		}
+		Mod_actions(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ((this.mod_actions()));
+			return obj;
+		}
+		skill_edit_checked(){
+			return false;
+		}
+		skill(){
+			const obj = new this.$.$milis_skills_skill();
+			return obj;
+		}
+		mod(){
+			const obj = new this.$.$milis_skills_mod();
+			return obj;
+		}
+		sub(){
+			return [(this.Mod_textarea()), (this.Mod_actions())];
+		}
+	};
+	($mol_mem(($.$milis_skills_mod_input.prototype), "mod_description"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_textarea"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Add_icon"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "mod_add"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_add"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Remove_icon"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "mod_remove"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_remove"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_actions"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "skill"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "mod"));
+	($.$milis_skills_mod_input_textarea) = class $milis_skills_mod_input_textarea extends ($.$mol_textarea) {
+		mod_disabled_by_level(){
+			return true;
+		}
+		attr(){
+			return {...(super.attr()), "mod_disabled_by_level": (this.mod_disabled_by_level())};
+		}
+	};
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $milis_skills_mod_input extends $.$milis_skills_mod_input {
+            mod_actions() {
+                return this.skill_edit_checked() ? [this.Mod_add(), this.Mod_remove()] : [];
+            }
+            mod_add(next) {
+                this.skill().mod_make();
+            }
+            mod_remove(next) {
+                this.skill().mod_remove(this.mod().ref().description);
+            }
+            mod_description(next) {
+                return this.skill_edit_checked()
+                    ? this.mod().description(next)
+                    : this.mod().global_level() + ' ур. ' + this.parse_skill_text(this.mod().description(next), this.mod().global_level(), 0);
+            }
+            mod_disabled_by_level() {
+                return this.skill().mod_enabled();
+            }
+            parse_skill_text(text, global_level, person_level) {
+                const regexp_params = /(-?\d+%%-?\d*)/gm;
+                const separator = '%%';
+                const level = global_level + (person_level || 0);
+                const splitted = text.split(regexp_params);
+                const replaced = splitted.map(stringPart => {
+                    if (stringPart.includes(separator)) {
+                        const [item_value, item_percent_100] = stringPart.split(separator);
+                        const level_percent_final = 1 + (+item_percent_100 / 100 || 1) * level * 0.01;
+                        const item_value_final = +item_value;
+                        return (item_value_final * level_percent_final).toFixed(0);
+                    }
+                    else {
+                        return stringPart;
+                    }
+                });
+                return replaced.join('');
+            }
+        }
+        $$.$milis_skills_mod_input = $milis_skills_mod_input;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($milis_skills_mod_input, {
+            Mod_textarea: {
+                opacity: 1,
+                '@': {
+                    mod_disabled_by_level: {
+                        true: {
+                            opacity: 0.5,
+                        }
+                    }
+                },
+            }
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
 	($.$mol_icon_pencil) = class $mol_icon_pencil extends ($.$mol_icon) {
 		path(){
 			return "M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z";
@@ -15514,17 +15701,6 @@ var $;
 (function ($) {
     $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
 })($ || ($ = {}));
-
-;
-"use strict";
-
-;
-	($.$mol_icon_delete) = class $mol_icon_delete extends ($.$mol_icon) {
-		path(){
-			return "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
-		}
-	};
-
 
 ;
 "use strict";
@@ -15551,7 +15727,7 @@ var $;
 		type(next){
 			return (this.skill().type(next));
 		}
-		level_up(next){
+		skill_use(next){
 			if(next !== undefined) return next;
 			return null;
 		}
@@ -15611,13 +15787,10 @@ var $;
 			const obj = new this.$.$milis_skills_mod();
 			return obj;
 		}
-		mod_remove(id){
-			return null;
-		}
 		Skill_mod(id){
 			const obj = new this.$.$milis_skills_mod_input();
 			(obj.mod) = () => ((this.get_skill_mod(id)));
-			(obj.mod_remove) = () => ((this.mod_remove(id)));
+			(obj.skill) = () => ((this.skill()));
 			(obj.skill_edit_checked) = () => ((this.skill_edit_checked()));
 			return obj;
 		}
@@ -15629,27 +15802,26 @@ var $;
 			(obj.rows) = () => ((this.skill_mod_list()));
 			return obj;
 		}
-		Add_mod_icon(){
-			const obj = new this.$.$mol_icon_plus();
-			return obj;
-		}
 		add_skill_mod(next){
 			if(next !== undefined) return next;
 			return null;
 		}
-		Add_mod(){
+		Mod_add(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.sub) = () => ([(this.Add_mod_icon())]);
+			(obj.title) = () => ("+ модификация");
 			(obj.click) = (next) => ((this.add_skill_mod(next)));
 			return obj;
 		}
-		Skill_info(){
-			const obj = new this.$.$mol_list();
-			(obj.rows) = () => ([
+		skill_info_rows(){
+			return [
 				(this.Skill_description()), 
 				(this.Skill_mod_list()), 
-				(this.Add_mod())
-			]);
+				(this.Mod_add())
+			];
+		}
+		Skill_info(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ((this.skill_info_rows()));
 			return obj;
 		}
 		Checked_icon(){
@@ -15702,7 +15874,7 @@ var $;
 			return obj;
 		}
 		event(){
-			return {"click": (next) => (this.level_up(next))};
+			return {"click": (next) => (this.skill_use(next))};
 		}
 		content(){
 			return [
@@ -15713,7 +15885,7 @@ var $;
 			];
 		}
 	};
-	($mol_mem(($.$milis_skills_skill_card.prototype), "level_up"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "skill_use"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_type"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_name"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_title"));
@@ -15725,9 +15897,8 @@ var $;
 	($mol_mem_key(($.$milis_skills_skill_card.prototype), "get_skill_mod"));
 	($mol_mem_key(($.$milis_skills_skill_card.prototype), "Skill_mod"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_mod_list"));
-	($mol_mem(($.$milis_skills_skill_card.prototype), "Add_mod_icon"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "add_skill_mod"));
-	($mol_mem(($.$milis_skills_skill_card.prototype), "Add_mod"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "Mod_add"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_info"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Checked_icon"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "skill_edit_checked"));
@@ -15796,10 +15967,15 @@ var $;
             person() {
                 return this.$.$hyoo_crus_glob.home($milis_skills_person);
             }
+            skill_use() {
+                this.level_up();
+                if (Math.random() > 0.5) {
+                    this.skill().win();
+                }
+            }
             level_up(next) {
                 if (!this.skill_edit_checked())
                     this.skill().chance_global_level_up();
-                console.log('level up', this.skill().global_level());
             }
             global_level_text() {
                 return '' + (this.skill().global_level() + (this.person().level() || 0)) + ' ?';
@@ -15810,7 +15986,7 @@ var $;
             skill_description(next) {
                 return this.skill_edit_checked()
                     ? this.skill().description(next)
-                    : this.parse_skill_text(this.skill().description(next));
+                    : this.parse_skill_text(this.skill().description(next), this.skill().global_level(), this.person().level());
             }
             skill_mod_list() {
                 return this.skill().mod_list().map((item) => this.Skill_mod(item.ref().description));
@@ -15821,11 +15997,14 @@ var $;
             add_skill_mod() {
                 this.skill().mod_make();
             }
+            skill_info_rows() {
+                return [this.Skill_description(), this.Skill_mod_list(), this.skill_edit_checked() && this.skill().mod_list().length === 0 ? this.Mod_add() : null].filter(i => i);
+            }
             mod_remove(id, next) {
                 this.skill().mod_remove(id);
             }
             skill_mod_disabled() {
-                return this.skill().global_level() < 100;
+                return this.skill().mod_enabled();
             }
             skill_remove(next) {
                 this.person().skill_remove(this.skill().ref().description);
@@ -15835,12 +16014,12 @@ var $;
 Использований: ${this.skill().uses_count()}.
 Модификация: ${this.skill().mod_list().length}
 Ваша карточка прокачивается на 1 уровень за каждое использование с определённым шансом. На 1 уровне шанс 100% и снижается до 1% к 100 уровня. После 100 уровня шанс улучшения 1%.
-Модификации открываются за каждый 100 уровня карточки. Модификации имеют свой уровень и прокачиваются отдельно за каждую победу над врагом, а не за использование.`;
+Модификации открываются за каждый 75 уровень карточки. Модификации имеют свой уровень и прокачиваются отдельно за каждую победу над врагом, а не за использование.`;
             }
-            parse_skill_text(text) {
+            parse_skill_text(text, global_level, person_level) {
                 const regexp_params = /(-?\d+%%-?\d*)/gm;
                 const separator = '%%';
-                const level = this.skill().global_level() + (this.person().level() || 0);
+                const level = global_level + (person_level || 0);
                 const splitted = text.split(regexp_params);
                 const replaced = splitted.map(stringPart => {
                     if (stringPart.includes(separator)) {
@@ -15853,7 +16032,6 @@ var $;
                         return stringPart;
                     }
                 });
-                console.log({ splitted, replaced });
                 return replaced.join('');
             }
         }
@@ -15988,63 +16166,6 @@ var $;
 (function ($) {
     $mol_style_attach("mol/text/list/list.view.css", "[mol_text_list] {\r\n\tpadding-left: 1.75rem;\r\n}\r\n\r\n[mol_text_list_item] {\r\n\tcontain: none;\r\n\tdisplay: list-item;\r\n}\r\n\r\n[mol_text_list_item]::before {\r\n\tcontent: attr( mol_text_list_item_index ) \".\";\r\n\twidth: 1.25rem;\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\tmargin-left: -1.75rem;\r\n\ttext-align: end;\r\n}\r\n\r\n[mol_text_list_type=\"-\"] > [mol_text_list_item]::before,\r\n[mol_text_list_type=\"*\"] > [mol_text_list_item]::before {\r\n\tcontent: \"•\";\r\n}\r\n");
 })($ || ($ = {}));
-
-;
-"use strict";
-
-;
-	($.$milis_skills_mod_input) = class $milis_skills_mod_input extends ($.$mol_view) {
-		description(next){
-			return (this.mod().description(next));
-		}
-		mod_disabled_by_level(){
-			return true;
-		}
-		skill_mod_disabled(){
-			return true;
-		}
-		Mod_textarea(){
-			const obj = new this.$.$milis_skills_skill_card_textarea();
-			(obj.hint) = () => ("Модификации");
-			(obj.mod_disabled_by_level) = () => ((this.skill_mod_disabled()));
-			(obj.value) = (next) => ((this.description(next)));
-			(obj.enabled) = () => ((this.skill_edit_checked()));
-			return obj;
-		}
-		Remove_icon(){
-			const obj = new this.$.$mol_icon_delete();
-			return obj;
-		}
-		mod_remove(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		Mod_remove(){
-			const obj = new this.$.$mol_button_minor();
-			(obj.sub) = () => ([(this.Remove_icon())]);
-			(obj.click) = (next) => ((this.mod_remove(next)));
-			return obj;
-		}
-		skill_edit_checked(){
-			return false;
-		}
-		mod(){
-			const obj = new this.$.$milis_skills_mod();
-			return obj;
-		}
-		attr(){
-			return {...(super.attr()), "mod_disabled_by_level": (this.mod_disabled_by_level())};
-		}
-		sub(){
-			return [(this.Mod_textarea()), (this.Mod_remove())];
-		}
-	};
-	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_textarea"));
-	($mol_mem(($.$milis_skills_mod_input.prototype), "Remove_icon"));
-	($mol_mem(($.$milis_skills_mod_input.prototype), "mod_remove"));
-	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_remove"));
-	($mol_mem(($.$milis_skills_mod_input.prototype), "mod"));
-
 
 ;
 "use strict";
