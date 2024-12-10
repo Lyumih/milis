@@ -4432,6 +4432,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $hyoo_crus_log(this: $): boolean;
+}
+
+declare namespace $ {
     function $mol_wire_race<Tasks extends ((...args: any) => any)[]>(...tasks: Tasks): {
         [index in keyof Tasks]: ReturnType<Tasks[index]>;
     };
@@ -6983,7 +6987,7 @@ declare namespace $ {
         type(next?: string): string;
         image(next?: string): string;
         global_level(next?: number): number;
-        chance_global_level_up(): void;
+        chance_global_level_up(): number;
     }
     export {};
 }
@@ -7096,6 +7100,11 @@ declare namespace $ {
 		,
 		ReturnType< $mol_text_code['highlight'] >
 	>
+	type $mol_text_code__syntax_mol_textarea_14 = $mol_type_enforce<
+		ReturnType< $mol_textarea['syntax'] >
+		,
+		ReturnType< $mol_text_code['syntax'] >
+	>
 	export class $mol_textarea extends $mol_stack {
 		clickable( next?: boolean ): boolean
 		sidebar_showed( ): boolean
@@ -7113,6 +7122,7 @@ declare namespace $ {
 		Edit( ): $mol_textarea_edit
 		row_numb( id: any): number
 		highlight( ): string
+		syntax( ): $mol_syntax2
 		View( ): $mol_text_code
 		attr( ): ({ 
 			'mol_textarea_clickable': ReturnType< $mol_textarea['clickable'] >,
@@ -7148,6 +7158,24 @@ declare namespace $.$$ {
         hover(event: PointerEvent): void;
         press(event: KeyboardEvent): void;
         row_numb(index: number): number;
+        syntax(): $mol_syntax2<{
+            'code-indent': RegExp;
+            'code-docs': RegExp;
+            'code-comment-block': RegExp;
+            'code-link': RegExp;
+            'code-comment-inline': RegExp;
+            'code-string': RegExp;
+            'code-number': RegExp;
+            'code-call': RegExp;
+            'code-sexpr': RegExp;
+            'code-field': RegExp;
+            'code-keyword': RegExp;
+            'code-global': RegExp;
+            'code-word': RegExp;
+            'code-decorator': RegExp;
+            'code-tag': RegExp;
+            'code-punctuation': RegExp;
+        }>;
     }
 }
 

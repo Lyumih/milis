@@ -4759,7 +4759,7 @@ var $;
             display: 'block',
             position: 'relative',
             font: {
-                family: 'monospace',
+                family: 'inherit',
             },
             Numb: {
                 textAlign: 'right',
@@ -11903,6 +11903,16 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $hyoo_crus_log() {
+        return this.$mol_state_arg.value('hyoo_crus_log') !== null;
+    }
+    $.$hyoo_crus_log = $hyoo_crus_log;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_wire_race(...tasks) {
         const results = tasks.map(task => {
             try {
@@ -12527,11 +12537,12 @@ var $;
         }
         loading() {
             let units = this.unit_sort(this.$.$hyoo_crus_mine.units(this.ref()) ?? []);
-            $mol_wire_sync(this.$).$mol_log3_rise({
-                place: this,
-                message: 'Load Unit',
-                units: units.length,
-            });
+            if (this.$.$hyoo_crus_log())
+                $mol_wire_sync(this.$).$mol_log3_rise({
+                    place: this,
+                    message: 'Load Unit',
+                    units: units.length,
+                });
             const errors = this.apply_unit(units, 'skip_check').filter(Boolean);
             if (errors.length)
                 this.$.$mol_log3_fail({
@@ -12576,11 +12587,12 @@ var $;
             if (persisting.length) {
                 this.bus().send(persisting.map(unit => unit.buffer));
                 mine.units(this.ref(), persisting);
-                $mol_wire_sync(this.$).$mol_log3_done({
-                    place: this,
-                    message: 'Saved Units',
-                    units: persisting.length,
-                });
+                if (this.$.$hyoo_crus_log())
+                    $mol_wire_sync(this.$).$mol_log3_done({
+                        place: this,
+                        message: 'Saved Units',
+                        units: persisting.length,
+                    });
             }
         }
         unit_sign(unit) {
@@ -13159,13 +13171,14 @@ var $;
         port_income(port, msg) {
             const pack = $mol_wire_sync($hyoo_crus_pack).from(msg);
             const parts = $mol_wire_sync(pack).parts();
-            $mol_wire_sync(this.$).$mol_log3_rise({
-                place: this,
-                message: 'Gain Pack',
-                port: $mol_key(port),
-                lands: parts.lands,
-                rocks: parts.rocks.length,
-            });
+            if (this.$.$hyoo_crus_log())
+                $mol_wire_sync(this.$).$mol_log3_rise({
+                    place: this,
+                    message: 'Gain Pack',
+                    port: $mol_key(port),
+                    lands: parts.lands,
+                    rocks: parts.rocks.length,
+                });
             forget: {
                 if (parts.rocks.length)
                     break forget;
@@ -13223,12 +13236,13 @@ var $;
                 if (!this.port_lands_passive(port).has(land.ref()))
                     continue;
                 this.port_lands_passive(port).delete(land.ref());
-                this.$.$mol_log3_rise({
-                    place: this,
-                    message: 'Forget Land',
-                    port: $mol_key(port),
-                    land: land.ref(),
-                });
+                if (this.$.$hyoo_crus_log())
+                    this.$.$mol_log3_rise({
+                        place: this,
+                        message: 'Forget Land',
+                        port: $mol_key(port),
+                        land: land.ref(),
+                    });
                 port.send_bin(pack);
             }
         }
@@ -13243,13 +13257,14 @@ var $;
                 const parts = Land.delta_parts(faces);
                 if (!parts)
                     return;
-                this.$.$mol_log3_rise({
-                    place: this,
-                    message: 'Send Unit',
-                    port: $mol_key(port),
-                    lands: parts.lands,
-                    rocks: parts.rocks.length,
-                });
+                if (this.$.$hyoo_crus_log())
+                    this.$.$mol_log3_rise({
+                        place: this,
+                        message: 'Send Unit',
+                        port: $mol_key(port),
+                        lands: parts.lands,
+                        rocks: parts.rocks.length,
+                    });
                 port.send_bin($hyoo_crus_pack.make(parts).asArray());
                 faces.sync(Land.faces);
             }
@@ -13260,13 +13275,14 @@ var $;
         init_port_land([port, land]) {
             const Land = this.$.$hyoo_crus_glob.Land(land);
             Land.loading();
-            this.$.$mol_log3_rise({
-                place: this,
-                message: 'Send Face',
-                port: $mol_key(port),
-                land: land,
-                faces: Land.faces,
-            });
+            if (this.$.$hyoo_crus_log())
+                this.$.$mol_log3_rise({
+                    place: this,
+                    message: 'Send Face',
+                    port: $mol_key(port),
+                    land: land,
+                    faces: Land.faces,
+                });
             port.send_bin(Land.faces_pack().asArray());
         }
         face_port_land([port, land], next = null) {
@@ -14831,8 +14847,10 @@ var $;
         }
         chance_global_level_up() {
             const random = Math.floor(Math.random() * 100 + 1);
-            if (random >= 100 || random >= this.global_level())
+            if (random >= 100 || random >= this.global_level()) {
                 this.global_level(this.global_level() + 1);
+            }
+            return random;
         }
     }
     $.$milis_skills_skill = $milis_skills_skill;
@@ -14964,6 +14982,10 @@ var $;
 		highlight(){
 			return "";
 		}
+		syntax(){
+			const obj = new this.$.$mol_syntax2();
+			return obj;
+		}
 		View(){
 			const obj = new this.$.$mol_text_code();
 			(obj.text) = () => ((this.value()));
@@ -14971,6 +14993,7 @@ var $;
 			(obj.row_numb) = (id) => ((this.row_numb(id)));
 			(obj.sidebar_showed) = () => ((this.sidebar_showed()));
 			(obj.highlight) = () => ((this.highlight()));
+			(obj.syntax) = () => ((this.syntax()));
 			return obj;
 		}
 		attr(){
@@ -15042,6 +15065,7 @@ var $;
 	($mol_mem(($.$mol_textarea.prototype), "selection"));
 	($mol_mem(($.$mol_textarea.prototype), "submit"));
 	($mol_mem(($.$mol_textarea.prototype), "Edit"));
+	($mol_mem(($.$mol_textarea.prototype), "syntax"));
 	($mol_mem(($.$mol_textarea.prototype), "View"));
 	($.$mol_textarea_edit) = class $mol_textarea_edit extends ($.$mol_string) {
 		dom_name(){
@@ -15141,6 +15165,9 @@ var $;
             }
             row_numb(index) {
                 return index;
+            }
+            syntax() {
+                return this.$.$mol_syntax2_md_code;
             }
         }
         __decorate([
@@ -15404,13 +15431,15 @@ var $;
                 console.log('level up', this.skill().global_level());
             }
             global_level_text() {
-                return '' + (this.skill().global_level() + this.person().level());
+                return '' + (this.skill().global_level() + this.person().level()) + ' ур.';
             }
             skill_id() {
                 return this.skill().ref()?.description || 'no id';
             }
             skill_description(next) {
-                return this.skill_edit_checked() ? this.skill().description(next) : this.parse_skill_text(this.skill().description(next));
+                return this.skill_edit_checked()
+                    ? this.skill().description(next)
+                    : this.parse_skill_text(this.skill().description(next));
             }
             skill_mod(next) {
                 return this.skill_edit_checked() ? this.skill().mod(next) : this.parse_skill_text(this.skill().mod(next));
@@ -15419,12 +15448,22 @@ var $;
                 this.person().skill_remove(this.skill().ref().description);
             }
             parse_skill_text(text) {
-                const level = (this.skill().global_level() + this.person().level()) || 0;
+                const regexp_params = /(-?\d+%%-?\d*)/gm;
                 const separator = '%%';
-                const splitted = text.split(/(\d+%%)/gm);
-                const replaced = splitted.map(stringPart => stringPart.endsWith(separator) ?
-                    ((1 + level * 0.01) * (+stringPart.split(separator)[0])).toFixed(0)
-                    : stringPart);
+                const level = this.skill().global_level() + this.person().level() || 0;
+                const splitted = text.split(regexp_params);
+                const replaced = splitted.map(stringPart => {
+                    if (stringPart.includes(separator)) {
+                        const [item_value, item_percent_100] = stringPart.split(separator);
+                        const level_percent_final = 1 + (+item_percent_100 / 100 || 1) * level * 0.01;
+                        const item_value_final = +item_value;
+                        return (item_value_final * level_percent_final).toFixed(0);
+                    }
+                    else {
+                        return stringPart;
+                    }
+                });
+                console.log({ splitted, replaced });
                 return replaced.join('');
             }
         }
@@ -15592,7 +15631,7 @@ var $;
 		}
 		Info_text(){
 			const obj = new this.$.$mol_text();
-			(obj.text) = () => ("Добавь своё умение в базу данных\nИспользуй *число%%* для динамического задания параметров умений.\nНапример, \"Ваш меч наносит 40%% урона за удар.\" - 40 ед. будет увеличиваться на 1% за каждый уровень.");
+			(obj.text) = () => ("Добавь своё умение в базу данных\nИспользуй *число%%* для динамического задания параметров умений.\nНапример, \"Ваш меч наносит 40%% урона за удар.\" - 40 ед. будет увеличиваться на 1% за каждый уровень.\n\nКарты имеют уровень, которые прокачивается случайно при использовании с определённым шансом. После 100 уровня шанс улучшения 1%\nНа 100 уровне открываются модификации карты, которые прокачиваются отдельно.");
 			return obj;
 		}
 		Tutorial_pick(){

@@ -272,6 +272,7 @@
     "$mol_guard",
     "$hyoo_crus_pack",
     "$mol_crypto_hash",
+    "$hyoo_crus_log",
     "$hyoo_crus_mine",
     "$hyoo_crus_mine_pg",
     "$hyoo_crus_mine_fs",
