@@ -35,9 +35,13 @@ namespace $ {
 			return this.Global_level( next )?.val( next ) ?? 0
 		}
 
+		/** Увеличивает глобальный текущий уровень на 1, если шанс random был удачным - равен 100 или больше текущего уровня */
 		chance_global_level_up() {
 			const random = Math.floor(Math.random() * 100 + 1)
-			if (random >= 100 || random >= this.global_level()) this.global_level(this.global_level() + 1)
+			if (random >= 100 || random >= this.global_level()) {
+				this.global_level(this.global_level() + 1)
+			}
+			return random
 		}
 		
 		
