@@ -289,9 +289,9 @@
     "$mol_pop_over",
     "$mol_textarea",
     "$milis_skills_mod_input",
+    "$mol_icon_delete",
     "$mol_icon_pencil",
     "$mol_check_icon",
-    "$mol_icon_delete",
     "$mol_row",
     "$milis_skills_person"
   ],

@@ -14862,6 +14862,10 @@ var $;
         mod_make() {
             return this.Mod(null).make({});
         }
+        mod_remove(id) {
+            console.log('mod remove');
+            this.Mod()?.has($hyoo_crus_ref(id), false);
+        }
         type(next) {
             return this.Type(next)?.val(next) ?? '';
         }
@@ -15395,22 +15399,18 @@ var $;
 			(obj.enabled) = () => ((this.skill_edit_checked()));
 			return obj;
 		}
-		add_skill_mod(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		Add_mod(){
-			const obj = new this.$.$mol_button_minor();
-			(obj.click) = (next) => ((this.add_skill_mod(next)));
-			return obj;
-		}
 		get_skill_mod(id){
 			const obj = new this.$.$milis_skills_mod();
 			return obj;
 		}
+		mod_remove(id){
+			return null;
+		}
 		Skill_mod(id){
 			const obj = new this.$.$milis_skills_mod_input();
 			(obj.mod) = () => ((this.get_skill_mod(id)));
+			(obj.mod_remove) = () => ((this.mod_remove(id)));
+			(obj.skill_edit_checked) = () => ((this.skill_edit_checked()));
 			return obj;
 		}
 		skill_mod_list(){
@@ -15421,12 +15421,26 @@ var $;
 			(obj.rows) = () => ((this.skill_mod_list()));
 			return obj;
 		}
+		Add_mod_icon(){
+			const obj = new this.$.$mol_icon_plus();
+			return obj;
+		}
+		add_skill_mod(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Add_mod(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.Add_mod_icon())]);
+			(obj.click) = (next) => ((this.add_skill_mod(next)));
+			return obj;
+		}
 		Skill_info(){
 			const obj = new this.$.$mol_list();
 			(obj.rows) = () => ([
 				(this.Skill_description()), 
-				(this.Add_mod()), 
-				(this.Skill_mod_list())
+				(this.Skill_mod_list()), 
+				(this.Add_mod())
 			]);
 			return obj;
 		}
@@ -15500,11 +15514,12 @@ var $;
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_global_level"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "skill_description"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_description"));
-	($mol_mem(($.$milis_skills_skill_card.prototype), "add_skill_mod"));
-	($mol_mem(($.$milis_skills_skill_card.prototype), "Add_mod"));
 	($mol_mem_key(($.$milis_skills_skill_card.prototype), "get_skill_mod"));
 	($mol_mem_key(($.$milis_skills_skill_card.prototype), "Skill_mod"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_mod_list"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "Add_mod_icon"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "add_skill_mod"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "Add_mod"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_info"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Checked_icon"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "skill_edit_checked"));
@@ -15547,6 +15562,7 @@ var $;
             return skill;
         }
         skill_remove(id) {
+            console.log(id, $hyoo_crus_ref(id));
             this.Skill()?.has($hyoo_crus_ref(id), false);
         }
     }
@@ -15596,6 +15612,9 @@ var $;
             }
             add_skill_mod() {
                 this.skill().mod_make();
+            }
+            mod_remove(id, next) {
+                this.skill().mod_remove(id);
             }
             skill_mod_disabled() {
                 return this.skill().global_level() < 100;
@@ -15781,7 +15800,25 @@ var $;
 			(obj.hint) = () => ("Модификации");
 			(obj.mod_disabled_by_level) = () => ((this.skill_mod_disabled()));
 			(obj.value) = (next) => ((this.description(next)));
+			(obj.enabled) = () => ((this.skill_edit_checked()));
 			return obj;
+		}
+		Remove_icon(){
+			const obj = new this.$.$mol_icon_delete();
+			return obj;
+		}
+		mod_remove(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Mod_remove(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.Remove_icon())]);
+			(obj.click) = (next) => ((this.mod_remove(next)));
+			return obj;
+		}
+		skill_edit_checked(){
+			return false;
 		}
 		mod(){
 			const obj = new this.$.$milis_skills_mod();
@@ -15791,10 +15828,13 @@ var $;
 			return {...(super.attr()), "mod_disabled_by_level": (this.mod_disabled_by_level())};
 		}
 		sub(){
-			return [(this.Mod_textarea())];
+			return [(this.Mod_textarea()), (this.Mod_remove())];
 		}
 	};
 	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_textarea"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Remove_icon"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "mod_remove"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_remove"));
 	($mol_mem(($.$milis_skills_mod_input.prototype), "mod"));
 
 

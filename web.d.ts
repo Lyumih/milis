@@ -7113,6 +7113,7 @@ declare namespace $ {
         description(next?: string): string;
         mod_list(): readonly $milis_skills_mod[];
         mod_make(): $milis_skills_mod;
+        mod_remove(id: string): void;
         type(next?: string): string;
         image(next?: string): string;
         global_level(next?: number): number;
@@ -7589,52 +7590,67 @@ declare namespace $ {
 		,
 		ReturnType< $mol_textarea['enabled'] >
 	>
-	type $mol_button_minor__click_milis_skills_skill_card_17 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['add_skill_mod'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $milis_skills_mod_input__mod_milis_skills_skill_card_18 = $mol_type_enforce<
+	type $milis_skills_mod_input__mod_milis_skills_skill_card_17 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['get_skill_mod'] >
 		,
 		ReturnType< $milis_skills_mod_input['mod'] >
 	>
-	type $mol_list__rows_milis_skills_skill_card_19 = $mol_type_enforce<
+	type $milis_skills_mod_input__mod_remove_milis_skills_skill_card_18 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['mod_remove'] >
+		,
+		ReturnType< $milis_skills_mod_input['mod_remove'] >
+	>
+	type $milis_skills_mod_input__skill_edit_checked_milis_skills_skill_card_19 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['skill_edit_checked'] >
+		,
+		ReturnType< $milis_skills_mod_input['skill_edit_checked'] >
+	>
+	type $mol_list__rows_milis_skills_skill_card_20 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['skill_mod_list'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_list__rows_milis_skills_skill_card_20 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_check_icon__Icon_milis_skills_skill_card_21 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['Checked_icon'] >
-		,
-		ReturnType< $mol_check_icon['Icon'] >
-	>
-	type $mol_check_icon__checked_milis_skills_skill_card_22 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['skill_edit_checked'] >
-		,
-		ReturnType< $mol_check_icon['checked'] >
-	>
-	type $mol_button_copy__title_milis_skills_skill_card_23 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['skill_id'] >
-		,
-		ReturnType< $mol_button_copy['title'] >
-	>
-	type $mol_button_minor__sub_milis_skills_skill_card_24 = $mol_type_enforce<
+	type $mol_button_minor__sub_milis_skills_skill_card_21 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__click_milis_skills_skill_card_25 = $mol_type_enforce<
+	type $mol_button_minor__click_milis_skills_skill_card_22 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['add_skill_mod'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_list__rows_milis_skills_skill_card_23 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_check_icon__Icon_milis_skills_skill_card_24 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['Checked_icon'] >
+		,
+		ReturnType< $mol_check_icon['Icon'] >
+	>
+	type $mol_check_icon__checked_milis_skills_skill_card_25 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['skill_edit_checked'] >
+		,
+		ReturnType< $mol_check_icon['checked'] >
+	>
+	type $mol_button_copy__title_milis_skills_skill_card_26 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['skill_id'] >
+		,
+		ReturnType< $mol_button_copy['title'] >
+	>
+	type $mol_button_minor__sub_milis_skills_skill_card_27 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__click_milis_skills_skill_card_28 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['skill_remove'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_row__sub_milis_skills_skill_card_26 = $mol_type_enforce<
+	type $mol_row__sub_milis_skills_skill_card_29 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_row['sub'] >
@@ -7653,12 +7669,14 @@ declare namespace $ {
 		Skill_global_level( ): $mol_pop_over
 		skill_description( next?: string ): string
 		Skill_description( ): $mol_textarea
-		add_skill_mod( next?: any ): any
-		Add_mod( ): $mol_button_minor
 		get_skill_mod( id: any): $milis_skills_mod
+		mod_remove( id: any): any
 		Skill_mod( id: any): $milis_skills_mod_input
 		skill_mod_list( ): readonly(any)[]
 		Skill_mod_list( ): $mol_list
+		Add_mod_icon( ): $mol_icon_plus
+		add_skill_mod( next?: any ): any
+		Add_mod( ): $mol_button_minor
 		Skill_info( ): $mol_list
 		Checked_icon( ): $mol_icon_pencil
 		skill_edit_checked( next?: boolean ): boolean
@@ -7696,6 +7714,7 @@ declare namespace $.$$ {
         skill_mod_list(): readonly (any)[];
         get_skill_mod(id: any): $milis_skills_mod;
         add_skill_mod(): void;
+        mod_remove(id: any, next?: any): void;
         skill_mod_disabled(): boolean;
         skill_remove(next?: any): void;
         skill_statistics(): string;
@@ -7762,11 +7781,30 @@ declare namespace $ {
 		,
 		ReturnType< $milis_skills_skill_card_textarea['value'] >
 	>
+	type $milis_skills_skill_card_textarea__enabled_milis_skills_mod_input_5 = $mol_type_enforce<
+		ReturnType< $milis_skills_mod_input['skill_edit_checked'] >
+		,
+		ReturnType< $milis_skills_skill_card_textarea['enabled'] >
+	>
+	type $mol_button_minor__sub_milis_skills_mod_input_6 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__click_milis_skills_mod_input_7 = $mol_type_enforce<
+		ReturnType< $milis_skills_mod_input['mod_remove'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
 	export class $milis_skills_mod_input extends $mol_view {
 		description( next?: ReturnType< ReturnType< $milis_skills_mod_input['mod'] >['description'] > ): ReturnType< ReturnType< $milis_skills_mod_input['mod'] >['description'] >
 		mod_disabled_by_level( ): boolean
 		skill_mod_disabled( ): boolean
 		Mod_textarea( ): $milis_skills_skill_card_textarea
+		Remove_icon( ): $mol_icon_delete
+		mod_remove( next?: any ): any
+		Mod_remove( ): $mol_button_minor
+		skill_edit_checked( ): boolean
 		mod( ): $milis_skills_mod
 		attr( ): ({ 
 			'mod_disabled_by_level': ReturnType< $milis_skills_mod_input['mod_disabled_by_level'] >,
