@@ -3,10 +3,17 @@ namespace $.$$ {
         person() {
             return this.$.$hyoo_crus_glob.home($milis_skills_person)
         }
+		
+
+		skill_use() {
+			this.level_up()
+			if (Math.random() > 0.5) {
+				this.skill().win()
+			}
+		}
 
         level_up(next?: any) {
             if (!this.skill_edit_checked()) this.skill().chance_global_level_up()
-            console.log('level up', this.skill().global_level())
         }
 
         global_level_text(): string {
@@ -20,7 +27,7 @@ namespace $.$$ {
         skill_description(next?: string): string {
             return this.skill_edit_checked()
                 ? this.skill().description(next)
-                : this.parse_skill_text(this.skill().description(next))
+                : this.parse_skill_text(this.skill().description(next), this.skill().global_level(), this.person().level())
         }
 
 		skill_mod_list(): readonly (any)[] {
@@ -33,6 +40,10 @@ namespace $.$$ {
 
 		add_skill_mod() {
 			this.skill().mod_make()
+		}
+
+		skill_info_rows(): readonly (any)[] {
+			return [this.Skill_description(), this.Skill_mod_list(), this.skill_edit_checked() && this.skill().mod_list().length === 0 ? this.Mod_add() : null ].filter(i=>i)
 		}
 
 		mod_remove(id: any, next?: any) {
@@ -48,7 +59,7 @@ namespace $.$$ {
 
 		/** Проверят, можно ли применить данную модификацию для умения  */
 		skill_mod_disabled(): boolean {
-			return this.skill().global_level() < 100
+			return this.skill().mod_enabled()
 		}
 
         skill_remove(next?: any) {
@@ -60,14 +71,14 @@ namespace $.$$ {
 Использований: ${this.skill().uses_count()}.
 Модификация: ${this.skill().mod_list().length}
 Ваша карточка прокачивается на 1 уровень за каждое использование с определённым шансом. На 1 уровне шанс 100% и снижается до 1% к 100 уровня. После 100 уровня шанс улучшения 1%.
-Модификации открываются за каждый 100 уровня карточки. Модификации имеют свой уровень и прокачиваются отдельно за каждую победу над врагом, а не за использование.`
+Модификации открываются за каждый 75 уровень карточки. Модификации имеют свой уровень и прокачиваются отдельно за каждую победу над врагом, а не за использование.`
 		}
 
-        parse_skill_text(text: string): string {
+        parse_skill_text(text: string, global_level: number, person_level: number): string {
             /** -число%%-процент_на_100_ур */
             const regexp_params = /(-?\d+%%-?\d*)/gm
             const separator = '%%'
-            const level = this.skill().global_level() + (this.person().level() || 0)
+            const level = global_level + (person_level || 0)
             const splitted = text.split(regexp_params)
             const replaced = splitted.map(stringPart => {
                 if (stringPart.includes(separator)) {
@@ -80,7 +91,6 @@ namespace $.$$ {
                     return stringPart
                 }
             })
-            console.log({ splitted, replaced })
             return replaced.join('')
         }
     }

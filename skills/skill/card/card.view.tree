@@ -3,7 +3,7 @@ $milis_skills_skill_card $mol_card
 		name? => name?
 		type? => type? \Без типа
 	event *
-		click? <=> level_up? null
+		click? <=> skill_use? null
 	content /
 		<= Skill_title $mol_list rows /
 			<= Skill_type $mol_string
@@ -18,7 +18,7 @@ $milis_skills_skill_card $mol_card
 			Anchor <= Skill_global_level_text $mol_text text <= global_level_text \
 			bubble_content /
 				<= Skill_statistics $mol_text text <= skill_statistics \Использований 15
-		<= Skill_info $mol_list rows /
+		<= Skill_info $mol_list rows <= skill_info_rows /
 			<= Skill_description $mol_textarea
 				hint \Описание
 				value? <=> skill_description? \
@@ -26,10 +26,10 @@ $milis_skills_skill_card $mol_card
 			<= Skill_mod_list $mol_list rows <= skill_mod_list /
 				<= Skill_mod*0 $milis_skills_mod_input
 					mod <= get_skill_mod* $milis_skills_mod
-					mod_remove <=> mod_remove* null
+					skill <= skill
 					skill_edit_checked <= skill_edit_checked
-			<= Add_mod $mol_button_minor
-				sub / <= Add_mod_icon $mol_icon_plus
+			<= Mod_add $mol_button_minor
+				title \+ модификация
 				click? <=> add_skill_mod? null
 		<= Skill_meta $mol_row sub /
 			<= Skill_edit_checkbox $mol_check_icon

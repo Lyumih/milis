@@ -1,16 +1,22 @@
 $milis_skills_mod_input $mol_view
 	skill_edit_checked false
+	skill $milis_skills_skill
 	mod $milis_skills_mod
-		description? => description? \
+	sub /
+		<= Mod_textarea $milis_skills_mod_input_textarea
+			hint \Модификации
+			mod_disabled_by_level <= mod_disabled_by_level true
+			value? <=> mod_description? null
+			enabled <= skill_edit_checked
+		<= Mod_actions $mol_view sub <= mod_actions /
+			<= Mod_add $mol_button_minor
+				sub / <= Add_icon $mol_icon_plus
+				click? <=> mod_add? null
+			<= Mod_remove $mol_button_minor
+				sub / <= Remove_icon $mol_icon_delete
+				click? <=> mod_remove? null
+
+$milis_skills_mod_input_textarea $mol_textarea
 	attr *
 		^
 		mod_disabled_by_level <= mod_disabled_by_level true
-	sub /
-		<= Mod_textarea $milis_skills_skill_card_textarea
-			hint \Модификации
-			mod_disabled_by_level <= skill_mod_disabled true
-			value? <=> description?
-			enabled <= skill_edit_checked
-		<= Mod_remove $mol_button_minor
-			sub / <= Remove_icon $mol_icon_delete 
-			click? <=> mod_remove? null
