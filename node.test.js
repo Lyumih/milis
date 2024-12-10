@@ -14897,6 +14897,28 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $milis_skills_mod extends $hyoo_crus_entity.with({
+        Description: $hyoo_crus_atom_str,
+        Global_level: $hyoo_crus_atom_real,
+        Uses_count: $hyoo_crus_atom_real,
+    }) {
+        description(next) {
+            return this.Description(next)?.val(next) ?? '';
+        }
+        global_level(next) {
+            return this.Global_level(next)?.val(next) ?? 0;
+        }
+        uses_count(next) {
+            return this.Uses_count(next)?.val(next) ?? 0;
+        }
+    }
+    $.$milis_skills_mod = $milis_skills_mod;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_crus_home extends $hyoo_crus_entity.with({
         Selection: $hyoo_crus_atom_str,
         Hall: $hyoo_crus_atom_ref_to(() => $hyoo_crus_dict),
@@ -15021,11 +15043,11 @@ var $;
     class $milis_skills_skill extends $hyoo_crus_entity.with({
         Name: $hyoo_crus_atom_str,
         Description: $hyoo_crus_atom_str,
-        Mod: $hyoo_crus_atom_str,
         Type: $hyoo_crus_atom_str,
         Image: $hyoo_crus_atom_str,
         Global_level: $hyoo_crus_atom_real,
         Uses_count: $hyoo_crus_atom_real,
+        Mod: $hyoo_crus_list_ref_to(() => $milis_skills_mod),
     }) {
         name(next) {
             return this.Name(next)?.val(next) ?? '';
@@ -15033,8 +15055,11 @@ var $;
         description(next) {
             return this.Description(next)?.val(next) ?? '';
         }
-        mod(next) {
-            return this.Mod(next)?.val(next) ?? '';
+        mod_list() {
+            return this.Mod()?.remote_list() ?? [];
+        }
+        mod_make() {
+            return this.Mod(null).make({});
         }
         type(next) {
             return this.Type(next)?.val(next) ?? '';
@@ -15057,6 +15082,9 @@ var $;
             return random;
         }
     }
+    __decorate([
+        $mol_mem
+    ], $milis_skills_skill.prototype, "mod_list", null);
     $.$milis_skills_skill = $milis_skills_skill;
 })($ || ($ = {}));
 
@@ -15566,24 +15594,39 @@ var $;
 			(obj.enabled) = () => ((this.skill_edit_checked()));
 			return obj;
 		}
-		skill_mod_disabled(){
-			return true;
-		}
-		skill_mod(next){
+		add_skill_mod(next){
 			if(next !== undefined) return next;
-			return "";
+			return null;
 		}
-		Skill_mod(){
-			const obj = new this.$.$milis_skills_skill_card_textarea();
-			(obj.hint) = () => ("Модификации");
-			(obj.mod_disabled_by_level) = () => ((this.skill_mod_disabled()));
-			(obj.value) = (next) => ((this.skill_mod(next)));
-			(obj.enabled) = () => ((this.skill_edit_checked()));
+		Add_mod(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.click) = (next) => ((this.add_skill_mod(next)));
+			return obj;
+		}
+		get_skill_mod(id){
+			const obj = new this.$.$milis_skills_mod();
+			return obj;
+		}
+		Skill_mod(id){
+			const obj = new this.$.$milis_skills_mod_input();
+			(obj.mod) = () => ((this.get_skill_mod(id)));
+			return obj;
+		}
+		skill_mod_list(){
+			return [(this.Skill_mod("0"))];
+		}
+		Skill_mod_list(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ((this.skill_mod_list()));
 			return obj;
 		}
 		Skill_info(){
 			const obj = new this.$.$mol_list();
-			(obj.rows) = () => ([(this.Skill_description()), (this.Skill_mod())]);
+			(obj.rows) = () => ([
+				(this.Skill_description()), 
+				(this.Add_mod()), 
+				(this.Skill_mod_list())
+			]);
 			return obj;
 		}
 		Checked_icon(){
@@ -15656,8 +15699,11 @@ var $;
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_global_level"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "skill_description"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_description"));
-	($mol_mem(($.$milis_skills_skill_card.prototype), "skill_mod"));
-	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_mod"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "add_skill_mod"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "Add_mod"));
+	($mol_mem_key(($.$milis_skills_skill_card.prototype), "get_skill_mod"));
+	($mol_mem_key(($.$milis_skills_skill_card.prototype), "Skill_mod"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_mod_list"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_info"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Checked_icon"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "skill_edit_checked"));
@@ -15693,7 +15739,11 @@ var $;
             return this.Level(next)?.val(next) ?? 0;
         }
         skill_make() {
-            return this.Skill(null).make({});
+            const skill = this.Skill(null).make({});
+            skill.mod_make();
+            skill.mod_make();
+            skill.mod_make();
+            return skill;
         }
         skill_remove(id) {
             this.Skill()?.has($hyoo_crus_ref(id), false);
@@ -15737,8 +15787,14 @@ var $;
                     ? this.skill().description(next)
                     : this.parse_skill_text(this.skill().description(next));
             }
-            skill_mod(next) {
-                return this.skill_edit_checked() ? this.skill().mod(next) : this.parse_skill_text(this.skill().mod(next));
+            skill_mod_list() {
+                return this.skill().mod_list().map((item) => this.Skill_mod(item.ref().description));
+            }
+            get_skill_mod(id) {
+                return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $milis_skills_mod);
+            }
+            add_skill_mod() {
+                this.skill().mod_make();
             }
             skill_mod_disabled() {
                 return this.skill().global_level() < 100;
@@ -15749,6 +15805,7 @@ var $;
             skill_statistics() {
                 return `Уровень: ${this.skill().global_level()}.
 Использований: ${this.skill().uses_count()}.
+Модификация: ${this.skill().mod_list().length}
 Ваша карточка прокачивается на 1 уровень за каждое использование с определённым шансом. На 1 уровне шанс 100% и снижается до 1% к 100 уровня. После 100 уровня шанс улучшения 1%.
 Модификации открываются за каждый 100 уровня карточки. Модификации имеют свой уровень и прокачиваются отдельно за каждую победу над врагом, а не за использование.`;
             }
@@ -15864,16 +15921,6 @@ var $;
             Skill_description: {
                 height: $mol_style_unit.px(100)
             },
-            Skill_mod: {
-                '@': {
-                    mod_disabled_by_level: {
-                        true: {
-                            opacity: 0.5,
-                        }
-                    }
-                },
-                height: $mol_style_unit.px(100)
-            }
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -15913,6 +15960,42 @@ var $;
 (function ($) {
     $mol_style_attach("mol/text/list/list.view.css", "[mol_text_list] {\r\n\tpadding-left: 1.75rem;\r\n}\r\n\r\n[mol_text_list_item] {\r\n\tcontain: none;\r\n\tdisplay: list-item;\r\n}\r\n\r\n[mol_text_list_item]::before {\r\n\tcontent: attr( mol_text_list_item_index ) \".\";\r\n\twidth: 1.25rem;\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\tmargin-left: -1.75rem;\r\n\ttext-align: end;\r\n}\r\n\r\n[mol_text_list_type=\"-\"] > [mol_text_list_item]::before,\r\n[mol_text_list_type=\"*\"] > [mol_text_list_item]::before {\r\n\tcontent: \"•\";\r\n}\r\n");
 })($ || ($ = {}));
+
+;
+"use strict";
+
+;
+	($.$milis_skills_mod_input) = class $milis_skills_mod_input extends ($.$mol_view) {
+		description(next){
+			return (this.mod().description(next));
+		}
+		mod_disabled_by_level(){
+			return true;
+		}
+		skill_mod_disabled(){
+			return true;
+		}
+		Mod_textarea(){
+			const obj = new this.$.$milis_skills_skill_card_textarea();
+			(obj.hint) = () => ("Модификации");
+			(obj.mod_disabled_by_level) = () => ((this.skill_mod_disabled()));
+			(obj.value) = (next) => ((this.description(next)));
+			return obj;
+		}
+		mod(){
+			const obj = new this.$.$milis_skills_mod();
+			return obj;
+		}
+		attr(){
+			return {...(super.attr()), "mod_disabled_by_level": (this.mod_disabled_by_level())};
+		}
+		sub(){
+			return [(this.Mod_textarea())];
+		}
+	};
+	($mol_mem(($.$milis_skills_mod_input.prototype), "Mod_textarea"));
+	($mol_mem(($.$milis_skills_mod_input.prototype), "mod"));
+
 
 ;
 "use strict";

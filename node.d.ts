@@ -6783,6 +6783,28 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    const $milis_skills_mod_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly Description: (auto?: any) => $hyoo_crus_atom_str | null;
+        readonly Global_level: (auto?: any) => $hyoo_crus_atom_real | null;
+        readonly Uses_count: (auto?: any) => $hyoo_crus_atom_real | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly Description: typeof $hyoo_crus_atom_str;
+            readonly Global_level: typeof $hyoo_crus_atom_real;
+            readonly Uses_count: typeof $hyoo_crus_atom_real;
+        };
+    };
+    export class $milis_skills_mod extends $milis_skills_mod_base {
+        description(next?: string): string;
+        global_level(next?: number): number;
+        uses_count(next?: number): number;
+    }
+    export {};
+}
+
+declare namespace $ {
     const $hyoo_crus_home_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
         readonly Selection: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Hall: (auto?: any) => {
@@ -6949,28 +6971,133 @@ declare namespace $ {
     const $milis_skills_skill_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
         readonly Name: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Description: (auto?: any) => $hyoo_crus_atom_str | null;
-        readonly Mod: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Type: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Image: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Global_level: (auto?: any) => $hyoo_crus_atom_real | null;
         readonly Uses_count: (auto?: any) => $hyoo_crus_atom_real | null;
+        readonly Mod: (auto?: any) => {
+            [x: symbol]: () => any[];
+            remote_list(next?: readonly $milis_skills_mod[] | undefined): readonly $milis_skills_mod[];
+            remote_add(item: $milis_skills_mod): void;
+            make(config?: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $milis_skills_mod;
+            remote_make(config: $hyoo_crus_rank_preset): $milis_skills_mod;
+            local_make(idea?: number): $milis_skills_mod;
+            items(next?: readonly ((symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null)[] | undefined): readonly ((symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null)[];
+            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            cut(vary: $hyoo_crus_vary_type): void;
+            move(from: number, to: number): void;
+            wipe(seat: number): void;
+            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            land(): $hyoo_crus_land;
+            head(): string;
+            land_ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            toJSON(): string | undefined;
+            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $hyoo_crus_sand[];
+            units_of(peer: string | null): $hyoo_crus_sand[];
+            filled(): boolean;
+            can_change(): boolean;
+            last_change(): $mol_time_moment | null;
+            author_peers(): string[];
+            author_lords(): (symbol & {
+                $hyoo_crus_ref: symbol;
+            })[];
+            $: $;
+            destructor(): void;
+            toString(): string;
+            [Symbol.toStringTag]: string;
+            [$mol_ambient_ref]: $;
+        } | null;
     }>) & {
         schema: {
             [x: string]: typeof $hyoo_crus_node;
         } & {
             readonly Name: typeof $hyoo_crus_atom_str;
             readonly Description: typeof $hyoo_crus_atom_str;
-            readonly Mod: typeof $hyoo_crus_atom_str;
             readonly Type: typeof $hyoo_crus_atom_str;
             readonly Image: typeof $hyoo_crus_atom_str;
             readonly Global_level: typeof $hyoo_crus_atom_real;
             readonly Uses_count: typeof $hyoo_crus_atom_real;
+            readonly Mod: {
+                new (): {
+                    [x: symbol]: () => any[];
+                    remote_list(next?: readonly $milis_skills_mod[] | undefined): readonly $milis_skills_mod[];
+                    remote_add(item: $milis_skills_mod): void;
+                    make(config?: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $milis_skills_mod;
+                    remote_make(config: $hyoo_crus_rank_preset): $milis_skills_mod;
+                    local_make(idea?: number): $milis_skills_mod;
+                    items(next?: readonly ((symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null)[] | undefined): readonly ((symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null)[];
+                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+                    cut(vary: $hyoo_crus_vary_type): void;
+                    move(from: number, to: number): void;
+                    wipe(seat: number): void;
+                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    land(): $hyoo_crus_land;
+                    head(): string;
+                    land_ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    toJSON(): string | undefined;
+                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $hyoo_crus_sand[];
+                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    filled(): boolean;
+                    can_change(): boolean;
+                    last_change(): $mol_time_moment | null;
+                    author_peers(): string[];
+                    author_lords(): (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    })[];
+                    $: $;
+                    destructor(): void;
+                    toString(): string;
+                    [Symbol.toStringTag]: string;
+                    [$mol_ambient_ref]: $;
+                };
+                Value: Value;
+                toString(): any;
+                parse: typeof $hyoo_crus_vary_cast_ref;
+                tag: keyof typeof $hyoo_crus_sand_tag;
+                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+                $: $;
+                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+                toJSON(): any;
+                destructor(): void;
+                [Symbol.toPrimitive](): any;
+            };
         };
     };
     export class $milis_skills_skill extends $milis_skills_skill_base {
         name(next?: string): string;
         description(next?: string): string;
-        mod(next?: string): string;
+        mod_list(): readonly $milis_skills_mod[];
+        mod_make(): $milis_skills_mod;
         type(next?: string): string;
         image(next?: string): string;
         global_level(next?: number): number;
@@ -7447,57 +7574,52 @@ declare namespace $ {
 		,
 		ReturnType< $mol_textarea['enabled'] >
 	>
-	type $milis_skills_skill_card_textarea__hint_milis_skills_skill_card_17 = $mol_type_enforce<
-		string
+	type $mol_button_minor__click_milis_skills_skill_card_17 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['add_skill_mod'] >
 		,
-		ReturnType< $milis_skills_skill_card_textarea['hint'] >
+		ReturnType< $mol_button_minor['click'] >
 	>
-	type $milis_skills_skill_card_textarea__mod_disabled_by_level_milis_skills_skill_card_18 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['skill_mod_disabled'] >
+	type $milis_skills_mod_input__mod_milis_skills_skill_card_18 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['get_skill_mod'] >
 		,
-		ReturnType< $milis_skills_skill_card_textarea['mod_disabled_by_level'] >
+		ReturnType< $milis_skills_mod_input['mod'] >
 	>
-	type $milis_skills_skill_card_textarea__value_milis_skills_skill_card_19 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['skill_mod'] >
+	type $mol_list__rows_milis_skills_skill_card_19 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['skill_mod_list'] >
 		,
-		ReturnType< $milis_skills_skill_card_textarea['value'] >
+		ReturnType< $mol_list['rows'] >
 	>
-	type $milis_skills_skill_card_textarea__enabled_milis_skills_skill_card_20 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['skill_edit_checked'] >
-		,
-		ReturnType< $milis_skills_skill_card_textarea['enabled'] >
-	>
-	type $mol_list__rows_milis_skills_skill_card_21 = $mol_type_enforce<
+	type $mol_list__rows_milis_skills_skill_card_20 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_check_icon__Icon_milis_skills_skill_card_22 = $mol_type_enforce<
+	type $mol_check_icon__Icon_milis_skills_skill_card_21 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['Checked_icon'] >
 		,
 		ReturnType< $mol_check_icon['Icon'] >
 	>
-	type $mol_check_icon__checked_milis_skills_skill_card_23 = $mol_type_enforce<
+	type $mol_check_icon__checked_milis_skills_skill_card_22 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['skill_edit_checked'] >
 		,
 		ReturnType< $mol_check_icon['checked'] >
 	>
-	type $mol_button_copy__title_milis_skills_skill_card_24 = $mol_type_enforce<
+	type $mol_button_copy__title_milis_skills_skill_card_23 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['skill_id'] >
 		,
 		ReturnType< $mol_button_copy['title'] >
 	>
-	type $mol_button_minor__sub_milis_skills_skill_card_25 = $mol_type_enforce<
+	type $mol_button_minor__sub_milis_skills_skill_card_24 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__click_milis_skills_skill_card_26 = $mol_type_enforce<
+	type $mol_button_minor__click_milis_skills_skill_card_25 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['skill_remove'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_row__sub_milis_skills_skill_card_27 = $mol_type_enforce<
+	type $mol_row__sub_milis_skills_skill_card_26 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_row['sub'] >
@@ -7516,9 +7638,12 @@ declare namespace $ {
 		Skill_global_level( ): $mol_pop_over
 		skill_description( next?: string ): string
 		Skill_description( ): $mol_textarea
-		skill_mod_disabled( ): boolean
-		skill_mod( next?: string ): string
-		Skill_mod( ): $milis_skills_skill_card_textarea
+		add_skill_mod( next?: any ): any
+		Add_mod( ): $mol_button_minor
+		get_skill_mod( id: any): $milis_skills_mod
+		Skill_mod( id: any): $milis_skills_mod_input
+		skill_mod_list( ): readonly(any)[]
+		Skill_mod_list( ): $mol_list
 		Skill_info( ): $mol_list
 		Checked_icon( ): $mol_icon_pencil
 		skill_edit_checked( next?: boolean ): boolean
@@ -7553,7 +7678,9 @@ declare namespace $.$$ {
         global_level_text(): string;
         skill_id(): string;
         skill_description(next?: string): string;
-        skill_mod(next?: string): string;
+        skill_mod_list(): readonly (any)[];
+        get_skill_mod(id: any): $milis_skills_mod;
+        add_skill_mod(): void;
         skill_mod_disabled(): boolean;
         skill_remove(next?: any): void;
         skill_statistics(): string;
@@ -7598,6 +7725,43 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=list.view.tree.d.ts.map
+declare namespace $ {
+
+	type _milis_skills_mod_input_1 = $mol_type_enforce<
+		Parameters< $milis_skills_mod_input['description'] >[0]
+		,
+		Parameters< ReturnType< $milis_skills_mod_input['mod'] >['description'] >[0]
+	>
+	type $milis_skills_skill_card_textarea__hint_milis_skills_mod_input_2 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $milis_skills_skill_card_textarea['hint'] >
+	>
+	type $milis_skills_skill_card_textarea__mod_disabled_by_level_milis_skills_mod_input_3 = $mol_type_enforce<
+		ReturnType< $milis_skills_mod_input['skill_mod_disabled'] >
+		,
+		ReturnType< $milis_skills_skill_card_textarea['mod_disabled_by_level'] >
+	>
+	type $milis_skills_skill_card_textarea__value_milis_skills_mod_input_4 = $mol_type_enforce<
+		ReturnType< $milis_skills_mod_input['description'] >
+		,
+		ReturnType< $milis_skills_skill_card_textarea['value'] >
+	>
+	export class $milis_skills_mod_input extends $mol_view {
+		description( next?: ReturnType< ReturnType< $milis_skills_mod_input['mod'] >['description'] > ): ReturnType< ReturnType< $milis_skills_mod_input['mod'] >['description'] >
+		mod_disabled_by_level( ): boolean
+		skill_mod_disabled( ): boolean
+		Mod_textarea( ): $milis_skills_skill_card_textarea
+		mod( ): $milis_skills_mod
+		attr( ): ({ 
+			'mod_disabled_by_level': ReturnType< $milis_skills_mod_input['mod_disabled_by_level'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=input.view.tree.d.ts.map
 declare namespace $ {
 
 	type _milis_skills_1 = $mol_type_enforce<
