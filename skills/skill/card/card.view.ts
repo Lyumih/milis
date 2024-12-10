@@ -23,9 +23,24 @@ namespace $.$$ {
                 : this.parse_skill_text(this.skill().description(next))
         }
 
-        skill_mod(next?: string): string {
-            return this.skill_edit_checked() ? this.skill().mod(next) : this.parse_skill_text(this.skill().mod(next))
-        }
+		skill_mod_list(): readonly (any)[] {
+			return this.skill().mod_list().map((item) => this.Skill_mod(item.ref().description))
+		}
+
+		get_skill_mod(id: any): $milis_skills_mod {
+			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $milis_skills_mod)
+		}
+
+		add_skill_mod() {
+			this.skill().mod_make()
+		}
+
+        // skill_mod(next?: string): string {
+        //     return this.skill_edit_checked() ? this.skill().mod_list()[0](next) : this.parse_skill_text(this.skill().mod(next))
+        // }
+
+		
+
 
 		/** Проверят, можно ли применить данную модификацию для умения  */
 		skill_mod_disabled(): boolean {
@@ -39,6 +54,7 @@ namespace $.$$ {
 		skill_statistics(): string {
 			return `Уровень: ${this.skill().global_level()}.
 Использований: ${this.skill().uses_count()}.
+Модификация: ${this.skill().mod_list().length}
 Ваша карточка прокачивается на 1 уровень за каждое использование с определённым шансом. На 1 уровне шанс 100% и снижается до 1% к 100 уровня. После 100 уровня шанс улучшения 1%.
 Модификации открываются за каждый 100 уровня карточки. Модификации имеют свой уровень и прокачиваются отдельно за каждую победу над врагом, а не за использование.`
 		}

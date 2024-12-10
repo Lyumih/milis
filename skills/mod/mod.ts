@@ -1,21 +1,20 @@
 namespace $ {
 	
-	export class $milis_skills_skill extends $hyoo_crus_entity.with({
-		Name: $hyoo_crus_atom_str,
+	export class $milis_skills_mod extends $hyoo_crus_entity.with({
+		// Name: $hyoo_crus_atom_str,
 		Description: $hyoo_crus_atom_str,
 		// Mod: $hyoo_crus_atom_str,
-		Type: $hyoo_crus_atom_str,
-		Image: $hyoo_crus_atom_str,
+		// Type: $hyoo_crus_atom_str,
+		// Image: $hyoo_crus_atom_str,
 		Global_level: $hyoo_crus_atom_real,
 		Uses_count: $hyoo_crus_atom_real,
-		Mod: $hyoo_crus_list_ref_to( () => $milis_skills_mod),
 		// Limit: $hyoo_crus_atom_real,
 		// Category: $hyoo_crus_list_ref_to( ()=> $hyoo_budget_category ),
 	}) {
 
-		name( next?: string) {
-			return this.Name( next )?.val( next ) ?? ''
-		}
+		// name( next?: string) {
+		// 	return this.Name( next )?.val( next ) ?? ''
+		// }
 
 		description( next?: string) {
 			return this.Description( next )?.val( next ) ?? ''
@@ -25,22 +24,13 @@ namespace $ {
 		// 	return this.Mod( next )?.val( next ) ?? ''
 		// }
 
-		@ $mol_mem
-		mod_list() {
-			return this.Mod()?.remote_list() ?? []
-		}
+		// type( next?: string) {
+		// 	return this.Type( next )?.val( next ) ?? ''
+		// }
 
-		mod_make() {
-			return this.Mod(null)!.make({})
-		}
-
-		type( next?: string) {
-			return this.Type( next )?.val( next ) ?? ''
-		}
-
-		image( next?: string) {
-			return this.Image( next )?.val( next ) ?? ''
-		}
+		// image( next?: string) {
+		// 	return this.Image( next )?.val( next ) ?? ''
+		// }
 
 		global_level( next?: number) {
 			return this.Global_level( next )?.val( next ) ?? 0
@@ -50,15 +40,15 @@ namespace $ {
 			return this.Uses_count(next)?.val(next) ?? 0
 		}
 
-		/** Увеличивает глобальный текущий уровень на 1, если шанс random был удачным - равен 100 или больше текущего уровня */
-		chance_global_level_up() {
-			this.uses_count(this.uses_count()+1)
-			const random = Math.floor(Math.random() * 100 + 1)
-			if (random >= 100 || random >= this.global_level()) {
-				this.global_level(this.global_level() + 1)
-			}
-			return random
-		}
+		// /** Увеличивает глобальный текущий уровень на 1, если шанс random был удачным - равен 100 или больше текущего уровня */
+		// chance_global_level_up() {
+		// 	this.uses_count(this.uses_count()+1)
+		// 	const random = Math.floor(Math.random() * 100 + 1)
+		// 	if (random >= 100 || random >= this.global_level()) {
+		// 		this.global_level(this.global_level() + 1)
+		// 	}
+		// 	return random
+		// }
 		
 		
 	// 	limit( next?: number ) {

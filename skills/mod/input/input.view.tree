@@ -1,0 +1,12 @@
+$milis_skills_mod_input $mol_view
+	mod $milis_skills_mod
+		description? => description? \
+	attr *
+		^
+		mod_disabled_by_level <= mod_disabled_by_level true
+	sub /
+		<= Mod_textarea $milis_skills_skill_card_textarea
+			hint \Модификации
+			mod_disabled_by_level <= skill_mod_disabled true
+			value? <=> description?
+			- enabled <= skill_edit_checked

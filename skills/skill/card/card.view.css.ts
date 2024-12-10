@@ -82,17 +82,17 @@ namespace $.$$ {
 		Skill_description: {
 			height:$mol_style_unit.px(100)
 		},
-		Skill_mod: {
-			'@': {
-				mod_disabled_by_level: {
-					true: {
-						opacity: 0.5,
-					}
-				}
+		// Skill_mod: {
+		// 	'@': {
+		// 		mod_disabled_by_level: {
+		// 			true: {
+		// 				opacity: 0.5,
+		// 			}
+		// 		}
 				
-			},
-			height: $mol_style_unit.px(100)
-		}
+		// 	},
+		// 	height: $mol_style_unit.px(100)
+		// }
 	} )
 	
 }

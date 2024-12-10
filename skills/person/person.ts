@@ -16,7 +16,11 @@ namespace $ {
 
 		@ $mol_mem
 		skill_make() {
-			return this.Skill( null )!.make({})
+			const skill = this.Skill( null )!.make({})
+			skill.mod_make()
+			skill.mod_make()
+			skill.mod_make()
+			return skill
 		}
 
 		skill_remove(id: string) {
