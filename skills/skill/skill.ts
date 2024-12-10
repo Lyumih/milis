@@ -34,6 +34,11 @@ namespace $ {
 			return this.Mod(null)!.make({})
 		}
 
+		mod_remove(id: string) {
+			console.log('mod remove')
+			this.Mod()?.has($hyoo_crus_ref(id), false)
+		}
+
 		type( next?: string) {
 			return this.Type( next )?.val( next ) ?? ''
 		}

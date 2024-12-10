@@ -1,16 +1,16 @@
 namespace $ {
 	
 	export class $milis_skills_mod extends $hyoo_crus_entity.with({
-		// Name: $hyoo_crus_atom_str,
 		Description: $hyoo_crus_atom_str,
-		// Mod: $hyoo_crus_atom_str,
-		// Type: $hyoo_crus_atom_str,
-		// Image: $hyoo_crus_atom_str,
 		Global_level: $hyoo_crus_atom_real,
 		Uses_count: $hyoo_crus_atom_real,
-		// Limit: $hyoo_crus_atom_real,
-		// Category: $hyoo_crus_list_ref_to( ()=> $hyoo_budget_category ),
 	}) {
+
+		
+		// skill_remove(id: string) {
+		// 	console.log(id, $hyoo_crus_ref(id))
+		// 	this.Skill()?.has($hyoo_crus_ref(id), false)
+		// }
 
 		// name( next?: string) {
 		// 	return this.Name( next )?.val( next ) ?? ''
@@ -39,6 +39,8 @@ namespace $ {
 		uses_count(next?: number){
 			return this.Uses_count(next)?.val(next) ?? 0
 		}
+
+		
 
 		// /** Увеличивает глобальный текущий уровень на 1, если шанс random был удачным - равен 100 или больше текущего уровня */
 		// chance_global_level_up() {

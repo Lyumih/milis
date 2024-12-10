@@ -35,6 +35,10 @@ namespace $.$$ {
 			this.skill().mod_make()
 		}
 
+		mod_remove(id: any, next?: any) {
+			this.skill().mod_remove(id)
+		}
+
         // skill_mod(next?: string): string {
         //     return this.skill_edit_checked() ? this.skill().mod_list()[0](next) : this.parse_skill_text(this.skill().mod(next))
         // }

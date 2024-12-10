@@ -23,15 +23,14 @@ $milis_skills_skill_card $mol_card
 				hint \Описание
 				value? <=> skill_description? \
 				enabled <= skill_edit_checked
-			<= Add_mod $mol_button_minor click? <=> add_skill_mod? null
 			<= Skill_mod_list $mol_list rows <= skill_mod_list /
 				<= Skill_mod*0 $milis_skills_mod_input
 					mod <= get_skill_mod* $milis_skills_mod
-				- <= Skill_mod*0 $milis_skills_skill_card_textarea
-					hint \Модификации
-					mod_disabled_by_level <= skill_mod_disabled* true
-					value? <=> skill_mod*? \
-					enabled <= skill_edit_checked*
+					mod_remove <=> mod_remove* null
+					skill_edit_checked <= skill_edit_checked
+			<= Add_mod $mol_button_minor
+				sub / <= Add_mod_icon $mol_icon_plus
+				click? <=> add_skill_mod? null
 		<= Skill_meta $mol_row sub /
 			<= Skill_edit_checkbox $mol_check_icon
 				Icon <= Checked_icon $mol_icon_pencil

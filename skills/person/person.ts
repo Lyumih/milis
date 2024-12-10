@@ -24,6 +24,7 @@ namespace $ {
 		}
 
 		skill_remove(id: string) {
+			console.log(id, $hyoo_crus_ref(id))
 			this.Skill()?.has($hyoo_crus_ref(id), false)
 		}
 

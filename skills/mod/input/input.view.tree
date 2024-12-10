@@ -1,4 +1,5 @@
 $milis_skills_mod_input $mol_view
+	skill_edit_checked false
 	mod $milis_skills_mod
 		description? => description? \
 	attr *
@@ -9,4 +10,7 @@ $milis_skills_mod_input $mol_view
 			hint \Модификации
 			mod_disabled_by_level <= skill_mod_disabled true
 			value? <=> description?
-			- enabled <= skill_edit_checked
+			enabled <= skill_edit_checked
+		<= Mod_remove $mol_button_minor
+			sub / <= Remove_icon $mol_icon_delete 
+			click? <=> mod_remove? null
