@@ -6953,6 +6953,7 @@ declare namespace $ {
         readonly Type: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Image: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Global_level: (auto?: any) => $hyoo_crus_atom_real | null;
+        readonly Uses_count: (auto?: any) => $hyoo_crus_atom_real | null;
     }>) & {
         schema: {
             [x: string]: typeof $hyoo_crus_node;
@@ -6963,6 +6964,7 @@ declare namespace $ {
             readonly Type: typeof $hyoo_crus_atom_str;
             readonly Image: typeof $hyoo_crus_atom_str;
             readonly Global_level: typeof $hyoo_crus_atom_real;
+            readonly Uses_count: typeof $hyoo_crus_atom_real;
         };
     };
     export class $milis_skills_skill extends $milis_skills_skill_base {
@@ -6972,6 +6974,7 @@ declare namespace $ {
         type(next?: string): string;
         image(next?: string): string;
         global_level(next?: number): number;
+        uses_count(next?: number): number;
         chance_global_level_up(): number;
     }
     export {};
@@ -7012,6 +7015,36 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_card extends $.$mol_card {
         rows(): readonly $mol_view[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_pop_over extends $mol_pop {
+		hovered( next?: boolean ): boolean
+		event_show( next?: any ): any
+		event_hide( next?: any ): any
+		showed( ): ReturnType< $mol_pop_over['hovered'] >
+		attr( ): ({ 
+			'tabindex': number,
+		})  & ReturnType< $mol_pop['attr'] >
+		event( ): ({ 
+			mouseenter( next?: ReturnType< $mol_pop_over['event_show'] > ): ReturnType< $mol_pop_over['event_show'] >,
+			mouseleave( next?: ReturnType< $mol_pop_over['event_hide'] > ): ReturnType< $mol_pop_over['event_hide'] >,
+		})  & ReturnType< $mol_pop['event'] >
+	}
+	
+}
+
+//# sourceMappingURL=over.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_pop_over extends $.$mol_pop_over {
+        event_show(event?: MouseEvent): void;
+        event_hide(event?: MouseEvent): void;
+        showed(): boolean;
     }
 }
 
@@ -7384,20 +7417,20 @@ declare namespace $ {
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_textarea__hint_milis_skills_skill_card_11 = $mol_type_enforce<
-		string
+	type $mol_text__text_milis_skills_skill_card_11 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['skill_statistics'] >
 		,
-		ReturnType< $mol_textarea['hint'] >
+		ReturnType< $mol_text['text'] >
 	>
-	type $mol_textarea__value_milis_skills_skill_card_12 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['skill_description'] >
+	type $mol_pop_over__Anchor_milis_skills_skill_card_12 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['Skill_global_level_text'] >
 		,
-		ReturnType< $mol_textarea['value'] >
+		ReturnType< $mol_pop_over['Anchor'] >
 	>
-	type $mol_textarea__enabled_milis_skills_skill_card_13 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['skill_edit_checked'] >
+	type $mol_pop_over__bubble_content_milis_skills_skill_card_13 = $mol_type_enforce<
+		readonly(any)[]
 		,
-		ReturnType< $mol_textarea['enabled'] >
+		ReturnType< $mol_pop_over['bubble_content'] >
 	>
 	type $mol_textarea__hint_milis_skills_skill_card_14 = $mol_type_enforce<
 		string
@@ -7405,7 +7438,7 @@ declare namespace $ {
 		ReturnType< $mol_textarea['hint'] >
 	>
 	type $mol_textarea__value_milis_skills_skill_card_15 = $mol_type_enforce<
-		ReturnType< $milis_skills_skill_card['skill_mod'] >
+		ReturnType< $milis_skills_skill_card['skill_description'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
@@ -7414,37 +7447,57 @@ declare namespace $ {
 		,
 		ReturnType< $mol_textarea['enabled'] >
 	>
-	type $mol_list__rows_milis_skills_skill_card_17 = $mol_type_enforce<
+	type $milis_skills_skill_card_textarea__hint_milis_skills_skill_card_17 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $milis_skills_skill_card_textarea['hint'] >
+	>
+	type $milis_skills_skill_card_textarea__mod_disabled_by_level_milis_skills_skill_card_18 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['skill_mod_disabled'] >
+		,
+		ReturnType< $milis_skills_skill_card_textarea['mod_disabled_by_level'] >
+	>
+	type $milis_skills_skill_card_textarea__value_milis_skills_skill_card_19 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['skill_mod'] >
+		,
+		ReturnType< $milis_skills_skill_card_textarea['value'] >
+	>
+	type $milis_skills_skill_card_textarea__enabled_milis_skills_skill_card_20 = $mol_type_enforce<
+		ReturnType< $milis_skills_skill_card['skill_edit_checked'] >
+		,
+		ReturnType< $milis_skills_skill_card_textarea['enabled'] >
+	>
+	type $mol_list__rows_milis_skills_skill_card_21 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_check_icon__Icon_milis_skills_skill_card_18 = $mol_type_enforce<
+	type $mol_check_icon__Icon_milis_skills_skill_card_22 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['Checked_icon'] >
 		,
 		ReturnType< $mol_check_icon['Icon'] >
 	>
-	type $mol_check_icon__checked_milis_skills_skill_card_19 = $mol_type_enforce<
+	type $mol_check_icon__checked_milis_skills_skill_card_23 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['skill_edit_checked'] >
 		,
 		ReturnType< $mol_check_icon['checked'] >
 	>
-	type $mol_button_copy__title_milis_skills_skill_card_20 = $mol_type_enforce<
+	type $mol_button_copy__title_milis_skills_skill_card_24 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['skill_id'] >
 		,
 		ReturnType< $mol_button_copy['title'] >
 	>
-	type $mol_button_minor__sub_milis_skills_skill_card_21 = $mol_type_enforce<
+	type $mol_button_minor__sub_milis_skills_skill_card_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__click_milis_skills_skill_card_22 = $mol_type_enforce<
+	type $mol_button_minor__click_milis_skills_skill_card_26 = $mol_type_enforce<
 		ReturnType< $milis_skills_skill_card['skill_remove'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_row__sub_milis_skills_skill_card_23 = $mol_type_enforce<
+	type $mol_row__sub_milis_skills_skill_card_27 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_row['sub'] >
@@ -7457,11 +7510,15 @@ declare namespace $ {
 		Skill_name( ): $mol_string
 		Skill_title( ): $mol_list
 		global_level_text( ): string
-		Skill_global_level( ): $mol_text
+		Skill_global_level_text( ): $mol_text
+		skill_statistics( ): string
+		Skill_statistics( ): $mol_text
+		Skill_global_level( ): $mol_pop_over
 		skill_description( next?: string ): string
 		Skill_description( ): $mol_textarea
+		skill_mod_disabled( ): boolean
 		skill_mod( next?: string ): string
-		Skill_mod( ): $mol_textarea
+		Skill_mod( ): $milis_skills_skill_card_textarea
 		Skill_info( ): $mol_list
 		Checked_icon( ): $mol_icon_pencil
 		skill_edit_checked( next?: boolean ): boolean
@@ -7479,6 +7536,13 @@ declare namespace $ {
 		content( ): readonly(any)[]
 	}
 	
+	export class $milis_skills_skill_card_textarea extends $mol_textarea {
+		mod_disabled_by_level( ): boolean
+		attr( ): ({ 
+			'mod_disabled_by_level': ReturnType< $milis_skills_skill_card_textarea['mod_disabled_by_level'] >,
+		})  & ReturnType< $mol_textarea['attr'] >
+	}
+	
 }
 
 //# sourceMappingURL=card.view.tree.d.ts.map
@@ -7490,7 +7554,9 @@ declare namespace $.$$ {
         skill_id(): string;
         skill_description(next?: string): string;
         skill_mod(next?: string): string;
+        skill_mod_disabled(): boolean;
         skill_remove(next?: any): void;
+        skill_statistics(): string;
         parse_skill_text(text: string): string;
     }
 }

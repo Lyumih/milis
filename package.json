@@ -285,6 +285,7 @@
     "$mol_reconcile",
     "$milis_skills_skill_card",
     "$mol_card",
+    "$mol_pop_over",
     "$mol_textarea",
     "$mol_icon_pencil",
     "$mol_check_icon",

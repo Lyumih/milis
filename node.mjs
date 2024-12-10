@@ -15034,6 +15034,7 @@ var $;
         Type: $hyoo_crus_atom_str,
         Image: $hyoo_crus_atom_str,
         Global_level: $hyoo_crus_atom_real,
+        Uses_count: $hyoo_crus_atom_real,
     }) {
         name(next) {
             return this.Name(next)?.val(next) ?? '';
@@ -15053,7 +15054,11 @@ var $;
         global_level(next) {
             return this.Global_level(next)?.val(next) ?? 0;
         }
+        uses_count(next) {
+            return this.Uses_count(next)?.val(next) ?? 0;
+        }
         chance_global_level_up() {
+            this.uses_count(this.uses_count() + 1);
             const random = Math.floor(Math.random() * 100 + 1);
             if (random >= 100 || random >= this.global_level()) {
                 this.global_level(this.global_level() + 1);
@@ -15123,6 +15128,70 @@ var $;
 var $;
 (function ($) {
     $mol_style_attach("mol/card/card.view.css", "[mol_card] {\n\tbackground: var(--mol_theme_card);\n\tcolor: var(--mol_theme_text);\n\tborder-radius: var(--mol_gap_round);\n\tdisplay: flex;\n\tflex: 0 1 auto;\n\tflex-direction: column;\n\tposition: relative;\n\tbox-shadow: 0 0 0.5rem 0rem hsla(0,0%,0%,.125);\n\t/* overflow: hidden; */\n}\n\n[mol_card_content] {\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_gap_round);\n\tmargin: 0;\n\tpadding: var(--mol_gap_block);\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n\ttext-transform: capitalize;\n\tpadding: var(--mol_gap_text);\n\tmargin: 0;\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_pop_over) = class $mol_pop_over extends ($.$mol_pop) {
+		hovered(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		event_show(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event_hide(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		showed(){
+			return (this.hovered());
+		}
+		attr(){
+			return {...(super.attr()), "tabindex": 0};
+		}
+		event(){
+			return {
+				...(super.event()), 
+				"mouseenter": (next) => (this.event_show(next)), 
+				"mouseleave": (next) => (this.event_hide(next))
+			};
+		}
+	};
+	($mol_mem(($.$mol_pop_over.prototype), "hovered"));
+	($mol_mem(($.$mol_pop_over.prototype), "event_show"));
+	($mol_mem(($.$mol_pop_over.prototype), "event_hide"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_pop_over extends $.$mol_pop_over {
+            event_show(event) {
+                this.hovered(true);
+            }
+            event_hide(event) {
+                this.hovered(false);
+            }
+            showed() {
+                return this.focused() || this.hovered();
+            }
+        }
+        $$.$mol_pop_over = $mol_pop_over;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/pop/over/over.view.css", "[mol_pop_over]:focus {\r\n\toutline: none;\r\n}");
 })($ || ($ = {}));
 
 ;
@@ -15476,9 +15545,23 @@ var $;
 		global_level_text(){
 			return "";
 		}
-		Skill_global_level(){
+		Skill_global_level_text(){
 			const obj = new this.$.$mol_text();
 			(obj.text) = () => ((this.global_level_text()));
+			return obj;
+		}
+		skill_statistics(){
+			return "Использований 15";
+		}
+		Skill_statistics(){
+			const obj = new this.$.$mol_text();
+			(obj.text) = () => ((this.skill_statistics()));
+			return obj;
+		}
+		Skill_global_level(){
+			const obj = new this.$.$mol_pop_over();
+			(obj.Anchor) = () => ((this.Skill_global_level_text()));
+			(obj.bubble_content) = () => ([(this.Skill_statistics())]);
 			return obj;
 		}
 		skill_description(next){
@@ -15492,13 +15575,17 @@ var $;
 			(obj.enabled) = () => ((this.skill_edit_checked()));
 			return obj;
 		}
+		skill_mod_disabled(){
+			return true;
+		}
 		skill_mod(next){
 			if(next !== undefined) return next;
 			return "";
 		}
 		Skill_mod(){
-			const obj = new this.$.$mol_textarea();
+			const obj = new this.$.$milis_skills_skill_card_textarea();
 			(obj.hint) = () => ("Модификации");
+			(obj.mod_disabled_by_level) = () => ((this.skill_mod_disabled()));
 			(obj.value) = (next) => ((this.skill_mod(next)));
 			(obj.enabled) = () => ((this.skill_edit_checked()));
 			return obj;
@@ -15573,6 +15660,8 @@ var $;
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_type"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_name"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_title"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_global_level_text"));
+	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_statistics"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_global_level"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "skill_description"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_description"));
@@ -15588,6 +15677,14 @@ var $;
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_remove"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "Skill_meta"));
 	($mol_mem(($.$milis_skills_skill_card.prototype), "skill"));
+	($.$milis_skills_skill_card_textarea) = class $milis_skills_skill_card_textarea extends ($.$mol_textarea) {
+		mod_disabled_by_level(){
+			return true;
+		}
+		attr(){
+			return {...(super.attr()), "mod_disabled_by_level": (this.mod_disabled_by_level())};
+		}
+	};
 
 
 ;
@@ -15639,7 +15736,7 @@ var $;
                 console.log('level up', this.skill().global_level());
             }
             global_level_text() {
-                return '' + (this.skill().global_level() + this.person().level()) + ' ур.';
+                return '' + (this.skill().global_level() + (this.person().level() || 0)) + ' ?';
             }
             skill_id() {
                 return this.skill().ref()?.description || 'no id';
@@ -15652,13 +15749,22 @@ var $;
             skill_mod(next) {
                 return this.skill_edit_checked() ? this.skill().mod(next) : this.parse_skill_text(this.skill().mod(next));
             }
+            skill_mod_disabled() {
+                return this.skill().global_level() < 100;
+            }
             skill_remove(next) {
                 this.person().skill_remove(this.skill().ref().description);
+            }
+            skill_statistics() {
+                return `Уровень: ${this.skill().global_level()}.
+Использований: ${this.skill().uses_count()}.
+Ваша карточка прокачивается на 1 уровень за каждое использование с определённым шансом. На 1 уровне шанс 100% и снижается до 1% к 100 уровня. После 100 уровня шанс улучшения 1%.
+Модификации открываются за каждый 100 уровня карточки. Модификации имеют свой уровень и прокачиваются отдельно за каждую победу над врагом, а не за использование.`;
             }
             parse_skill_text(text) {
                 const regexp_params = /(-?\d+%%-?\d*)/gm;
                 const separator = '%%';
-                const level = this.skill().global_level() + this.person().level() || 0;
+                const level = this.skill().global_level() + (this.person().level() || 0);
                 const splitted = text.split(regexp_params);
                 const replaced = splitted.map(stringPart => {
                     if (stringPart.includes(separator)) {
@@ -15768,6 +15874,13 @@ var $;
                 height: $mol_style_unit.px(100)
             },
             Skill_mod: {
+                '@': {
+                    mod_disabled_by_level: {
+                        true: {
+                            opacity: 0.5,
+                        }
+                    }
+                },
                 height: $mol_style_unit.px(100)
             }
         });
@@ -15839,7 +15952,7 @@ var $;
 		}
 		Info_text(){
 			const obj = new this.$.$mol_text();
-			(obj.text) = () => ("Добавь своё умение в базу данных\nИспользуй *число%%* для динамического задания параметров умений.\nНапример, \"Ваш меч наносит 40%% урона за удар.\" - 40 ед. будет увеличиваться на 1% за каждый уровень.\n\nКарты имеют уровень, которые прокачивается случайно при использовании с определённым шансом. После 100 уровня шанс улучшения 1%\nНа 100 уровне открываются модификации карты, которые прокачиваются отдельно.");
+			(obj.text) = () => ("Добавь своё умение в базу данных и начни его использовать прямо сейчас\nИспользуй *число%%* для динамического задания параметров умений.\nНапример, \"Ваш меч наносит 40%% урона за удар.\" - 40 ед. будет увеличиваться на 1% за каждый уровень.\nЕсли нужно увеличить не на 100% за 100 уровней, а на, например, 50%, то используй после %% желаемый процент. Пример 40%%50 = 60\nЕсли нужно, чтобы уменьшался процент, используй -число. Например, 40%%-50 = 30\nКарты имеют уровень, которые прокачивается случайно при использовании с определённым шансом. После 100 уровня шанс улучшения 1%\nНа 100 уровне открываются модификации карты, которые прокачиваются отдельно.");
 			return obj;
 		}
 		Tutorial_pick(){

@@ -661,6 +661,16 @@ $mol_card $mol_list
 			sub /
 				<= status_text <= status \
 
+$mol_pop_over $mol_pop
+	showed <= hovered? false
+	attr *
+		^
+		tabindex 0
+	event *
+		^
+		mouseenter?event <=> event_show?event null
+		mouseleave?event <=> event_hide?event null
+
 $mol_textarea $mol_stack
 	attr *
 		^
@@ -760,14 +770,18 @@ $milis_skills_skill_card $mol_card
 				hint \Имя
 				value? <=> name?
 				enabled <= skill_edit_checked
-		<= Skill_global_level $mol_text text <= global_level_text \
+		<= Skill_global_level $mol_pop_over
+			Anchor <= Skill_global_level_text $mol_text text <= global_level_text \
+			bubble_content /
+				<= Skill_statistics $mol_text text <= skill_statistics \Использований 15
 		<= Skill_info $mol_list rows /
 			<= Skill_description $mol_textarea
 				hint \Описание
 				value? <=> skill_description? \
 				enabled <= skill_edit_checked
-			<= Skill_mod $mol_textarea
+			<= Skill_mod $milis_skills_skill_card_textarea
 				hint \Модификации
+				mod_disabled_by_level <= skill_mod_disabled true
 				value? <=> skill_mod? \
 				enabled <= skill_edit_checked
 		<= Skill_meta $mol_row sub /
@@ -779,6 +793,11 @@ $milis_skills_skill_card $mol_card
 			<= Skill_remove $mol_button_minor
 				sub / <= Remove_icon $mol_icon_delete 
 				click? <=> skill_remove? null
+
+$milis_skills_skill_card_textarea $mol_textarea
+	attr *
+		^
+		mod_disabled_by_level <= mod_disabled_by_level true
 
 $mol_text_list $mol_text
 	auto_scroll null
@@ -806,10 +825,11 @@ $milis_skills $mol_page
 		<= Tutorial_pick $mol_pick
 			trigger_content / <= Tutorial_icon $mol_icon_information_slab_circle_outline
 			bubble_content / <= Info_text $mol_text text \
-				\Добавь своё умение в базу данных
+				\Добавь своё умение в базу данных и начни его использовать прямо сейчас
 				\Используй *число%%* для динамического задания параметров умений.
 				\Например, "Ваш меч наносит 40%% урона за удар." - 40 ед. будет увеличиваться на 1% за каждый уровень.
-				\
+				\Если нужно увеличить не на 100% за 100 уровней, а на, например, 50%, то используй после %% желаемый процент. Пример 40%%50 = 60
+				\Если нужно, чтобы уменьшался процент, используй -число. Например, 40%%-50 = 30
 				\Карты имеют уровень, которые прокачивается случайно при использовании с определённым шансом. После 100 уровня шанс улучшения 1%
 				\На 100 уровне открываются модификации карты, которые прокачиваются отдельно.
 	foot /
