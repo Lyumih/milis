@@ -1,0 +1,40 @@
+[milis_vnuk_title]{
+	align-items: center;
+}
+
+[milis_vnuk_body_content]{
+	align-items: center;
+}
+
+
+[milis_vnuk_shift_switch_option] {
+	height: 120px;
+	width: 120px;
+	border: 1px solid gray;
+	justify-content: center;
+	text-align: center;
+}
+
+[milis_vnuk_actions] > * {
+	color: white;
+}
+[milis_vnuk_action_start] {
+	background-color: #25B700;
+}
+[milis_vnuk_action_end] {
+	background-color: #FF0000;
+}
+[milis_vnuk_action_replace] {
+	background-color: #25B700;
+}
+[milis_vnuk_action_improve] {
+	background-color: #42C6FF;
+}
+[milis_vnuk_action_pause] {
+	background-color: #ADAF5D;
+}
+[milis_vnuk_action_continue] {
+	background-color: #25B700;
+}
+
+

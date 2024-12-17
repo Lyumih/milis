@@ -1,0 +1,43 @@
+$milis_vnuk $mol_page
+	title \Техподдержка
+	Logo <= Refresh $mol_button_minor
+		sub / <= Refresh_icon $mol_icon_reload
+	plugins /
+		<= Theme $mol_theme_auto
+	body /
+		<= Time_period $mol_text text \**Длительность рабочего дня:**  00:00:00
+		<= Break $mol_text text \**Перерыв**: 00:00:00
+		<= Choose_shift_text $mol_text text \**Выберите смену**
+		<= Shift_switch $mol_switch
+			value? <=> shift_chosen? \first
+			options *
+				first \| смена
+				second \|| смена
+				after_11 \Смена с 11
+				big \Большая смена
+				night \Ночь
+		<= Chosen_shift_text $mol_text text \**Выбрана смена:** || смена
+		<= Actions $mol_row sub /
+			<= Action_start $milis_vnuk_button
+				title \Начать смену
+				Icon <= Start_icon $mol_icon_play
+			<= Action_end $milis_vnuk_button
+				title \Завершить смену
+			<= Action_replace $mol_button_major
+				title \Замена
+			<= Action_improve $mol_button_major
+				title \Усиление
+			<= Action_pause $mol_button_major
+				sub /
+					<= Pause_icon $mol_icon_pause
+					\Перерыв
+			<= Action_continue $mol_button_major
+				title \Продолжить
+		<= Shift_replace $mol_button_major
+			title \Поменяться сменами
+
+$milis_vnuk_button $mol_button_major
+	Icon null
+	sub /
+		<= Icon
+		<= title
