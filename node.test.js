@@ -644,7 +644,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    const handled = new WeakSet();
+    const wrappers = new WeakMap();
     class $mol_wire_fiber extends $mol_wire_pub_sub {
         task;
         host;
@@ -779,13 +779,21 @@ var $;
                         result = this.task.call(this.host, ...this.args);
                         break;
                 }
-                if ($mol_promise_like(result) && !handled.has(result)) {
-                    const put = (res) => {
-                        if (this.cache === result)
-                            this.put(res);
-                        return res;
-                    };
-                    result = result.then(put, put);
+                if ($mol_promise_like(result)) {
+                    if (wrappers.has(result)) {
+                        result = wrappers.get(result).then(a => a);
+                    }
+                    else {
+                        const put = (res) => {
+                            if (this.cache === result)
+                                this.put(res);
+                            return res;
+                        };
+                        wrappers.set(result, result = Object.assign(result.then(put, put), { destructor: result.destructor || (() => { }) }));
+                        wrappers.set(result, result);
+                        const error = new Error(`Promise in ${this}`);
+                        Object.defineProperty(result, 'stack', { get: () => error.stack });
+                    }
                 }
             }
             catch (error) {
@@ -795,20 +803,19 @@ var $;
                 else {
                     result = new Error(String(error), { cause: error });
                 }
-                if ($mol_promise_like(result) && !handled.has(result)) {
-                    result = result.finally(() => {
-                        if (this.cache === result)
-                            this.absorb();
-                    });
+                if ($mol_promise_like(result)) {
+                    if (wrappers.has(result)) {
+                        result = wrappers.get(result);
+                    }
+                    else {
+                        wrappers.set(result, result = Object.assign(result.finally(() => {
+                            if (this.cache === result)
+                                this.absorb();
+                        }), { destructor: result.destructor || (() => { }) }));
+                        const error = new Error(`Promise in ${this}`);
+                        Object.defineProperty(result, 'stack', { get: () => error.stack });
+                    }
                 }
-            }
-            if ($mol_promise_like(result) && !handled.has(result)) {
-                result = Object.assign(result, {
-                    destructor: result['destructor'] ?? (() => { })
-                });
-                handled.add(result);
-                const error = new Error(`Promise in ${this}`);
-                Object.defineProperty(result, 'stack', { get: () => error.stack });
             }
             if (!$mol_promise_like(result)) {
                 this.track_cut();
@@ -869,6 +876,12 @@ var $;
                 };
             });
         }
+        destructor() {
+            super.destructor();
+            if ($mol_owning_check(this, this.cache)) {
+                this.cache.destructor();
+            }
+        }
     }
     $.$mol_wire_fiber = $mol_wire_fiber;
 })($ || ($ = {}));
@@ -893,6 +906,7 @@ var $;
 var $;
 (function ($) {
     $.$mol_key_store = new WeakMap();
+    const TypedArray = Object.getPrototypeOf(Uint8Array);
     function $mol_key(value) {
         if (typeof value === 'bigint')
             return value.toString() + 'n';
@@ -922,7 +936,7 @@ var $;
                 return value;
             if (value instanceof RegExp)
                 return value.toString();
-            if (value instanceof Uint8Array)
+            if (value instanceof TypedArray)
                 return [...value];
             let key = $.$mol_key_store.get(value);
             if (key)
@@ -1653,7 +1667,8 @@ var $;
                     $$.$mol_log3_warn({
                         place: '$mol_wire_task',
                         message: `Non idempotency`,
-                        existen,
+                        sub,
+                        pubs: [...sub?.pub_list ?? [], existen],
                         next,
                         hint: 'Ignore it',
                     });
@@ -1676,6 +1691,14 @@ var $;
                 this.cursor = $mol_wire_cursor.fresh;
                 if (next !== prev)
                     this.emit();
+                if ($mol_owning_catch(this, next)) {
+                    try {
+                        next[Symbol.toStringTag] = this[Symbol.toStringTag];
+                    }
+                    catch {
+                        Object.defineProperty(next, Symbol.toStringTag, { value: this[Symbol.toStringTag] });
+                    }
+                }
                 return next;
             }
             this.cursor = $mol_wire_cursor.final;
@@ -1830,10 +1853,6 @@ var $;
         }
         destructor() {
             super.destructor();
-            const prev = this.cache;
-            if ($mol_owning_check(this, prev)) {
-                prev.destructor();
-            }
             if (this.pub_from === 0) {
                 ;
                 (this.host ?? this.task)[this.field()] = null;
@@ -2308,13 +2327,15 @@ var $;
     class $mol_memo extends $mol_wrapper {
         static wrap(task) {
             const store = new WeakMap();
-            return function (next) {
+            const fun = function (next) {
                 if (next === undefined && store.has(this))
                     return store.get(this);
                 const val = task.call(this, next) ?? next;
                 store.set(this, val);
                 return val;
             };
+            Reflect.defineProperty(fun, 'name', { value: task.name + ' ' });
+            return fun;
         }
     }
     $.$mol_memo = $mol_memo;
@@ -3151,7 +3172,6 @@ var $;
             const win = this.$.$mol_dom_context;
             if (win.parent !== win.self && !win.document.hasFocus())
                 return;
-            this.focused(true);
         }
         destructor() {
             const node = $mol_wire_probe(() => this.dom_node());
@@ -3654,7 +3674,7 @@ var $;
     var $$;
     (function ($$) {
         const { per, rem } = $mol_style_unit;
-        const { hsla } = $mol_style_func;
+        const { hsla, blur } = $mol_style_func;
         $mol_style_define($mol_page, {
             display: 'flex',
             flex: {
@@ -3667,6 +3687,7 @@ var $;
             maxHeight: per(100),
             boxSizing: 'border-box',
             color: $mol_theme.text,
+            backdropFilter: blur(`3px`),
             ':focus': {
                 outline: 'none',
             },
@@ -5114,7 +5135,7 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_text_code_row) = class $mol_text_code_row extends ($.$mol_paragraph) {
+	($.$mol_text_code_line) = class $mol_text_code_line extends ($.$mol_paragraph) {
 		numb(){
 			return 0;
 		}
@@ -5168,9 +5189,9 @@ var $;
 			return null;
 		}
 	};
-	($mol_mem(($.$mol_text_code_row.prototype), "Numb"));
-	($mol_mem_key(($.$mol_text_code_row.prototype), "Token"));
-	($mol_mem_key(($.$mol_text_code_row.prototype), "Token_link"));
+	($mol_mem(($.$mol_text_code_line.prototype), "Numb"));
+	($mol_mem_key(($.$mol_text_code_line.prototype), "Token"));
+	($mol_mem_key(($.$mol_text_code_line.prototype), "Token_link"));
 
 
 ;
@@ -5283,7 +5304,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mol_text_code_row extends $.$mol_text_code_row {
+        class $mol_text_code_line extends $.$mol_text_code_line {
             maximal_width() {
                 return this.text().length * this.letter_width();
             }
@@ -5365,29 +5386,29 @@ var $;
         }
         __decorate([
             $mol_mem_key
-        ], $mol_text_code_row.prototype, "tokens", null);
+        ], $mol_text_code_line.prototype, "tokens", null);
         __decorate([
             $mol_mem_key
-        ], $mol_text_code_row.prototype, "row_content", null);
+        ], $mol_text_code_line.prototype, "row_content", null);
         __decorate([
             $mol_mem_key
-        ], $mol_text_code_row.prototype, "token_type", null);
+        ], $mol_text_code_line.prototype, "token_type", null);
         __decorate([
             $mol_mem_key
-        ], $mol_text_code_row.prototype, "token_content", null);
+        ], $mol_text_code_line.prototype, "token_content", null);
         __decorate([
             $mol_mem_key
-        ], $mol_text_code_row.prototype, "token_text", null);
+        ], $mol_text_code_line.prototype, "token_text", null);
         __decorate([
             $mol_mem_key
-        ], $mol_text_code_row.prototype, "token_uri", null);
+        ], $mol_text_code_line.prototype, "token_uri", null);
         __decorate([
             $mol_mem_key
-        ], $mol_text_code_row.prototype, "find_pos", null);
+        ], $mol_text_code_line.prototype, "find_pos", null);
         __decorate([
             $mol_mem_key
-        ], $mol_text_code_row.prototype, "find_token_pos", null);
-        $$.$mol_text_code_row = $mol_text_code_row;
+        ], $mol_text_code_line.prototype, "find_token_pos", null);
+        $$.$mol_text_code_line = $mol_text_code_line;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -5398,11 +5419,11 @@ var $;
     var $$;
     (function ($$) {
         const { rem } = $mol_style_unit;
-        $mol_style_define($mol_text_code_row, {
+        $mol_style_define($mol_text_code_line, {
             display: 'block',
             position: 'relative',
             font: {
-                family: 'inherit',
+                family: 'monospace',
             },
             Numb: {
                 textAlign: 'right',
@@ -5897,8 +5918,11 @@ var $;
                     stabilityThreshold: 100,
                 },
             });
-            watcher
-                .on('all', (type, path) => {
+            watcher.on('all', (type, path) => {
+                if (path instanceof Error) {
+                    this.$.$mol_fail_log(path);
+                    return;
+                }
                 const file = $mol_file.relative(path.replace(/\\/g, '/'));
                 file.reset();
                 if (type === 'change') {
@@ -5907,8 +5931,7 @@ var $;
                 else {
                     file.parent().reset();
                 }
-            })
-                .on('error', $mol_fail_log);
+            });
             return {
                 destructor() {
                     watcher.close();
@@ -6166,7 +6189,7 @@ var $;
 			return "";
 		}
 		Row(id){
-			const obj = new this.$.$mol_text_code_row();
+			const obj = new this.$.$mol_text_code_line();
 			(obj.numb_showed) = () => ((this.sidebar_showed()));
 			(obj.numb) = () => ((this.row_numb(id)));
 			(obj.text) = () => ((this.row_text(id)));
@@ -6318,6 +6341,11 @@ var $;
             Rows: {
                 padding: $mol_gap.text,
             },
+            Row: {
+                font: {
+                    family: 'inherit',
+                },
+            },
             Copy: {
                 alignSelf: 'flex-start',
                 justifySelf: 'flex-start',
@@ -6325,7 +6353,7 @@ var $;
             '@': {
                 'mol_text_code_sidebar_showed': {
                     true: {
-                        $mol_text_code_row: {
+                        $mol_text_code_line: {
                             margin: {
                                 left: rem(1.75),
                             },
@@ -8140,7 +8168,7 @@ var $;
 			return obj;
 		}
 		Code_line(id){
-			const obj = new this.$.$mol_text_code_row();
+			const obj = new this.$.$mol_text_code_line();
 			(obj.numb_showed) = () => (false);
 			(obj.highlight) = () => ((this.highlight()));
 			(obj.text) = () => ((this.line_text(id)));
@@ -8557,7 +8585,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/text/text/text.view.css", "[mol_text] {\n\tline-height: 1.5em;\n\tbox-sizing: border-box;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: pre-line;\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex: 0 0 auto;\n\ttab-size: 4;\n}\n\n[mol_text_paragraph] {\n\tpadding: var(--mol_gap_text);\n\toverflow: auto;\n\toverflow-x: overlay;\n\tmax-width: 100%;\n\tdisplay: block;\n\tmax-width: 60rem;\n}\n\n[mol_text_spoiler_label_paragraph] {\n\tpadding: 0;\n}\n\n[mol_text_span] {\n\tdisplay: inline;\n}\n\n[mol_text_string] {\n\tdisplay: inline;\n\tflex: 0 1 auto;\n\twhite-space: normal;\n}\n\n[mol_text_quote] {\n\tmargin: var(--mol_gap_block);\n\tpadding: var(--mol_gap_block);\n\tbackground: var(--mol_theme_card);\n\tbox-shadow: 0 0 0 1px var(--mol_theme_back);\n}\n\n[mol_text_header] {\n\tdisplay: block;\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\n* + [mol_text_header] {\n\tmargin-top: 0.75rem;\n}\n\nh1[mol_text_header] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_text_header] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_text_header] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_text_header] {\n\tfont-size: 1.25em;\n\tfont-style: italic;\n}\n\nh5[mol_text_header] {\n\tfont-size: 1rem;\n}\n\nh6[mol_text_header] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n\n[mol_text_header_link] {\n\tcolor: inherit;\n}\n\n[mol_text_table_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: baseline;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_grid_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: top;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_cut] {\n\tborder: none;\n\twidth: 100%;\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_text_link_http],\n[mol_text_link] {\n\tpadding: 0;\n\tdisplay: inline;\n\twhite-space: nowrap;\n}\n\n[mol_text_link_icon] + [mol_text_embed] {\n\tmargin-left: -1.5rem;\n}\n\n[mol_text_embed_youtube] {\n\tdisplay: inline;\n}\n\n[mol_text_embed_youtube_image],\n[mol_text_embed_youtube_frame],\n[mol_text_embed_object] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\twidth: 100vw;\n\tmax-height: calc( 100vh - 6rem );\n\tvertical-align: top;\n}\n[mol_text_embed_object_fallback] {\n\tpadding: 0;\n}\n[mol_text_embed_image] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\t/* max-height: calc( 100vh - 6rem ); */\n\tvertical-align: top;\n}\n\n[mol_text_pre] {\n\twhite-space: pre;\n\toverflow-x: auto;\n\toverflow-x: overlay;\n\ttab-size: 2;\n}\n\n[mol_text_code_line] {\n\tdisplay: inline-block;\n\twhite-space: nowrap;\n}\n\n[mol_text_type=\"strong\"] {\n\ttext-shadow: 0 0;\n\tfilter: contrast(1.5);\n}\n\n[mol_text_type=\"emphasis\"] {\n\tfont-style: italic;\n}\n\n[mol_text_type=\"insert\"] {\n\tcolor: var(--mol_theme_special);\n}\n\n[mol_text_type=\"delete\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"remark\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"quote\"] {\n\tfont-style: italic;\n}\n");
+    $mol_style_attach("mol/text/text/text.view.css", "[mol_text] {\n\tline-height: 1.5em;\n\tbox-sizing: border-box;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: pre-line;\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex: 0 0 auto;\n\ttab-size: 4;\n}\n\n[mol_text_paragraph] {\n\tpadding: var(--mol_gap_text);\n\toverflow: auto;\n\toverflow-x: overlay;\n\tmax-width: 100%;\n\tdisplay: block;\n\tmax-width: 60rem;\n}\n\n[mol_text_spoiler_label_paragraph] {\n\tpadding: 0;\n}\n\n[mol_text_span] {\n\tdisplay: inline;\n}\n\n[mol_text_string] {\n\tdisplay: inline;\n\tflex: 0 1 auto;\n\twhite-space: normal;\n}\n\n[mol_text_quote] {\n\tmargin: var(--mol_gap_block);\n\tpadding: var(--mol_gap_block);\n\tbackground: var(--mol_theme_card);\n\tbox-shadow: 0 0 0 1px var(--mol_theme_back);\n}\n\n[mol_text_header] {\n\tdisplay: block;\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\n* + [mol_text_header] {\n\tmargin-top: 0.75rem;\n}\n\nh1[mol_text_header] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_text_header] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_text_header] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_text_header] {\n\tfont-size: 1.25em;\n\tfont-style: italic;\n}\n\nh5[mol_text_header] {\n\tfont-size: 1rem;\n}\n\nh6[mol_text_header] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n\n[mol_text_header_link] {\n\tcolor: inherit;\n}\n\n[mol_text_table_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: baseline;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_grid_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: top;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_cut] {\n\tborder: none;\n\twidth: 100%;\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_text_link_http],\n[mol_text_link] {\n\tpadding: 0;\n\tdisplay: inline;\n\twhite-space: nowrap;\n}\n\n[mol_text_link_icon] + [mol_text_embed] {\n\tmargin-left: -1.5rem;\n}\n\n[mol_text_embed_youtube] {\n\tdisplay: inline;\n}\n\n[mol_text_embed_youtube_image],\n[mol_text_embed_youtube_frame],\n[mol_text_embed_object] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\twidth: 100vw;\n\tmax-height: calc( 100vh - 6rem );\n\tvertical-align: top;\n}\n[mol_text_embed_object_fallback] {\n\tpadding: 0;\n}\n[mol_text_embed_image] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\t/* max-height: calc( 100vh - 6rem ); */\n\tvertical-align: top;\n}\n\n[mol_text_pre] {\n\twhite-space: pre;\n\toverflow-x: auto;\n\toverflow-x: overlay;\n\ttab-size: 2;\n}\n\n[mol_text_code_line] {\n\tdisplay: inline-block;\n}\n\n[mol_text_type=\"strong\"] {\n\ttext-shadow: 0 0;\n\tfilter: contrast(1.5);\n}\n\n[mol_text_type=\"emphasis\"] {\n\tfont-style: italic;\n}\n\n[mol_text_type=\"insert\"] {\n\tcolor: var(--mol_theme_special);\n}\n\n[mol_text_type=\"delete\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"remark\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"quote\"] {\n\tfont-style: italic;\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -9573,6 +9601,16 @@ var $;
                 return val;
             $mol_fail(new Error(`Wrong ref (${val.description})`));
         } }).$hyoo_crus_ref;
+    function $hyoo_crus_ref_check(val) {
+        try {
+            $.$hyoo_crus_ref(val);
+            return val;
+        }
+        catch {
+            return '';
+        }
+    }
+    $.$hyoo_crus_ref_check = $hyoo_crus_ref_check;
     function $hyoo_crus_ref_lord(ref) {
         return $.$hyoo_crus_ref(ref.description.split('_').slice(0, 2).join('_'));
     }
@@ -11322,9 +11360,9 @@ var $;
             bin: vary => ({ tip: 'bin', bin: vary }),
             bool: vary => ({ tip: 'bool', bin: new Uint8Array([Number(vary)]) }),
             int: vary => ({ tip: 'int', bin: new Uint8Array(new BigInt64Array([vary]).buffer) }),
-            ints: vary => ({ tip: 'ints', bin: new Uint8Array(vary) }),
+            ints: vary => ({ tip: 'ints', bin: new Uint8Array(vary.buffer, vary.byteLength, vary.byteLength) }),
             real: vary => ({ tip: 'real', bin: new Uint8Array(new Float64Array([vary]).buffer) }),
-            reals: vary => ({ tip: 'reals', bin: new Uint8Array(vary) }),
+            reals: vary => ({ tip: 'reals', bin: new Uint8Array(vary.buffer, vary.byteLength, vary.byteLength) }),
             ref: vary => ({ tip: 'ref', bin: $hyoo_crus_ref_encode(vary) }),
             str: vary => ({ tip: 'str', bin: $mol_charset_encode(vary) }),
             time: vary => ({ tip: 'time', bin: $mol_charset_encode(String(vary)) }),
@@ -12651,13 +12689,13 @@ var $;
             else {
                 this.sand_wipe(sand);
             }
-            this.post(lead, head, sand.self(), vary, sand.tag());
+            return this.post(lead, head, sand.self(), vary, sand.tag());
         }
         sand_wipe(sand, peer = '') {
             const head = sand.head();
             const units = this.sand_ordered({ head, peer }).filter(unit => unit.tip() !== 'nil');
             const seat = units.indexOf(sand);
-            this.post(seat ? units[seat - 1].self() : '', head, sand.self(), null, 'term');
+            return this.post(seat ? units[seat - 1].self() : '', head, sand.self(), null, 'term');
         }
         broadcast() {
             this.$.$hyoo_crus_glob.yard().lands_news.add(this.ref());
@@ -13876,7 +13914,7 @@ var $;
         }
         static rock(hash, next) {
             if (next) {
-                $mol_wire_sync(this).db()?.query(`
+                $mol_wire_sync(this).db_sync()?.query(`
 						INSERT INTO Rock( hash, rock )
 						VALUES( $1::bytea, $2::bytea )
 						ON CONFLICT( hash ) DO NOTHING
@@ -13922,6 +13960,10 @@ var $;
                 return unit;
             });
             return units;
+        }
+        static db_sync() {
+            $mol_wire_solid();
+            return $mol_wire_sync(this).db();
         }
         static async db() {
             const urn = this.urn();
@@ -13974,6 +14016,9 @@ var $;
     __decorate([
         $mol_action
     ], $hyoo_crus_mine_pg, "units_load", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_crus_mine_pg, "db_sync", null);
     __decorate([
         $mol_memo.method
     ], $hyoo_crus_mine_pg, "db", null);
@@ -16613,6 +16658,19 @@ var $;
                 $mol_jsx("strong", null, "world"),
                 "!");
             $mol_assert_equal(dom.outerHTML, '<div>hello<strong>world</strong>!</div>');
+        },
+        'Make fragment'() {
+            const dom = $mol_jsx($mol_jsx_frag, null,
+                $mol_jsx("br", null),
+                $mol_jsx("hr", null));
+            $mol_assert_equal($mol_dom_serialize(dom), '<br xmlns="http://www.w3.org/1999/xhtml" /><hr xmlns="http://www.w3.org/1999/xhtml" />');
+        },
+        'Spread fragment'() {
+            const dom = $mol_jsx("div", null,
+                $mol_jsx($mol_jsx_frag, null,
+                    $mol_jsx("br", null),
+                    $mol_jsx("hr", null)));
+            $mol_assert_equal(dom.outerHTML, '<div><br><hr></div>');
         },
         'Function as component'() {
             const Button = (props, target) => {
