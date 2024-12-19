@@ -1,0 +1,4 @@
+[mol_book2] > *:not(:first-of-type):before,
+[mol_book2] > *:not(:last-of-type)::after {
+	width: 6px;
+}

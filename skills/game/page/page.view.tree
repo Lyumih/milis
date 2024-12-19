@@ -1,0 +1,21 @@
+$milis_skills_game_page $mol_page
+	title \Игры
+	tools /
+		<= Create_game $mol_button_major
+			sub / <= Create_game_icon $mol_icon_plus
+	body /
+		<= Select_game $mol_select
+			option_label_default \Выберите игру
+			options /
+				\Slay the spire
+				\Hearthstone
+				\The Bazar
+		<= Select_deck $mol_select
+			option_label_default \Выберите колоду
+			options /
+				\Броненосец
+				\Безмолвная
+				\Дефект
+				\Наблюдатель
+		<= Deck_list $mol_list rows <= deck_list /
+		<= Cards $milis_skills_skill_page

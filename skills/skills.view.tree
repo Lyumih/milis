@@ -1,32 +1,14 @@
-$milis_skills $mol_page
-	title \Gen Умения
-	person $milis_skills_person
-		level? => level?
-	tools /
-		<= Add_skill $mol_button_major
-			sub / <= Add_skill_icon $mol_icon_plus_box_multiple
-			click? <=> add_skill? null
-			hint \Добавить умение
-		<= Tutorial_pick $mol_pick
-			trigger_content / <= Tutorial_icon $mol_icon_information_slab_circle_outline
-			bubble_content / <= Info_text $mol_text text \
-				\Добавь своё умение в базу данных и начни его использовать прямо сейчас
-				\Используй *число%%* для динамического задания параметров умений.
-				\Например, "Ваш меч наносит 40%% урона за удар." - 40 ед. будет увеличиваться на 1% за каждый уровень.
-				\Если нужно увеличить не на 100% за 100 уровней, а на, например, 50%, то используй после %% желаемый процент. Пример 40%%50 = 60
-				\Если нужно, чтобы уменьшался процент, используй -число. Например, 40%%-50 = 30
-				\Карты имеют уровень, которые прокачивается случайно при использовании с определённым шансом. После 100 уровня шанс улучшения 1%
-				\На 100 уровне открываются модификации карты, которые прокачиваются отдельно.
-	foot /
-		<= Level $mol_number
-			hint \Уровни
-			value? <=> level?
-			Dec null
-			Inc null
+$milis_skills $mol_book2_catalog
+	menu_title \Gen Умения
+	param \page
+	menu_foot /
 		<= Person_id $mol_text text <= person_id \
 		<= Sources $mol_link_source
 			uri \https://github.com/Lyumih/milis/tree/main/skills
-	body /
-		<= Skill_list $mol_row sub <= skill_list /
-			<= Skill*0 $milis_skills_skill_card
-				skill <= get_skill* $milis_skills_skill
+	spreads *
+		skills <= Skills_page $milis_skills_skill_page
+		games <= Games_page $milis_skills_game_page
+	
+
+
+

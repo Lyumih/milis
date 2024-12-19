@@ -9,23 +9,7 @@ namespace $.$$ {
 		}
 
 		person_id(): string {
-			return 'Пользователь: ' + this.person().ref().description || 'no person id'
-		}
-
-		skills() {
-			return this.person().skill_list()
-		}
-
-		skill_list(): readonly (any)[] {
-			return this.skills().map((item) => this.Skill(item.ref().description))
-		}
-
-		get_skill(id:string) {
-			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $milis_skills_skill)
-		}
-		
-		add_skill(next?: any) {
-			this.person().skill_make()
+			return this.person().ref().description || 'no person id'
 		}
 	}
 }
