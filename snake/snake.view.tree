@@ -2,7 +2,7 @@ $milis_snake $mol_page
 	title \CRUSивая Змейка
 	max_x 4
 	max_y 3
-	score? 0
+	person $milis_snake_person_crus
 	plugins /
 		<= Player_keyboard $mol_hotkey
 			key * 
@@ -13,6 +13,8 @@ $milis_snake $mol_page
 				S? <=> down?
 				down? <=> down?
 				W? <=> up <=> top?
+	foot /
+		<= Status $hyoo_crus_status
 	body /
 		<= Info $mol_text text \
 			\Одна змейка, чтобы управлять миром

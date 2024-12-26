@@ -1,5 +1,11 @@
 namespace $.$$ {
     export class $milis_snake extends $.$milis_snake {
+
+		@$mol_mem
+		person(): $milis_snake_person_crus {
+			return this.$.$hyoo_crus_glob.home($milis_snake_person_crus)
+		}
+
         size() {
             return this.max_x() * this.max_y()
         }
@@ -87,7 +93,8 @@ namespace $.$$ {
         new_game() {
             this.snake([this.random_point()])
             this.eat_food()
-			this.score(0)
+			this.person().score(0)
+			console.log('>>> ' ,this.person(), this.person().score())
         }
 
         eat_food() {
@@ -99,7 +106,7 @@ namespace $.$$ {
             }
             console.log(new_food, this.max_x(), this.max_y())
             this.food(new_food)
-			this.score(this.score()+1)
+			this.person().score_up()
         }
 
         random(min: number, max: number) {
@@ -124,7 +131,7 @@ namespace $.$$ {
         }
 
 		score_text(): string {
-			return 'Очки: ' + this.score()
+			return 'Очки: ' + this.person().score()
 		}
 
         move(direction: 'left' | 'right' | 'top' | 'down') {
