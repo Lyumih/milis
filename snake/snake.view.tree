@@ -1,24 +1,27 @@
 $milis_snake $mol_page
-	title \Змейка на CRUS
+	title \CRUSивая Змейка
 	max_x 4
-	max_y 5
+	max_y 3
+	score? 0
+	plugins /
+		<= Player_keyboard $mol_hotkey
+			key * 
+				A? <=> left?
+				left? <=> left?
+				D? <=> right?
+				right? <=> right?
+				S? <=> down?
+				down? <=> down?
+				W? <=> up <=> top?
 	body /
 		<= Info $mol_text text \
-			\# Змейка на CRUS
 			\Одна змейка, чтобы управлять миром
-		<= Actions $mol_row sub /
-			<= Left $mol_button_major
-				title \Влево
-				click? <=> left? null
-			<= Right $mol_button_major
-				title \Вправо
-				click? <=> right? null
-			<= Top $mol_button_major
-				title \Вверх
-				click? <=> top? null
-			<= Down $mol_button_major
-				title \Вниз
-				click? <=> down? null
+		<= Score $mol_text text <= score_text \Очки: 0
+		<= Keyboard $milis_snake_keyboard
+			left? <= left? null
+			right? <= right? null
+			top? <= top? null
+			down <= down? null
 		<= Y $mol_list rows <= y_list /
 			<= X*0 $mol_row sub <= x_list* /
 				<= Cell*0_0 $milis_snake_cell
@@ -35,3 +38,19 @@ $milis_snake_cell $mol_button_major
 		food <= is_cell_food false
 		snake <= is_cell_snake false
 		head <= is_cell_snake_head false
+
+$milis_snake_keyboard $mol_row
+	sub /
+		<= Left $mol_button_major
+			sub / <= Left_icon $mol_icon_arrow_left_bold
+			click? <=> left? null
+		<= Vertical $mol_list rows /
+			<= Top $mol_button_major
+				sub / <= Top_icon $mol_icon_arrow_up_bold
+				click? <=> top? null
+			<= Down $mol_button_major
+				sub / <= Down_icon $mol_icon_arrow_down_bold
+				click? <=> down? null
+		<= Right $mol_button_major
+			sub / <= Right_icon $mol_icon_arrow_right_bold
+			click? <=> right? null
