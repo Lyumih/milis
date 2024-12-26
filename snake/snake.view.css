@@ -1,0 +1,9 @@
+[milis_snake_cell][snake] {
+	background: green;
+}
+[milis_snake_cell][food] {
+	background: orange;
+}
+[milis_snake_cell][head] {
+	background: blue;
+}

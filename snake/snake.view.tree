@@ -1,0 +1,37 @@
+$milis_snake $mol_page
+	title \Змейка на CRUS
+	max_x 4
+	max_y 5
+	body /
+		<= Info $mol_text text \
+			\# Змейка на CRUS
+			\Одна змейка, чтобы управлять миром
+		<= Actions $mol_row sub /
+			<= Left $mol_button_major
+				title \Влево
+				click? <=> left? null
+			<= Right $mol_button_major
+				title \Вправо
+				click? <=> right? null
+			<= Top $mol_button_major
+				title \Вверх
+				click? <=> top? null
+			<= Down $mol_button_major
+				title \Вниз
+				click? <=> down? null
+		<= Y $mol_list rows <= y_list /
+			<= X*0 $mol_row sub <= x_list* /
+				<= Cell*0_0 $milis_snake_cell
+					cell_title <= cell_title* \
+					is_cell_food <= is_cell_food* false
+					is_cell_snake <= is_cell_snake* false
+					is_cell_snake_head <= is_cell_snake_head* false
+		<= Logs $mol_text text <= logs \
+
+$milis_snake_cell $mol_button_major
+	title <= cell_title \0_0
+	attr *
+		^
+		food <= is_cell_food false
+		snake <= is_cell_snake false
+		head <= is_cell_snake_head false
