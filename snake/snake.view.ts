@@ -4,8 +4,9 @@ namespace $.$$ {
             return this.max_x() * this.max_y()
         }
 
-        food() {
-            return { x: 1, y: 1 }
+		@$mol_mem
+        food(next?:{x: number, y: number}) {
+            return next ?? { x: 1, y: 1 }
         }
 
         logs(): string {
@@ -52,9 +53,8 @@ namespace $.$$ {
 
         cell_title(id_x_y: string) {
             const parsed = this.parse_y_x(id_x_y)
-            console.log(parsed)
-            return JSON.stringify(id_x_y) + JSON.stringify(parsed)
-            // return id_x_y
+            // return JSON.stringify(id_x_y) + JSON.stringify(parsed)
+            return id_x_y
         }
 
         is_cell_food(id_x_y: string) {
@@ -64,7 +64,6 @@ namespace $.$$ {
 
         is_cell_snake(id: string): boolean {
 			const parsed = this.parse_y_x(id)
-			console.log('this.is_cell_snake', id, this.snake().some(x_y => x_y.x === parsed.x && x_y.y === parsed.y))
             return this.snake().some(x_y => x_y.x === parsed.x && x_y.y === parsed.y)
         }
 
@@ -91,29 +90,44 @@ namespace $.$$ {
 			this.snake([{x:0, y: 1}])
 		}
 
+		eat_food() {
+			this.food({x: Math.random(), y: 3})
+		}
+
 		add_snake_tail(new_head: {x: number, y: number}){
+			console.log('add_snake_tael', new_head)
 			this.snake([new_head, ...this.snake()])
+		}
+		
+		move_snake(new_head: {x:number, y:number}){
+			console.log('move_snake')
+			this.snake([new_head, ...this.snake().slice(0, this.snake().length)])
 		}
 
         move(direction: 'left' | 'right' | 'top' | 'down') {
 			// Создание новой головы
-			const new_head = this.snake_head()
+			const new_head = {...this.snake_head()}
             if (direction === 'left') new_head.x--;
 			else if (direction === 'right') new_head.x++;
 			else if (direction === 'top') new_head.y--;
 			else if (direction === 'down') new_head.y++;
-			// Проверка на выход за границы
+			// Проверка на выход за границы. Новая игра
 			if (new_head.x <= -1 || new_head.x >= this.max_x() || new_head.y <= -1 || new_head.y >= this.max_y()){
-				console.log('The end')
+				console.log('The end. new game')
 				this.new_game()
 			}
-
+			// Съела сама себя. Новая игра
+			else if (this.snake().some(xy => xy.x === new_head.x && xy.y === new_head.y)) {
+				console.log('Съела сама себя new game')
+				this.new_game()
+			}
 			// Проверка на еду
 			else if (new_head.x === this.food().x && new_head.y === this.food().y){
 				this.add_snake_tail(new_head)
+				this.eat_food()
 			} else {
 			// Можно двигаться
-				this.add_snake_tail(new_head)
+				this.move_snake(new_head)
 			}
         }
     }
