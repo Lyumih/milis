@@ -23,6 +23,10 @@ logging in console
 >>> ['hello'] 	 ["hello"] 
 <<< hello 	 "hello"
 ```
+
+![image](https://github.com/user-attachments/assets/4022a849-c1ea-4def-88a5-d80a531659b8)
+
+
 ## API
 
 `@$milis_log` - input arguments and output result in console
