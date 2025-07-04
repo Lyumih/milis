@@ -1,0 +1,20 @@
+$milis_log_demo $mol_example_small
+	title \Logging in console for arguments in results functions
+	sub /
+		<= Input_label $mol_labeler
+			title \Откройте консоль и начните вводить текст
+			content /
+				<= Input $mol_string
+					value? <=> input_value? \
+		<= Length_label $mol_labeler
+			title \Реактивно связанное значение - длина строки
+			content /
+				<= Input_length $mol_paragraph
+					title <= input_length \Длина строки:
+	tags /
+		\log
+		\console
+		\info
+		\debug
+	aspects /
+		\Widget/Log
