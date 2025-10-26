@@ -1,2 +1,3 @@
 pack snake git \https://github.com/Lyumih/milis.snake.git
 pack log git \https://github.com/Lyumih/milis_log.git
+pack ideag git \https://github.com/Lyumih/milis_ideag.git
